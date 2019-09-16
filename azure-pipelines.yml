@@ -4,8 +4,8 @@ jobs:
       vmImage: vs2017-win2016
     steps:
     - powershell: |
-      $pwd
-      Get-ChildItem -Recurse
+        $pwd
+        Get-ChildItem -Recurse
       displayName: ShowDirectoryContents
     - powershell: |
         $PSVersionTable.PSVersion
