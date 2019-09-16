@@ -70,7 +70,7 @@ describe Set-Regex {
     it 'Will complain if the pattern was not named' {
         {Set-Regex -Pattern blah -Temporary -errorAction Stop} | should throw
     }
-    if (-not $env:Agent_ID) { 
+    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') { 
         it 'Can append to a an inline description' {
             Set-Regex -Pattern '# a math symbol
 (?<MathSymbol>\p{Sm})' -Description 'Using the special character class math' -Temporary
@@ -563,7 +563,7 @@ describe Export-RegEx {
                 should belike *\d+*
         }
     }
-    if (-not $env:Agent_ID) { # Skipping this test in AzureDev ops due to disk issues
+    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') { # Skipping this test in AzureDev ops due to disk issues
         it 'Can Export -As a Script to a Temporary Path' {
             if ($env:TEMP) {
                 $exFile= (Join-Path $env:TEMP Digits.ps1)
