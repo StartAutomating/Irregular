@@ -4,12 +4,16 @@ jobs:
       vmImage: vs2017-win2016
     steps:
     - powershell: |
+      $pwd
+      Get-ChildItem -Recurse
+      displayName: ShowDirectoryContents
+    - powershell: |
         $PSVersionTable.PSVersion
         if ($null -eq (Get-Module -ListAvailable pester)) {
           Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
         }
         Import-Module .\Irregular.psd1 
-        Invoke-Pester .\Irregular.Tests.ps1
+        Invoke-Pester
         if ($result.FailedCount -gt 0) {
           throw "$($result.FailedCount) tests failed."
         }
