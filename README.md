@@ -14,7 +14,7 @@ They are feared because their syntax is so strange it obscures basic understandi
 Once you understand some basics of that syntax, regular expressions become a lot less scary (although they still look strange)
 
 1. You can stack a RegEx!  (by placing them in capture groups () )
-2. You can extract from a RegEx!  ( by naming a capture group (?<Digits>\d+)).
+2. You can extract from a RegEx!  ( by naming a capture group (?\<Digits\>\d+)).
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
