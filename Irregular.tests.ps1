@@ -2,61 +2,7 @@
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingCmdletAliases", "", Justification="Irregular Uses Smart Aliases")]
 param()
 
-describe Export-RegEx {
-    it 'Can Export a RegEx as a -Variable' {
-        Export-RegEx -Name Digits -As Variable | should belike '$digits*=*\d+*'
-    }
-    it 'Can Export a RegEx as a -Script' {
-        $irregularPath = Get-Module Irregular | Split-Path
-        $ex = Export-RegEx -Name Digits -As Script
-        Get-Command Export-RegEx | 
-            Select-Object -ExpandProperty Module| 
-            Remove-Module
-        iex $ex
 
-        'abc123' |
-            ?<Digits> | 
-            Select-Object -Property *
-        Import-Module $irregularPath
-    }
-    it 'Can Export to a Path' {
-        
-        if ($env:TEMP) {
-            Export-RegEx -Name Digits -Path $env:TEMP
-            Get-Content (Join-Path $env:TEMP 'Digits.regex.txt') -raw |
-                should belike *\d+*
-        }
-    }
-    it 'Can Export -As a Script to a Temporary Path' {
-        if ($env:TEMP) {
-            $exFile= (Join-Path $env:TEMP Digits.ps1)
-            Export-RegEx -Name Digits -Path $exFile -As Script
-            $exFileContent = Get-Content $exFile -Raw 
-            $exFileContent|
-                should belike '*\d+*'
-            $exFileContent | should belike '*function UseRegex*'
-            $exFileContent | should belike '*Set-Alias ?<Digits> UseRegex*'
-            $exFile | Remove-Item
-        }
-    }
-    it 'Can Export a Temporary Pattern' {
-        
-        Import-RegEx -Pattern '(?<SomeMoreDigits>\d+)'
-        Export-RegEx -Name SomeMoreDigits
-        $createdFile = Get-Module Irregular | 
-            Split-Path | 
-            Join-Path -Path { $_ } -ChildPath RegEx  | 
-            Get-ChildItem -Filter SomeMoreDigits.regex.txt
-
-        $createdFile.Name | should be SomeMoreDigits.regex.txt
-        $createdFile | Remove-Item
-    }
-    it 'Will complain when passed a filepath and multiple names (if -As is file)' {
-        {            
-            Export-RegEx -Name Digits, OptionalWhitespace -Path "$env:TEMP\DigitsAndWhitespace.regex.txt" -ErrorAction Stop
-        } | should throw
-    }
-}
 describe Get-Regex {
     it "Lets you keep a library of Regular Expressions" {
         Get-RegEx
@@ -605,5 +551,62 @@ describe Write-Regex {
         Write-RegEx -Pattern '?<BalancedCode>({)' |
             Use-RegEx -IsMatch -Match '({}' |
             should be true
+    }
+}
+
+
+describe Export-RegEx {
+    it 'Can Export a RegEx as a -Variable' {
+        Export-RegEx -Name Digits -As Variable | should belike '$digits*=*\d+*'
+    }    
+    it 'Can Export to a Path' {
+        
+        if ($env:TEMP) {
+            Export-RegEx -Name Digits -Path $env:TEMP
+            Get-Content (Join-Path $env:TEMP 'Digits.regex.txt') -raw |
+                should belike *\d+*
+        }
+    }
+    it 'Can Export -As a Script to a Temporary Path' {
+        if ($env:TEMP) {
+            $exFile= (Join-Path $env:TEMP Digits.ps1)
+            Export-RegEx -Name Digits -Path $exFile -As Script
+            $exFileContent = Get-Content $exFile -Raw 
+            $exFileContent|
+                should belike '*\d+*'
+            $exFileContent | should belike '*function UseRegex*'
+            $exFileContent | should belike '*Set-Alias ?<Digits> UseRegex*'
+            $exFile | Remove-Item
+        }
+    }
+    it 'Can Export a Temporary Pattern' {
+        
+        Import-RegEx -Pattern '(?<SomeMoreDigits>\d+)'
+        Export-RegEx -Name SomeMoreDigits
+        $createdFile = Get-Module Irregular | 
+            Split-Path | 
+            Join-Path -Path { $_ } -ChildPath RegEx  | 
+            Get-ChildItem -Filter SomeMoreDigits.regex.txt
+
+        $createdFile.Name | should be SomeMoreDigits.regex.txt
+        $createdFile | Remove-Item
+    }
+    it 'Will complain when passed a filepath and multiple names (if -As is file)' {
+        {            
+            Export-RegEx -Name Digits, OptionalWhitespace -Path "$env:TEMP\DigitsAndWhitespace.regex.txt" -ErrorAction Stop
+        } | should throw
+    }
+    it 'Can Export a RegEx as a -Script' {
+        $irregularPath = Get-Module Irregular | Split-Path
+        $ex = Export-RegEx -Name Digits -As Script
+        Get-Command Export-RegEx | 
+            Select-Object -ExpandProperty Module| 
+            Remove-Module
+        iex $ex
+
+        'abc123' |
+            ?<Digits> | 
+            Select-Object -Property *
+        Import-Module $irregularPath
     }
 }
