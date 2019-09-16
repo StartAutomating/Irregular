@@ -64,11 +64,11 @@ describe Set-Regex {
         Set-Regex -Name Period -Pattern '\.' -Temporary
         Use-RegEx -Pattern '?<Period>' -Match '.' -IsMatch | should be true
     }
-    it 'Will infer the name' {
-        Set-Regex -Pattern '(?<Period>\.)' -Description 'A period' -Temporary
-    }
-    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') { 
 
+    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') { 
+        it 'Will infer the name' {
+            Set-Regex -Pattern '(?<Period>\.)' -Description 'A period' -Temporary
+        }
         it 'Will complain if the pattern was not named' {
             {Set-Regex -Pattern blah -Temporary -errorAction Stop} | should throw
         }
