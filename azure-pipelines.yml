@@ -1,0 +1,74 @@
+jobs:
+  - job: Build_PS_Win2016
+    pool:
+      vmImage: vs2017-win2016
+    steps:
+    - powershell: |
+        $pwd
+        Get-ChildItem -Recurse
+      displayName: ShowDirectoryContents
+    - powershell: |
+        $PSVersionTable.PSVersion
+        if ($null -eq (Get-Module -ListAvailable pester)) {
+          Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
+        }
+        Import-Module .\Irregular.psd1 -Force -PassThru | Out-Host
+        $result = Invoke-Pester -PassThru -Verbose
+        if ($result.FailedCount -gt 0) {
+          throw "$($result.FailedCount) tests failed."
+        }
+      displayName: 'Run Tests on Windows'
+
+  - job: Build_PSCore_Ubuntu1604
+
+    pool:
+      vmImage: ubuntu-16.04
+
+    steps:
+    - script: |
+        curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+        curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/microsoft.list
+        sudo apt-get update
+        sudo apt-get install -y powershell
+      displayName: 'Install PowerShell Core'
+
+    - script: |
+        pwsh -c '
+        $PSVersionTable.PSVersion
+        if ($null -eq (Get-Module -ListAvailable pester)) {
+          Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
+        }
+        Import-Module .\Irregular.psd1 
+        $result = Invoke-Pester -PassThru -Verbose
+        if ($result.FailedCount -gt 0) {
+          throw "$($result.FailedCount) tests failed."
+        }'
+      displayName: 'Run Tests on Linux'
+
+  - job: Build_PSCore_MacOS1013
+    pool:
+      vmImage: xcode9-macos10.13
+    steps:
+    - script: |
+        brew update
+        brew tap caskroom/cask
+        brew cask install powershell
+      displayName: 'Install PowerShell Core'
+
+    - script: |
+        pwsh -c '
+        $PSVersionTable.PSVersion
+        if ($null -eq (Get-Module -ListAvailable pester)) {
+          Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
+        }
+        Import-Module .\Irregular.psd1 
+        $result = Invoke-Pester -PassThru -Verbose
+        if ($result.FailedCount -gt 0) {
+          throw "$($result.FailedCount) tests failed."
+        }'
+      displayName: 'Run Tests on macOS'
+
+trigger:
+  paths:
+    exclude:
+    - README.md
