@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>System.Text.RegularExpressions.Match</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Text.RegularExpressions.Match</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Success</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>StartIndex</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>EndIndex</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Value</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>Irregular.Regular.Expression</Name>
+      <ViewSelectedBy>
+        <TypeName>Irregular.Regular.Expression</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Pattern</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IsValid</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Options</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>Irregular.Regex</Name>
+      <ViewSelectedBy>
+        <TypeName>Irregular.Regex</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>Irregular.Regex.Output</Name>
+      <ViewSelectedBy>
+        <TypeName>Irregular.Regex.Output</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>
+
+$out = $_
+
+$fg = 'Red'
+$outIsMatches = $false
+foreach ($op in $out.Output) {
+    if ($op -is [Text.RegularExpressions.Match]) {
+        $fg = 'Green'
+        $outIsMatches = $true
+        break
+    }
+    if ($op -is [string]) {
+        $fg = 'Green'
+        break
+    }
+}
+
+
+
+Write-Host "Pattern:"
+
+Write-Host "$($out.Pattern)" -ForegroundColor $fg
+
+if ($outIsMatches) {
+    $out.Output |
+        Group-Object { $_.Result('$_') } |
+        ForEach-Object {
+            $grp = $_
+
+$highlightChars = $grp.Group |
+    ForEach-Object { $_.Index..($_.Index + ($_.Length - 1)) } |
+    Select-Object -Unique
+Write-Host "
+Matches:"
+$t = $grp.Name
+for ($i =0; $i -lt $t.Length; $i++) {
+    if ($highlightChars -contains $i) {
+        Write-Host -NoNewline "$($t[$i])" -ForegroundColor Yellow
+    } else {
+        Write-Host -NoNewline "$($t[$i])"
+    }
+}
+Write-Host ''
+        }
+} else {
+Write-Host "
+Input Text:
+"
+Write-Host $out.Input.Match
+}
+
+
+if ($out.Method -and 'Remove', 'Replace', 'Transform' -contains $out.Method) {
+Write-Host "
+Output Text:"
+Write-Host $out.Output
+}
+    </ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

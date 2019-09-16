@@ -1,0 +1,2 @@
+﻿# This returns lines that end with a colon
+:$

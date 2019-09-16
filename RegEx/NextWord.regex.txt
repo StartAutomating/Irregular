@@ -1,0 +1,2 @@
+﻿# Finds all text until the next word boundary
+[\S-[\p{P}]]+

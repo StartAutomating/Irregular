@@ -1,0 +1,8 @@
+﻿# Matching any series of decimals is deceptively complicated
+(?<IsNegative>\-)?                # It might be start with a -
+(?:(?>                            # Then it can be either: 
+    (?<Characteristic>\d+)        # One or more digits (the Characteristic)
+    (?:\.(?<Mantissa>\d+)){0,1}   # followed by a period and one or more digits (the Mantissa)
+    |                             # Or it can be
+    (?:\.(?<Mantissa>\d+))        # just a Mantissa      
+))

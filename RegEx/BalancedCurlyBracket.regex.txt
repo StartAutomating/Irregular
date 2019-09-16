@@ -1,0 +1,8 @@
+﻿# Matches content in {}, as long as it is balanced
+\{                  # An open {
+(?>                 # Followed by...
+    [^\{\}]+|       # any number of non-bracket character OR
+    \{(?<Depth>)|   # an open curly bracket (in which case increment depth) OR
+    \}(?<-Depth>)   # a closed curly bracket (in which case decrement depth)
+)*?(?(Depth)(?!))    # until depth is 0.
+\}                  # followed by a }

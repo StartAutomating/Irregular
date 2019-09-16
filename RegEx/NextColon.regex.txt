@@ -1,0 +1,2 @@
+﻿# This returns the position of the next colon, but not the next colon itself.
+(?=:)

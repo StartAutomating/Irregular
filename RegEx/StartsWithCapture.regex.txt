@@ -1,0 +1,6 @@
+﻿# Matches if the string starts with a named capture, and captures the FirstCaptureName
+\A\s{0,}                 # The start of the string and trailing whitespace
+(?:\(\?\<)               # The open capture tag
+(?<FirstCaptureName>\w+) # The name of the first capture
+(?:\>)                   # The close capture tag
+

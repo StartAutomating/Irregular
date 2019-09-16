@@ -1,0 +1,2 @@
+﻿# Repeated Digits
+\d+

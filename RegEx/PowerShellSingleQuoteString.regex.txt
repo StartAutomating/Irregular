@@ -1,0 +1,2 @@
+﻿# Matches a single quoted string, escaped by double single-quotes
+'.*(?<!'')'

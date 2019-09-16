@@ -1,0 +1,11 @@
+﻿# This expression matches content that is within "balanced" punctuation.
+# It does not validate that each type of open/close punctuation is valid.
+# Just that it any open punctuation is matched by closed punctuation.
+ 
+\p{Ps}   # The open punctuation
+(?>
+    [^\p{Ps}\p{Pe}]+| # Anything that is neither open or closed punctuation
+    \p{Ps}(?<Depth>)| # If it's open punctuation, increment depth
+    \p{Pe}(?<-Depth>) # If it's closed punctuation, decrement depth
+)*(?(Depth)(?!))      # Match until depth is empty
+\p{Pe}   # The closing punctuation
