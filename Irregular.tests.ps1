@@ -67,10 +67,11 @@ describe Set-Regex {
     it 'Will infer the name' {
         Set-Regex -Pattern '(?<Period>\.)' -Description 'A period' -Temporary
     }
-    it 'Will complain if the pattern was not named' {
-        {Set-Regex -Pattern blah -Temporary -errorAction Stop} | should throw
-    }
     if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') { 
+
+        it 'Will complain if the pattern was not named' {
+            {Set-Regex -Pattern blah -Temporary -errorAction Stop} | should throw
+        }
         it 'Can append to a an inline description' {
             Set-Regex -Pattern '# a math symbol
 (?<MathSymbol>\p{Sm})' -Description 'Using the special character class math' -Temporary
