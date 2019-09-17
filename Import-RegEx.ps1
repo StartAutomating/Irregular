@@ -139,7 +139,7 @@
                     }
 
                 $regex =
-                    if ($matches.IsPattern -as [bool] -and $SavedCaptureReferences.IsMatch($rx)) {
+                    if ($regex.IsPattern -as [bool] -and $SavedCaptureReferences.IsMatch($rx)) {
                         $firstReplaceTry = $savedCaptureReferences.Replace($rx, $replaceSavedCapture)
                         if ($firstReplaceTry -ne $rx -and -not $savedCaptureReferences.IsMatch($firstReplaceTry)) {
                             $regex.Pattern = $firstReplaceTry
