@@ -4,10 +4,6 @@ jobs:
       vmImage: vs2017-win2016
     steps:
     - powershell: |
-        $pwd
-        Get-ChildItem -Recurse
-      displayName: ShowDirectoryContents
-    - powershell: |
         $PSVersionTable.PSVersion
         if ($null -eq (Get-Module -ListAvailable pester)) {
           Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
