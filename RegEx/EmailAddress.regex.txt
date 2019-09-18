@@ -1,0 +1,2 @@
+﻿# An email address (captures the UserName and Domain)
+(?<UserName>\w{1,1}[\w\.\-]{0,})(?:\@)(?<Domain>\w[\w\-]{0,}\.\w{1,})

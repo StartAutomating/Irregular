@@ -1,2 +1,2 @@
-﻿# A newline
+﻿# A newline (in either Windows (\r\n) or Unix (\n) form)
 (?>\r\n|\n)

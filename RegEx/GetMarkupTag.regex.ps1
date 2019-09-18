@@ -1,8 +1,8 @@
 ﻿<#
 .Synopsis
-
+    Gets markup tags
 .Description
-    Gets a balanced markup tag
+    Gets one or more specific markup tags.  By default, anchor tags.
 #>
 param(
 [Parameter(ValueFromRemainingArguments=$true)]

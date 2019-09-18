@@ -1,1 +1,2 @@
-﻿\p{P}+
+﻿# Matches any single or repeated punctuation.
+\p{P}+

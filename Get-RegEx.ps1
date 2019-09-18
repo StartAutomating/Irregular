@@ -9,6 +9,15 @@
         Get-RegEx
     .Example
         Get-RegEx -Name NextWord
+    .Example
+        Get-RegEx | # Gets all saved Regular Expressions as a Markdown table 
+            Sort-Object Name | 
+            ForEach-Object -Begin {
+                '|Name|Description|IsGenerator|'
+                '|:---|:----------|:----------|'
+            } -Process {
+                "|$($_.Name)|$($_.Description)|$($_.IsGenerator)|"
+            }
     .Link
         Use-RegEx
     .Link

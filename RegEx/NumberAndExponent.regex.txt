@@ -1,3 +1,4 @@
-﻿(?<Number>?<Decimals>)
+﻿# Matches a decimal number with an exponent.
+(?<Number>?<Decimals>)
 (?:\^)
 (?<Exponent>?<Decimals>)

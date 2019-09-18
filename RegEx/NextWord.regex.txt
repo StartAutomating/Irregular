@@ -1,2 +1,2 @@
-﻿# Finds all text until the next word boundary
+﻿# Finds all repeated text that is not whitespace or punctuation.
 [\S-[\p{P}]]+

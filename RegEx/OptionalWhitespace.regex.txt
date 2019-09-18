@@ -1,1 +1,2 @@
-﻿\s{0,}
+﻿# This matches zero or more whitespace characters
+\s{0,}

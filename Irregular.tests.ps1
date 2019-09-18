@@ -360,7 +360,7 @@ describe Use-Regex {
 
         it 'Can use a dynamic generator' {
             $rx = Use-RegEx -Generator {param($t) "$t"} -Parameter @{t='hi'}
-            "$rx"| should be hi
+            "$rx"| should belike *hi*
         }
 
     }
@@ -543,11 +543,11 @@ describe Write-Regex {
     it 'Can refer to a capture generator (parameters can be passed with () or {})' {
         Write-RegEx -Pattern '?<BalancedCode>{(}' |
             Use-RegEx -IsMatch -Match '({}' |
-            should be false
+            should be $false
 
         Write-RegEx -Pattern '?<BalancedCode>({)' |
             Use-RegEx -IsMatch -Match '({}' |
-            should be true
+            should be $true
     }
 }
 

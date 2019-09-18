@@ -20,9 +20,18 @@
                 Write-RegEx -Pattern '"'
     .Example
         # A regular expression for an email address. ?<> is an alias for Write-Regex
-        ?<> -Name UserName -LiteralCharacter .- -CharacterClass Word -Repeat |
-            ?<> (?<> '\@' -NoCapture) |
-        ?<> -Name Domain -LiteralCharacter .- -CharacterClass Word -Repeat
+                
+        ?<> -Name EmailAddress -Pattern (
+            ?<> -CharacterClass Word |
+            ?<> -LiteralCharacter -. -CharacterClass Word -Min 0
+        ) |
+            ?<> -LiteralCharacter '@' -NoCapture |
+            ?<> -Name Domain -Pattern (
+                ?<> -CharacterClass Word |
+                ?<> -LiteralCharacter - -CharacterClass Word -Min 0 |
+                ?<> -LiteralCharacter . |
+                ?<> -CharacterClass Word -Min 1    
+            )
 
     #>
     [OutputType([Regex], [PSObject])]

@@ -1,4 +1,5 @@
-﻿\<                          #  The tag Start
+﻿# This will match a balanced markup tag.
+\<                          #  The tag Start
 (?<TagName>\w+)             #  The name of the Tag is any non number of non-word characters
 (?<TagAttributes>           #  It's attributes are 
     .+?                     #  anything until

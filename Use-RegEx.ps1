@@ -8,7 +8,7 @@
 
         Use-RegEx is normally called with an alias that is the name of a saved RegEx, for example:
 
-        ?<TrueOrFalse>
+        ?<Digits>
     .Link
         Get-RegEx
     .Link
@@ -238,22 +238,25 @@
         #region [ScriptBlock]$FilterMatches
         $FilterMatches =
             { process {
-                $m = $_
+                if ($_ -is [Boolean] -or $_ -is [string]) { return $_ } 
+                $currentMatch = $_
+                $MatchMetaData = [Ordered]@{
+                    StartIndex = $_.Index
+                    EndIndex = $_.Index + $_.Length
+                    Input = $_.Result('$_')
+                }
                 if ($isExtracting -or $Where) {
-                    $xm = $_ | & $extractMatch
+                    $xm = $currentMatch | & $extractMatch
                 }
                 if ($where) {
-                    $in = $this = $_ = $xm
-                    $IsThere = & $where $in
+                    $this = $_ = $xm
+                    $IsThere = . $where $in
                     if (-not $IsThere) { return }
-                    $_ = $m
+                    $_ = $currentMatch
                 }
+                
                 if ($transform) {
-
-                    return . $decorateString $m.Result($transform) ([Ordered]@{
-                        StartIndex = $m.Index  ; EndIndex = $m.Index + $m.Length
-                        Input = $m.Result('$_');
-                    })
+                    return . $decorateString $currentMatch.Result($transform) $matchMetaData
                 }
                 if ($if.Count) {
                     $in = $_ = $xm
@@ -262,12 +265,9 @@
                         if ($ifResult) {
                             if ($ifCondition.Value -is [ScriptBlock]) {
                                 $_ = $xm
-                                & $ifCondition.Value $in
+                                . $ifCondition.Value $in
                             } elseif ($ifCondition.Value -is [string]) {
-                                . $decorateString $m.Result($ifCondition.Value) ([Ordered]@{
-                                    StartIndex = $m.Index ; EndIndex = $m.Index + $m.Length
-                                    Input = $m.Result('$_');
-                                })
+                                . $decorateString $currentMatch.Result($ifCondition.Value) $matchMetaData
                             } else {
                                 $ifCondition.Value
                             }
@@ -278,24 +278,24 @@
                 if ($isextracting) {
                     return $xm
                 }
-                if ($m.psobject.properties['EndIndex'] -isnot [PSScriptProperty]) { # add on two script properties we might want:
-                    $m.psobject.properties.Remove('EndIndex') # EndIndex
-                    $m.psobject.properties.add([PSScriptProperty]::new('EndIndex', { $this.Index + $this.Length }))
+                if ($currentMatch.psobject.properties['EndIndex'] -isnot [PSScriptProperty]) { # add on two script properties we might want:
+                    $currentMatch.psobject.properties.Remove('EndIndex') # EndIndex
+                    $currentMatch.psobject.properties.add([PSScriptProperty]::new('EndIndex', { $this.Index + $this.Length }))
                 }
-                if ($m.psobject.properties['Input'] -isnot [PSScriptProperty]) {
-                    $m.psobject.properties.Remove('Input')
-                    $m.psobject.properties.add([PSScriptProperty]::new('Input', { $this.Result('$_') })) # and Input.
+                if ($currentMatch.psobject.properties['Input'] -isnot [PSScriptProperty]) {
+                    $currentMatch.psobject.properties.Remove('Input')
+                    $currentMatch.psobject.properties.add([PSScriptProperty]::new('Input', { $this.Result('$_') })) # and Input.
                 }
 
-                if ($inputObject -and $inputObject -ne $m.Input) {
-                    $m.psobject.Properties.Remove('InputObject')
-                    $m.psobject.properties.add([PSNoteProperty]::new('InputObject', $inputObject))
+                if ($inputObject -and $inputObject -ne $currentMatch.Input) {
+                    $currentMatch.psobject.Properties.Remove('InputObject')
+                    $currentMatch.psobject.properties.add([PSNoteProperty]::new('InputObject', $inputObject))
                 } else {
-                    $m.psobject.Properties.Remove('InputObject')
-                    $m.psobject.properties.add([PSAliasProperty]::new('InputObject', 'Input'))
+                    $currentMatch.psobject.Properties.Remove('InputObject')
+                    $currentMatch.psobject.properties.add([PSAliasProperty]::new('InputObject', 'Input'))
                 }
 
-                return $m
+                return $currentMatch
             } }
         #endregion [ScriptBlock]$FilterMatches
 
@@ -369,6 +369,9 @@
 
         if ($Generator) { # (or one was provided)
             $regex = & $Generator @argumentList @Parameter # run the generator.
+            if ($regex -and $mySafeNAme -and -not "$regex".StartsWith("(?<$mySafeName") -and -not $mySafeName -eq 'UseRegEx') {
+                $regex = "(?<$mySafeName>$($regex;[Environment]::NewLine;))"
+            }
         }
 
         if ($Pattern) { # If we've been provided a pattern
@@ -500,13 +503,13 @@
                     elseif ($ReplaceIf) {
                         {
                             $tm = $($args[0])
-                            $xm = $($tm | & $extractMatch)
+                            $xm = $($tm | & $filterMatches | & $extractMatch )
                             foreach ($kv in $ReplaceIf.GetEnumerator()) {
                                 $_ = $xm
-                                $kvR = & $kv.Key $xm
+                                $kvR = . $kv.Key $xm
                                 if ($kvR) {
                                     if ($kv.Value -is [ScriptBlock]) {
-                                        return "$(& $kv.Value $xm)"
+                                        return "$(. $kv.Value $xm)"
                                     }
 
                                     return $tm.Result("$($kv.Value)")
@@ -549,7 +552,13 @@
                 if ($measure) {
                     @($regex.$$.Invoke($methodArgs)).Length
                 } else {
-                    $regex.$$.Invoke($methodArgs) | & $filterMatches
+                    & {
+                        try { 
+                            $regex.$$.Invoke($methodArgs)
+                        } catch {
+                            $PSCmdlet.WriteError([Management.Automation.ErrorRecord]::new($_.Exception, 'Regular.Expression.Error', 'NotSpecified', $inputObject))
+                        }
+                    } | & $filterMatches
                 }
             }
         }

@@ -1,1 +1,2 @@
-﻿^|$
+﻿# This will match either a line start or end.
+^|$
