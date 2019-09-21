@@ -5,7 +5,7 @@ jobs:
     steps:
     - powershell: |
         get-ChildItem env:
-      displayName: 'Environment After'
+      displayName: 'Environment Before'
     - powershell: |
         $PSVersionTable.PSVersion
         if ($null -eq (Get-Module -ListAvailable pester)) {
@@ -36,10 +36,8 @@ jobs:
       displayName: 'Install PowerShell Core'
 
     - script: |
-        pwsh -c '
-            Get-ChildItem env:
-        '
-        displayname: 'Environment Before'
+        pwsh -c 'Get-ChildItem env: ; exit 0'
+      displayName: 'Environment Before'
     - script: |
         pwsh -c '
         $PSVersionTable.PSVersion
@@ -53,10 +51,8 @@ jobs:
         }'
       displayName: 'Run Tests on Linux'
     - script: |
-        pwsh -c '
-            Get-ChildItem env:
-        '
-        displayname: 'Environment After'
+        pwsh -c 'Get-ChildItem env: ; exit 0'
+      displayName: 'Environment After'
   - job: Build_PSCore_MacOS1013
     pool:
       vmImage: xcode9-macos10.13
