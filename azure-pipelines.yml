@@ -84,12 +84,10 @@ jobs:
         }'
       displayName: 'Run Tests on macOS'
     - script: |
-        pwsh -c '
-            Get-ChildItem env:
-        '
+        pwsh -c 'Get-ChildItem env:'
         displayname: 'Environment After'
 trigger:
   paths:
     exclude:
-    - *.md
-    - *.help.txt
+    - '*.md'
+    - '*.help.txt'
