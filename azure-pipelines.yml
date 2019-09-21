@@ -4,16 +4,23 @@ jobs:
       vmImage: vs2017-win2016
     steps:
     - powershell: |
+        get-ChildItem env:
+      displayName: 'Environment After'
+    - powershell: |
         $PSVersionTable.PSVersion
         if ($null -eq (Get-Module -ListAvailable pester)) {
           Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
         }
+        "$(Build.Repository.Name)" | Out-Host
         Import-Module .\Irregular.psd1 -Force -PassThru | Out-Host
         $result = Invoke-Pester -PassThru -Verbose
         if ($result.FailedCount -gt 0) {
           throw "$($result.FailedCount) tests failed."
         }
       displayName: 'Run Tests on Windows'
+    - powershell: |
+        get-ChildItem env:
+      displayName: 'Environment After'
 
   - job: Build_PSCore_Ubuntu1604
 
@@ -30,17 +37,26 @@ jobs:
 
     - script: |
         pwsh -c '
+            Get-ChildItem env:
+        '
+        displayname: 'Environment Before'
+    - script: |
+        pwsh -c '
         $PSVersionTable.PSVersion
         if ($null -eq (Get-Module -ListAvailable pester)) {
-          Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
+            Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
         }
         Import-Module .\Irregular.psd1 
         $result = Invoke-Pester -PassThru -Verbose
         if ($result.FailedCount -gt 0) {
-          throw "$($result.FailedCount) tests failed."
+            throw "$($result.FailedCount) tests failed."
         }'
       displayName: 'Run Tests on Linux'
-
+    - script: |
+        pwsh -c '
+            Get-ChildItem env:
+        '
+        displayname: 'Environment After'
   - job: Build_PSCore_MacOS1013
     pool:
       vmImage: xcode9-macos10.13
@@ -50,21 +66,30 @@ jobs:
         brew tap caskroom/cask
         brew cask install powershell
       displayName: 'Install PowerShell Core'
-
+    - script: |
+        pwsh -c '
+            Get-ChildItem env:
+        '
+        displayname: 'Environment Before'
     - script: |
         pwsh -c '
         $PSVersionTable.PSVersion
         if ($null -eq (Get-Module -ListAvailable pester)) {
-          Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
+            Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
         }
         Import-Module .\Irregular.psd1 
         $result = Invoke-Pester -PassThru -Verbose
         if ($result.FailedCount -gt 0) {
-          throw "$($result.FailedCount) tests failed."
+            throw "$($result.FailedCount) tests failed."
         }'
       displayName: 'Run Tests on macOS'
-
+    - script: |
+        pwsh -c '
+            Get-ChildItem env:
+        '
+        displayname: 'Environment After'
 trigger:
   paths:
     exclude:
-    - README.md
+    - *.md
+    - *.help.txt
