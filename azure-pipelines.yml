@@ -66,7 +66,7 @@ jobs:
         pwsh -c '
             Get-ChildItem env:
         '
-        displayname: 'Environment Before'
+      displayName: 'Environment Before'
     - script: |
         pwsh -c '
         $PSVersionTable.PSVersion
@@ -81,7 +81,7 @@ jobs:
       displayName: 'Run Tests on macOS'
     - script: |
         pwsh -c 'Get-ChildItem env:'
-        displayname: 'Environment After'
+      displayName: 'Environment After'
 trigger:
   paths:
     exclude:
