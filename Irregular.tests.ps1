@@ -220,10 +220,10 @@ describe Use-Regex {
 
     context '-Split' {
         it 'Will -Split a string' {
-            "key:value" |?<ColonOrEqual> -Split | Select-Object -First 1 | should be key
+            "key:value" |?<Colon> -Split | Select-Object -First 1 | should be key
         }
         it 'Will -Split a string -RightToLeft' {
-            'key: value' | ?<ColonOrEqual> -Split -Trim -RightToLeft | Select-Object -First 1 | should be value
+            'key: value' | ?<Colon> -Split -Trim -RightToLeft | Select-Object -First 1 | should be value
         }
 
         it 'Will -Split -StartAt at point' {
@@ -234,22 +234,22 @@ describe Use-Regex {
         }
     
         it 'Can -IncludeMatch with a -Split' {
-            $k,$s, $v = "key:value" |?<ColonOrEqual> -Split -IncludeMatch
+            $k,$s, $v = "key:value" |?<Colon> -Split -IncludeMatch
             $s | should be ':'
-            $k,$s, $v = "key:value" |?<ColonOrEqual> -Split -IncludeMatch -RightToLeft
+            $k,$s, $v = "key:value" |?<Colon> -Split -IncludeMatch -RightToLeft
             $s | should be ':'
         }
 
         it 'Will -Split -Count number of times' {
              'key: value: with a colon' | 
-                ?<ColonOrEqual> -Split -Count 1 -Trim |
+                ?<Colon> -Split -Count 1 -Trim |
                 Select-Object -First 1 -Skip 1 |
                 should be 'value: with a colon'
         }
 
         it 'Will -Split -Count items from -RightToLeft' {
             'lkey: value:value:rkey' |
-                ?<ColonOrEqual> -Split -Count 1 -RightToLeft -Trim |
+                ?<Colon> -Split -Count 1 -RightToLeft -Trim |
                 Select-Object -First 1 |
                 should be 'rkey'
         }
@@ -269,8 +269,8 @@ describe Use-Regex {
                 should be "How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
         }
         it 'Can -Measure the distance -Until a match' {
-            'key:value' |?<ColonOrEqual> -Until -Measure | should be 3
-            'key:value' |?<ColonOrEqual> -Until -Measure -RightToLeft | should be 7
+            'key:value' |?<Colon> -Until -Measure | should be 3
+            'key:value' |?<Colon> -Until -Measure -RightToLeft | should be 7
         }
     }
     
