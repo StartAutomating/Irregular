@@ -228,7 +228,7 @@ describe Use-Regex {
 
         it 'Will -Split -StartAt at point' {
             'prefix: key: value' |
-                ?<ColonOrEqual> -Split -StartAt 'prefix:'.Length -Trim |
+                ?<Colon> -Split -StartAt 'prefix:'.Length -Trim |
                 Select-Object -First 1 |
                 should be key
         }
