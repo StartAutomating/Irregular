@@ -1,3 +1,2 @@
-﻿
-# Matches a literal colon
+﻿# Matches a literal colon
 \:

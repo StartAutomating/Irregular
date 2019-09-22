@@ -60,12 +60,13 @@ describe Set-Regex {
         Get-RegEx -Name Digits |
             Set-Regex -Confirm:$false
     }
-    it 'Lets you declare them temporarily' {
-        Set-Regex -Name Period -Pattern '\.' -Temporary
-        Use-RegEx -Pattern '?<Period>' -Match '.' -IsMatch | should be true
-    }
+    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') {
+        it 'Lets you declare them temporarily' {
+            Set-Regex -Name Period -Pattern '\.' -Temporary
+            Use-RegEx -Pattern '?<Period>' -Match '.' -IsMatch | should be true
+        }
 
-    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') { 
+ 
         it 'Will infer the name' {
             Set-Regex -Pattern '(?<Period>\.)' -Description 'A period' -Temporary
         }
@@ -79,10 +80,16 @@ describe Set-Regex {
 
             Write-RegEx '?<MathSymbol>' | should belike '*\p{Sm}*'
         }
-    }
-    it 'Can accept the output of Write-Regex' { 
-        Write-RegEx -LiteralCharacter : -Name Colon -Description 'Matches a literal colon' |
-            Set-Regex
+    
+        it 'Can accept the output of Write-Regex' { 
+            Write-RegEx -LiteralCharacter := -Name ColonOrEquals |
+                Set-Regex
+            Get-Module Irregular | 
+                Split-Path | 
+                Join-Path -ChildPath 'Regex' | 
+                Join-Path -ChildPath 'ColonOrEquals.regex.txt' | 
+                Remove-Item
+        }
     }
     it 'Can set a regex in an arbitrary path' {
         if ($env:TEMP) {
