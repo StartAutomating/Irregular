@@ -1,0 +1,14 @@
+﻿# Finds a Namespace (captures the Name and the Content between {})
+namespace            # the keyword namespace FOLLOWED BY
+\s{1,}               # at least one whitespace character FOLLOWED BY
+(?<Name>\S{1,})      # the NAME of the namespace is N-non-whitespace FOLLOWED BY
+\s{0,}               # optional whitespace FOLLOWED BY
+(?<Content>\{        # the CONTENT starts with an opening bracket FOLLOWED BY
+    (?>              # an atomic group CONTAINING
+        [^\{\}]+|    # Anything that's not a bracket OR
+        \{(?<Depth>)|# if it's a bracket, increment depth OR
+        \}(?<-Depth>)# if it's a closing bracket, decrement depth
+    )*               # 0 or more times
+    (?(Depth)        # IF depth is set
+        (?!))        # this group isn't balanced, keep filling content
+\})                  # until we run into a closing bracket

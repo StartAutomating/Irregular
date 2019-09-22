@@ -1,0 +1,2 @@
+﻿# Matches zero or more whitespaces after the beginning of a line.
+^\s{0,}

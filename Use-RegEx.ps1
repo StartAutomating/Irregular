@@ -113,7 +113,7 @@
         return $true
     })]
     [Alias('Cast')]
-    [Collections.IDictionary]$Coerce = @{},
+    [Collections.IDictionary]$Coerce,
 
     # If provided, will filter the extracted data of a match.
     [ScriptBlock]
@@ -130,7 +130,7 @@
         }
         return $true
     })]
-    [Collections.IDictionary]$If = @{},
+    [Collections.IDictionary]$If,
 
 
     # The regular expression options, by default, IgnoreCase and IgnorePatternWhitespace
@@ -238,7 +238,7 @@
         #region [ScriptBlock]$FilterMatches
         $FilterMatches =
             { process {
-                if ($_ -is [Boolean] -or $_ -is [string]) { return $_ } 
+                if ($_ -is [Boolean] -or $_ -is [string]) { return $_ }
                 $currentMatch = $_
                 $MatchMetaData = [Ordered]@{
                     StartIndex = $_.Index
@@ -254,7 +254,7 @@
                     if (-not $IsThere) { return }
                     $_ = $currentMatch
                 }
-                
+
                 if ($transform) {
                     return . $decorateString $currentMatch.Result($transform) $matchMetaData
                 }
@@ -302,7 +302,6 @@
         #region [ScriptBlock]$DecorateString
         $DecorateString = {
             param(
-            [Parameter(Mandatory)]
             [string]$string,
             [Collections.IDictionary]$property = @{})
             if ($trim) {
@@ -553,7 +552,7 @@
                     @($regex.$$.Invoke($methodArgs)).Length
                 } else {
                     & {
-                        try { 
+                        try {
                             $regex.$$.Invoke($methodArgs)
                         } catch {
                             $PSCmdlet.WriteError([Management.Automation.ErrorRecord]::new($_.Exception, 'Regular.Expression.Error', 'NotSpecified', $inputObject))

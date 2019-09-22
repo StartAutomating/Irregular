@@ -10,14 +10,16 @@
     .Example
         Get-RegEx -Name NextWord
     .Example
-        Get-RegEx | # Gets all saved Regular Expressions as a Markdown table 
-            Sort-Object Name | 
+        @(Get-RegEx | # Gets all saved Regular Expressions as a Markdown table
+            Sort-Object Name |
             ForEach-Object -Begin {
                 '|Name|Description|IsGenerator|'
                 '|:---|:----------|:----------|'
             } -Process {
-                "|$($_.Name)|$($_.Description)|$($_.IsGenerator)|"
-            }
+                $desc = $_.Description -replace '[\[\{\(]', '\$0'
+                $desc=  if ($desc) {$desc | ?<NewLine> -Replace '<br/>'} else  { ''}
+                "|$($_.Name)|$desc|$($_.IsGenerator)|"
+            }) -join [Environment]::NewLine
     .Link
         Use-RegEx
     .Link

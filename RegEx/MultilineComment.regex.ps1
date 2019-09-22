@@ -9,14 +9,14 @@ When this generator is used with a piped in file, the extension will autodetect 
 If the format could not be autodetected, the match will always fail.
 #>
 param(
-[ValidateSet('PowerShell', 'C#', 'C++', 'C', 'JavaScript', 'Ruby', 'HTML', 'XML','')]
+[ValidateSet('PowerShell', 'C#', 'C++', 'C', 'JavaScript', 'JSON', 'Java', 'Ruby', 'HTML', 'XML','')]
 [string]
 $Language = 'C'
 )
 
 if ($inputObject -and $inputObject -is [IO.FileInfo]) {
     $Language = 
-        if ('.h', '.cpp', '.c', '.cs', '.js' -contains $inputObject.Extension) {
+        if ('.h', '.cpp', '.c', '.cs', '.js', '.java','.json' -contains $inputObject.Extension) {
             'C'
         } elseif ('.ps1', '.psm1', '.psd1' -contains $inputObject.Extension) {
             'PowerShell'
@@ -26,9 +26,15 @@ if ($inputObject -and $inputObject -is [IO.FileInfo]) {
         }
 }
 
+if ($inputObject -and $inputObject -is [Management.Automation.CommandInfo] -or $inputObject -is [ScriptBlock]) {
+    $Language = 'PowerShell'
+}
+
 if (-not $PSBoundParameters.Language -and -not $Language) {
     return
 }
+
+
 
 
 switch ($Language) {
@@ -39,7 +45,7 @@ switch ($Language) {
     (.|\s)+?(?=\#>) # anything until the closing tag
 )
 \#\> # the closing tag
-'@
+'@ 
     }
     {$_ -match '(C\#)|(C\+\+)|(C)|(JavaScript)'} {
     @'

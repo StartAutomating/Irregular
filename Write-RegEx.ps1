@@ -337,10 +337,10 @@
                 if ($regex -match $startsWithCapture -and
                     $matches.FirstCaptureName -ne $m.Groups['NewCaptureName']) {
                     $repl= $regex -replace $startsWithCapture, "(?<$($m.Groups['NewCaptureName'])>"
-                    $repl.Substring(0, $repl.Length - 1)
+                    $repl.Substring(0, $repl.Length - 1) + [Environment]::NewLine
                 }
             } else {
-                $regex
+                "$regex" + [Environment]::NewLine
             }
         }
 
@@ -351,32 +351,39 @@
     }
     process {
         $myParams = @{} + $PSBoundParameters
+        $myOrderedParams = [Ordered]@{} + $PSBoundParameters
         #region Generate RegEx
         $regex = . {
+
+            $theOC = 0
+            
+            if ($PrePattern) { # If we've been provided a pre-expression, this goes first.
+                $prePattern -join ''
+            }
             if ($Description) {
+                if ($prePattern -and -not $prePattern[-1].EndsWith([Environment]::NewLine)) {
+                    [Environment]::NewLine
+                } 
                 @(foreach ($l in $Description -split ([Environment]::NewLine)) {
                     "# $($l.TrimStart('#'))"
                 }) -join ([Environment]::NewLine)
                 [Environment]::NewLine
             }
-            if ($PrePattern) { # If we've been provided a pre-expression, this goes first.
-                $prePattern -join ''
+
+            if ($Atomic) {
+                "(?>"; $theOC++
+            }
+
+            if ($NoCapture) {
+                "(?:"; $theOC++
+            }
+
+            if ($Name) { # If the capture has a name, add it.
+                "(?<$Name>"; $theOC++
             }
 
             if ($StartAnchor) { # Then add start anchors
                 $ccLookup[$startAnchor]
-            }
-
-            if ($Atomic) {
-                "(?>"
-            }
-
-            if ($NoCapture) {
-                "(?:"
-            }
-
-            if ($Name) { # If the capture has a name, add it.
-                "(?<$Name>"
             }
 
             if ($NotAfter) { # Then put negative lookbehind
@@ -393,30 +400,24 @@
                 } else {
                     "\k<$backreference>"
                 }
-            }
-
-            if ($If -and $Then) { # If they passed us a coniditional, embed it
-                if ($Else) {
-                    "(?($if)($($then -join ''))|($($else -join '')))"
-                } else {
-                    "(?($if)($($then -join '')))"
-                }
-            }
-
+            }            
+            
             if ($Pattern) {
-                $Pattern =
+                $Pattern = 
                     foreach ($expr in $Pattern) { # Now handle any expressions they passed in.
-
                         $SavedCaptureReferences.Replace($expr, $replaceSavedCapture)
-
-                    }
+                    }                    
 
                 if ($Or -and $Pattern.Length -gt 1) { # (join multiples with | if -Of is passed)
                     "($($Pattern -join '|'))"
+                }                
+                elseif ($Not) { "\A((?!($($Pattern -join ''))).)*\Z" } # (create an antipattern if -Not is passed)
+                elseif ($pattern.Length -gt 1 -and # If more than one pattern was passed
+                    ($repeat -or $greedy -or $lazy -or $optional -or ($min -ge 0))) { # and we're interested in repetitions
+                    "(?:$($pattern))" # put the pattern in a non-capturing group[
                 }
-                elseif ($Not) { "\A((?!($($Pattern -join ''))).)*\Z" } # (create an antipattern if -Not is passed
                 else { $Pattern }
-            }
+            }            
 
             if ($CharacterClass -or $LiteralCharacter) { # If we're passed in a character class
                 $cout =
@@ -440,6 +441,14 @@
                 {
                     $charSet
                 }
+            }           
+
+            if ($If -and $Then) { # If they passed us a coniditional, embed it
+                if ($Else) {
+                    "(?($if)(?:$($then -join ''))|(?:$($else -join '')))"
+                } else {
+                    "(?($if)(?:$($then -join '')))"
+                }
             }
 
             if ($Greedy) {
@@ -454,7 +463,7 @@
                 "{$min,$(if($max) { $max})}"
             }
 
-            if ($Optional) {
+            if ($Optional -and -not $theOc) {
                 '?'
             }
 
@@ -475,14 +484,21 @@
                 '(?!)' # emit an empty lookahead (this will always fail)
             }
 
-            foreach ($mustClose in $name, $atomic, $noCapture) {
-                if ($mustClose) {')' }
-            }
-
-
             if ($EndAnchor) {
                 $cclookup[$endanchor]
             }
+
+            $hadToBeClosed = $false
+            for($n=0; $n -lt $theOc; $n++) {                
+                ')'; $hadToBeClosed =$true 
+            }
+
+            if ($hadToBeClosed -and $optional) {
+                '?'
+            }
+
+
+            
         }
 
         $regex = $regex -join ''

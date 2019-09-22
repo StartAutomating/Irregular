@@ -81,7 +81,7 @@ describe Set-Regex {
         }
     }
     it 'Can accept the output of Write-Regex' { 
-        Write-RegEx -LiteralCharacter := -Name ColonOrEqual |
+        Write-RegEx -LiteralCharacter : -Name Colon -Description 'Matches a literal colon' |
             Set-Regex
     }
     it 'Can set a regex in an arbitrary path' {
@@ -512,8 +512,9 @@ describe Write-Regex {
     }
 
     it 'Can write conditionals' {
-        Write-RegEx '((?<Digit>\d)|(?<NotDigit>\D))' |
-            Write-RegEx -If Digit -Then '\D' -Else '\d'
+        Write-RegEx '((?<Digit>\d)|(?<NotDigit>\D))' -If Digit -Then '\D' -Else '\d' |
+            Use-RegEx -IsMatch 'a1','2b' | 
+            should be $true
         Write-RegEx '(?<Digit>\d)' |
             Write-RegEx -If Digit -Then '[abcdef]'
     }
@@ -611,5 +612,49 @@ describe Export-RegEx {
                 Import-Module $irregularPath
             }
         }
+    }
+}
+
+describe 'Expressions' {
+    context '?<EmailAddress>' {
+        it 'Will extract an email and domain' {
+            'foo@bar.com' | 
+                ?<EmailAddress> -Extract |
+                % { 
+                    $_.Username | should be foo
+                    $_.Domain | should be bar.com
+                } 
+        }
+        it 'Will not match a psuedo-email' {
+            'psued@oemail' | ?<EmailAddress>  |should be $null
+        }
+    }
+    context '?<Namespace>' {
+        it 'Will match a namespace' {
+            $nsExtract = @'
+namespace MyNamespace {
+    public class foo() {} 
+}
+'@ | ?<Namespace> -Extract  
+            $nsExtract.Content | should belike '{*foo()*}'
+            $nsExtract.Name | should be MyNamespace
+        }
+    }
+}
+
+describe 'Generators' {
+    context '?<MultilineComment>' {
+        it 'Will auto-detect comment types' {
+            Get-Module Irregular | 
+                Split-Path | 
+                Get-ChildItem -Recurse -Filter *.ps1 | 
+                ?<MultilineComment> -Count 1 |
+                should belike '<#*#>'
+        }
+        it 'Will extract comments from a function' {
+            Get-Command Write-Regex | 
+                ?<MultilineComment> -Count 1 |
+                should belike '<#*#>'
+        } 
     }
 }

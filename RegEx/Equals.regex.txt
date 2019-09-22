@@ -1,0 +1,2 @@
+﻿# A literal equal sign = 
+=
