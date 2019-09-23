@@ -279,7 +279,7 @@
                 @(if ([IO.File]::Exists($p)) {
                     [IO.FileInfo]$p
                 } elseif ([IO.Directory]::Exists($p)) {
-                    ([IO.DirectoryInfo]"$p").EnumerateFiles('*.regex.*', 'AllDirectories')
+                    ([IO.DirectoryInfo]"$p").EnumerateFiles('*', 'AllDirectories')
                 })
             }
         }) |
