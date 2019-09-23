@@ -55,54 +55,6 @@ describe Import-Regex {
     }
 }
 
-describe Set-Regex {
-    it 'Lets you store Regular Expressions'  {
-        Get-RegEx -Name Digits |
-            Set-Regex -Confirm:$false
-    }
-    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') {
-        it 'Lets you declare them temporarily' {
-            Set-Regex -Name Period -Pattern '\.' -Temporary
-            Use-RegEx -Pattern '?<Period>' -Match '.' -IsMatch | should be true
-        }
-
- 
-        it 'Will infer the name' {
-            Set-Regex -Pattern '(?<Period>\.)' -Description 'A period' -Temporary
-        }
-        it 'Will complain if the pattern was not named' {
-            {Set-Regex -Pattern blah -Temporary -errorAction Stop} | should throw
-        }
-        it 'Can append to a an inline description' {
-            Set-Regex -Pattern '# a math symbol
-(?<MathSymbol>\p{Sm})' -Description 'Using the special character class math' -Temporary
-
-
-            Write-RegEx '?<MathSymbol>' | should belike '*\p{Sm}*'
-        }
-    
-        it 'Can accept the output of Write-Regex' { 
-            Write-RegEx -LiteralCharacter := -Name ColonOrEquals |
-                Set-Regex
-            Get-Module Irregular | 
-                Split-Path | 
-                Join-Path -ChildPath 'Regex' | 
-                Join-Path -ChildPath 'ColonOrEquals.regex.txt' | 
-                Remove-Item
-        }
-    }
-    it 'Can set a regex in an arbitrary path' {
-        if ($env:TEMP) {
-            Set-RegEx -Pattern '(?<Period>\.)' -Path $env:TEMP
-            Get-ChildItem -LiteralPath $env:temp -Filter Period.regex.txt | 
-                Select-Object -ExpandProperty Name |
-                should be Period.regex.txt
-        } else {
-            'No temp directory found'
-        }
-    }
-}
-
 describe Show-Regex {
         it 'Is an interactive tool to preview simple Regex operations' {
             $o = Show-RegEx -Pattern '?<Digits>' -Match abc123def456
@@ -520,7 +472,7 @@ describe Write-Regex {
 
     it 'Can write conditionals' {
         Write-RegEx '((?<Digit>\d)|(?<NotDigit>\D))' -If Digit -Then '\D' -Else '\d' |
-            Use-RegEx -IsMatch 'a1','2b' | 
+            Use-RegEx -IsMatch 'a1' |
             should be $true
         Write-RegEx '(?<Digit>\d)' |
             Write-RegEx -If Digit -Then '[abcdef]'
@@ -663,5 +615,53 @@ describe 'Generators' {
                 ?<MultilineComment> -Count 1 |
                 should belike '<#*#>'
         } 
+    }
+}
+
+describe Set-Regex {
+    it 'Lets you store Regular Expressions'  {
+        Get-RegEx -Name Digits |
+            Set-Regex -Confirm:$false
+    }
+    if (-not $env:Agent_ID -and $PSVersionTable.Platform -ne 'Unix') {
+        it 'Lets you declare them temporarily' {
+            Set-Regex -Name Period -Pattern '\.' -Temporary
+            Use-RegEx -Pattern '?<Period>' -Match '.' -IsMatch | should be true
+        }
+
+ 
+        it 'Will infer the name' {
+            Set-Regex -Pattern '(?<Period>\.)' -Description 'A period' -Temporary
+        }
+        it 'Will complain if the pattern was not named' {
+            {Set-Regex -Pattern blah -Temporary -errorAction Stop} | should throw
+        }
+        it 'Can append to a an inline description' {
+            Set-Regex -Pattern '# a math symbol
+(?<MathSymbol>\p{Sm})' -Description 'Using the special character class math' -Temporary
+
+
+            Write-RegEx '?<MathSymbol>' | should belike '*\p{Sm}*'
+        }
+    
+        it 'Can accept the output of Write-Regex' { 
+            Write-RegEx -LiteralCharacter := -Name ColonOrEquals |
+                Set-Regex
+            Get-Module Irregular | 
+                Split-Path | 
+                Join-Path -ChildPath 'Regex' | 
+                Join-Path -ChildPath 'ColonOrEquals.regex.txt' | 
+                Remove-Item
+        }
+    }
+    it 'Can set a regex in an arbitrary path' {
+        if ($env:TEMP) {
+            Set-RegEx -Pattern '(?<Period>\.)' -Path $env:TEMP
+            Get-ChildItem -LiteralPath $env:temp -Filter Period.regex.txt | 
+                Select-Object -ExpandProperty Name |
+                should be Period.regex.txt
+        } else {
+            'No temp directory found'
+        }
     }
 }
