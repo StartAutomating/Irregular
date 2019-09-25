@@ -1,7 +1,7 @@
-﻿(?<![-\s\#]{1,})       # not preceeded by a -, or whitespace, or a comment
+﻿# Matches PowerShell functions
+(?<![-\s\#]{1,})       # not preceeded by a -, or whitespace, or a comment
 function               # function keyword
 \s{1,1}                # a single space or tab
 (?<Name>[^\-]{1,1}\S+) # any non-whitespace, starting with a non-dash
 \s{0,}                 # optional whitespace
 ?<PowerShell_ScriptBlock>
-

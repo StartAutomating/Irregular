@@ -103,6 +103,7 @@
 
         filter importRegexPattern {
             process {
+                $patternIn = $_
                 $c = 0
                 $rxLines =
                     @(if ($_ -is [IO.FileInfo]) {
@@ -129,7 +130,11 @@
                     }
 
                 $description =
-                    @(for (;$c -lt $rxLines.Length;$c++) {
+                    @(
+                    if ($patternIn.Description) {
+                        $patternIn.Description   
+                    }
+                    for (;$c -lt $rxLines.Length;$c++) {
                         if ($rxLines[$c] -notlike '#*') { break }
                         $rxLines[$c].TrimStart('#').Trim()
                     }) -join [Environment]::NewLine
@@ -151,7 +156,7 @@
                     if ($regex.IsPattern -as [bool] -and $SavedCaptureReferences.IsMatch($rx)) {
                         $firstReplaceTry = $savedCaptureReferences.Replace($rx, $replaceSavedCapture)
                         if ($firstReplaceTry -ne $rx -and -not $savedCaptureReferences.IsMatch($firstReplaceTry)) {
-                            $regex.Pattern = $firstReplaceTry
+                            $regex.Pattern = $firstReplaceTry 
                             $regex
                         } else {
                             $regex.Pattern  = if ($firstReplaceTry) { $firstReplaceTry } else { $rx }

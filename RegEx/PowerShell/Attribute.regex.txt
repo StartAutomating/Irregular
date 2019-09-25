@@ -1,4 +1,5 @@
-﻿\[
+﻿# Matches a PowerShell attribute declaration
+\[
 (?<AttributeName>[\w\.]+)
 \s{0,}
 \(              # An open parenthesis
@@ -10,5 +11,4 @@
 )*(?(Depth)(?!))    # until depth is 0.
 )
 \)             # followed by a closing parenthesis
-
 \]
