@@ -1,8 +1,0 @@
-﻿# This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)
-\s{0,} 
-(?<Key>\w{1,})(\=(?<Value>
-    \$true|\$false|
-    \d+|
-    '.*(?<!'')'|
-    ".*(?<!`")"
-)){0,1}\s{0,}

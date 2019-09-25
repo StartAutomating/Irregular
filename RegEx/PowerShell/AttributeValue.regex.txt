@@ -1,0 +1,10 @@
+﻿# This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)
+\s{0,} 
+(?<Key>\w{1,})(\=(?<Value>
+    \$true               
+    | \$false              
+    | ?<Decimals>          
+    | (?<String>?<SingleQuotedString>)
+    | (?<QuotedString>?<DoubleQuotedString>)
+    | (?<ScriptBlock>?<BalancedCode>({))
+)){0,1}\s{0,}

@@ -274,7 +274,7 @@ describe Use-Regex {
             (Get-Command Write-RegEx | 
                 Select-Object -ExpandProperty ScriptBlock | 
                 Select-Object -ExpandProperty File) -as [IO.FileInfo] |
-            ?<PowerShellInlineHelpField> |
+            ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
                 Select-Object -ExpandProperty Name |
                 should be Write-Regex.ps1
@@ -284,7 +284,7 @@ describe Use-Regex {
             Get-Command ((Get-Command Write-RegEx | 
                 Select-Object -ExpandProperty ScriptBlock | 
                 Select-Object -ExpandProperty File)) |
-                ?<PowerShellInlineHelpField> |
+                ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
                 Select-Object -ExpandProperty Name |
                 should be Write-Regex.ps1
@@ -292,7 +292,7 @@ describe Use-Regex {
 
         it 'Will match the definition if passed a function' {
             Get-Command Write-RegEx | 
-                ?<PowerShellInlineHelpField> |
+                ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
                 Select-Object -ExpandProperty Name |
                 should be Write-RegEx

@@ -213,13 +213,10 @@
             $m = $_
             $xm = [Ordered]@{}
             foreach ($g in $m.Groups) {
+                if ($g.Name -as [int] -ge 1) { continue }
                 $gcv =
                     foreach ($gc in $g.Captures) {
-                        $gco = [psobject]::new($gc.Value)
-                        $gco.psobject.properties.add([PSNoteProperty]::new('StartIndex', $gc.Index))
-                        $gco.psobject.properties.add([PSNoteProperty]::new('EndIndex', $gc.Index + $gc.Length))
-                        $gco.psobject.properties.add([PSNoteProperty]::new('Input', $m.Result('$_')))
-                        $gco
+                        $gc.Value
                     }
                 if ($Coerce -and $Coerce.$($g.Name) -is [type]) {
                     $xm[$g.Name] = foreach ($v in $gcv) { $v -as $Coerce.$($g.Name) }
@@ -328,11 +325,15 @@
         }
 
         if ($in -is [Management.Automation.ExternalScriptInfo]) { # If we were passed an external script
-            $match = $in.ScriptContents # we want to match it's contents.
+            $match = "{$($in.ScriptContents)}" # we want to match it's contents.
         }
 
         if ($in -is [Management.Automation.FunctionInfo]) { # If we're passed a function,
-            $match = "$($in.ScriptBlock)" # we want to match the definition.
+            $match = "function $($in.Name) {$($in.ScriptBlock)}" # we want to match the definition.
+        }
+
+        if ($in -is [ScriptBlock]) {
+            $match = "{$in}"
         }
 
         if ($_ -is [Text.RegularExpressions.Match] -and -not $StartAt) { # If the input was a [Match] and we don't have a start

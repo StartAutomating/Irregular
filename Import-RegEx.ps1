@@ -92,6 +92,9 @@
                     $matches.FirstCaptureName -ne $m.Groups['NewCaptureName']) {
                     $repl= $regex -replace $startsWithCapture, "(?<$($m.Groups['NewCaptureName'])>"
                     $repl.Substring(0, $repl.Length - 1)
+                } else {
+                    
+                    "(?<$($m.Groups['NewCaptureName'].Value)>$regex$([Environment]::NewLine)"
                 }
             } else {
                 $regex
@@ -112,7 +115,13 @@
 
                 $name =
                     if ($_ -is [IO.FileInfo]) {
-                        $_.Name -replace '\.regex\.txt$', ''
+                        if ($_.Directory.Name -ne 'RegEx') {
+                            $dirPart = ($_.Directory.FullName.Substring($importPath.Length) -replace '(?:\\|/)RegEx(?:\\|/)','')
+                            if (-not $dirPart) { $dirPart = $_.Directory.Name } 
+                            $dirPart + '_' + $_.Name -replace '\.regex\.txt$', ''
+                        } else {
+                            $_.Name -replace '\.regex\.txt$', ''
+                        }
                     } elseif ($_ -is [string] -and $_ -match '(?<StartsWithCapture>\A\(\?\<(?<FirstCaptureName>\w+))>') {
                         $matches.FirstCaptureName
                     } else {
@@ -186,9 +195,20 @@
 
                     $matched = $findDescription.Match($generatorScript.ScriptContents)
 
+                    $gn = $(
+                        if ($in.Directory.Name -eq 'RegEx') {
+                            $n
+                        } else {
+                            $dirPart = 
+                                ($in.Directory.FullName.Substring($importPath.Length) -replace 
+                                '(?:\\|/)RegEx(?:\\|/)','')
+                            if (-not $dirPart) { $dirPart = $in.Directory.Name } 
+                            $dirPart + '_' + $n
+                        }
+                    )
                     return [PSCustomObject][Ordered]@{
                             PSTypeName   = 'Irregular.RegEx'
-                            Name = $n    ; Description = $matched.Groups["Content"].ToString();
+                            Name = $gn   ; Description = $matched.Groups["Content"].ToString();
                             Pattern = ''; Path = $in.FullName
                             IsGenerator = $true;IsPattern = $false
                         }
@@ -273,19 +293,22 @@
 
         #region Get RegEx files
         $pathList = $pathList | Select-Object -Unique
-        @(foreach ($p in $pathList) {
+        foreach ($p in $pathList) {
             $p = "$p"
             if ([IO.Directory]::Exists($p) -or [IO.File]::Exists($p)) {
                 @(if ([IO.File]::Exists($p)) {
+                    
                     [IO.FileInfo]$p
+                    $ImportPath = ([IO.FileInfo]$p).Directory.FullName
                 } elseif ([IO.Directory]::Exists($p)) {
+                    $ImportPath = $p
                     ([IO.DirectoryInfo]"$p").EnumerateFiles('*', 'AllDirectories')
-                })
-            }
-        }) |
-            importRegexFile |
-            importIntoLibrary
+                })  |
+                    importRegexFile |
+                    importIntoLibrary
 
+            }
+        }
         if ($Pattern) {
             $Pattern |
                 importRegexPattern |

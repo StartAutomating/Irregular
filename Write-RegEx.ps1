@@ -400,7 +400,7 @@
                 } else {
                     "\k<$backreference>"
                 }
-            }            
+            }
             
             if ($Pattern) {
                 $Pattern = 

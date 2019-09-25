@@ -1,0 +1,33 @@
+﻿# Matches groups in a regular expression
+(?<!\\)\(                   # An open parenthesis
+(?<HasOptions>\?)?   # Any group options are preceeded by a ? 
+(?(HasOptions)(?:    # If we have options, figure out what they are:
+    (?>              # It can be only one:
+        (?:\<(?<GroupName>\w+)\>)     # a <GroupName>   
+        | (?<Atomic>\>)               # An atomic expression atomic (>)
+        | (?<NoCapture>\:)            # A non capturing expression (:)
+        | (?<LookBehind>\<\=)         # A lookbehind (<=)
+        | (?<NegativeLookBehind>\<\!) # A negative lookbehind (<!)
+        | (?<LookAhead>\=)            # A lookahead (=)
+        | (?<NegativeLookAhead>\!)    # A negative lookahead (!)
+        | (?<If>\(                    # Last but not least, it can be an if, which is a nested expression
+            (?>                          
+                \\\(          # an escaped open parenthesis OR 
+                | \\\)          # an escaped close parenthesis OR 
+                | [^\(\)]+      # any number of non-parenthesis characters OR
+                | \((?<Depth>)  # an open parenthesis (in which case increment depth) OR
+                | \)(?<-Depth>) # a closed parenthesis (in which case decrement depth)
+            )*(?(Depth)(?!))          # and thus has to use a balancing expression to match until depth is 0
+            \)                        # don't forget the closing parenthesis!
+        )
+    )
+))
+(?<Pattern>         # Now we are in the pattern body.  
+(?>                 # We just need to capture... 
+      \\\(          # an escaped open parenthesis OR 
+    | \\\)          # an escaped close parenthesis OR 
+    | [^\(\)]+      # any number of non-parenthesis characters OR
+    | \((?<Depth>)  # an open parenthesis (in which case increment depth) OR
+    | \)(?<-Depth>) # a closed parenthesis (in which case decrement depth)
+)*(?(Depth)(?!))    # until depth is 0.
+)\)                 # then close out our <Pattern> group and and don't forget the closing parenthesis!
