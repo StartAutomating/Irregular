@@ -283,12 +283,7 @@
                         }
                     }
                 } else {
-                    $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
-                    # Otherwise, any valid module directory for Irregular will work.
-                    $splitChar = if ($PSVersionTable.Platform -eq 'Unix') { ':' } else {';'}
-                    foreach ($_ in $env:PSModulePath -split $splitChar) {
-                        $_ + [IO.Path]::DirectorySeparatorChar + 'Irregular'
-                    }
+                    $MyInvocation.MyCommand.ScriptBlock.File | Split-Path                    
                 }
             }
         #endregion Determine the Path List

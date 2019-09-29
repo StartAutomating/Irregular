@@ -20,7 +20,7 @@ if ($inputObject -and $inputObject -is [IO.FileInfo]) {
             'C'
         } elseif ('.ps1', '.psm1', '.psd1' -contains $inputObject.Extension) {
             'PowerShell'
-        } elseif ('.htm', '.html', '.xml', '.pswt' -contains $inputObject.Extension -or 
+        } elseif ('.htm', '.html', '.xml', '.pswt', '.xaml' -contains $inputObject.Extension -or 
             $inputObject.Extension -like '.*xml') {
             'XML'
         }
