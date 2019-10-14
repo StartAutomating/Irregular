@@ -30,6 +30,7 @@ jobs:
       inputs:
         codeCoverageTool: 'JaCoCo'
         summaryFileLocation: '**/*.Coverage.xml'
+        reportDirectory: '$(System.DefaultWorkingDirectory)'
   - job: Build_PSCore_Ubuntu1604
 
     pool:
@@ -71,6 +72,7 @@ jobs:
       inputs:
         codeCoverageTool: 'JaCoCo'
         summaryFileLocation: '**/*.Coverage.xml'
+        reportDirectory: '$(System.DefaultWorkingDirectory)'
   - job: Build_PSCore_MacOS1013
     pool:
       vmImage: xcode9-macos10.13
@@ -110,6 +112,7 @@ jobs:
       inputs:
         codeCoverageTool: 'JaCoCo'
         summaryFileLocation: '**/*.Coverage.xml'
+        reportDirectory: '$(System.DefaultWorkingDirectory)'
 trigger:
   paths:
     exclude:
