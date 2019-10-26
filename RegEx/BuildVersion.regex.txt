@@ -1,0 +1,6 @@
+﻿# Matches a build version
+(?<Major>\d+)
+\.
+(?<Minor>\d+)
+(?:\.(?<Build>\d+))?
+(?:\.(?<Revision>\d+))?

@@ -1,0 +1,11 @@
+﻿# Matches most PHP tags
+\<                       # An open Caret
+\?                       # Follow by a Question Mark
+(?>                      # Followed by one of the following: 
+    (?<IsFullTag>php)|   # The literal text "php" OR 
+    (?<IsEchoTag>=)      # An equal sign (denoting an echo tag)
+)?                       # If neither was present, it's a ShortTag
+\s{1,}                   # At least one whitespace character
+(?<Content>(.|\s)+?)     # Any characters until
+(?=\?\>)                 # the closing tag. 
+\?\>                     # Then the closing tag.
