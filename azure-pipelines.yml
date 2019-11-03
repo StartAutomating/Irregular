@@ -4,10 +4,6 @@ jobs:
       vmImage: vs2017-win2016
     steps:
     - powershell: |
-        $PSVersionTable.PSVersion | Out-Host
-        get-ChildItem env:
-      displayName: 'Echo Environment Variables'
-    - powershell: |
         Install-Module -Name Pester -Repository PSGallery -Force -Scope CurrentUser
         Import-Module Pester -Force -PassThru
       displayName: Installing Pester
@@ -43,9 +39,6 @@ jobs:
       displayName: 'Install PowerShell Core'
 
     - script: |
-        pwsh -c 'Get-ChildItem env: ; exit 0'
-      displayName: 'Echo Environment Variables'
-    - script: |
         pwsh -c '
         $PSVersionTable.PSVersion
         if ($null -eq (Get-Module -ListAvailable pester)) {
@@ -80,11 +73,6 @@ jobs:
         brew tap caskroom/cask
         brew cask install powershell
       displayName: 'Install PowerShell Core'
-    - script: |
-        pwsh -c '
-            Get-ChildItem env:
-        '
-      displayName: 'Echo Environment Variables'
     - script: |
         pwsh -c '
         $PSVersionTable.PSVersion
@@ -126,7 +114,7 @@ jobs:
         $imported = Import-Module ".\$moduleName.psd1" -Force -PassThru
         $foundModule = Find-Module -Name $ModuleName
         if ($foundModule.Version -ge $imported.Version) {
-            Write-Warning "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName [$($imported.Version)]"
+            Write-Warning "##vso[task.logissue type=warning]Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName [$($imported.Version)]"
         } else {
             $gk = '$(GalleryKey)'
             $stagingDir = '$(Build.ArtifactStagingDirectory)'
