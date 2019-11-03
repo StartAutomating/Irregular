@@ -126,7 +126,7 @@ jobs:
         $imported = Import-Module ".\$moduleName.psd1" -Force -PassThru
         $foundModule = Find-Module -Name $ModuleName
         if ($foundModule.Version -ge $imported.Version) {
-            Write-Host "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName [$($imported.Version)]"
+            Write-Warning "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName [$($imported.Version)]"
         } else {
             $gk = '$(GalleryKey)'
             $stagingDir = '$(Build.ArtifactStagingDirectory)'
