@@ -128,10 +128,13 @@ jobs:
             Write-Host "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName $($importedModule.Version)"
         } else {
             $gk = '$(GalleryKey)'
-            $moduleTempPath = (Join-Path '$(Build.ArtifactStagingDirectory)' $moduleName)            
-            $moduleTempDir = New-Item -ItemType Directory -Path $moduleTempPath 
+            $stagingDir = '$(Build.ArtifactStagingDirectory)'
+            $moduleTempPath = Join-Path $stagingDir $moduleName
+            Write-Host "Staging Directory: $ModuleTempPath"
                         
-            $importedModule | Split-Path | Copy-Item -Destination $moduleTempPath -Recurse            
+            $importedModule | Split-Path | Copy-Item -Destination $moduleTempPath -Recurse
+            $moduleGitPath = Join-Path $moduleTempPath '.git'
+            Remove-Item -Recurse -Force $moduleGitPath
             Get-ChildItem $moduleTempPath -Recurse
             Publish-Module -Path $moduleTempPath -NuGetApiKey $gk
             if ($?) {
