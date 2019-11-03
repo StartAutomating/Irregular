@@ -116,16 +116,17 @@ jobs:
     - Windows
     - Linux
     - Mac 
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: |
+        and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
       vmImage: vs2017-win2016        
     steps:
     - powershell: |
         $orgName, $moduleName = $env:BUILD_REPOSITORY_ID -split "/"
-        $importedModule = Import-Module ".\$moduleName.psd1" -Force -PassThru
+        $imported = Import-Module ".\$moduleName.psd1" -Force -PassThru
         $foundModule = Find-Module -Name $ModuleName
-        if ($foundModule.Version -ge $importedModule.Version) {
-            Write-Host "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName $($importedModule.Version)"
+        if ($foundModule.Version -ge $imported.Version) {
+            Write-Host "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName [$($imported.Version)]"
         } else {
             $gk = '$(GalleryKey)'
             $stagingDir = '$(Build.ArtifactStagingDirectory)'
@@ -133,13 +134,13 @@ jobs:
             
             Write-Host "Staging Directory: $ModuleTempPath"
                         
-            $importedModule | Split-Path | Copy-Item -Destination $moduleTempPath -Recurse
+            $imported | Split-Path | Copy-Item -Destination $moduleTempPath -Recurse
             $moduleGitPath = Join-Path $moduleTempPath '.git'
             Write-Host "Removing .git directory"
             Remove-Item -Recurse -Force $moduleGitPath
             Write-Host "Module Files:"
             Get-ChildItem $moduleTempPath -Recurse
-            Write-Host "Publishing $moduleName [$($importedModule.Version)] to Gallery"
+            Write-Host "Publishing $moduleName [$($imported.Version)] to Gallery"
             Publish-Module -Path $moduleTempPath -NuGetApiKey $gk
             if ($?) {
                 Write-Host "Published to Gallery"
