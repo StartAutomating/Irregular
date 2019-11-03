@@ -9,21 +9,24 @@ When this generator is used with a piped in file, the extension will autodetect 
 If the format could not be autodetected, the match will always fail.
 #>
 param(
-[ValidateSet('PowerShell', 'C#', 'C++', 'C', 'JavaScript', 'JSON', 'Java', 'Ruby', 'HTML', 'XML','PHP','')]
+[ValidateSet('PowerShell', 'C#', 'C++', 'C', 'JavaScript', 'JSON', 'Java', 'Ruby', 'HTML', 'XML','PHP','CSHTML', '')]
 [string]
 $Language = 'C'
 )
 
 if ($inputObject -and $inputObject -is [IO.FileInfo]) {
     $Language = 
-        if ('.h', '.cpp', '.c', '.cs', '.js', '.java','.json','.php' -contains $inputObject.Extension) {
+        if ('.h', '.cpp', '.c', '.cs', '.js', '.java','.json' -contains $inputObject.Extension) {
             'C'
         } elseif ('.ps1', '.psm1', '.psd1' -contains $inputObject.Extension) {
             'PowerShell'
         } elseif ('.htm', '.html', '.xml', '.pswt', '.xaml' -contains $inputObject.Extension -or 
             $inputObject.Extension -like '.*xml') {
             'XML'
+        } elseif ('.php', '.cshtml' -contains $inputObject.Extension) {
+            $inputObject.Extension.TrimStart('.').ToUpper()
         }
+
 }
 
 if ($inputObject -and $inputObject -is [Management.Automation.CommandInfo] -or $inputObject -is [ScriptBlock]) {
@@ -35,14 +38,25 @@ if (-not $PSBoundParameters.Language -and -not $Language) {
 }
 
 
+$cStyleBlockComment = @'
+/\* # The open comment
+(?<Block>
+    (?:.|\s)+?(?=\z|\*/)    
+)\*/
+'@
 
+$markupLanguageComment = @'
+<\!--
+    (?<Block>(?:.|\s)+?(?=\z|-->))
+-->
+'@
 
 switch ($Language) {
     PowerShell {
     @'
 \<\# # The opening tag
 (?<Block> 
-    (.|\s)+?(?=\#>) # anything until the closing tag
+    (?:.|\s)+?(?=\z|\#>) # anything until the closing tag
 )
 \#\> # the closing tag
 '@ 
@@ -51,22 +65,29 @@ switch ($Language) {
     @'
 /\* # The open comment
 (?<Block>
-    (.|\s)+?(?=\*/)    
+    (?:.|\s)+?(?=\z|\*/)    
 )\*/
 '@        
     }
     Ruby {
         @'
 ^=begin # begin line
-(?<Block>(.|\s)+?(?=\=end)) # anything that's not =end 
+(?<Block>(?.|\s)+?(?=\z|\=end)) # anything that's not =end 
 =end # end line
 '@
     }
     { $_ -match 'HTML|XML' } {
         @'
     <\!--
-        (?<Block>(.|\s)+?(?=-->))
+        (?<Block>(?:.|\s)+?(?=\z|-->))
     -->
 '@
+    }
+    { $_ -match 'PHP|CSHTML'} {
+        "(?:
+            $cStyleBlockComment
+            |
+            $markupLanguageComment
+        )"
     }
 }

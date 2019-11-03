@@ -1,5 +1,5 @@
 jobs:
-  - job: Build_PS_Win2016
+  - job: Windows
     pool:
       vmImage: vs2017-win2016
     steps:
@@ -31,11 +31,9 @@ jobs:
         codeCoverageTool: 'JaCoCo'
         summaryFileLocation: '**/*.Coverage.xml'
         reportDirectory: '$(System.DefaultWorkingDirectory)'
-  - job: Build_PSCore_Ubuntu1604
-
+  - job: Linux
     pool:
       vmImage: ubuntu-16.04
-
     steps:
     - script: |
         curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
@@ -73,7 +71,7 @@ jobs:
         codeCoverageTool: 'JaCoCo'
         summaryFileLocation: '**/*.Coverage.xml'
         reportDirectory: '$(System.DefaultWorkingDirectory)'
-  - job: Build_PSCore_MacOS1013
+  - job: Mac
     pool:
       vmImage: xcode9-macos10.13
     steps:
@@ -113,6 +111,34 @@ jobs:
         codeCoverageTool: 'JaCoCo'
         summaryFileLocation: '**/*.Coverage.xml'
         reportDirectory: '$(System.DefaultWorkingDirectory)'
+  - job: PostBuild
+    dependsOn:
+    - Windows
+    - Linux
+    - Mac 
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    pool:
+      vmImage: vs2017-win2016        
+    steps:
+    - powershell: |
+        $orgName, $moduleName = $env:BUILD_REPOSITORY_ID -split "/"
+        $importedModule = Import-Module ".\$moduleName.psd1" -Force -PassThru
+        $foundModule = Find-Module -Name $ModuleName
+        if ($foundModule.Version -ge $importedModule.Version) {
+            Write-Host "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName $($importedModule.Version)"
+        } else {
+            Publish-Module -Path ".\$ModuleName.psd1" -GalleryKey $(GalleryKey)
+            if ($?) {
+                Write-Host "Published to Gallery"
+            } else {
+                Write-Host "Gallery Publish Failed"
+                exit 1
+            }
+        }
+
+      displayName: 'Publish to Gallery'
+variables:
+- group: Gallery
 trigger:
   paths:
     exclude:
