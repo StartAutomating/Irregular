@@ -130,12 +130,16 @@ jobs:
             $gk = '$(GalleryKey)'
             $stagingDir = '$(Build.ArtifactStagingDirectory)'
             $moduleTempPath = Join-Path $stagingDir $moduleName
+            
             Write-Host "Staging Directory: $ModuleTempPath"
                         
             $importedModule | Split-Path | Copy-Item -Destination $moduleTempPath -Recurse
             $moduleGitPath = Join-Path $moduleTempPath '.git'
+            Write-Host "Removing .git directory"
             Remove-Item -Recurse -Force $moduleGitPath
+            Write-Host "Module Files:"
             Get-ChildItem $moduleTempPath -Recurse
+            Write-Host "Publishing $moduleName [$($importedModule.Version)] to Gallery"
             Publish-Module -Path $moduleTempPath -NuGetApiKey $gk
             if ($?) {
                 Write-Host "Published to Gallery"
