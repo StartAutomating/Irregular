@@ -128,7 +128,7 @@ jobs:
             Write-Host "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName $($importedModule.Version)"
         } else {
             $gk = '$(GalleryKey)'
-            Publish-Module -Path "$pwd" -NuGetApiKey $gk
+            Publish-Module -Name $moduleName -NuGetApiKey $gk
             if ($?) {
                 Write-Host "Published to Gallery"
             } else {
