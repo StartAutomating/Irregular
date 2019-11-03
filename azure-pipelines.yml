@@ -127,7 +127,7 @@ jobs:
         if ($foundModule.Version -ge $importedModule.Version) {
             Write-Host "Gallery Version of $moduleName [$($foundModule.Version)] is greater than or equal to local version of $moduleName $($importedModule.Version)"
         } else {
-            $gk = $(GalleryKey)
+            $gk = '$(GalleryKey)'
             Publish-Module -Path ".\$ModuleName.psd1" -NuGetApiKey $gk
             if ($?) {
                 Write-Host "Published to Gallery"
