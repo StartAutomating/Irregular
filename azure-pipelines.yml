@@ -129,9 +129,11 @@ jobs:
         } else {
             $gk = '$(GalleryKey)'
             $moduleTempPath = (Join-Path '$(Build.ArtifactStagingDirectory)' $moduleName)            
-            $moduleTempDir = New-Item -ItemType Directory -Path $moduleTempPath             
+            $moduleTempDir = New-Item -ItemType Directory -Path $moduleTempPath 
+                        
             $importedModule | Split-Path | Copy-Item -Destination $moduleTempPath -Recurse            
-            Publish-Module -Path (Join-Path $moduleTempPath $moduleName) -NuGetApiKey $gk
+            Get-ChildItem $moduleTempPath -Recurse
+            Publish-Module -Path $moduleTempPath -NuGetApiKey $gk
             if ($?) {
                 Write-Host "Published to Gallery"
             } else {
