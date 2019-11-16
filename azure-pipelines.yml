@@ -1,9 +1,10 @@
 
 stages: 
   - stage: TestPowerShellCrossPlatform
-    displayName: Test Module
+    displayName: Test
     jobs: 
       - job: Windows
+        displayName: on Windows
         pool: 
           vmImage: vs2017-win2016
         steps: 
@@ -32,6 +33,7 @@ stages:
               summaryFileLocation: "**/*.Coverage.xml"
               reportDirectory: $(System.DefaultWorkingDirectory)
       - job: Linux
+        displayName: on Linux
         pool: 
           vmImage: ubuntu-16.04
         steps: 
@@ -68,6 +70,7 @@ stages:
               summaryFileLocation: "**/*.Coverage.xml"
               reportDirectory: $(System.DefaultWorkingDirectory)
       - job: MacOS
+        displayName: on MacOS
         pool: 
           vmImage: xcode9-macos10.13
         steps: 
@@ -102,12 +105,13 @@ stages:
               reportDirectory: $(System.DefaultWorkingDirectory)
 
   - stage: UpdatePowerShellGallery
-    displayName: Update PowerShell Gallery
+    displayName: Update
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     variables: 
       - group: Gallery
     jobs: 
-      - job: PostBuild
+      - job: Publish
+        displayName: PowerShell Gallery
         pool: 
           vmImage: vs2017-win2016
         steps: 
