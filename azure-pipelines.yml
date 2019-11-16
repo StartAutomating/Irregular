@@ -1,9 +1,9 @@
 
 stages: 
   - stage: TestPowerShellCrossPlatform
-    displayName: Test PowerShell Module (Crossplatform)
+    displayName: Test Module
     jobs: 
-      - job: TestOnWindows
+      - job: Windows
         pool: 
           vmImage: vs2017-win2016
         steps: 
@@ -31,7 +31,7 @@ stages:
               codeCoverageTool: JaCoCo
               summaryFileLocation: "**/*.Coverage.xml"
               reportDirectory: $(System.DefaultWorkingDirectory)
-      - job: TestOnLinux
+      - job: Linux
         pool: 
           vmImage: ubuntu-16.04
         steps: 
@@ -67,7 +67,7 @@ stages:
               codeCoverageTool: JaCoCo
               summaryFileLocation: "**/*.Coverage.xml"
               reportDirectory: $(System.DefaultWorkingDirectory)
-      - job: TestOnMacOS
+      - job: MacOS
         pool: 
           vmImage: xcode9-macos10.13
         steps: 
