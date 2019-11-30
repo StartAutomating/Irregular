@@ -32,7 +32,11 @@
                 ?<> -LiteralCharacter . |
                 ?<> -CharacterClass Word -Min 1    
             )
-
+    .Example
+        # Writes a pattern for multiline comments
+        Write-RegEx -Pattern \<\# |
+            Write-RegEx -Name Block -Until \#\> |
+            Write-RegEx -Pattern \#\>
     #>
     [OutputType([Regex], [PSObject])]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSPossibleIncorrectComparisonWithNull", "", Justification="This is explicitly checking for null (lazy -If would miss 0)")]
@@ -197,6 +201,9 @@
     # If the pattern provided in -If if false, it will attempt to continue to match the with the pattern provided in -Else.
     [Alias('ElseExpression')]
     [string[]]$Else,
+
+    # If provided, will match all content until any of these conditions or the end of the string are found.
+    [string[]]$Until,
 
     # A comment (yes, they exist in Regular Expressions)
     [string]$Comment,
@@ -417,7 +424,14 @@
                     "(?:$($pattern))" # put the pattern in a non-capturing group[
                 }
                 else { $Pattern }
-            }            
+            }
+
+            if ($until) {
+                if ($until -notlike '\z*') {
+                    $until = @("\z") + $until
+                }
+                "(?:.|\s)+?(?=$($until -join '|'))"
+            }
 
             if ($CharacterClass -or $LiteralCharacter) { # If we're passed in a character class
                 $cout =
