@@ -500,6 +500,17 @@ describe Write-Regex {
             should be 1
     }
 
+    it 'Can match -Until a pattern' {
+        $writeRegexCmd = $ExecutionContext.SessionState.InvokeCommand.GetCommand('Write-Regex','Function')
+
+        Write-RegEx -Pattern \<\# |
+            Write-RegEx -Name Block -Until \#> |
+            Write-RegEx -Pattern \#\> |
+            Use-RegEx -Extract -Match $writeRegexCmd.Definition |
+            Select-Object -ExpandProperty Block |
+            should belike *Write-Regex*
+    }
+
     it 'Can refer to a capture generator (parameters can be passed with () or {})' {
         Write-RegEx -Pattern '?<BalancedCode>{(}' |
             Use-RegEx -IsMatch -Match '({}' |
