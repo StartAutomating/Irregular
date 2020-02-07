@@ -93,7 +93,7 @@
                     $repl= $regex -replace $startsWithCapture, "(?<$($m.Groups['NewCaptureName'])>"
                     $repl.Substring(0, $repl.Length - 1)
                 } else {
-                    
+
                     "(?<$($m.Groups['NewCaptureName'].Value)>$regex$([Environment]::NewLine)"
                 }
             } else {
@@ -118,7 +118,7 @@
                     if ($_ -is [IO.FileInfo]) {
                         if ($_.Directory.Name -ne 'RegEx') {
                             $dirPart = ($_.Directory.FullName.Substring($importPath.Length) -replace '(?:\\|/)RegEx(?:\\|/)','')
-                            if (-not $dirPart) { $dirPart = $_.Directory.Name } 
+                            if (-not $dirPart) { $dirPart = $_.Directory.Name }
                             $dirPart + '_' + $_.Name -replace '\.regex\.txt$', ''
                         } else {
                             $_.Name -replace '\.regex\.txt$', ''
@@ -132,7 +132,7 @@
                 $description =
                     @(
                     if ($patternIn.Description) {
-                        $patternIn.Description   
+                        $patternIn.Description
                     }
                     for (;$c -lt $rxLines.Length;$c++) {
                         if ($rxLines[$c] -notlike '#*') { break }
@@ -156,7 +156,7 @@
                     if ($regex.IsPattern -as [bool] -and $SavedCaptureReferences.IsMatch($rx)) {
                         $firstReplaceTry = $savedCaptureReferences.Replace($rx, $replaceSavedCapture)
                         if ($firstReplaceTry -ne $rx -and -not $savedCaptureReferences.IsMatch($firstReplaceTry)) {
-                            $regex.Pattern = $firstReplaceTry 
+                            $regex.Pattern = $firstReplaceTry
                             $regex
                         } else {
                             $regex.Pattern  = if ($firstReplaceTry) { $firstReplaceTry } else { $rx }
@@ -204,10 +204,10 @@
                         if ($in.Directory.Name -eq 'RegEx') {
                             $n
                         } else {
-                            $dirPart = 
-                                ($in.Directory.FullName.Substring($importPath.Length) -replace 
+                            $dirPart =
+                                ($in.Directory.FullName.Substring($importPath.Length) -replace
                                 '(?:\\|/)RegEx(?:\\|/)','')
-                            if (-not $dirPart) { $dirPart = $in.Directory.Name } 
+                            if (-not $dirPart) { $dirPart = $in.Directory.Name }
                             $dirPart + '_' + $n
                         }
                     )
@@ -283,7 +283,7 @@
                         }
                     }
                 } else {
-                    $MyInvocation.MyCommand.ScriptBlock.File | Split-Path                    
+                    $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
                 }
             }
         #endregion Determine the Path List
@@ -297,7 +297,7 @@
             $p = "$p"
             if ([IO.Directory]::Exists($p) -or [IO.File]::Exists($p)) {
                 @(if ([IO.File]::Exists($p)) {
-                    
+
                     [IO.FileInfo]$p
                     $ImportPath = ([IO.FileInfo]$p).Directory.FullName
                 } elseif ([IO.Directory]::Exists($p)) {
