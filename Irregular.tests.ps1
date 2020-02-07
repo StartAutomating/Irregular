@@ -20,8 +20,8 @@ describe Get-Regex {
         Get-Regex -Name Digits -As String | should be '\d+'
     }
     it 'Can get a RegEx -As a File' {
-        Get-Regex -Name Digits -As File | 
-            Select-Object -ExpandProperty Name | 
+        Get-Regex -Name Digits -As File |
+            Select-Object -ExpandProperty Name |
             should be Digits.regex.txt
     }
     it 'Can get a RegEx -As a Pattern' {
@@ -191,7 +191,7 @@ describe Use-Regex {
                 Select-Object -First 1 |
                 should be key
         }
-    
+
         it 'Can -IncludeMatch with a -Split' {
             $k,$s, $v = "key:value" |?<Colon> -Split -IncludeMatch
             $s | should be ':'
@@ -200,7 +200,7 @@ describe Use-Regex {
         }
 
         it 'Will -Split -Count number of times' {
-             'key: value: with a colon' | 
+             'key: value: with a colon' |
                 ?<Colon> -Split -Count 1 -Trim |
                 Select-Object -First 1 -Skip 1 |
                 should be 'value: with a colon'
@@ -213,7 +213,7 @@ describe Use-Regex {
                 should be 'rkey'
         }
 
-        
+
     }
 
     context '-Until' {
@@ -232,10 +232,10 @@ describe Use-Regex {
             'key:value' |?<Colon> -Until -Measure -RightToLeft | should be 7
         }
     }
-    
-    
 
-    
+
+
+
 
     it 'Can make any RegEx -CaseSensitive' {
         Use-RegEx -Pattern 'param' -Match 'Param' -IsMatch -CaseSensitive | should be $false
@@ -271,8 +271,8 @@ describe Use-Regex {
 
     context 'Special Piping Behavior' {
         it 'Will match the contents if piped in a file' {
-            (Get-Command Write-RegEx | 
-                Select-Object -ExpandProperty ScriptBlock | 
+            (Get-Command Write-RegEx |
+                Select-Object -ExpandProperty ScriptBlock |
                 Select-Object -ExpandProperty File) -as [IO.FileInfo] |
             ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
@@ -281,8 +281,8 @@ describe Use-Regex {
         }
 
         it 'Will match the script contents if passed an external script' {
-            Get-Command ((Get-Command Write-RegEx | 
-                Select-Object -ExpandProperty ScriptBlock | 
+            Get-Command ((Get-Command Write-RegEx |
+                Select-Object -ExpandProperty ScriptBlock |
                 Select-Object -ExpandProperty File)) |
                 ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
@@ -291,7 +291,7 @@ describe Use-Regex {
         }
 
         it 'Will match the definition if passed a function' {
-            Get-Command Write-RegEx | 
+            Get-Command Write-RegEx |
                 ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
                 Select-Object -ExpandProperty Name |
@@ -492,7 +492,7 @@ describe Write-Regex {
             Use-RegEx -IsMatch -Match 1 |
             should be true
     }
-    
+
     it 'Can rename a saved capture (by putting (?<NewCaptureName>?<OldCaptureName>)' {
         Write-RegEx -Pattern '(?<MyDigits>?<Digits>)' |
             Use-RegEx -Extract -Match 1 |
@@ -511,6 +511,33 @@ describe Write-Regex {
             should belike *Write-Regex*
     }
 
+    context '-Between' {
+        it 'Makes it easy to match double quotes' {
+            Write-RegEx -Between '"' -Name InQuotes |
+                Use-RegEx -Extract -Match 'this is not in quotes. "This Is \"". This is not in quotes' |
+                Select-Object -ExpandProperty InQuotes |
+                should be 'This Is \"'
+        }
+
+        it 'Makes it easy to match single quotes' {
+            Write-RegEx -Between "'" -Name InQuotes -EscapeSequence "''" |
+                Use-RegEx -Extract -Match "this is not in quotes. 'This Is '''.  This is not in quotes" |
+                Select-Object -ExpandProperty InQuotes |
+                should be "This Is ''"
+        }
+
+        it 'Makes it easy to match block comments' {
+            Write-RegEx -Name BlockComment -Between '\<\#', '\#\>' -EscapeSequence '' |
+                Use-RegEx -Extract -Match @'
+1 <#BlockComment#>
+2
+'@ |
+                Select-Object -ExpandProperty BlockComment |
+                should be BlockComment
+
+        }
+    }
+
     it 'Can refer to a capture generator (parameters can be passed with () or {})' {
         Write-RegEx -Pattern '?<BalancedCode>{(}' |
             Use-RegEx -IsMatch -Match '({}' |
@@ -520,15 +547,17 @@ describe Write-Regex {
             Use-RegEx -IsMatch -Match '({}' |
             should be $true
     }
+
+
 }
 
 
 describe Export-RegEx {
     it 'Can Export a RegEx as a -Variable' {
         Export-RegEx -Name Digits -As Variable | should belike '$digits*=*\d+*'
-    }    
+    }
     it 'Can Export to a Path' {
-        
+
         if ($env:TEMP) {
             Export-RegEx -Name Digits -Path $env:TEMP
             Get-Content (Join-Path $env:TEMP 'Digits.regex.txt') -raw |
@@ -540,7 +569,7 @@ describe Export-RegEx {
             if ($env:TEMP) {
                 $exFile= (Join-Path $env:TEMP Digits.ps1)
                 Export-RegEx -Name Digits -Path $exFile -As Script
-                $exFileContent = Get-Content $exFile -Raw 
+                $exFileContent = Get-Content $exFile -Raw
                 $exFileContent|
                     should belike '*\d+*'
                 $exFileContent | should belike '*function UseRegex*'
@@ -549,12 +578,12 @@ describe Export-RegEx {
             }
         }
         it 'Can Export a Temporary Pattern' {
-        
+
             Import-RegEx -Pattern '(?<SomeMoreDigits>\d+)'
             Export-RegEx -Name SomeMoreDigits
-            $createdFile = Get-Module Irregular | 
-                Split-Path | 
-                Join-Path -Path { $_ } -ChildPath RegEx  | 
+            $createdFile = Get-Module Irregular |
+                Split-Path |
+                Join-Path -Path { $_ } -ChildPath RegEx  |
                 Get-ChildItem -Filter SomeMoreDigits.regex.txt
 
             $createdFile.Name | should be SomeMoreDigits.regex.txt
@@ -563,7 +592,7 @@ describe Export-RegEx {
     }
     if ($PSVersionTable.Platform -ne 'Unix') {
         it 'Will complain when passed a filepath and multiple names (if -As is file)' {
-            {            
+            {
                 Export-RegEx -Name Digits, OptionalWhitespace -Path "$env:TEMP\DigitsAndWhitespace.regex.txt" -ErrorAction Stop
             } | should throw
         }
@@ -571,13 +600,13 @@ describe Export-RegEx {
             it 'Can Export a RegEx as a -Script' {
                 $irregularPath = Get-Module Irregular | Split-Path
                 $ex = Export-RegEx -Name Digits -As Script
-                Get-Command Export-RegEx | 
-                    Select-Object -ExpandProperty Module| 
+                Get-Command Export-RegEx |
+                    Select-Object -ExpandProperty Module|
                     Remove-Module
-                iex $ex
+                . ([ScriptBlock]::Create($ex))
 
                 'abc123' |
-                    ?<Digits> | 
+                    ?<Digits> |
                     Select-Object -Property *
                 Import-Module $irregularPath
             }
@@ -588,12 +617,12 @@ describe Export-RegEx {
 describe 'Expressions' {
     context '?<EmailAddress>' {
         it 'Will extract an email and domain' {
-            'foo@bar.com' | 
+            'foo@bar.com' |
                 ?<EmailAddress> -Extract |
-                % { 
+                % {
                     $_.Username | should be foo
                     $_.Domain | should be bar.com
-                } 
+                }
         }
         it 'Will not match a psuedo-email' {
             'psued@oemail' | ?<EmailAddress>  |should be $null
@@ -603,9 +632,9 @@ describe 'Expressions' {
         it 'Will match a namespace' {
             $nsExtract = @'
 namespace MyNamespace {
-    public class foo() {} 
+    public class foo() {}
 }
-'@ | ?<Namespace> -Extract  
+'@ | ?<Namespace> -Extract
             $nsExtract.Content | should belike '{*foo()*}'
             $nsExtract.Name | should be MyNamespace
         }
@@ -615,17 +644,17 @@ namespace MyNamespace {
 describe 'Generators' {
     context '?<MultilineComment>' {
         it 'Will auto-detect comment types' {
-            Get-Module Irregular | 
-                Split-Path | 
-                Get-ChildItem -Recurse -Filter *.ps1 | 
+            Get-Module Irregular |
+                Split-Path |
+                Get-ChildItem -Recurse -Filter *.ps1 |
                 ?<MultilineComment> -Count 1 |
                 should belike '<#*#>'
         }
         it 'Will extract comments from a function' {
-            Get-Command Write-Regex | 
+            Get-Command Write-Regex |
                 ?<MultilineComment> -Count 1 |
                 should belike '<#*#>'
-        } 
+        }
     }
 }
 
@@ -640,7 +669,7 @@ describe Set-Regex {
             Use-RegEx -Pattern '?<Period>' -Match '.' -IsMatch | should be true
         }
 
- 
+
         it 'Will infer the name' {
             Set-Regex -Pattern '(?<Period>\.)' -Description 'A period' -Temporary
         }
@@ -654,21 +683,21 @@ describe Set-Regex {
 
             Write-RegEx '?<MathSymbol>' | should belike '*\p{Sm}*'
         }
-    
-        it 'Can accept the output of Write-Regex' { 
+
+        it 'Can accept the output of Write-Regex' {
             Write-RegEx -LiteralCharacter := -Name ColonOrEquals |
                 Set-Regex
-            Get-Module Irregular | 
-                Split-Path | 
-                Join-Path -ChildPath 'Regex' | 
-                Join-Path -ChildPath 'ColonOrEquals.regex.txt' | 
+            Get-Module Irregular |
+                Split-Path |
+                Join-Path -ChildPath 'Regex' |
+                Join-Path -ChildPath 'ColonOrEquals.regex.txt' |
                 Remove-Item
         }
     }
     it 'Can set a regex in an arbitrary path' {
         if ($env:TEMP) {
             Set-RegEx -Pattern '(?<Period>\.)' -Path $env:TEMP
-            Get-ChildItem -LiteralPath $env:temp -Filter Period.regex.txt | 
+            Get-ChildItem -LiteralPath $env:temp -Filter Period.regex.txt |
                 Select-Object -ExpandProperty Name |
                 should be Period.regex.txt
         } else {
