@@ -20,7 +20,7 @@
                 Write-RegEx -Pattern '"'
     .Example
         # A regular expression for an email address. ?<> is an alias for Write-Regex
-                
+
         ?<> -Name EmailAddress -Pattern (
             ?<> -CharacterClass Word |
             ?<> -LiteralCharacter -. -CharacterClass Word -Min 0
@@ -30,7 +30,7 @@
                 ?<> -CharacterClass Word |
                 ?<> -LiteralCharacter - -CharacterClass Word -Min 0 |
                 ?<> -LiteralCharacter . |
-                ?<> -CharacterClass Word -Min 1    
+                ?<> -CharacterClass Word -Min 1
             )
     .Example
         # Writes a pattern for multiline comments
@@ -78,11 +78,11 @@
         'NumberLetter' , '\p{Nl}',
         'NumberOther' , '\p{No}',
         'PunctuationConnector' , '\p{Pc}',
-        'PunctationDash' , '\p{Pd}',
-        'PunctationOpen' , '\p{Ps}',
-        'PunctationClose' , '\p{Pe}',
-        'PunctationInitialQuote' , '\p{Pi}',
-        'PunctationFinalQuote' , '\p{Pf}',
+        'PunctuationDash' , '\p{Pd}',
+        'PunctuationOpen' , '\p{Ps}',
+        'PunctuationClose' , '\p{Pe}',
+        'PunctuationInitialQuote' , '\p{Pi}',
+        'PunctuationFinalQuote' , '\p{Pf}',
         'PunctuationOther' , '\p{Po}',
         'Punctuation' , '\p{P}',
         'SymbolMath' ,'\p{Sm}',
@@ -270,6 +270,14 @@
     [TimeSpan]
     $TimeOut = '00:00:05',
 
+    # If provided, will match between a given string or pair of strings.
+    [string[]]
+    $Between,
+
+    # The escape sequence used with -Between.  By default, a slash
+    [string]
+    $EscapeSequence = '\\',
+
     # Named parameters.  These are only valid if the regex is using a Generator script.
     [Alias('Parameters')]
     [Collections.IDictionary]
@@ -358,23 +366,55 @@
     }
     process {
         $myParams = @{} + $PSBoundParameters
-        $myOrderedParams = [Ordered]@{} + $PSBoundParameters
         #region Generate RegEx
         $regex = . {
 
             $theOC = 0
-            
+
             if ($PrePattern) { # If we've been provided a pre-expression, this goes first.
                 $prePattern -join ''
             }
             if ($Description) {
                 if ($prePattern -and -not $prePattern[-1].EndsWith([Environment]::NewLine)) {
                     [Environment]::NewLine
-                } 
+                }
                 @(foreach ($l in $Description -split ([Environment]::NewLine)) {
                     "# $($l.TrimStart('#'))"
                 }) -join ([Environment]::NewLine)
                 [Environment]::NewLine
+            }
+
+            if ($Between) {
+                if ($between.Length -gt 2) {
+                    Write-Error 'Can pass only one or two -Between'
+                    return
+                }
+                $firstBetween, $secondBetween = $between
+                $escapePattern =
+                    if ($EscapeSequence) {
+                        if ($EscapeSequence -ne ($firstBetween * 2)) {
+                            "(?<!$escapeSequence)"
+                        } else {
+                            ''
+                        }
+
+                    } else { '' }
+
+                "(?:" + $escapePattern + $firstBetween
+
+                if (-not $pattern) {
+                    if (-not $secondBetween) {
+                        $secondBetween = $firstBetween
+                    }
+                    if ($escapeSequence -ne ($firstBetween * 2)) {
+                        $pattern = "(?:.|\s)+?(?=\z|${escapePattern}${secondBetween})"
+                    } else {
+
+                        $pattern = "(?:$escapeSequence|[^$firstBetween])*(?=\z|$secondBetween)"
+                    }
+
+                }
+                $theOC++
             }
 
             if ($Atomic) {
@@ -408,16 +448,16 @@
                     "\k<$backreference>"
                 }
             }
-            
+
             if ($Pattern) {
-                $Pattern = 
+                $Pattern =
                     foreach ($expr in $Pattern) { # Now handle any expressions they passed in.
                         $SavedCaptureReferences.Replace($expr, $replaceSavedCapture)
-                    }                    
+                    }
 
                 if ($Or -and $Pattern.Length -gt 1) { # (join multiples with | if -Of is passed)
                     "($($Pattern -join '|'))"
-                }                
+                }
                 elseif ($Not) { "\A((?!($($Pattern -join ''))).)*\Z" } # (create an antipattern if -Not is passed)
                 elseif ($pattern.Length -gt 1 -and # If more than one pattern was passed
                     ($repeat -or $greedy -or $lazy -or $optional -or ($min -ge 0))) { # and we're interested in repetitions
@@ -455,7 +495,7 @@
                 {
                     $charSet
                 }
-            }           
+            }
 
             if ($If -and $Then) { # If they passed us a coniditional, embed it
                 if ($Else) {
@@ -502,9 +542,16 @@
                 $cclookup[$endanchor]
             }
 
+            if ($between) {
+                $firstBetween, $secondBetween = $between
+                if (-not $secondBetween) { $secondBetween = $firstBetween }
+                ")${escapePattern}${secondBetween}"
+                $theOc--
+            }
+
             $hadToBeClosed = $false
-            for($n=0; $n -lt $theOc; $n++) {                
-                ')'; $hadToBeClosed =$true 
+            for($n=0; $n -lt $theOc; $n++) {
+                ')'; $hadToBeClosed =$true
             }
 
             if ($hadToBeClosed -and $optional) {
@@ -512,7 +559,7 @@
             }
 
 
-            
+
         }
 
         $regex = $regex -join ''

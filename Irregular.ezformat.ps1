@@ -29,15 +29,15 @@ $typesFile = @(
         LastGroup = { $this.Result('$+') }
         StartIndex = { $this.Index }
         EndIndex = { $this.Index + $this.Length }
-        Line = { 
+        Line = {
             [Regex]::new('(?>\r\n|\n|\A)', 'RightToLeft').Matches($this.Input, $this.Index).Count
         }
         Column = {
-            $this.Index - 
+            $this.Index -
                 $(
                     $m = [Regex]::new('(?>\r\n|\n|\A)', 'RightToLeft').Match($this.Input, $this.Index)
                     $m.Index + $m.Length
-                ) + 1                
+                ) + 1
         }
     } -ScriptMethod @{
         Peek= {param([int]$Length = 1)
