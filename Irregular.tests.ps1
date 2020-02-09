@@ -639,6 +639,16 @@ namespace MyNamespace {
             $nsExtract.Name | should be MyNamespace
         }
     }
+
+    context '?<REST_Variable>' {
+        it 'Will extract variables in a REST url string' {
+            $restMatches = ?<REST_Variable> -Match 'https://$server/[organization]/{project}?api-version=$apiVersion'
+            $restMatches[0].Value | should be '/$server'
+            $restMatches[1].Value | should be '/[organization]'
+            $restMatches[2].Value | should be '/{project}'
+            $restMatches[3].Value | should be '?api-version=$apiVersion'
+        }
+    }
 }
 
 describe 'Generators' {
