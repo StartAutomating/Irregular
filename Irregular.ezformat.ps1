@@ -62,7 +62,9 @@ $typesFile = @(
 $formatting = @(
     Write-FormatView -TypeName System.Text.RegularExpressions.Match -Property Success, StartIndex, EndIndex, Value -Wrap -AutoSize
     Write-FormatView -TypeName Irregular.Regular.Expression -Property Pattern, IsValid, Options -Wrap -AutoSize
-    Write-FormatView -TypeName Irregular.Regex -Property Name, Description -Wrap -AutoSize
+
+
+
     Write-FormatView -TypeName Irregular.Regex.Output -Action {
 
 $out = $_
@@ -122,11 +124,17 @@ Output Text:"
 Write-Host $out.Output
 }
     }
+
+    foreach ($potentialDirectory in 'Formatting','Views') {
+        Join-Path $myRoot $potentialDirectory |
+            Get-ChildItem -ea silent |
+            Import-FormatView -FilePath {$_.Fullname}
+    }
 )
 
 
 
 $myFormatFile = Join-Path $myRoot "$myModuleName.format.ps1xml"
-$formatting | Out-FormatData | Set-Content $myFormatFile -Encoding UTF8
+$formatting | Out-FormatData -ModuleName Irregular | Set-Content $myFormatFile -Encoding UTF8
 $myTypesFile = Join-Path $myRoot "$myModuleName.types.ps1xml"
 $typesFile | Out-TypeData | Set-Content $myTypesFile -Encoding UTF8

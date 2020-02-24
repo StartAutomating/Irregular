@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-16"?>
+<!-- Generated with EZOut 1.6: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
 <Configuration>
   <ViewDefinitions>
     <View>
@@ -66,34 +67,6 @@
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Options</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>Irregular.Regex</Name>
-      <ViewSelectedBy>
-        <TypeName>Irregular.Regex</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <AutoSize />
-        <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <Wrap />
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Name</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Description</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -175,5 +148,445 @@ Write-Host $out.Output
         </CustomEntries>
       </CustomControl>
     </View>
+    <View>
+      <Name>Irregular.Regex</Name>
+      <ViewSelectedBy>
+        <TypeName>Irregular.Regex</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>Irregular.Regex</Name>
+      <ViewSelectedBy>
+        <TypeName>Irregular.Regex</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Description</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <Name>System.Text.RegularExpressions.RegEx</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Text.RegularExpressions.RegEx</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>$moduleName = 'Irregular'
+do {
+    $lm = Get-Module -Name $moduleName -ErrorAction Ignore
+    if ($lm.FormatPartsLoaded) { break }    
+    $wholeScript = @(foreach ($formatFilePath in $lm.exportedFormatFiles) {         
+        foreach ($partNodeName in Select-Xml -LiteralPath $formatFilePath -XPath "/Configuration/Controls/Control/Name[starts-with(., '$')]") {
+            $ParentNode = $partNodeName.Node.ParentNode
+            "$($ParentNode.Name)={
+$($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBinding.ScriptBlock)}"
+        }
+    }) -join [Environment]::NewLine
+    New-Module -Name "${ModuleName}.format.ps1xml" -ScriptBlock ([ScriptBlock]::Create(($wholeScript + ';Export-ModuleMember -Variable *'))) |
+        Import-Module -Global
+    $onRemove = [ScriptBlock]::Create("Remove-Module '${ModuleName}.format.ps1xml'")
+    if (-not $lm.OnRemove) {
+        $lm.OnRemove = $onRemove
+    } else {
+        $lm.OnRemove = [ScriptBlock]::Create($onRemove.ToString() + ''  + [Environment]::NewLine + $lm.OnRemove)
+    }
+    $lm | Add-Member NoteProperty FormatPartsLoaded $true -Force
+} while ($false)
+
+
+    $pattern = "$($_.Pattern)"
+    @(for ($i = 0; $i -lt $pattern.Length; $i++) {
+        if ($pattern[$i -1] -eq '\') { 
+            if ($pattern[$i -2] -ne '\' -or ($pattern[$i -2] -eq '\' -and $pattern[$i -3] -eq '\')) {
+                . $Irregular_encodeOutput $pattern[$i]; 
+                continue
+            }
+        } 
+        if ($i -and $pattern[$i] -eq '?' -and $pattern[$i + 1] -eq '&lt;' -and $pattern[$i + 2] -match '[\w\-]') {
+            # Group name
+            . $Irregular_SetOutputStyle -ForegroundColor Irregular.Regex.GroupName
+            $nameEnd = $pattern.IndexOf('&gt;', $i)
+            . $Irregular_encodeOutput $pattern.Substring($i, 2)
+            . $Irregular_SetOutputStyle -Underline
+            . $Irregular_encodeOutput $pattern.Substring($i + 2, $nameEnd - ($i + 2))
+            . $Irregular_ClearOutputStyle -Underline
+            $i = $nameEnd
+            . $Irregular_encodeOutput '&gt;'
+            . $Irregular_ClearOutputStyle -ForegroundColor
+            continue 
+        }
+
+        if ('(',')','[',']' -contains $pattern[$i]) {
+            # Grouping paranthesis
+            . $Irregular_SetOutputStyle -ForegroundColor Irregular.Regex.Group -Bold
+            . $Irregular_encodeOutput $pattern[$i]
+            . $Irregular_ClearOutputStyle
+            continue
+        }
+
+        if ('|','?','&lt;','&gt;','!' -contains $pattern[$i]) {
+            . $Irregular_SetOutputStyle -ForegroundColor Irregular.Regex.Operator -Bold
+            . $Irregular_encodeOutput $pattern[$i]
+            . $Irregular_ClearOutputStyle
+            continue
+        }
+
+        if ($pattern[$i] -eq '#') {
+            . $Irregular_SetOutputStyle -ForegroundColor Irregular.Regex.Comment
+            $lineEnd = $pattern.IndexOfAny([Environment]::NewLine.ToCharArray(), $i)
+            if (($lineEnd - $i) -gt 0) { 
+                . $Irregular_encodeOutput $pattern.Substring($i, $lineEnd -$i)            
+                $i = $lineEnd - 1
+                
+            } else {
+                . $Irregular_encodeOutput $pattern.Substring($i)
+                $i = $pattern.Length
+            }
+            . $Irregular_ClearOutputStyle
+            continue
+        }
+        
+        
+        . $Irregular_encodeOutput $pattern[$i]
+    }) -join ''
+
+</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <Name>System.Text.RegularExpressions.RegEx</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Text.RegularExpressions.RegEx</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>GroupNames</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Pattern</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Options</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>MatchTimeout</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <Name>System.Text.RegularExpressions.RegEx</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Text.RegularExpressions.RegEx</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Pattern</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>GroupNames</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
   </ViewDefinitions>
+  <Controls>
+    <Control>
+      <Name>$Irregular_encodeOutput</Name>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>&lt;#
+.Synopsis
+    Encodes output (if required)
+.Description
+    Encodes output, if required by the host.
+
+    If a $request variable is present, or $host.UI.SupportsHTML, each argument will be HTML encoded.
+    Otherwise, each argument will be passed thru.
+.Notes
+    IsFormatPart: true
+#&gt;
+param()
+if ($request -or $Host.UI.SupportsHTML) 
+{
+    foreach ($a in $args) {
+        [Net.WebUtility]::HtmlEncode("$a")
+    }
+}
+else 
+{
+    foreach ($a in $args) {
+        $a
+    }
+}</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </Control>
+    <Control>
+      <Name>$Irregular_SetOutputStyle</Name>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>&lt;#
+.Synopsis
+    Adds style to a format output
+.Description
+    Adds style information to a format output, including:
+
+    * ForegroundColor
+    * BackgroundColor
+    * Bold
+    * Underline
+.Notes
+    Stylized Output works in two contexts at present:
+    * Rich consoles (Windows Terminal, PowerShell.exe, Pwsh.exe) (when $host.UI.SupportsVirtualTerminal)
+    * Web pages (Based off the presence of a $Request variable, or when $host.UI.SupportsHTML (you must add this property to $host.UI))
+
+    IsFormatPart: true
+#&gt;
+param(
+[string]$ForegroundColor,
+[string]$BackgroundColor,
+[switch]$Bold,
+[switch]$Underline,
+[switch]$Invert
+)
+
+$canUseANSI = $host.UI.SupportsVirtualTerminal
+$canUseHTML = $Request -or $host.UI.SupportsHTML
+if (-not ($canUseANSI -or $canUseHTML)) { return }
+
+$n =0
+$styleAttributes =
+    @(foreach ($hc in $ForegroundColor,$BackgroundColor) {
+        $n++
+        if (-not $hc) { continue }
+        if ($hc[0] -eq [char]0x1b) {
+            if ($canUseANSI) { 
+                $hc; continue
+            }
+        }
+        if ($hc -and -not $hc.StartsWith('#')) {
+            $placesToLook=
+                @(if ($hc.Contains('.')) {
+                    $module, $setting = $hc -split '\.', 2
+                    $theModule = Get-Module $module
+                    $theModule.PrivateData.Color,
+                        $theModule.PrivateData.Colors,
+                        $theModule.PrivateData.Colour,
+                        $theModule.PrivateData.Colours,
+                        $theModule.PrivateData.EZOut,
+                        $global:PSColors,
+                        $global:PSColours
+                } else {
+                    $setting = $hc
+                    $moduleColorSetting = $theModule.PrivateData.PSColors.$setting
+                })
+
+            foreach ($place in $placesToLook) {
+                if (-not $place) { continue }
+                foreach ($propName in $setting -split '\.') {
+                    $place = $place.$propName
+                    if (-not $place) { break }
+                }
+                if ($place -and "$place".StartsWith('#') -and 4,7 -contains "$place".Length) {
+                    $hc = $place
+                    continue
+                }
+            }
+            if (-not $hc.StartsWith -or -not $hc.StartsWith('#')) {
+                continue
+            }
+        }
+        $r,$g,$b = if ($hc.Length -eq 7) {
+            [int]::Parse($hc[1..2]-join'', 'HexNumber')
+            [int]::Parse($hc[3..4]-join '', 'HexNumber')
+            [int]::Parse($hc[5..6] -join'', 'HexNumber')
+        }elseif ($hc.Length -eq 4) {
+            [int]::Parse($hc[1], 'HexNumber') * 16
+            [int]::Parse($hc[2], 'HexNumber') * 16
+            [int]::Parse($hc[3], 'HexNumber') * 16
+        }
+
+        if ($canUseHTML) {
+            if ($n -eq 1) { "color:$hc" }
+            elseif ($n -eq 2) { "background-color:$hc"} 
+        }
+        elseif ($canUseANSI) {
+            if ($n -eq 1) { [char]0x1b+"[38;2;$r;$g;${b}m" }
+            elseif ($n -eq 2) { [char]0x1b+"[48;2;$r;$g;${b}m" }
+        }
+        
+    })
+
+
+if ($Bold) {
+    $styleAttributes += 
+        if ($canUseHTML) {
+            "font-weight:bold"
+        }
+        elseif ($canUseANSI) 
+        {
+            [char]0x1b + "[1m"
+        }
+}
+
+if ($Underline) {
+    $styleAttributes += 
+        if ($canUseHTML) {
+            "text-decoration:underline"
+        } elseif ($canUseANSI) {
+            [char]0x1b + "[4m"
+        }
+}
+
+if ($Invert) {
+    $styleAttributes += 
+        if ($canUseHTML) {
+            "filter:invert(100%)"
+        } elseif ($canUseANSI) {
+            [char]0x1b + "[7m"            
+        }
+}
+
+if ($canUseHTML) {
+    "&lt;span style='$($styleAttributes -join ';')'&gt;"
+} elseif ($canUseANSI) {
+    $styleAttributes -join ''
+}</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </Control>
+    <Control>
+      <Name>$Irregular_ClearOutputStyle</Name>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>&lt;#
+.Synopsis
+    Clears the output style
+.Description
+    Clears ANSI output style or closes the most recent span element.
+
+    ANSI stylization can be toggled off individually (for instance, to stop applying an -Underline but leave the color unchanged)
+.Notes
+    IsFormatPart: true
+#&gt;
+param(
+# If set, will explicitly clear ANSI Bold
+[switch]
+$Bold,
+# If set, will explicitly clear ANSI Underline
+[switch]
+$Underline,
+# If set, will explicitly clear ANSI Invert
+[switch]
+$Invert,
+# If set, will explicitly clear ANSI Foreground Color
+[switch]
+$ForegroundColor,
+# If set, will explicitly clear ANSI Background Color
+[switch]
+$BackgroundColor
+)
+@(if ($request -or $host.UI.SupportsHTML) {
+    "&lt;/span&gt;"
+} elseif ($Host.UI.SupportsVirtualTerminal) {
+    if ($Underline) {
+        [char]0x1b + "[24m"
+    }
+    if ($Bold) {        
+        [char]0x1b + "[21m"
+    }
+    if ($Invert) {
+        [char]0x1b + '[27m'
+    }
+    if ($ForegroundColor) {
+        [char]0x1b + '[39m'
+    }
+    if ($BackgroundColor) {
+        [char]0x1b + '[49m'
+    }
+
+    if (-not ($Underline -or $Bold -or $Invert -or $ForegroundColor -or $BackgroundColor)) {
+        [char]0x1b + '[0m'
+    }
+    
+}) -join ''</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </Control>
+  </Controls>
 </Configuration>
