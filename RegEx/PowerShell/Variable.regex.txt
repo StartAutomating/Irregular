@@ -1,0 +1,12 @@
+# Matches a PowerShell Variable
+(?<![`])                                                # Do not match if preceeded by a backtick (gotta allow for escape sequences)
+# A PowerShell Variable Can Be Either:
+(?>(                                                    # A Splatted Variable:
+(?<IsSplat>\@)                                          # Which is an at sign
+(?<Variable>\w+)                                        # Followed by a <Variable> (any number of repeated word characters)
+|                                                       # Or Regular Variable,
+\$                                                      # Which starts with a dollar sign
+((?<Variable>\w+)                                       # Followed by a <Variable> (any number of repeated word characters)
+|                                                       # Or a <Variable> enclosed in curly brackets
+(?:(?<!`){(?<Variable>(?:.|\s)*?(?=\z|(?<!`)}))(?<!`)}) # using backtick as an escape
+)))
