@@ -231,12 +231,12 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
 
     $pattern = "$($_.Pattern)"
     @(for ($i = 0; $i -lt $pattern.Length; $i++) {
-        if ($pattern[$i -1] -eq '\') { 
+        if ($pattern[$i -1] -eq '\') {
             if ($pattern[$i -2] -ne '\' -or ($pattern[$i -2] -eq '\' -and $pattern[$i -3] -eq '\')) {
-                . $Irregular_encodeOutput $pattern[$i]; 
+                . $Irregular_encodeOutput $pattern[$i];
                 continue
             }
-        } 
+        }
         if ($i -and $pattern[$i] -eq '?' -and $pattern[$i + 1] -eq '&lt;' -and $pattern[$i + 2] -match '[\w\-]') {
             # Group name
             . $Irregular_SetOutputStyle -ForegroundColor Irregular.Regex.GroupName
@@ -248,7 +248,7 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
             $i = $nameEnd
             . $Irregular_encodeOutput '&gt;'
             . $Irregular_ClearOutputStyle -ForegroundColor
-            continue 
+            continue
         }
 
         if ('(',')','[',']' -contains $pattern[$i]) {
@@ -269,10 +269,10 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
         if ($pattern[$i] -eq '#') {
             . $Irregular_SetOutputStyle -ForegroundColor Irregular.Regex.Comment
             $lineEnd = $pattern.IndexOfAny([Environment]::NewLine.ToCharArray(), $i)
-            if (($lineEnd - $i) -gt 0) { 
-                . $Irregular_encodeOutput $pattern.Substring($i, $lineEnd -$i)            
+            if (($lineEnd - $i) -gt 0) {
+                . $Irregular_encodeOutput $pattern.Substring($i, $lineEnd -$i)
                 $i = $lineEnd - 1
-                
+
             } else {
                 . $Irregular_encodeOutput $pattern.Substring($i)
                 $i = $pattern.Length
@@ -280,8 +280,8 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
             . $Irregular_ClearOutputStyle
             continue
         }
-        
-        
+
+
         . $Irregular_encodeOutput $pattern[$i]
     }) -join ''
 
