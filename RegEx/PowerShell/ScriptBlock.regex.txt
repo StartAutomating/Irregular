@@ -20,23 +20,11 @@ param?<BalancedCode>{(}
 )?
 (?:
     \s{0,}
-    (?<BeginBlock>begin\s{0,}
-    (?<BeginScriptBlock>?<BalancedCode>({)))
+    (?<NamedBlock>(?:begin|dynamicParam|process|end)\s{0,}
+    (?<NamedScriptBlock>?<BalancedCode>({)))
     \s{0,}
 )?
-(?:
-    \s{0,}
-    (?<ProcessBlock>process\s{0,}
-    (?<ProcessScriptBlock>?<BalancedCode>({)))
-    \s{0,}
-)?
-(?:
-    \s{0,}
-    (?<EndBlock>end\s{0,}
-        (?<EndScriptBlock>?<BalancedCode>({)))
-    \s{0,}
-)?
-(?(BeginBlock|ProcessBlock|EndBlock) # If we have a begin, process, or end
+(?(NamedBlock) # If we have a begin, process, or end
     (?:\}) # then match but don't capture the closing }
     | # otherwise, assume we're in an end block
     (?<EndBlock> # An open bracket

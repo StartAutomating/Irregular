@@ -1,18 +1,23 @@
-﻿# Matches URL segments and query strings containing variables.  Variables can be enclosed in brackets or curly braces, or preceeded by a $
-(?> 
-    (?<Start>/)  # Match the <Start>ing slash ...
+﻿# Matches URL segments and query strings containing variables.
+# Variables can be enclosed in brackets or curly braces, or preceeded by a $ or :
+(?>                           # A variable can be in a URL segment or subdomain
+    (?<Start>[/\.])           # Match the <Start>ing slash|dot ...
+    (?<IsOptional>\?)?        # ... an optional ? (to indicate optional) ...
     (?:          
         \{(?<Variable>\w+)\}| # ... A <Variable> name in {} OR
-        \[(?<Variable>\w+)\]|  #     A <Variable> name in [] OR
-        \$(?<Variable>\w+)    #     A $ followed by a <Variable> 
+        \[(?<Variable>\w+)\]| #     A <Variable> name in [] OR
+        \$(?<Variable>\w+)  | #     A $ followed by a <Variable> OR
+        \:(?<Variable>\w+)    #     A : followed by a <Variable>
     )    
-| # OR it can be in a query parameter:
-    (?<Start>[?&])    # Match The <Start>ing ? or & ...
-    (?<Query>[\w\-]+) # ... the <Query> parameter name ... 
-    =                 # ... an equals ...
+|                             # OR it can be in a query parameter:
+    (?<Start>[?&])            # Match The <Start>ing ? or & ...
+    (?<Query>[\w\-]+)         # ... the <Query> parameter name ... 
+    =                         # ... an equals ...
+    (?<IsOptional>\?)?        # ... an optional ? (to indicate optional) ...
     (?:               
         \{(?<Variable>\w+)\}| # ... A <Variable> name in {} OR
-        \[(?<Variable>\w+)\]|  #     A <Variable> name in [] OR
-        \$(?<Variable>\w+)    #     A $ followed by a <Variable>
+        \[(?<Variable>\w+)\]| #     A <Variable> name in [] OR
+        \$(?<Variable>\w+)  | #     A $ followed by a <Variable> OR
+        \:(?<Variable>\w+)    #     A : followed by a <Variable>
     )
 )

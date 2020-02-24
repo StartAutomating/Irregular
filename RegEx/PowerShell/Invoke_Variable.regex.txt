@@ -1,0 +1,9 @@
+# Matches any time a variable is invoked (with the . or & operator)
+(?<![\w\)`])                                            # If the text before the invoke is a word, closing paranthesis, or backtick, do not match
+(?<CallOperator>[\.\&])                                 # Match the <CallOperator> (either a . or a &)
+\s{0,}                                                  # Followed by Optional Whitespace
+\$                                                      # Followed by a Dollar Sign
+((?<Variable>\w+)                                       # Followed by a <Variable> (any number of repeated word characters)
+|                                                       # Or a <Variable> enclosed in curly brackets
+(?:(?<!`){(?<Variable>(?:.|\s)*?(?=\z|(?<!`)}))(?<!`)}) # using backtick as an escape
+)

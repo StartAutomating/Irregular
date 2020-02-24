@@ -649,6 +649,63 @@ namespace MyNamespace {
             $restMatches[3].Value | should be '?api-version=$apiVersion'
         }
     }
+
+    $rootDir = $PSScriptRoot
+    foreach ($file in Get-ChildItem $rootDir -Recurse) {
+        if ($file.name -notlike '*.regex.input*') {
+            continue
+        }
+
+        $regexName, $restOfName = $file.name -split '\.regex\.input', 2
+        $specificInput =
+            if ($restOfName -match '\.(?<Number>\d+)\.') {
+                $extension = $restOfName -replace '\.(?<Number>\d+)\.', ''
+                $matches.Number
+            } else {
+                $extension =  $restOfName
+                ''
+            }
+        $outputFile =
+            $(foreach ($siblingFile in $file.directory.EnumerateFiles()) {
+                if ($siblingFile -notlike '*.regex.output*') {
+                    continue
+                }
+                $siblingFile = [IO.FileInfo]$siblingFile
+                $siblingFileName, $restofSiblingFile = $siblingFile.name -split '\.regex\.output', 2
+                if ($siblingFileName -ne $regexName) { continue }
+                if ($specificInput -and $siblingFileName -notlike "*.$specificInput.*") { continue }
+                $siblingFile;break
+            })
+
+        $regexFullName =
+            if ($file.Directory.Name -ne 'Regex') {
+                '?<' + $file.Directory.Name + "_" + $regexName + '>'
+            } else {
+                "?<$regexName>"
+            }
+
+
+        $testScriptBlock =  ([ScriptBlock]::Create(@"
+`$inputFile = '$($file.FullName.Replace("'","''"))'
+`$outputFile = '$($outputFile.FullName.Replace("'","''"))'
+`$regexResult = Get-Item -LiteralPath `$inputFile | $regexFullName
+`$regexResult | should not be `$null
+"@+ {
+    if (-not $outputFile) { return }
+    $outputFileInfo = [IO.FileInfo]$outputFile
+    $outputFileContent = [IO.File]::ReadAllText($outputFile)
+    foreach ($item in $regexResult) {
+        $outputFileContent | should belike "*$($item)*"
+    }
+}))
+
+
+        it "$regexFullName" $testScriptBlock
+
+
+    }
+
+
 }
 
 describe 'Generators' {
@@ -657,6 +714,7 @@ describe 'Generators' {
             Get-Module Irregular |
                 Split-Path |
                 Get-ChildItem -Recurse -Filter *.ps1 |
+                Select-Object -First 1 |
                 ?<MultilineComment> -Count 1 |
                 should belike '<#*#>'
         }
