@@ -278,6 +278,11 @@
     [string]
     $EscapeSequence = '\\',
 
+    # If set, comments in the regular expression will not be normalized.
+    # By default, all comments that do not start on the beginning are normalized to start at the same column.
+    [switch]
+    $Denormalized,
+
     # Named parameters.  These are only valid if the regex is using a Generator script.
     [Alias('Parameters')]
     [Collections.IDictionary]
@@ -407,7 +412,7 @@
                         $secondBetween = $firstBetween
                     }
                     if ($escapeSequence -ne ($firstBetween * 2)) {
-                        $pattern = "(?:.|\s)+?(?=\z|${escapePattern}${secondBetween})"
+                        $pattern = "(?:.|\s)*?(?=\z|${escapePattern}${secondBetween})"
                     } else {
 
                         $pattern = "(?:$escapeSequence|[^$firstBetween])*(?=\z|$secondBetween)"
@@ -568,6 +573,50 @@
             $regex += " # $($comment -replace '\#', '')
 "
         }
+
+        if (-not $Denormalized) {
+            $regexLines = $regex -split '(?>\r\n|\n)'
+            $commentIndeces = 
+                foreach ($l in $regexLines) {                
+                    if ($l.Contains('#')) {
+                        $commentIndex = $l.IndexOf('#')
+                        if ($commentIndex -eq 0) {
+                            # Not important for normalization
+                        } elseif ($l[$commentIndex - 1] -ne '\') {
+                            # As long as the comment is not escaped
+                            $commentIndex 
+                        }
+                    }
+                }
+            
+            foreach ($ci in $commentIndeces) {
+                if ($ci -gt $max) {$max  = $ci } 
+            }
+            
+            $regex = 
+                @(foreach ($l in $regexLines) {                
+                    if ($l.Contains('#')) {
+                        $commentIndex = $l.IndexOf('#')
+                        if ($commentIndex -eq 0) {
+                            # Not important for normalization
+                            $l
+                        } elseif ($l[$commentIndex - 1] -ne '\') {
+                            # As long as the comment is not escaped
+                            $l.Substring(0, $commentIndex) + $(
+                                ' ' * ($max - $commentIndex)
+                            ) + $l.Substring($commentIndex)
+
+                        } else {
+                            $l
+                        }
+                    } else {
+                        $l
+                    }
+                }) -join [Environment]::NewLine
+            
+
+
+        } 
 
         #endregion Generate RegEx
 

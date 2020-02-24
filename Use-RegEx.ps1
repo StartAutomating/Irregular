@@ -168,7 +168,7 @@
     [PSObject[]]$ArgumentList = @()
     )
 
-    begin {
+    dynamicParam {
         # If we didn't have a regex library, create one.
         if (-not $script:_RegexLibrary) { $script:_RegexLibrary = @{} }
 
@@ -182,7 +182,33 @@
 
         # Find the regex in the library.
         $regex = $script:_RegexLibrary[$mySafeName]
+        $DynamicParameterNames = @()
+        if ($regex -isnot [Management.Automation.ExternalScriptInfo]) {             
+            return 
+        }
+        $generator = $regex
+        $generatorMetaData = [Management.Automation.CommandMetaData]$generator
+        $DynamicParameters = [Management.Automation.RuntimeDefinedParameterDictionary]::new()
+        foreach ($kv in $generatorMetaData.Parameters.GetEnumerator()) {
+            $DynamicParameters.Add($kv.Key, 
+                [Management.Automation.RuntimeDefinedParameter]::new(
+                    $kv.Value.Name, $kv.Value.ParameterType, $kv.Value.Attributes
+                )
+            )
+        }
+        $DynamicParameterNames = $DynamicParameters.Keys -as [string[]]
+        return $DynamicParameters
+        
+    }
 
+    begin {
+        if ($DynamicParameterNames) {
+            foreach ($dynamicParameterName in $DynamicParameterNames) {
+                if ($PSBoundParameters.ContainsKey($DynamicParameterName)) {
+                    $Parameter[$dynamicParameterName] = $PSBoundParameters[$dynamicParameterName]
+                }
+            }
+        }
         # Now figure out if we'll be extracting later
         $isExtracting =
             $MyInvocation.InvocationName -eq '.' -or
