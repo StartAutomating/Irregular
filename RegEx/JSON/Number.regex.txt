@@ -1,1 +1,2 @@
-﻿?<Decimals>
+﻿# Matches a JSON Number
+?<Decimals>
