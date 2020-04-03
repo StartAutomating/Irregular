@@ -9,5 +9,7 @@
 (?=(?<!\\)")# a closing quote (as long as it's not preceeded by a \) 
 )
 (?:         # Match but don't store:
-"\s{0,}\:   # a double-quote, optional whitespace, and a :
+"\s{0,}     # a double-quote, optional whitespace:
 )
+:
+?<JSON_Value>
