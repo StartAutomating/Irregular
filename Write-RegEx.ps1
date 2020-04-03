@@ -576,25 +576,25 @@
 
         if (-not $Denormalized) {
             $regexLines = $regex -split '(?>\r\n|\n)'
-            $commentIndeces = 
-                foreach ($l in $regexLines) {                
+            $commentIndeces =
+                foreach ($l in $regexLines) {
                     if ($l.Contains('#')) {
                         $commentIndex = $l.IndexOf('#')
                         if ($commentIndex -eq 0) {
                             # Not important for normalization
                         } elseif ($l[$commentIndex - 1] -ne '\') {
                             # As long as the comment is not escaped
-                            $commentIndex 
+                            $commentIndex
                         }
                     }
                 }
-            
+
             foreach ($ci in $commentIndeces) {
-                if ($ci -gt $max) {$max  = $ci } 
+                if ($ci -gt $max) {$max  = $ci }
             }
-            
-            $regex = 
-                @(foreach ($l in $regexLines) {                
+
+            $regex =
+                @(foreach ($l in $regexLines) {
                     if ($l.Contains('#')) {
                         $commentIndex = $l.IndexOf('#')
                         if ($commentIndex -eq 0) {
@@ -613,10 +613,10 @@
                         $l
                     }
                 }) -join [Environment]::NewLine
-            
 
 
-        } 
+
+        }
 
         #endregion Generate RegEx
 
