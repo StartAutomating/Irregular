@@ -1,5 +1,5 @@
 ﻿Write-FormatView -TypeName System.Text.RegularExpressions.RegEx -Action {
-    $pattern = "$($_.Pattern)"
+    $pattern = "$($_.ToString())"
     @(for ($i = 0; $i -lt $pattern.Length; $i++) {
         if ($pattern[$i -1] -eq '\') {
             if ($pattern[$i -2] -ne '\' -or ($pattern[$i -2] -eq '\' -and $pattern[$i -3] -eq '\')) {
@@ -59,4 +59,4 @@
 
 Write-FormatView -TypeName System.Text.RegularExpressions.RegEx -Property GroupNames, Pattern, Options, MatchTimeout -AsList
 
-Write-FormatView -TypeName System.Text.RegularExpressions.RegEx -Property Pattern, GroupNames -AutoSize
+Write-FormatView -TypeName System.Text.RegularExpressions.RegEx -Property Pattern, GroupNames -Wrap

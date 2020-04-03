@@ -183,14 +183,14 @@
         # Find the regex in the library.
         $regex = $script:_RegexLibrary[$mySafeName]
         $DynamicParameterNames = @()
-        if ($regex -isnot [Management.Automation.ExternalScriptInfo]) {             
-            return 
+        if ($regex -isnot [Management.Automation.ExternalScriptInfo]) {
+            return
         }
         $generator = $regex
         $generatorMetaData = [Management.Automation.CommandMetaData]$generator
         $DynamicParameters = [Management.Automation.RuntimeDefinedParameterDictionary]::new()
         foreach ($kv in $generatorMetaData.Parameters.GetEnumerator()) {
-            $DynamicParameters.Add($kv.Key, 
+            $DynamicParameters.Add($kv.Key,
                 [Management.Automation.RuntimeDefinedParameter]::new(
                     $kv.Value.Name, $kv.Value.ParameterType, $kv.Value.Attributes
                 )
@@ -198,7 +198,7 @@
         }
         $DynamicParameterNames = $DynamicParameters.Keys -as [string[]]
         return $DynamicParameters
-        
+
     }
 
     begin {
