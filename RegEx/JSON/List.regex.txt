@@ -1,0 +1,11 @@
+﻿# A JSON List
+(?>
+    \[\s{1,}\]                  # An open bracket
+    |
+    \[
+        (?:
+            ?<JSON_Value>
+            (?:,)?
+        ){1,}
+    \]
+)

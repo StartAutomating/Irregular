@@ -6,3 +6,9 @@
     |                             # Or it can be
     (?:\.(?<Mantissa>\d+))        # just a Mantissa      
 ))
+(?:
+    E
+    (?<Exponent>
+        [+-]\d+
+    )
+)?
