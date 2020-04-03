@@ -1,0 +1,22 @@
+﻿# Matches a JSON list separator
+(?:
+    (?<=\]) # Lookbehind for a ]
+    \s{0,}  # Match preceeding whitespace
+    ,       # Match the comma
+    \s{0,}  # Match following whitespace
+    (?=\[)  # Lookahead  for a [
+)|
+(?:
+    (?<=\})
+    \s{0,}
+    ,
+    \s{0,}
+    (?=\{)
+)|
+(?:
+    (?<=")
+    \s{0,}
+    ,
+    \s{0,}
+    (?=")
+)
