@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-16"?>
-<!-- Generated with EZOut 1.6: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
+<!-- Generated with EZOut 1.8: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
 <Configuration>
   <ViewDefinitions>
     <View>
@@ -229,7 +229,7 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
 } while ($false)
 
 
-    $pattern = "$($_.Pattern)"
+    $pattern = "$($_.ToString())"
     @(for ($i = 0; $i -lt $pattern.Length; $i++) {
         if ($pattern[$i -1] -eq '\') {
             if ($pattern[$i -2] -ne '\' -or ($pattern[$i -2] -eq '\' -and $pattern[$i -3] -eq '\')) {
@@ -324,7 +324,6 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
         <TypeName>System.Text.RegularExpressions.RegEx</TypeName>
       </ViewSelectedBy>
       <TableControl>
-        <AutoSize />
         <TableHeaders>
           <TableColumnHeader>
           </TableColumnHeader>
@@ -333,6 +332,7 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
+            <Wrap />
             <TableColumnItems>
               <TableColumnItem>
                 <PropertyName>Pattern</PropertyName>
@@ -430,7 +430,7 @@ $styleAttributes =
                 $hc; continue
             }
         }
-        if ($hc -and -not $hc.StartsWith('#')) {
+        if ($hc -and -not $hc.StartsWith('#')) { 
             $placesToLook=
                 @(if ($hc.Contains('.')) {
                     $module, $setting = $hc -split '\.', 2
