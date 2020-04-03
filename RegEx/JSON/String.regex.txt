@@ -1,0 +1,4 @@
+﻿# Matches a JSON string
+"                         # an open quote  
+.*?                       # followed by anything   
+(?=(?<!\\)")              # until the closing quote
