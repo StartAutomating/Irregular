@@ -175,22 +175,22 @@
         $myInv = $MyInvocation
         # Then, determine what the name of the pattern in the library would be.
         $mySafeName =
-            if ('.', '&' -contains $myInv.InvocationName -and 
+            if ('.', '&' -contains $myInv.InvocationName -and
                 (
-                    $myInv.Line.Substring($MyInvocation.OffsetInLine) -match 
+                    $myInv.Line.Substring($MyInvocation.OffsetInLine) -match
                     '^\s{0,}\?\<(?<Name>\w+)\>'
                 ) -or (
                     $myInv.Line.Substring($MyInvocation.OffsetInLine) -match
-                    '^\s{0,}\$\{\?\<(?<Name>\w+)\>\}'                
+                    '^\s{0,}\$\{\?\<(?<Name>\w+)\>\}'
                 )
             )
             {
                 $matches.Name
             }
-            else 
+            else
             {
                 $myInv.InvocationName -replace '\W', ''
-            } 
+            }
 
         # Find the regex in the library.
         $regex = $script:_RegexLibrary[$mySafeName]

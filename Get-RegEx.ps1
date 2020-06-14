@@ -181,7 +181,7 @@ $($_.Pattern)
                     '}'
                     ($defineAliases | Sort-Object) -join [Environment]::NewLine
                     ) -join [Environment]::NewLine
-                } 
+                }
                 elseif ($as -eq 'Lambda') {
                     @("`$script:_RegexLibrary = $($outHt.AppendLine('}'))"
                     "`$UseRegex = {"
