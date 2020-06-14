@@ -22,19 +22,22 @@ Irregular comes with a number of useful named expressions, and lets you create m
 
 To see the expressions that ship with Irregular, run:
 
-    Get-RegEx
-
+~~~PowerShell
+Get-RegEx
+~~~
 You can use them in all sorts of interesting ways in PowerShell with the capture name:
 
-    ?<Digits>                    # Returns the Named Regular Expression Digits
-    'abc' | ?<Digits>            # Returns nothing, since nothing in abc matches the expression Digits
-    '123abc456' | ?<Digits>      # Returns two matches, 123 and 456
-    "abc123" | ?<Digits> -Until  # Returns the content until the next set of digits
-    '1. one. 2. two.  3. three'| # Returns each number and the content after it
-        ?<Digits> -Split -IncludeMatch
-    '123abc456def' |             # Returns only matches of odd Digits
-        ?<Digits> -Where { $_.Digits % 2 } 
-    
+~~~PowerShell
+?<Digits>                    # Returns the Named Regular Expression Digits
+'abc' | ?<Digits>            # Returns nothing, since nothing in abc matches the expression Digits
+'123abc456' | ?<Digits>      # Returns two matches, 123 and 456
+"abc123" | ?<Digits> -Until  # Returns the content until the next set of digits
+'1. one. 2. two.  3. three'| # Returns each number and the content after it
+    ?<Digits> -Split -IncludeMatch
+'123abc456def' |             # Returns only matches of odd Digits
+    ?<Digits> -Where { $_.Digits % 2 } 
+~~~
+
 You can use these expressions to build more complicated parsing in less code.
 For instance, here's a Regular Expression that can match a simple calculator:
 
@@ -56,8 +59,9 @@ Irregular gives you a handy command to simplify writing regular expressions, Wri
 
 Write-RegEx helps you build regular expressions without constantly resorting to a manual.
 
-    Write-Regex -CharacterClass Digit -Repeat # This writes the Regex (\d+)
-    
+~~~PowerShell
+Write-Regex -CharacterClass Digit -Repeat # This writes the Regex (\d+)
+~~~
 You can pipe regular expression written this way into Write-Regex to compound expressions
     
     # This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
