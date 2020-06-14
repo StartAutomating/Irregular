@@ -36,6 +36,13 @@ describe Get-Regex {
     it 'Can get a RegEx -As an Alias' {
         Get-RegEx -Name Digits -As Alias | should be 'Set-Alias ?<Digits> Use-RegEx'
     }
+    it 'Can get a RegEx -As a Lambda' {
+        $lambda = Get-RegEx -Name Digits -as Lambda 
+        $lambda | should belike '*RegexLibrary*'
+        $lambda | should belike '*Digits*'
+        $lambda | should belike '*UseRegex*=*'
+        $lambda | should belike '*${?<Digits>}*=*$UseRegex'
+    }
 }
 
 
