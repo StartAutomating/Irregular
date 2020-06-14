@@ -172,12 +172,24 @@
         # If we didn't have a regex library, create one.
         if (-not $script:_RegexLibrary) { $script:_RegexLibrary = @{} }
 
+        $myInv = $MyInvocation
         # Then, determine what the name of the pattern in the library would be.
         $mySafeName =
-            if ($MyInvocation.InvocationName -eq '.' -and $MyInvocation.Line -match '\.\s{1,}\?\<(?<Name>\w+)\>') {
+            if ('.', '&' -contains $myInv.InvocationName -and
+                (
+                    $myInv.Line.Substring($MyInvocation.OffsetInLine) -match
+                    '^\s{0,}\?\<(?<Name>\w+)\>'
+                ) -or (
+                    $myInv.Line.Substring($MyInvocation.OffsetInLine) -match
+                    '^\s{0,}\$\{\?\<(?<Name>\w+)\>\}'
+                )
+            )
+            {
                 $matches.Name
-            } else {
-                $MyInvocation.InvocationName -replace '\W', ''
+            }
+            else
+            {
+                $myInv.InvocationName -replace '\W', ''
             }
 
         # Find the regex in the library.
@@ -198,7 +210,6 @@
         }
         $DynamicParameterNames = $DynamicParameters.Keys -as [string[]]
         return $DynamicParameters
-
     }
 
     begin {

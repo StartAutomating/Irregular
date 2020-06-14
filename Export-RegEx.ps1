@@ -33,7 +33,7 @@
     $Path,
 
     # How the expression will be exported.
-    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable', 'Alias','Script')]
+    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable', 'Alias','Script','Lambda')]
     [string]
     $As = 'File'
     )
