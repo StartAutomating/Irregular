@@ -9,7 +9,7 @@
         }
         if ($i -and $pattern[$i] -eq '?' -and $pattern[$i + 1] -eq '<' -and $pattern[$i + 2] -match '[\w\-]') {
             # Group name
-            . $SetOutputStyle -ForegroundColor Irregular.Regex.GroupName
+            . $SetOutputStyle -ForegroundColor Success # Irregular.Regex.GroupName
             $nameEnd = $pattern.IndexOf('>', $i)
             . $EncodeOutput $pattern.Substring($i, 2)
             . $SetOutputStyle -Underline
@@ -23,21 +23,21 @@
 
         if ('(',')','[',']' -contains $pattern[$i]) {
             # Grouping paranthesis
-            . $SetOutputStyle -ForegroundColor Irregular.Regex.Group -Bold
+            . $SetOutputStyle -ForegroundColor Warning <#Irregular.Regex.Group#> -Bold
             . $encodeOutput $pattern[$i]
             . $ClearOutputStyle
             continue
         }
 
         if ('|','?','<','>','!' -contains $pattern[$i]) {
-            . $SetOutputStyle -ForegroundColor Irregular.Regex.Operator -Bold
+            . $SetOutputStyle -ForegroundColor Verbose <#Irregular.Regex.Operator#> -Bold
             . $encodeOutput $pattern[$i]
             . $ClearOutputStyle
             continue
         }
 
         if ($pattern[$i] -eq '#') {
-            . $SetOutputStyle -ForegroundColor Irregular.Regex.Comment
+            . $SetOutputStyle -ForegroundColor Success # Irregular.Regex.Comment
             $lineEnd = $pattern.IndexOfAny([Environment]::NewLine.ToCharArray(), $i)
             if (($lineEnd - $i) -gt 0) {
                 . $EncodeOutput $pattern.Substring($i, $lineEnd -$i)
