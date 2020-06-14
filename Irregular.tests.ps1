@@ -37,7 +37,7 @@ describe Get-Regex {
         Get-RegEx -Name Digits -As Alias | should -Be 'Set-Alias ?<Digits> Use-RegEx'
     }
     it 'Can get a RegEx -As a Lambda' {
-        $lambda = Get-RegEx -Name Digits -as Lambda 
+        $lambda = Get-RegEx -Name Digits -as Lambda
         $lambda | should -BeLike '*RegexLibrary*'
         $lambda | should -BeLike '*Digits*'
         $lambda | should -BeLike '*UseRegex*=*'
