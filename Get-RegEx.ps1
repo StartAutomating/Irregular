@@ -41,7 +41,7 @@
     [string[]]
     $FromModule,
 
-    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script')]
+    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script','Lambda')]
     [string]
     $As = 'MetaData'
     )
@@ -122,9 +122,9 @@
             $script:_RegexLibraryMetaData.Values
         }) | & {
             begin {
-                if ($as -eq 'Hashtable' -or $as -eq 'Script') {
+                if ('Hashtable', 'Script', 'Lambda' -contains $as) {
                     $outHt = [Text.StringBuilder]::new('@{').AppendLine()
-                    $defineAliases = [Text.StringBuilder]::new()
+                    $defineAliases = [Collections.ArrayList]::new()
                 }
             }
             process {
@@ -148,7 +148,7 @@
                         $regexScript.ScriptContents
                     }
                 }
-                elseif ('Pattern', 'Variable', 'Hashtable', 'Script' -contains $as) {
+                elseif ('Pattern', 'Variable', 'Hashtable', 'Script','Lambda' -contains $as) {
                     $def = if ($_.IsGenerator) {
                         "{$($regexScript.ScriptContents)}"
                     } else {
@@ -161,11 +161,14 @@ $($_.Pattern)
                         $def
                     } elseif ($as -eq 'Variable') {
                         "`$$($regex.Name) = $def"
-                    } elseif ($as -eq 'Hashtable' -or $as -eq 'Script') {
+                    } elseif ('Hashtable', 'Script', 'Lambda' -contains $as) {
                         $null = $outHt.AppendLine("    $($regex.Name) = $def").AppendLine()
                     }
                     if ($as -eq 'Script') {
-                        $null = $defineAliases.AppendLine("Set-Alias ?<$($_.Name)> UseRegEx")
+                        $null = $defineAliases.Add("Set-Alias ?<$($_.Name)> UseRegEx")
+                    }
+                    elseif ($as -eq 'Lambda') {
+                        $null = $defineAliases.Add("`${?<$($_.Name)>} = `$UseRegex")
                     }
                 }
             }
@@ -176,9 +179,18 @@ $($_.Pattern)
                     'function UseRegex {'
                     $ExecutionContext.SessionState.InvokeCommand.GetCommand('Use-RegEx','Function').ScriptBlock
                     '}'
-                    $defineAliases
+                    ($defineAliases | Sort-Object) -join [Environment]::NewLine
                     ) -join [Environment]::NewLine
-                } elseif ($as -eq 'Hashtable') {
+                } 
+                elseif ($as -eq 'Lambda') {
+                    @("`$script:_RegexLibrary = $($outHt.AppendLine('}'))"
+                    "`$UseRegex = {"
+                    $ExecutionContext.SessionState.InvokeCommand.GetCommand('Use-RegEx','Function').ScriptBlock
+                    '}'
+                    ($defineAliases | Sort-Object) -join [Environment]::NewLine
+                    ) -join [Environment]::NewLine
+                }
+                elseif ($as -eq 'Hashtable') {
                     $outHt.AppendLine('}').ToString()
                 }
 
