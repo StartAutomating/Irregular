@@ -4,6 +4,7 @@ trigger:
   paths: 
     exclude: 
     - '*/*.md'
+    - '*/*.MD'
     - '*/*.txt'
     - '*/*.gif'
     - '*/*.png'
