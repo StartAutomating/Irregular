@@ -1,4 +1,15 @@
 ﻿
+trigger: 
+  batch: true
+  paths: 
+    exclude: 
+    - '*/*.md'
+    - '*/*.txt'
+    - '*/*.gif'
+    - '*/*.png'
+    - '*/*.jpg'
+    - '*/*.mp3'
+    - '*/*.mp4'
 parameters: 
   - name: ModulePath
     type: string
