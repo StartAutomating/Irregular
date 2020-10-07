@@ -1,0 +1,12 @@
+(?m)(?:^\@{2,2})           # Two @s
+\s{1,}                     # Whitespace
+\-                         # Dash
+(?<FromFileLineStart>\d+)  # From
+\,                         # Comma
+(?<FromFileLineCount>\d+)? # LineCount
+\s{1,}                     # Whitespace
+\+                         # Plus
+(?<ToFileLineEnd>\d+)      # To
+\,(?<ToFileLineCount>\d+)? # LineCount
+\s{1,}\@{2,2}              # Two More @s
+(?<Header>(?:.|\s)+?(?=\z|$))?$
