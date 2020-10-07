@@ -1,0 +1,4 @@
+(?m)(?<Git_DiffHeader>
+(?m)^diff\s--git\s(?<From>\S+)\s(?<To>\S+)(?<ExtendedHeader>(?:.|\s)+?(?=\z|^index))^index\s(?<FromHash>\w+)\.{2,2}(?<ToHash>\w+)\s(?<Mode>\w+)(?:.|\s)+?(?=\z|^---)\-{3,3}\s(?<FromUnified>\S+)\s+\+{3,3}\s(?<ToUnified>\S+)\s
+)
+(?<Git_DiffRanges>(?:.|\s)+?(?=\z|^diff))
