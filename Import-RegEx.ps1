@@ -6,7 +6,9 @@
         .Description
             Imports saved Regular Expressions.
         .Example
-            Import-RegEx
+            Import-RegEx # Imports Regex from Irregular and the current directory. 
+        .Example
+            Import-Regex -FromModule AnotherModule # Imports Regular Expressions stored in another module.
         .Example
             Import-RegEx -Name NextWord
         .Link
@@ -328,12 +330,17 @@
                     importIntoLibrary
             }
         }
+        #endregion Get RegEx files
+
+        #region Import Patterns Directly
         if ($Pattern) {
             $Pattern |
                 importRegexPattern |
                 importIntoLibrary
         }
+        #endregion Import Patterns Directly
 
+        #region Retry Nested Imports
         $patience = 1kb
         @(while ($tryTryAgain.Count) {
         $tryAgain = $tryTryAgain.Dequeue()
@@ -348,6 +355,6 @@
             break
             }
         }) | importIntoLibrary
-        #endregion Get RegEx files
+        #endregion Retry Nested Imports
     }
 }
