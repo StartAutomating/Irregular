@@ -19,7 +19,7 @@
     [OutputType([nullable], [PSObject])]
     param(
         # The path to one or more files or folders containing regular expressions.
-        # Files should be named $Name.regex.txt
+        # Files should be named $Name.regex.txt or $Name.regex.ps1
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [Alias('Fullname')]
         [string[]]$FilePath,
@@ -48,6 +48,7 @@
         if (-not $script:_RegexLibrary) { $script:_RegexLibrary = @{}}
         if (-not $script:_RegexLibraryMetaData) { $script:_RegexLibraryMetaData = @{}}
 
+        $importInvocation = $MyInvocation
         # Determine if we're being called from an Import-Module, and, if so, which one.
         $ModuleCaller =
             $(foreach ($cs in Get-PSCallStack) {
@@ -253,6 +254,8 @@
                         }
                     }
                 $script:_RegexLibraryMetaData[$regex.Name] = $regex
+                if ($PassThru) { $regex }
+                if ($importInvocation.InvocationName -eq '&' -or $importInvocation.InvocationName -eq '.') { return }                
                 $foundAlias =
                     if ($ModuleCaller) {
                         $ModuleCaller.ExportedAliases["?<$($regex.Name)>"]
@@ -270,7 +273,6 @@
                     }
                     $script:_RegexTempModules.Enqueue($tempModule)
                 }
-                if ($PassThru) { $regex }
             }
         }
     }
