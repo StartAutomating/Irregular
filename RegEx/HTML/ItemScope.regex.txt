@@ -1,0 +1,16 @@
+﻿# Matches HTML5 tags with an itemscope
+<
+(?<Tag>[\w-]*)
+(?<Attributes>
+    [^>]*
+    \s{0,}
+    itemscope
+    (?>
+        =''
+        |
+        =""
+    )?
+    \s{0,}
+    [^>]*
+)
+>
