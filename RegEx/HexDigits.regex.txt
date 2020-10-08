@@ -1,0 +1,2 @@
+﻿# Matches one or more hexadecimal digits
+[0-9abcdef]+
