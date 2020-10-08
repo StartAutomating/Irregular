@@ -6,7 +6,7 @@
         .Description
             Imports saved Regular Expressions.
         .Example
-            Import-RegEx # Imports Regex from Irregular and the current directory. 
+            Import-RegEx # Imports Regex from Irregular and the current directory.
         .Example
             Import-Regex -FromModule AnotherModule # Imports Regular Expressions stored in another module.
         .Example
@@ -117,7 +117,7 @@
 
         # We'll need an internal command to handle importing regexes.
 
-        filter importRegexPattern {
+        $importRegexPattern = {
             process {
                 $patternIn = $_
                 $c = 0
@@ -190,7 +190,7 @@
         }
 
         # We want an internal function to keep import a single file.
-        filter importRegexFile {
+        $importRegexFile = {
             process {
                 $in = $_
                 # See if it matches our naming convention
@@ -234,11 +234,11 @@
                     IsGenerator = $true;IsPattern = $false
                 }
             }
-            $_ | importRegexPattern
+            $_ | & $importRegexPattern
         }
     }
 
-        filter importIntoLibrary  {
+        $importIntoLibrary  = {
             process {
                 $regex = $_
                 $script:_RegexLibrary[$regEx.Name] =
@@ -250,12 +250,14 @@
                                 ("(?<$($regex.Name)>", $($regex.Pattern -join [Environment]::NewLine), ')' -join [Environment]::NewLine),
                                 'IgnoreCase,IgnorePatternWhitespace', '00:00:05.00')
                         } catch {
-                            Write-Error -Message "Could not import $($regex.Name): $($_.Exception.Message)" -Exception $_.Exception -TargetObject $_
+                            $PSCmdlet.WriteError(
+                                [Management.Automation.ErrorRecord]::new("Could not import $($regex.Name): $($_.Exception.Message)",$_.Exception, 'OpenError',$_)
+                            )
                         }
                     }
                 $script:_RegexLibraryMetaData[$regex.Name] = $regex
                 if ($PassThru) { $regex }
-                if ($importInvocation.InvocationName -eq '&' -or $importInvocation.InvocationName -eq '.') { return }                
+                if ($importInvocation.InvocationName -eq '&' -or $importInvocation.InvocationName -eq '.') { return }
                 $foundAlias =
                     if ($ModuleCaller) {
                         $ModuleCaller.ExportedAliases["?<$($regex.Name)>"]
@@ -328,8 +330,8 @@
                     $ImportPath = $p
                     ([IO.DirectoryInfo]"$p").EnumerateFiles('*', 'AllDirectories')
                 })  |
-                    importRegexFile |
-                    importIntoLibrary
+                    & $importRegexFile |
+                    . $importIntoLibrary
             }
         }
         #endregion Get RegEx files
@@ -337,8 +339,8 @@
         #region Import Patterns Directly
         if ($Pattern) {
             $Pattern |
-                importRegexPattern |
-                importIntoLibrary
+                & $importRegexPattern |
+                . $importIntoLibrary
         }
         #endregion Import Patterns Directly
 
@@ -347,7 +349,7 @@
         @(while ($tryTryAgain.Count) {
         $tryAgain = $tryTryAgain.Dequeue()
         $countBefore = $tryTryAgain.Count
-        $tryAgain | importRegexPattern
+        $tryAgain | & $importRegexPattern
         $countAfter = $tryTryAgain.Count
         if ($countAfter -gt $countBefore) {
             $patience--
@@ -356,7 +358,7 @@
             Write-Verbose "Patience Exceeded.  Expressions most likely have circular references" #-ErrorId Irregular.Import.Lost.Patience
             break
             }
-        }) | importIntoLibrary
+        }) | . $importIntoLibrary
         #endregion Retry Nested Imports
     }
 }
