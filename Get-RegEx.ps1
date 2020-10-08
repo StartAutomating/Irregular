@@ -41,11 +41,14 @@
     [string[]]
     $FromModule,
 
-    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script','Lambda')]
+    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script','Lambda','Engine')]
     [string]
     $As = 'MetaData'
     )
 
+    begin {
+        $myModule = $MyInvocation.MyCommand.Module
+    }
     process {
         #region Determine the Path List
         $pathList = & {
@@ -119,7 +122,7 @@
                 }
             }
         } else {
-            $script:_RegexLibraryMetaData.Values
+            $script:_RegexLibraryMetaData.Values | Sort-Object Name
         }) | & {
             begin {
                 if ('Hashtable', 'Script', 'Lambda' -contains $as) {
@@ -180,6 +183,25 @@ $($_.Pattern)
                     $ExecutionContext.SessionState.InvokeCommand.GetCommand('Use-RegEx','Function').ScriptBlock
                     '}'
                     ($defineAliases | Sort-Object) -join [Environment]::NewLine
+                    ) -join [Environment]::NewLine
+                }
+                elseif ($as -eq 'Engine') {
+                    @(
+"
+#region Irregular Engine [$($myModule.version)] : $($myModule.PrivateData.PSData.ProjectURI)
+`$ImportRegex = {"
+$ExecutionContext.SessionState.InvokeCommand.GetCommand('Import-RegEx','Function').ScriptBlock
+'}'
+"`$UseRegex = {"
+$ExecutionContext.SessionState.InvokeCommand.GetCommand('Use-RegEx','Function').ScriptBlock
+'}'
+"#endregion Irregular Engine [$($myModule.version)] : $($myModule.PrivateData.PSData.ProjectURI)"
+'. $ImportRegex $(if ($psScriptRoot) { $psScriptRoot } else { $pwd })'
+'
+foreach ($k in $script:_RegexLibrary.Keys) {
+    $executionContext.SessionState.PSVariable.Set("?<$k>", $useRegex)
+}
+'
                     ) -join [Environment]::NewLine
                 }
                 elseif ($as -eq 'Lambda') {
