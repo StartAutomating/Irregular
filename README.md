@@ -6,6 +6,7 @@
 <img src='https://dev.azure.com/StartAutomating/Irregular/_apis/build/status/StartAutomating.Irregular?branchName=master' />
 </a>
 </div>
+
 #### Understanding Regular Expressions
 
 Regular Expressions are powerful but feared.
