@@ -76,13 +76,14 @@ Write-Regex -CharacterClass Digit -Repeat # This writes the Regex (\d+)
 ~~~
 You can pipe regular expression written this way into Write-Regex to compound expressions
     
-    # This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
-    Write-RegEx -Pattern '"' |
-            Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
-                Write-RegEx -Pattern '"' -NotAfter '\\'
-            ) |
-            Write-RegEx -Pattern '"'
-
+~~~PowerShell
+# This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
+Write-RegEx -Pattern '"' |
+        Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
+            Write-RegEx -Pattern '"' -NotAfter '\\'
+        ) |
+        Write-RegEx -Pattern '"'
+~~~
 
 The parameters for Write-RegEx have help, so if you ever want to understand a little more about what makes a RegEx, you can use:
 
@@ -97,7 +98,9 @@ You can use the -match, -split, and -replace operators to do basic operations wi
 
 You can use any saved expression with these operators by putting it in paranthesis, for instance:
 
-    "abc123" -match (?<Digits>)
+~~~PowerShell
+"abc123" -match (?<Digits>)
+~~~
 
 This works because without any additional parameters, running a saved expression will return a saved expression.
 
@@ -117,14 +120,18 @@ Additionally, each named capture can do a number of other things with a match:
 
 To see all of the things you can do with any Regular Expression, run:
 
-    Get-Help Use-Regex -Full
+~~~PowerShell
+Get-Help Use-Regex -Full
+~~~
 
 Matches are also decorated with information about the input and position.  This allows you to pipe one match into another search:
 
-    "number: 1
-    string: 'hello'" | ?<NewLine> -Split |  
-        Foreach-Object {
-            $key = $_ | ?<Colon> -Until -Trim -IncludeMatch
-            $value = $key | ?<LineStartOrEnd> -Until -Trim
-            @{$key.Trim(':')=$value}
-        }
+~~~PowerShell
+"number: 1
+string: 'hello'" | ?<NewLine> -Split |  
+    Foreach-Object {
+        $key = $_ | ?<Colon> -Until -Trim -IncludeMatch
+        $value = $key | ?<LineStartOrEnd> -Until -Trim
+        @{$key.Trim(':')=$value}
+    }
+~~~
