@@ -1,8 +1,10 @@
 ﻿<div align='center'>
-[![Irregular Wide Logo](Assets/ColorizedXml2.gif)](https://github.com/StartAutomatimg/Irregular)
-## Regular Expressions made Strangely Simple
-### A PowerShell module that helps you understand, use, and build Regular Expressions.
-[![Build Status](https://dev.azure.com/StartAutomating/Irregular/_apis/build/status/StartAutomating.Irregular?branchName=master)](https://dev.azure.com/StartAutomating/Irregular/_build/latest?definitionId=1&branchName=master)
+<img src='Assets/Irregular_970_90.png' />
+<h2>Regular Expressions made Strangely Simple</h2>
+<h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
+<a href='https://dev.azure.com/StartAutomating/Irregular/_build/latest?definitionId=1&branchName=master'>
+<img src='https://dev.azure.com/StartAutomating/Irregular/_apis/build/status/StartAutomating.Irregular?branchName=master' />
+</a>
 </div>
 #### Understanding Regular Expressions
 
