@@ -1,0 +1,2 @@
+# Matches Output from git diff
+(?m)?<Git_DiffHeader>(?<Git_DiffRanges>(?:.|\s)+?(?=\z|^diff))

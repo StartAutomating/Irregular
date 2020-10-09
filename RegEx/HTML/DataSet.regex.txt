@@ -1,0 +1,12 @@
+﻿# Matches HTML5 start tags with data attributes
+<
+(?<Tag>[\w-]+?)
+\s{0,}
+(?<Attributes>
+    [^>]*
+    \s{0,}
+    data-
+    \s{0,}
+    [^>]*
+)
+>

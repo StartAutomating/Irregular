@@ -1,0 +1,34 @@
+﻿# Matches an HTML ID attribute
+
+(?<=             # We only want to match an ID if it's in a tag
+                 # but we don't want to match the tag itself, so we use a lookbehind
+    <[\w-]+      # to find the tag
+    [^>]+?(?=    # and anything but closing carets
+        \z|id    # until the end of the string or 'id'
+    )
+)
+id               # now we match the id itself
+\s{0,}           # and optional whitespace
+=                # and the equal
+\s{0,}           # and more optional whitespace
+(?>              # Then, there are 3 ways we can have an ID
+    '            # Between single quotes
+    (?<ID>       # The ID is...
+        ((?:
+            ''|  # any double paired quote OR
+            \\'| # any slash-escaped single quote
+            [^'] # any non-quote
+        )*)
+    )
+    '            # followed by the closing quote
+    |            # OR
+    "            # double quotes
+    (?<ID>       # The ID is...
+    .*?          # anything until
+    (?<!(\\))    # a not-escape
+    )"           # double-quote
+    |            # OR
+    (?<ID>       # The ID is..
+        [\w-]+   # any number of word characters or dashes.
+    )
+)
