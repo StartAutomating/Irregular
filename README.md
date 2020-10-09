@@ -1,8 +1,9 @@
-﻿# Irregular
+﻿<div align='center'>
+[![Irregular Wide Logo](Assets/ColorizedXml2.gif)](https://github.com/StartAutomatimg/Irregular)
 ## Regular Expressions made Strangely Simple
 ### A PowerShell module that helps you understand, use, and build Regular Expressions.
-
-
+[![Build Status](https://dev.azure.com/StartAutomating/Irregular/_apis/build/status/StartAutomating.Irregular?branchName=master)](https://dev.azure.com/StartAutomating/Irregular/_build/latest?definitionId=1&branchName=master)
+</div>
 #### Understanding Regular Expressions
 
 Regular Expressions are powerful but feared.
