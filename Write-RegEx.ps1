@@ -131,6 +131,7 @@
     [string[]]
     $CharacterClass,
 
+    # If provided, will match any number of specific literal characters.
     [Alias('LC','LiteralCharacters')]
     [string[]]
     $LiteralCharacter,
@@ -258,6 +259,7 @@
         'IgnorePatternWhitespace', 'x',
         'ExplicitCapture', 'n'
     )]
+    [Alias('Mode')]
     [string[]]
     $Modifier,
 
@@ -288,7 +290,7 @@
     [string[]]
     $Between,
 
-    # The escape sequence used with -Between.  By default, a slash
+    # The escape sequence used with -Between.  By default, a slash.
     [string]
     $EscapeSequence = '\\',
 
