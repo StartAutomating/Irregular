@@ -7,6 +7,7 @@
 </a>
 </div>
 
+
 #### Understanding Regular Expressions
 
 Regular Expressions are powerful but feared.
