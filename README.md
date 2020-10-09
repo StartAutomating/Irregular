@@ -1,6 +1,11 @@
-﻿# Irregular
-## Regular Expressions made Strangely Simple
-### A PowerShell module that helps you understand, use, and build Regular Expressions.
+﻿<div align='center'>
+<img src='Assets/Irregular_970_90.png' />
+<h2>Regular Expressions made Strangely Simple</h2>
+<h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
+<a href='https://dev.azure.com/StartAutomating/Irregular/_build/latest?definitionId=1&branchName=master'>
+<img src='https://dev.azure.com/StartAutomating/Irregular/_apis/build/status/StartAutomating.Irregular?branchName=master' />
+</a>
+</div>
 
 
 #### Understanding Regular Expressions
@@ -42,15 +47,22 @@ You can use these expressions to build more complicated parsing in less code.
 For instance, here's a Regular Expression that can match a simple calculator:
 
     
-    Write-Regex -StartAnchor StringStart -Pattern @(
-        ?<OptionalWhitespace>
-        ?<Digits>
-        ?<OptionalWhitespace>
-        ?<ArithmeticOperator>
-        ?<OptionalWhitespace>
-        ?<Digits>
-        ?<OptionalWhitespace>
-    ) -EndAnchor StringEnd
+~~~PowerShell
+Write-Regex -StartAnchor StringStart -Pattern @(
+    ?<OptionalWhitespace>
+    ?<Digits>
+    ?<OptionalWhitespace>
+    ?<ArithmeticOperator>
+    ?<OptionalWhitespace>
+    ?<Digits>
+    ?<OptionalWhitespace>
+) -EndAnchor StringEnd
+~~~
+
+
+Irregular also contains a colorized PowerShell formatter for all Regular Expressions.
+This provides syntax highlighting that can make complicated expressions easier to read.
+![RegexSyntaxHighlighting](Assets/RegexSyntaxHighlighting.gif)
 
 
 #### Building Regular Expressions
@@ -64,18 +76,20 @@ Write-Regex -CharacterClass Digit -Repeat # This writes the Regex (\d+)
 ~~~
 You can pipe regular expression written this way into Write-Regex to compound expressions
     
-    # This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
-    Write-RegEx -Pattern '"' |
-            Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
-                Write-RegEx -Pattern '"' -NotAfter '\\'
-            ) |
-            Write-RegEx -Pattern '"'
-
+~~~PowerShell
+# This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
+Write-RegEx -Pattern '"' |
+        Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
+            Write-RegEx -Pattern '"' -NotAfter '\\'
+        ) |
+        Write-RegEx -Pattern '"'
+~~~
 
 The parameters for Write-RegEx have help, so if you ever want to understand a little more about what makes a RegEx, you can use:
 
-    Get-Help Write-RegEx -Full
-
+~~~PowerShell
+Get-Help Write-RegEx -Full
+~~~
 
 #### Using Regular Expressions
 
@@ -85,7 +99,9 @@ You can use the -match, -split, and -replace operators to do basic operations wi
 
 You can use any saved expression with these operators by putting it in paranthesis, for instance:
 
-    "abc123" -match (?<Digits>)
+~~~PowerShell
+"abc123" -match (?<Digits>)
+~~~
 
 This works because without any additional parameters, running a saved expression will return a saved expression.
 
@@ -105,14 +121,18 @@ Additionally, each named capture can do a number of other things with a match:
 
 To see all of the things you can do with any Regular Expression, run:
 
-    Get-Help Use-Regex -Full
+~~~PowerShell
+Get-Help Use-Regex -Full
+~~~
 
 Matches are also decorated with information about the input and position.  This allows you to pipe one match into another search:
 
-    "number: 1
-    string: 'hello'" | ?<NewLine> -Split |  
-        Foreach-Object {
-            $key = $_ | ?<Colon> -Until -Trim -IncludeMatch
-            $value = $key | ?<LineStartOrEnd> -Until -Trim
-            @{$key.Trim(':')=$value}
-        }
+~~~PowerShell
+"number: 1
+string: 'hello'" | ?<NewLine> -Split |  
+    Foreach-Object {
+        $key = $_ | ?<Colon> -Until -Trim -IncludeMatch
+        $value = $key | ?<LineStartOrEnd> -Until -Trim
+        @{$key.Trim(':')=$value}
+    }
+~~~
