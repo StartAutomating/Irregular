@@ -214,6 +214,7 @@
     # If set and -CharacterClass is provided, will match anything but the provided set of character classes.
     # If set and -Expression is provided, will match anything that does not contain the expression
     # If set and neither -Expression or -CharacterClass is provided, will do an empty lookbehind (this will always fail)
+    # If set and -Modifier is provided, will negate the modifier.
     [switch]
     $Not,
 
@@ -246,6 +247,19 @@
     )]
     [string]
     $EndAnchor,
+
+    # Regular expression modifiers.  These affect the way the expression is interpreted.
+    # Modifiers can be turned off by passing -Modifier and -Not.
+    # If -NoCapture is provided, modifiers will only apply to the current group.
+    [ValidateSet(
+        'Multiline','m',
+        'Singleline', 's',
+        'IgnoreCase', 'i',
+        'IgnorePatternWhitespace', 'x',
+        'ExplicitCapture', 'n'
+    )]
+    [string[]]
+    $Modifier,
 
     # If set, will make the pattern optional
     [switch]
@@ -296,7 +310,7 @@
     begin {
         $ccLookup = @{}
 
-        foreach ($paramName in 'CharacterClass', 'StartAnchor', 'EndAnchor') {
+        foreach ($paramName in 'CharacterClass', 'StartAnchor', 'EndAnchor', 'Modifier') {
             $vvl =
                 foreach ($attr in $MyInvocation.MyCommand.Parameters[$paramName].Attributes) {
                    if (-not $attr.ValidValues) { continue }
@@ -422,12 +436,29 @@
                 $theOC++
             }
 
+            if ($Modifier) {
+                $modifiers =
+                    @(
+                        if ($not) { '-' }
+                        foreach ($m in $Modifier) {
+                            $ccLookup[$m]
+                        }
+                    ) -join ''
+            }
+
             if ($Atomic) {
                 "(?>"; $theOC++
             }
 
             if ($NoCapture) {
-                "(?:"; $theOC++
+                if ($modifiers) {
+                    "(?${modifiers}:"
+                } else {
+                    '(?:'
+                }
+                $theOC++
+            } elseif ($modifiers) {
+                "(?$modifiers)"
             }
 
             if ($Name) { # If the capture has a name, add it.
@@ -510,16 +541,16 @@
                 }
             }
 
-            if ($Greedy) {
+            if ($Greedy) { # If the regex was "Greedy", pass the greedy quantifier (*)
                 '*'
             }
 
-            if ($Repeat) {
+            if ($Repeat) { # If the regex was Repeated, pass the one or more quantifier (+)
                 '+'
             }
 
-            if ($myParams.ContainsKey('Min')) {
-                "{$min,$(if($max) { $max})}"
+            if ($myParams.ContainsKey('Min')) { # If the regex has a minimum,
+                "{$min,$(if($max) { $max})}"    # pass the repeitions range quantifier ({min,[max]})
             }
 
             if ($Optional -and -not $theOc) {
@@ -539,7 +570,7 @@
             }
 
             if ($not -and # If we're passed -Not,
-                -not ($CharacterClass -or $Pattern)) { # but no -CharacterClass or -Expression
+                -not ($CharacterClass -or $Pattern -or $modifier)) { # but no -CharacterClass or -Pattern or -Modifier
                 '(?!)' # emit an empty lookahead (this will always fail)
             }
 
