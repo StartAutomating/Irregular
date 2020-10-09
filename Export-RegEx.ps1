@@ -33,7 +33,7 @@
     $Path,
 
     # How the expression will be exported.
-    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable', 'Alias','Script','Lambda')]
+    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable', 'Alias','Script','Lambda','Engine')]
     [string]
     $As = 'File'
     )
@@ -74,7 +74,9 @@
             Write-Error "Must provide a directory if exporting more than one regular expression into files" -ErrorId Irregular.One.Too.Many.Exports
             return
         }
-
+        if (-not $Name) {
+            $Name = $Script:_RegexLibrary.Keys
+        }
         $exportContent.AddRange(@(
         foreach ($n in $Name) {
             $regex = $Script:_RegexLibraryMetaData.$n
