@@ -87,8 +87,9 @@ Write-RegEx -Pattern '"' |
 
 The parameters for Write-RegEx have help, so if you ever want to understand a little more about what makes a RegEx, you can use:
 
-    Get-Help Write-RegEx -Full
-
+~~~PowerShell
+Get-Help Write-RegEx -Full
+~~~
 
 #### Using Regular Expressions
 
