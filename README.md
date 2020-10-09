@@ -47,15 +47,22 @@ You can use these expressions to build more complicated parsing in less code.
 For instance, here's a Regular Expression that can match a simple calculator:
 
     
-    Write-Regex -StartAnchor StringStart -Pattern @(
-        ?<OptionalWhitespace>
-        ?<Digits>
-        ?<OptionalWhitespace>
-        ?<ArithmeticOperator>
-        ?<OptionalWhitespace>
-        ?<Digits>
-        ?<OptionalWhitespace>
-    ) -EndAnchor StringEnd
+~~~PowerShell
+Write-Regex -StartAnchor StringStart -Pattern @(
+    ?<OptionalWhitespace>
+    ?<Digits>
+    ?<OptionalWhitespace>
+    ?<ArithmeticOperator>
+    ?<OptionalWhitespace>
+    ?<Digits>
+    ?<OptionalWhitespace>
+) -EndAnchor StringEnd
+~~~
+
+
+Irregular also contains a colorized PowerShell formatter for all Regular Expressions.
+This provides syntax highlighting that can make complicated expressions easier to read.
+![RegexSyntaxHighlighting](Assets/RegexSyntaxHighlighting.gif)
 
 
 #### Building Regular Expressions
