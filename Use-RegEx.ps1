@@ -218,7 +218,7 @@
         if ($DynamicParameterNames) {
             foreach ($dynamicParameterName in $DynamicParameterNames) {
                 if ($PSBoundParameters.ContainsKey($DynamicParameterName)) {
-                    $GeneratorParameter[$dynamicParameterName] = $PSBoundParameters[$dynamicParameterName]
+                    $ExpressionParameter[$dynamicParameterName] = $PSBoundParameters[$dynamicParameterName]
                 }
             }
         }
@@ -410,7 +410,7 @@
         }
 
         if ($Generator) { # (or one was provided)
-            $regex = & $Generator @GeneratorArgumentList @GeneratorParameter # run the generator.
+            $regex = & $Generator @ExpressionArgumentList @ExpressionParameter # run the generator.
             if ($regex -and $mySafeNAme -and -not "$regex".StartsWith("(?<$mySafeName") -and -not $mySafeName -eq 'UseRegEx') {
                 $regex = "(?<$mySafeName>$($regex;[Environment]::NewLine;))"
             }
