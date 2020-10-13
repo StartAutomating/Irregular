@@ -314,13 +314,13 @@ describe Use-Regex {
         }
 
         it 'Can pass named -Parameter[s] to a generator' {
-            "{'hello world'}" | ?<BalancedCode> -Parameter @{Open='{'} |
+            "{'hello world'}" | ?<BalancedCode> -ExpressionParameter @{Open='{'} |
                 Select-Object -ExpandProperty Value |
                 should -Be "{'hello world'}"
         }
 
         it 'Can pass -Arguments to a generator' {
-            "['hello world']" | ?<BalancedCode> -Arguments '['  |
+            "['hello world']" | ?<BalancedCode> -ExpressionArgumentList '['  |
                 Select-Object -ExpandProperty Value |
                 should -Be "['hello world']"
         }
