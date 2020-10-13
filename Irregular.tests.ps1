@@ -695,7 +695,7 @@ namespace MyNamespace {
 
         $testScriptBlock =  ([ScriptBlock]::Create(@"
 `$inputFile = '$($file.FullName.Replace("'","''"))'
-`$outputFile = '$($outputFile.FullName.Replace("'","''"))'
+`$outputFile = '$(if ($outputFile) {$outputFile.FullName.Replace("'","''")})'
 `$regexResult = Get-Item -LiteralPath `$inputFile | $regexFullName
 `$regexResult | should -Not -Be `$null
 "@+ {
