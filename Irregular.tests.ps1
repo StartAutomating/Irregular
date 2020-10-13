@@ -261,7 +261,7 @@ describe Use-Regex {
         $m = $txt | ?<TrueOrFalse> -Count 1
         do {
             $m
-            $m = $m | ?<TrueOrFalse> -Count 1
+            $m = $m | ?<TrueOrFalse> -Count 1 -Scan
         } while ($m)) -join ' ' | # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
             should -Be 'true false true false'
     }
@@ -271,7 +271,7 @@ describe Use-Regex {
         $m = $txt | ?<TrueOrFalse> -Count 1 -RightToLeft
         do {
             $m
-            $m = $m | ?<TrueOrFalse> -Count 1 -RightToLeft
+            $m = $m | ?<TrueOrFalse> -Count 1 -RightToLeft -Scan
         } while ($m)) -join ' ' | # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
             should -Be 'false true false true'
     }
