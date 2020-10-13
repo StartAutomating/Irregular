@@ -160,14 +160,14 @@
     [ScriptBlock]
     $Generator,
 
-    # Named parameters for the regular expression.  These are only valid if the regex is using a Generator script.
-    [Alias('GeneratorParameters')]
+    # Named parameters for the regular expression.  These are only valid if the regex is a Generator.
+    [Alias('ExpressionParameters')]
     [Collections.IDictionary]
-    $GeneratorParameter = @{},
+    $ExpressionParameter = @{},
 
     # A list of arguments.  These are only valid if the regex is using a Generator script.
-    [Alias('GeneratorArguments','GeneratorArgs')]
-    [PSObject[]]$GeneratorArgumentList = @()
+    [Alias('ExpressionArguments','ExpressionArgs')]
+    [PSObject[]]$ExpressionArgumentList = @()
     )
 
     dynamicParam {
