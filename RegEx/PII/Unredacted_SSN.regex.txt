@@ -1,0 +1,6 @@
+# Matches Unredacted Social Security Numbers
+(?<=(^|\D))                # Match after line start or a non-digit, so that random dashed numbers don't match.
+(?<AreaNumber>\d{3,3})     # 3 Digit Area Number (if allocated after 2011 no longer reflects area)
+\-(?<GroupNumber>\d{2,2})  # 2 Digit Group Number
+\-(?<SerialNumber>\d{4,4}) # 4 Digit Serial Number
+

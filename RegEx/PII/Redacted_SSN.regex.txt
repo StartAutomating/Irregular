@@ -1,0 +1,6 @@
+# Matches Unredacted Social Security Numbers
+(?<=(^|\D))                # Match after line start or a non-digit, so that random dashed numbers don't match.
+\*{3,3}                    # 3 stars
+\-\*{2,2}                  # 2 stars
+\-(?<SerialNumber>\d{4,4}) # 4 Digit Serial Number
+
