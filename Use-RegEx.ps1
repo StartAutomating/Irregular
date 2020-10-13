@@ -22,17 +22,18 @@
         $m = $txt | ?<TrueOrFalse> -Count 1
         do {
             $m
-            $m = $m | ?<TrueOrFalse> -Count 1
+            $m = $m | ?<TrueOrFalse> -Count 1 -Scan
         } while ($m) # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
     #>
     [CmdletBinding(DefaultParameterSetName='Pattern')]
     [OutputType([Text.RegularExpressions.Match], [string], [PSObject])]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSPossibleIncorrectComparisonWithNull", "", Justification="This is explicitly checking for null (lazy -If would miss 0)")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidAssignmentToAutomaticVariable", "", Justification="Risk understood and behavior is desired")]
     param(
     # One or more strings to match.
     [Parameter(Mandatory=$true,ParameterSetName='Text',ValueFromPipeline,Position=0)]
     [Parameter(ParameterSetName='Pattern',Position=0,ValueFromPipelineByPropertyName)]
-    [Alias('InputObject','Text', 'Matches','Input')]
+    [Alias('InputObject','Text', 'Matches','Value')]
     [string[]]$Match,
 
     # If set, will return a boolean indicating if the regular expression matched
@@ -48,7 +49,7 @@
 
     # The starting position of the match
     [Parameter(ValueFromPipelineByPropertyName)]
-    [Alias('EndIndex','StartingAt')]
+    [Alias('StartingAt')]
     [int]$StartAt = 0,
 
     # If set, will remove the regular expression matches from the text.
@@ -59,6 +60,7 @@
     # https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-regular-expressions
     [string]$Replace,
 
+    [switch]$Scan,
 
     # If provided, will replace the match if any of the conditions exist.
     [ValidateScript({
@@ -158,14 +160,14 @@
     [ScriptBlock]
     $Generator,
 
-    # Named parameters.  These are only valid if the regex is using a Generator script.
-    [Alias('Parameters')]
+    # Named parameters for the regular expression.  These are only valid if the regex is using a Generator script.
+    [Alias('GeneratorParameters')]
     [Collections.IDictionary]
-    $Parameter = @{},
+    $GeneratorParameter = @{},
 
     # A list of arguments.  These are only valid if the regex is using a Generator script.
-    [Alias('Arguments','Args')]
-    [PSObject[]]$ArgumentList = @()
+    [Alias('GeneratorArguments','GeneratorArgs')]
+    [PSObject[]]$GeneratorArgumentList = @()
     )
 
     dynamicParam {
@@ -216,7 +218,7 @@
         if ($DynamicParameterNames) {
             foreach ($dynamicParameterName in $DynamicParameterNames) {
                 if ($PSBoundParameters.ContainsKey($DynamicParameterName)) {
-                    $Parameter[$dynamicParameterName] = $PSBoundParameters[$dynamicParameterName]
+                    $GeneratorParameter[$dynamicParameterName] = $PSBoundParameters[$dynamicParameterName]
                 }
             }
         }
@@ -384,6 +386,9 @@
                     [PSScriptProperty]::new('Input', { $this.Match.Result('$_') })
                 )
             }
+            if ($Scan) {
+                $startAt = $_.Index + $_.Length
+            }
         }
         #endregion Prepare Input
 
@@ -405,7 +410,7 @@
         }
 
         if ($Generator) { # (or one was provided)
-            $regex = & $Generator @argumentList @Parameter # run the generator.
+            $regex = & $Generator @GeneratorArgumentList @GeneratorParameter # run the generator.
             if ($regex -and $mySafeNAme -and -not "$regex".StartsWith("(?<$mySafeName") -and -not $mySafeName -eq 'UseRegEx') {
                 $regex = "(?<$mySafeName>$($regex;[Environment]::NewLine;))"
             }
