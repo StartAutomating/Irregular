@@ -326,7 +326,7 @@ describe Use-Regex {
         }
 
         it 'Can use a dynamic generator' {
-            $rx = Use-RegEx -Generator {param($t) "$t"} -Parameter @{t='hi'}
+            $rx = Use-RegEx -Generator {param($t) "$t"} -ExpressionParameter @{t='hi'}
             "$rx"| should -BeLike *hi*
         }
 
