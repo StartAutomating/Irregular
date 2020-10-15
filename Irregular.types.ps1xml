@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-16"?>
+<!-- Generated with EZOut 1.8.3.1: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
 <Types>
   <Type>
     <Name>Irregular.Regular.Expression</Name>
@@ -78,7 +79,7 @@
       <ScriptProperty>
         <Name>Line</Name>
         <GetScriptBlock>
-                     
+                    
             [Regex]::new('(?&gt;\r\n|\n|\A)', 'RightToLeft').Matches($this.Input, $this.Index).Count
         
                 </GetScriptBlock>
@@ -105,11 +106,11 @@
         <Name>Column</Name>
         <GetScriptBlock>
                     
-            $this.Index - 
+            $this.Index -
                 $(
                     $m = [Regex]::new('(?&gt;\r\n|\n|\A)', 'RightToLeft').Match($this.Input, $this.Index)
                     $m.Index + $m.Length
-                ) + 1                
+                ) + 1
         
                 </GetScriptBlock>
       </ScriptProperty>

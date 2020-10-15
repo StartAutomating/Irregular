@@ -1,19 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-16"?>
-<!-- Generated with EZOut 1.8.2: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
+<!-- Generated with EZOut 1.8.3.1: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
 <Configuration>
   <ViewDefinitions>
     <View>
-      <Name>System.Text.RegularExpressions.Match</Name>
+      <Name>Irregular.Regex</Name>
       <ViewSelectedBy>
-        <TypeName>System.Text.RegularExpressions.Match</TypeName>
+        <TypeName>Irregular.Regex</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <AutoSize />
         <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
           <TableColumnHeader>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -24,16 +20,10 @@
             <Wrap />
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>Success</PropertyName>
+                <PropertyName>Name</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>StartIndex</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>EndIndex</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Value</PropertyName>
+                <PropertyName>Description</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -41,37 +31,24 @@
       </TableControl>
     </View>
     <View>
-      <Name>Irregular.Regular.Expression</Name>
+      <Name>Irregular.Regex</Name>
       <ViewSelectedBy>
-        <TypeName>Irregular.Regular.Expression</TypeName>
+        <TypeName>Irregular.Regex</TypeName>
       </ViewSelectedBy>
-      <TableControl>
-        <AutoSize />
-        <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <Wrap />
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Pattern</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IsValid</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Options</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Description</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
     </View>
     <View>
       <Name>Irregular.Regex.Output</Name>
@@ -149,13 +126,15 @@ Write-Host $out.Output
       </CustomControl>
     </View>
     <View>
-      <Name>Irregular.Regex</Name>
+      <Name>Irregular.Regular.Expression</Name>
       <ViewSelectedBy>
-        <TypeName>Irregular.Regex</TypeName>
+        <TypeName>Irregular.Regular.Expression</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <AutoSize />
         <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
           <TableColumnHeader>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -166,10 +145,13 @@ Write-Host $out.Output
             <Wrap />
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>Name</PropertyName>
+                <PropertyName>Pattern</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Description</PropertyName>
+                <PropertyName>IsValid</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Options</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -177,24 +159,37 @@ Write-Host $out.Output
       </TableControl>
     </View>
     <View>
-      <Name>Irregular.Regex</Name>
+      <Name>System.Text.RegularExpressions.Match</Name>
       <ViewSelectedBy>
-        <TypeName>Irregular.Regex</TypeName>
+        <TypeName>System.Text.RegularExpressions.Match</TypeName>
       </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <PropertyName>Name</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Description</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>StartIndex</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>EndIndex</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Value</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
     </View>
     <View>
       <Name>System.Text.RegularExpressions.RegEx</Name>
@@ -236,56 +231,56 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
     @(for ($i = 0; $i -lt $pattern.Length; $i++) {
         if ($pattern[$i -1] -eq '\') {
             if ($pattern[$i -2] -ne '\' -or ($pattern[$i -2] -eq '\' -and $pattern[$i -3] -eq '\')) {
-                . $Irregular_encodeOutput $pattern[$i];
+                . ${Irregular_encodeOutput} $pattern[$i];
                 continue
             }
         }
         if ($i -and $pattern[$i] -eq '?' -and $pattern[$i + 1] -eq '&lt;' -and $pattern[$i + 2] -match '[\w\-]') {
             # Group name
-            . $Irregular_SetOutputStyle -ForegroundColor Success # Irregular.Regex.GroupName
+            . ${Irregular_SetOutputStyle} -ForegroundColor Success # Irregular.Regex.GroupName
             $nameEnd = $pattern.IndexOf('&gt;', $i)
-            . $Irregular_encodeOutput $pattern.Substring($i, 2)
-            . $Irregular_SetOutputStyle -Underline
-            . $Irregular_encodeOutput $pattern.Substring($i + 2, $nameEnd - ($i + 2))
-            . $Irregular_ClearOutputStyle -Underline
+            . ${Irregular_encodeOutput} $pattern.Substring($i, 2)
+            . ${Irregular_SetOutputStyle} -Underline
+            . ${Irregular_encodeOutput} $pattern.Substring($i + 2, $nameEnd - ($i + 2))
+            . ${Irregular_ClearOutputStyle} -Underline
             $i = $nameEnd
-            . $Irregular_encodeOutput '&gt;'
-            . $Irregular_ClearOutputStyle -ForegroundColor
+            . ${Irregular_encodeOutput} '&gt;'
+            . ${Irregular_ClearOutputStyle} -ForegroundColor
             continue
         }
 
         if ('(',')','[',']' -contains $pattern[$i]) {
             # Grouping paranthesis
-            . $Irregular_SetOutputStyle -ForegroundColor Warning &lt;#Irregular.Regex.Group#&gt; -Bold
-            . $Irregular_encodeOutput $pattern[$i]
-            . $Irregular_ClearOutputStyle
+            . ${Irregular_SetOutputStyle} -ForegroundColor Warning &lt;#Irregular.Regex.Group#&gt; -Bold
+            . ${Irregular_encodeOutput} $pattern[$i]
+            . ${Irregular_ClearOutputStyle}
             continue
         }
 
         if ('|','?','&lt;','&gt;','!' -contains $pattern[$i]) {
-            . $Irregular_SetOutputStyle -ForegroundColor Verbose &lt;#Irregular.Regex.Operator#&gt; -Bold
-            . $Irregular_encodeOutput $pattern[$i]
-            . $Irregular_ClearOutputStyle
+            . ${Irregular_SetOutputStyle} -ForegroundColor Verbose &lt;#Irregular.Regex.Operator#&gt; -Bold
+            . ${Irregular_encodeOutput} $pattern[$i]
+            . ${Irregular_ClearOutputStyle}
             continue
         }
 
         if ($pattern[$i] -eq '#') {
-            . $Irregular_SetOutputStyle -ForegroundColor Success # Irregular.Regex.Comment
+            . ${Irregular_SetOutputStyle} -ForegroundColor Success # Irregular.Regex.Comment
             $lineEnd = $pattern.IndexOfAny([Environment]::NewLine.ToCharArray(), $i)
             if (($lineEnd - $i) -gt 0) {
-                . $Irregular_encodeOutput $pattern.Substring($i, $lineEnd -$i)
+                . ${Irregular_encodeOutput} $pattern.Substring($i, $lineEnd -$i)
                 $i = $lineEnd - 1
 
             } else {
-                . $Irregular_encodeOutput $pattern.Substring($i)
+                . ${Irregular_encodeOutput} $pattern.Substring($i)
                 $i = $pattern.Length
             }
-            . $Irregular_ClearOutputStyle
+            . ${Irregular_ClearOutputStyle}
             continue
         }
 
 
-        . $Irregular_encodeOutput $pattern[$i]
+        . ${Irregular_encodeOutput} $pattern[$i]
     }) -join ''
 
 </ScriptBlock>
@@ -351,7 +346,7 @@ $($ParentNode.CustomControl.CustomEntries.CustomEntry.CustomItem.ExpressionBindi
   </ViewDefinitions>
   <Controls>
     <Control>
-      <Name>$Irregular_encodeOutput</Name>
+      <Name>${Irregular_encodeOutput}</Name>
       <CustomControl>
         <CustomEntries>
           <CustomEntry>
@@ -388,7 +383,7 @@ else
       </CustomControl>
     </Control>
     <Control>
-      <Name>$Irregular_SetOutputStyle</Name>
+      <Name>${Irregular_SetOutputStyle}</Name>
       <CustomControl>
         <CustomEntries>
           <CustomEntry>
@@ -585,7 +580,7 @@ if ($canUseHTML) {
       </CustomControl>
     </Control>
     <Control>
-      <Name>$Irregular_ClearOutputStyle</Name>
+      <Name>${Irregular_ClearOutputStyle}</Name>
       <CustomControl>
         <CustomEntries>
           <CustomEntry>
