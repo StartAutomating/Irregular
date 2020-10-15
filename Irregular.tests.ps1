@@ -261,7 +261,7 @@ describe Use-Regex {
         $m = $txt | ?<TrueOrFalse> -Count 1
         do {
             $m
-            $m = $m | ?<TrueOrFalse> -Count 1
+            $m = $m | ?<TrueOrFalse> -Count 1 -Scan
         } while ($m)) -join ' ' | # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
             should -Be 'true false true false'
     }
@@ -271,7 +271,7 @@ describe Use-Regex {
         $m = $txt | ?<TrueOrFalse> -Count 1 -RightToLeft
         do {
             $m
-            $m = $m | ?<TrueOrFalse> -Count 1 -RightToLeft
+            $m = $m | ?<TrueOrFalse> -Count 1 -RightToLeft -Scan
         } while ($m)) -join ' ' | # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
             should -Be 'false true false true'
     }
@@ -314,19 +314,19 @@ describe Use-Regex {
         }
 
         it 'Can pass named -Parameter[s] to a generator' {
-            "{'hello world'}" | ?<BalancedCode> -Parameter @{Open='{'} |
+            "{'hello world'}" | ?<BalancedCode> -ExpressionParameter @{Open='{'} |
                 Select-Object -ExpandProperty Value |
                 should -Be "{'hello world'}"
         }
 
         it 'Can pass -Arguments to a generator' {
-            "['hello world']" | ?<BalancedCode> -Arguments '['  |
+            "['hello world']" | ?<BalancedCode> -ExpressionArgumentList '['  |
                 Select-Object -ExpandProperty Value |
                 should -Be "['hello world']"
         }
 
         it 'Can use a dynamic generator' {
-            $rx = Use-RegEx -Generator {param($t) "$t"} -Parameter @{t='hi'}
+            $rx = Use-RegEx -Generator {param($t) "$t"} -ExpressionParameter @{t='hi'}
             "$rx"| should -BeLike *hi*
         }
 
