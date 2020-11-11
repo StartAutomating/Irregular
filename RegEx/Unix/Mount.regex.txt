@@ -1,0 +1,10 @@
+# Matches a Unix Mount
+(?m)^(?<Device>\S+)                      # Which is: A line start, followed by the device,
+\s+                                      # followed by space,
+(?<MountPoint>\S+)                       # followed by the MountPoint,
+\s+                                      # followed by space,
+(?<FileSystem>\S+)                       # followed by the FileSystem,
+\s+                                      # followed by space.  Then each mount option
+(?<MountOptions>(?<MountOption>[^\s\,]+) # will be separated by a comma.
+(?:\,?){1,})(?:.*$)                      # Then match until the end of the line.
+
