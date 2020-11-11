@@ -1,0 +1,15 @@
+# Matches Configuraiton File Content
+(?>((?<Unix_Conf_Section>
+(?m)\[(?<SectionName>(?:.|\s)+?(?=\z|]))(?<SectionLines>(?:.|\s)+?(?=\z|^\[))
+)
+|(?<Unix_Conf_Line>
+(?m)                             # Set Multiline mode
+# A Configuration line can either be a comment line, a blank line, or a line with a value
+(^[\;\#](?<Comment>(?:.|\s)+?(?=\z|$)) # Lines that start with ; or  are comments
+|^\s+$                           # Blank lines will also match, but not be captured
+|(?<Key>^[\w\s\.\-]+)            # Otherwise, the first word is the name
+\s?[\=\:]                        # Followed by an equals or colon (surrounded by optional whitespace)
+\s?(?<Value>(?:.|\s)+?(?=\z|$))  # Anything until the end of line is the value
+)
+)
+)+)
