@@ -1,0 +1,2 @@
+﻿none on /dev type tmpfs (rw,noatime,mode=755)
+none /dev tmpfs (rw,noatime,mode=755)
