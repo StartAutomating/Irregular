@@ -1,0 +1,3 @@
+# Matches a File System Type (described in /proc/filesystems)
+(?m)^(?<NoDevice>nodev)?\s*?(?<FileSystemName>\S+)(?:.*$) # Then match until the end of the line.
+
