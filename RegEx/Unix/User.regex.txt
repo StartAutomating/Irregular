@@ -1,0 +1,15 @@
+# Matches a User (described in /etc/passwd)
+(?m)^(?<Username>[^:]+)      # The Username is 
+\:                           # followed by a colon.
+(?<EncryptedPassword>[^:]+)  # The encrypted password is
+\:                           # followed by another colon.
+(?<UserID>\d+)               # The user ID is a series of digits
+\:                           # followed by another colon
+(?<UserGroupID>\d+)?         # The user group ID is a series of digits 
+\:                           # followed by yet another colon
+(?<FullUsername>[^:]*?)      # The full username is anything until the next colon (and could be nothing)
+\:                           # Then another colon
+(?<UserHomeDirectory>[^:]*?) # The home directory is anything until the next colon (and could be nothing)
+\:                           # Then one last colon
+(?<LoginShell>.*$)           # Anything until the end of the line is the login shell
+
