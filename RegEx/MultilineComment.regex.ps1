@@ -9,14 +9,14 @@ When this generator is used with a piped in file, the extension will autodetect 
 If the format could not be autodetected, the match will always fail.
 #>
 param(
-[ValidateSet('PowerShell', 'C#', 'C++', 'C', 'JavaScript', 'JSON', 'Java', 'Ruby', 'HTML', 'XML','PHP','CSHTML', '')]
+[ValidateSet('PowerShell', 'C#', 'C++', 'C', 'JavaScript', 'JSON', 'Java', 'Ruby', 'HTML', 'XML','PHP','CSHTML', 'OpenScad', '')]
 [string]
 $Language = 'C'
 )
 
 if ($inputObject -and $inputObject -is [IO.FileInfo]) {
     $Language = 
-        if ('.h', '.cpp', '.c', '.cs', '.js', '.java','.json' -contains $inputObject.Extension) {
+        if ('.h', '.cpp', '.c', '.cs', '.js', '.java','.json', '.scad' -contains $inputObject.Extension) {
             'C'
         } elseif ('.ps1', '.psm1', '.psd1' -contains $inputObject.Extension) {
             'PowerShell'
@@ -61,7 +61,7 @@ switch ($Language) {
 \#\> # the closing tag
 '@ 
     }
-    {$_ -match '(C\#)|(C\+\+)|(C)|(JavaScript)'} {
+    {$_ -match '(C\#)|(C\+\+)|(C)|(JavaScript)|(OpenScad)'} {
     @'
 /\* # The open comment
 (?<Block>
