@@ -1,0 +1,17 @@
+# Matches a Unix Mount
+(?m)^(?<Device>\S+)            # Which is: A line start, followed by the device,
+\s+                            # followed by space,
+(?:on\s)?                      # and possibly, the word 'on',
+(?<MountPoint>\S+)             # followed by the MountPoint,
+\s+                            # followed by space,
+(?:type\s)?                    # and possibly, the word 'type',
+(?<FileSystem>\S+)             # followed by the FileSystem,
+\s+                            # followed by space.
+(?:\()?                        # Then, optionally, an open parenthesis.
+(?<MountOptions>               # Each mount option
+(?:[\s\,]?                     # will be separated by an optional comma
+(?>((?<DumpFrequency>\d)       # If the mount option started with a digit, it is the DumpFrequency
+\s(?<PassNumber>\d)            # and it will be followed by the PassNumber
+|(?<MountOption>[^\s\,\)]+)    # Otherwise, the mount option is anything until the next comma or )
+))\)?){1,})(?:.*$)             # Then match until the end of the line.
+
