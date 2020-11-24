@@ -19,18 +19,18 @@
                 ) |
                 Write-RegEx -Pattern '"'
     .Example
-        # A regular expression for an email address. ?<> is an alias for Write-Regex
+        # A regular expression for an email address.
 
-        ?<> -Name EmailAddress -Pattern (
-            ?<> -CharacterClass Word |
-            ?<> -LiteralCharacter -. -CharacterClass Word -Min 0
+        Write-RegEx -Name EmailAddress -Pattern (
+            Write-RegEx -CharacterClass Word |
+            Write-RegEx -LiteralCharacter -. -CharacterClass Word -Min 0
         ) |
-            ?<> -LiteralCharacter '@' -NoCapture |
-            ?<> -Name Domain -Pattern (
-                ?<> -CharacterClass Word |
-                ?<> -LiteralCharacter - -CharacterClass Word -Min 0 |
-                ?<> -LiteralCharacter . |
-                ?<> -CharacterClass Word -Min 1
+            Write-RegEx -LiteralCharacter '@' -NoCapture |
+            Write-RegEx -Name Domain -Pattern (
+                Write-RegEx -CharacterClass Word |
+                Write-RegEx -LiteralCharacter - -CharacterClass Word -Min 0 |
+                Write-RegEx -LiteralCharacter . |
+                Write-RegEx -CharacterClass Word -Min 1
             )
     .Example
         # Writes a pattern for multiline comments
@@ -135,6 +135,13 @@
     [Alias('LC','LiteralCharacters')]
     [string[]]
     $LiteralCharacter,
+
+    # If provided, will match any number of unicode characters.
+    # Note:  Unless the RegEx is case-sensitive, this will match both uppercase and lowercase.
+    # To make a RegEx explicitly case-sensitive, use Write-Regex -Modifier IgnoreCase -Not
+    [Alias('UC', 'UnicodeCharacters')]
+    [int[]]
+    $UnicodeCharacter,
 
     # If provided, will name the capture
     [Alias('CaptureName')]
@@ -511,14 +518,22 @@
                 "(?:.|\s)+?(?=$($until -join '|'))"
             }
 
-            if ($CharacterClass -or $LiteralCharacter) { # If we're passed in a character class
+            # If we're passed in a character class, literal character, or UnicodeCharacter.
+            if ($CharacterClass -or $LiteralCharacter -or $UnicodeCharacter) {
                 $cout =
                     @(foreach ($cc in $CharacterClass) { # find them in the lookup table
                         $ccLookup[$cc]
                     })
 
                 $lc = @($literalCharacter -replace '[\p{P}\p{S}]', '\$0')
-                $charSet = @($cout + $lc) -ne ''
+                $charSet = @(
+                    $cout +
+                    $lc +
+                    @(
+                    foreach ($uc in $unicodeCharacter) {
+                        "\u{0:x4}" -f $uc
+                    })
+                ) -ne ''
 
                 if ($not) # I -Not was passed
                 {
