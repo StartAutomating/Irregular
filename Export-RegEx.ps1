@@ -33,9 +33,15 @@
     $Path,
 
     # How the expression will be exported.
-    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable', 'Alias','Script','Lambda','Engine')]
+    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable', 'Alias','Script','Lambda','Engine','EmbeddedEngine')]
     [string]
-    $As = 'File'
+    $As = 'File',
+
+    # If provided, will rename -RegEx commands with the provided -Noun.
+    # This option is only valid when -As is Engine.
+    # It prevents name conflicts with Irregular. 
+    [string]
+    $Noun
     )
 
     begin {
@@ -104,7 +110,7 @@
         $toExport =
             @(if ($exportContent.Count) {
                 $exportNames  = $exportContent | Select-Object -ExpandProperty Name
-                Get-RegEx -Name $exportNames -As $As
+                Get-RegEx -Name $exportNames -As $As -Noun $Noun
             }) -join [Environment]::NewLine
 
         if ($Path -and $toExport) {

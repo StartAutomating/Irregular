@@ -41,9 +41,16 @@
     [string[]]
     $FromModule,
 
-    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script','Lambda','Engine')]
+    # How the expression will be returned.
+    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script','Lambda','Engine', 'EmbeddedEngine')]
     [string]
-    $As = 'MetaData'
+    $As = 'MetaData',
+
+    # If provided, will rename -RegEx commands with the provided -Noun.
+    # This option is only valid when -As is Engine.
+    # It prevents name conflicts with Irregular.
+    [string]
+    $Noun
     )
 
     begin {
@@ -124,6 +131,7 @@
         } else {
             $script:_RegexLibraryMetaData.Values | Sort-Object Name
         }) | & {
+            #region Get -As
             begin {
                 if ('Hashtable', 'Script', 'Lambda' -contains $as) {
                     $outHt = [Text.StringBuilder]::new('@{').AppendLine()
@@ -185,10 +193,10 @@ $($_.Pattern)
                     ($defineAliases | Sort-Object) -join [Environment]::NewLine
                     ) -join [Environment]::NewLine
                 }
-                elseif ($as -eq 'Engine') {
+                elseif ($as -eq 'Embedded') {
                     @(
 "
-#region Irregular Engine [$($myModule.version)] : $($myModule.PrivateData.PSData.ProjectURI)
+#region Irregular Embedded [$($myModule.version)] : $($myModule.PrivateData.PSData.ProjectURI)
 `$ImportRegex = {"
 $ExecutionContext.SessionState.InvokeCommand.GetCommand('Import-RegEx','Function').ScriptBlock
 '}'
@@ -204,6 +212,34 @@ foreach ($k in $script:_RegexLibrary.Keys) {
 '
                     ) -join [Environment]::NewLine
                 }
+                elseif ($as -eq 'Engine') {
+                    if (-not $Noun) {
+                        $PSCmdlet.WriteError(
+                            [Management.Automation.ErrorRecord]::new(
+                                [Exception]::new("Must provide -Noun when using -As Engine"
+                            ),                            
+                            "Missing.Noun", 'NotSpecified', $null)
+                        )                        
+                        return
+                    }
+                    @(
+"
+#region Irregular Engine [$($myModule.version)] : $($myModule.PrivateData.PSData.ProjectURI)
+`$ImportRegex = {"
+$ExecutionContext.SessionState.InvokeCommand.GetCommand('Import-RegEx','Function').ScriptBlock
+'}'
+"function Use-$Noun {"
+$ExecutionContext.SessionState.InvokeCommand.GetCommand('Use-RegEx','Function').ScriptBlock
+'}'
+"#endregion Irregular Engine [$($myModule.version)] : $($myModule.PrivateData.PSData.ProjectURI)"
+'. $ImportRegex $(if ($psScriptRoot) { $psScriptRoot } else { $pwd })'
+@"
+foreach (`$k in `$script:_RegexLibrary.Keys) {
+    Set-Alias "?<`$k>" Use-$noun
+}
+"@
+                    ) -join [Environment]::NewLine
+                }
                 elseif ($as -eq 'Lambda') {
                     @("`$script:_RegexLibrary = $($outHt.AppendLine('}'))"
                     "`$UseRegex = {"
@@ -217,6 +253,7 @@ foreach ($k in $script:_RegexLibrary.Keys) {
                 }
 
             }
+            #endregion Get -As
         }
         #endregion Get RegEx files
     }
