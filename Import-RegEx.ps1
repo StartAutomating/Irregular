@@ -260,7 +260,12 @@
                 if ($importInvocation.InvocationName -eq '&' -or $importInvocation.InvocationName -eq '.') { return }
                 $foundAlias =
                     if ($ModuleCaller) {
-                        $ModuleCaller.ExportedAliases["?<$($regex.Name)>"]
+                        if ($ModuleCaller -and $ModuleCaller.ExportedAliases.Count) {
+                            $ModuleCaller.ExportedAliases["?<$($regex.Name)>"]
+                        } else {
+                            $true
+                        }
+
                     } else {
                         $ExecutionContext.SessionState.InvokeCommand.GetCommand("?<$($regex.Name)>",'Alias')
                     }
