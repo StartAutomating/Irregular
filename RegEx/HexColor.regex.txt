@@ -1,0 +1,9 @@
+# Matches an RGB Hex Color
+\# # Number Sign followed by
+(?>((?<Red>[0-9a-f]{2})   # EITHER: Two Hex Digits for Red
+(?<Green>[0-9a-f]{2})     # Two Hex Digits for Green
+(?<Blue>[0-9a-f]{2})      # Two Hex Digits for Blue
+|(?<Red>[0-9a-f])         # OR: One Hex Digit for Red
+(?<Green>[0-9a-f])        # One Hex Digit for Green
+(?<Blue>[0-9a-f])         # One Hex Digit for Blue
+))
