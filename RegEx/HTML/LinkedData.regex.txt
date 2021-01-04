@@ -1,0 +1,11 @@
+# Matches JSON Linked Data (JSON within HTML)
+<script                                    # Match <script tag
+\s{1,}                                     # Then whitespace
+type=                                      # Then the type= attribute (this regex will only match if it is first)
+[\"\']                                     # Double or Single Quotes
+application/ld\+json                       # The type that indicates linked data
+[\"\']                                     # Double or Single Quotes
+[^>]{0,}                                   # Match anything until the end of the start tag
+\>                                         # Match the end of the start tag
+(?<JsonContent>(?:.|\s)+?(?=\z|</script>)) # Anything until the end tag is JSONContent
+

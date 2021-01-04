@@ -1,0 +1,3 @@
+﻿'#ff00ff'
+notacolor
+'#fff'
