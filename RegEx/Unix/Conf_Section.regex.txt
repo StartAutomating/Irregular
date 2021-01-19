@@ -1,2 +1,2 @@
 # Matches Sections in a .conf file.
-(?m)\[(?<SectionName>(?:.|\s)+?(?=\z|]))(?<SectionLines>(?:.|\s)+?(?=\z|^\[))
+(?m)\[(?<SectionName>(?:.|\s){0,}?(?=\z|]))(?<SectionLines>(?:.|\s){0,}?(?=\z|^\[))
