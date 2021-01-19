@@ -1,2 +1,21 @@
 # Matches Output from git diff
-(?m)?<Git_DiffHeader>(?<Git_DiffRanges>(?:.|\s)+?(?=\z|^diff))
+(?m)(?<Git_DiffHeader>
+(?m)^diff                                     # diff line start
+\s--git\s                                     # whitespace, then --git, then whitespace
+(?<From>\S+)                                  # From
+\s                                            # Whitespace
+(?<To>\S+)                                    # To
+(?<ExtendedHeader>(?:.|\s){0,}?(?=\z|^index)) # Until 'index'
+^index\s                                      # Index Line Start
+(?<FromHash>\w+)                              # FromHash
+\.{2,2}                                       # DotDot
+(?<ToHash>\w+)                                # ToHash
+\s(?<Mode>\w+)                                # FileMode
+(?:.|\s){0,}?(?=\z|^---)                      # UntilDashLine
+\-{3,3}\s                                     # DashLineAndWhitespace
+(?<FromUnified>\S+)                           # FromUnified
+\s+\+{3,3}\s                                  # PlusLineAndWhitespace
+(?<ToUnified>\S+)                             # ToUnified
+\s
+)
+(?<Git_DiffRanges>(?:.|\s){0,}?(?=\z|^diff))

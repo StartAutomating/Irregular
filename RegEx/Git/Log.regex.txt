@@ -1,20 +1,20 @@
 # Matches Output from git log
-(?m)^commit                                                       # Commits start with 'commit'
+(?m)^commit                                                             # Commits start with 'commit'
 \s+(?<CommitHash>(?<HexDigits>
 [0-9abcdef]+
 )
-)                                                                 # The CommitHash is all hex digits after whitespace
-\s+                                                               # More whitespace (includes the newline)
-(?:(?:Merge:                                                      # Next is the optional merge
+)                                                                       # The CommitHash is all hex digits after whitespace
+\s+                                                                     # More whitespace (includes the newline)
+(?:(?:Merge:                                                            # Next is the optional merge
 \s+(?:(?<MergeHash>(?<HexDigits>
 [0-9abcdef]+
 )
-)[\s-[\n\r]]{0,}                                                  # Which is hex digits, followed by optional whitespace
-){2,} [\n\r]+                                                     # followed by a newline
-))?Author:                                                        # New is the author line
-\s+(?<GitUserName>(?:.|\s)+?(?=\z|\s\<))                          # The username comes before whitespace and a <
-\s+\<                                                             # The email is enclosed in <>
-(?<GitUserEmail>(?:.|\s)+?(?=\z|>))\>(?:.|\s)+?(?=\z|^date:)Date: # Next comes the Date line
-\s+(?<CommitDate>(?:.|\s)+?(?=\z|\n))                             # Since dates can come in many formats, capture the line
-\n(?<CommitMessage>(?:.|\s)+?(?=\z|(?>\r\n|\n){2,2}))             # Anything until two newlines is the commit message
+)[\s-[\n\r]]{0,}                                                        # Which is hex digits, followed by optional whitespace
+){2,} [\n\r]+                                                           # followed by a newline
+))?Author:                                                              # New is the author line
+\s+(?<GitUserName>(?:.|\s){0,}?(?=\z|\s\<))                             # The username comes before whitespace and a <
+\s+\<                                                                   # The email is enclosed in <>
+(?<GitUserEmail>(?:.|\s){0,}?(?=\z|>))\>(?:.|\s){0,}?(?=\z|^date:)Date: # Next comes the Date line
+\s+(?<CommitDate>(?:.|\s){0,}?(?=\z|\n))                                # Since dates can come in many formats, capture the line
+\n(?<CommitMessage>(?:.|\s){0,}?(?=\z|(?>\r\n|\n){2,2}))                # Anything until two newlines is the commit message
 
