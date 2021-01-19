@@ -623,42 +623,8 @@ describe Export-RegEx {
 }
 
 describe 'Expressions' {
-    context '?<EmailAddress>' {
-        it 'Will extract an email and domain' {
-            'foo@bar.com' |
-                ?<EmailAddress> -Extract |
-                % {
-                    $_.Username | should -Be foo
-                    $_.Domain | should -Be bar.com
-                }
-        }
-        it 'Will not match a psuedo-email' {
-            'psued@oemail' | ?<EmailAddress>  |should -Be $null
-        }
-    }
-    context '?<Namespace>' {
-        it 'Will match a namespace' {
-            $nsExtract = @'
-namespace MyNamespace {
-    public class foo() {}
-}
-'@ | ?<Namespace> -Extract
-            $nsExtract.Content | should -BeLike '{*foo()*}'
-            $nsExtract.Name | should -Be MyNamespace
-        }
-    }
-
-    context '?<REST_Variable>' {
-        it 'Will extract variables in a REST url string' {
-            $restMatches = ?<REST_Variable> -Match 'https://$server/[organization]/{project}?api-version=$apiVersion'
-            $restMatches[0].Value | should Be '/$server'
-            $restMatches[1].Value | should Be '/[organization]'
-            $restMatches[2].Value | should Be '/{project}'
-            $restMatches[3].Value | should Be '?api-version=$apiVersion'
-        }
-    }
-
     $rootDir = $PSScriptRoot
+    
     foreach ($file in Get-ChildItem $rootDir -Recurse) {
         if ($file.name -notlike '*.regex.input*') {
             continue
@@ -713,6 +679,40 @@ namespace MyNamespace {
 
     }
 
+    context '?<EmailAddress>' {
+        it 'Will extract an email and domain' {
+            'foo@bar.com' |
+                ?<EmailAddress> -Extract |
+                % {
+                    $_.Username | should -Be foo
+                    $_.Domain | should -Be bar.com
+                }
+        }
+        it 'Will not match a psuedo-email' {
+            'psued@oemail' | ?<EmailAddress>  |should -Be $null
+        }
+    }
+    context '?<Namespace>' {
+        it 'Will match a namespace' {
+            $nsExtract = @'
+namespace MyNamespace {
+    public class foo() {}
+}
+'@ | ?<Namespace> -Extract
+            $nsExtract.Content | should -BeLike '{*foo()*}'
+            $nsExtract.Name | should -Be MyNamespace
+        }
+    }
+
+    context '?<REST_Variable>' {
+        it 'Will extract variables in a REST url string' {
+            $restMatches = ?<REST_Variable> -Match 'https://$server/[organization]/{project}?api-version=$apiVersion'
+            $restMatches[0].Value | should Be '/$server'
+            $restMatches[1].Value | should Be '/[organization]'
+            $restMatches[2].Value | should Be '/{project}'
+            $restMatches[3].Value | should Be '?api-version=$apiVersion'
+        }
+    }
 
 }
 
