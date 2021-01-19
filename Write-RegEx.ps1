@@ -515,7 +515,7 @@
                 if ($until -notlike '\z*') {
                     $until = @("\z") + $until
                 }
-                "(?:.|\s)+?(?=$($until -join '|'))"
+                "(?:.|\s){0,}?(?=$($until -join '|'))"
             }
 
             # If we're passed in a character class, literal character, or UnicodeCharacter.
@@ -535,9 +535,9 @@
                     })
                 ) -ne ''
 
-                if ($not) # I -Not was passed
+                if ($not) # If -Not was passed
                 {
-                    "[^$($charSet -join '')]" # It can be any character that is not in any of the character classes.
+                    "[^$($charSet -join '')]" # it can be any character that is not in any of the character classes.
                 }
                 # If we have more than one character class
                 elseif ($charSet.Length -gt 1 -or ($literalCharacter -and $literalCharacter[0].Length -gt 1))
