@@ -10,4 +10,4 @@
 (?<ToFileLineEnd>\d+)      # To
 \,(?<ToFileLineCount>\d+)? # LineCount
 \s{1,}\@{2,2}              # Two More @s
-(?<Header>(?:.|\s)+?(?=\z|$))?$
+(?<Header>(?:.|\s){0,}?(?=\z|$))?$
