@@ -1,0 +1,6 @@
+﻿# Matches a CSharp using keyword
+using                    # using statement
+\s{1,}                   # whitepsace
+(?<Namespace>[\.\w+]+)   # a namespace
+\s{0,}                   # optional whitespace
+\;                       # a semicolon
