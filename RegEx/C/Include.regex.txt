@@ -1,0 +1,7 @@
+﻿# Matches C/C++ #include 
+\#
+include                                    #  Match the include, followed by
+\s+(?>(?<Include>(\<                       # A header, enclosed in <>s
+(?<Header>[\w\.\\\/]+)\>                   # OR
+|\"                                        # A Source File, enclosed in ""s
+(?<SourceFile>[\w\.\\\/]+)\")))
