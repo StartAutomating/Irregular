@@ -7,7 +7,7 @@ Matches PowerShell #requires
     Write-RegEx -Atomic -Or @(
         Write-RegEx -Pattern '\-Module(?:s)?' |
             Write-RegEx -CharacterClass Whitespace -Repeat |
-            Write-RegEx -Name Modules -Pattern '.+?$'
+            Write-RegEx -Name Module -Pattern '.+?$'
         
         Write-RegEx -Pattern '-Assembly' -Description "An -Assembly" |
             Write-RegEx -CharacterClass Whitespace -Repeat |
