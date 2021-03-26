@@ -1,0 +1,5 @@
+﻿# Matches PowerShell #requires 
+(?m)^\#requires #  Match the Requires, followed by one of the following
+\s+(?>\-Module\s+(?<Modules>.+?$))
+# This does not match PSSnapin requirements, because no one has used PSSnapins for a decade.
+
