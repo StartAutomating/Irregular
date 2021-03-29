@@ -706,11 +706,11 @@ namespace MyNamespace {
 
     context '?<REST_Variable>' {
         it 'Will extract variables in a REST url string' {
-            $restMatches = ?<REST_Variable> -Match 'https://$server/[organization]/{project}?api-version=$apiVersion'
-            $restMatches[0].Value | should Be '/$server'
-            $restMatches[1].Value | should Be '/[organization]'
-            $restMatches[2].Value | should Be '/{project}'
-            $restMatches[3].Value | should Be '?api-version=$apiVersion'
+            $restMatches = ?<REST_Variable> -Match 'https://`$server/[organization]/{project}?api-version=$apiVersion'
+            $restMatches[0].Value | should -Be '/`$server'
+            $restMatches[1].Value | should -Be '/[organization]'
+            $restMatches[2].Value | should -Be '/{project}'
+            $restMatches[3].Value | should -Be '?api-version=$apiVersion'
         }
     }
 
