@@ -692,13 +692,13 @@ describe 'Expressions' {
             'psued@oemail' | ?<EmailAddress>  |should -Be $null
         }
     }
-    context '?<Namespace>' {
+    context '?<Code_Namespace>' {
         it 'Will match a namespace' {
             $nsExtract = @'
 namespace MyNamespace {
     public class foo() {}
 }
-'@ | ?<Namespace> -Extract
+'@ | ?<Code_Namespace> -Extract
             $nsExtract.Content | should -BeLike '{*foo()*}'
             $nsExtract.Name | should -Be MyNamespace
         }
