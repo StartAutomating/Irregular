@@ -2,7 +2,7 @@
 $myRoot = $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
 Write-RegEx -Description @'
 Matches C/C++ #include 
-'@ -Pattern "\#
+'@ -Pattern "\#\s{0,}
 include" -Comment " Match the include, followed by" |
     Write-RegEx -CharacterClass Whitespace -Repeat |
     Write-RegEx -Name Include -Atomic -Or @(

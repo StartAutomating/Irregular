@@ -2,7 +2,7 @@
 $myRoot = $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
 Write-RegEx -Description @'
 Matches C/C++ #define 
-'@ -Pattern "\#
+'@ -Pattern "\#\s{0,}
 define" -Comment " Match the define" -Modifier Multiline|
     Write-RegEx -CharacterClass Whitespace -Repeat -Comment "Whitespace" | 
     Write-RegEx -Name Identifier -CharacterClass Word -Repeat -Comment "The identifier" |

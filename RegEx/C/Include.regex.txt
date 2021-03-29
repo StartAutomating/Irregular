@@ -1,5 +1,5 @@
 ﻿# Matches C/C++ #include 
-\#
+\#\s{0,}
 include                                    #  Match the include, followed by
 \s+(?>(?<Include>(\<                       # A header, enclosed in <>s
 (?<Header>[\w\.\\\/]+)\>                   # OR
