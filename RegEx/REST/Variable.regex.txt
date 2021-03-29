@@ -6,9 +6,14 @@
     (?:          
         \{(?<Variable>\w+)\}| # ... A <Variable> name in {} OR
         \[(?<Variable>\w+)\]| #     A <Variable> name in [] OR
-        \$(?<Variable>\w+)  | #     A $ followed by a <Variable> OR
+        `\$(?<Variable>\w+) | #     A `$ followed by a <Variable> OR
         \:(?<Variable>\w+)    #     A : followed by a <Variable>
     )    
+|
+    (?<IsOptional>            # If it's optional it can also be 
+        [{\[](?<Start>/)      # a bracket or brace, followed by a slash
+    )
+    (?<Variable>\w+)[}\]]     # then a <Variable> name followed by } or ]
 |                             # OR it can be in a query parameter:
     (?<Start>[?&])            # Match The <Start>ing ? or & ...
     (?<Query>[\w\-]+)         # ... the <Query> parameter name ... 
@@ -17,7 +22,7 @@
     (?:               
         \{(?<Variable>\w+)\}| # ... A <Variable> name in {} OR
         \[(?<Variable>\w+)\]| #     A <Variable> name in [] OR
-        \$(?<Variable>\w+)  | #     A $ followed by a <Variable> OR
+        \`$(?<Variable>\w+) | #     A $ followed by a <Variable> OR
         \:(?<Variable>\w+)    #     A : followed by a <Variable>
     )
 )
