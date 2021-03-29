@@ -692,13 +692,13 @@ describe 'Expressions' {
             'psued@oemail' | ?<EmailAddress>  |should -Be $null
         }
     }
-    context '?<Namespace>' {
+    context '?<Code_Namespace>' {
         it 'Will match a namespace' {
             $nsExtract = @'
 namespace MyNamespace {
     public class foo() {}
 }
-'@ | ?<Namespace> -Extract
+'@ | ?<Code_Namespace> -Extract
             $nsExtract.Content | should -BeLike '{*foo()*}'
             $nsExtract.Name | should -Be MyNamespace
         }
@@ -706,11 +706,11 @@ namespace MyNamespace {
 
     context '?<REST_Variable>' {
         it 'Will extract variables in a REST url string' {
-            $restMatches = ?<REST_Variable> -Match 'https://$server/[organization]/{project}?api-version=$apiVersion'
-            $restMatches[0].Value | should Be '/$server'
-            $restMatches[1].Value | should Be '/[organization]'
-            $restMatches[2].Value | should Be '/{project}'
-            $restMatches[3].Value | should Be '?api-version=$apiVersion'
+            $restMatches = ?<REST_Variable> -Match 'https://`$server/[organization]/{project}?api-version=`$apiVersion'
+            $restMatches[0].Value | should -Be '/`$server'
+            $restMatches[1].Value | should -Be '/[organization]'
+            $restMatches[2].Value | should -Be '/{project}'
+            $restMatches[3].Value | should -Be '?api-version=`$apiVersion'
         }
     }
 

@@ -1,0 +1,9 @@
+﻿# Matches PowerShell #requires 
+(?m)^\#requires #  Match the Requires, followed by one of the following
+\s+(?>(\-Module(?:s)?\s+(?<Module>.+?$)|# An -Assembly
+-Assembly\s+(?<Assembly>.+?$)|          # A -Version
+-Version\s+(?<Version>.+?$)|            # The -PSEdition
+-PSEdition\s+(?<PSEdition>.+?$)|        # -RunAsAdministrator
+(?<RunAsAdministrator>-RunAsAdministrator)))
+# This does not match PSSnapin requirements, because no one has used PSSnapins for a decade.
+

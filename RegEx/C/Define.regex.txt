@@ -1,0 +1,10 @@
+﻿# Matches C/C++ #define 
+(?m)\#\s{0,}
+define                             #  Match the define
+\s+                                # Whitespace
+(?<Identifier>\w+)                 # The identifier
+\s{0,}                             # Optional Whitespace
+# Then either
+(?>(?<Definition>([^\\]+$          # A Line with no escape OR
+|(?<Line>[^\\]+?\\(?=(?>\r\n|\n))) # One or more lines ending with \
+{1,})))
