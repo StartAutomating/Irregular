@@ -475,7 +475,7 @@ describe Write-Regex {
     }
 
     it 'Can -Be optional' {
-        Write-RegEx -Pattern do, die -Or -Optional | select-object -expand Pattern | should -Be '(do|die)?'
+        Write-RegEx -Pattern do, die -Or -Optional | select-object -expand Pattern | should -Be '(?:do|die)?'
     }
 
     it 'Can use Saved Expressions (with the format ?<Name>)' {
