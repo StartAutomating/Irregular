@@ -47,6 +47,11 @@
     [string[]]
     $Pattern,
 
+    # If provided, will name the capture
+    [Alias('CaptureName')]
+    [string]
+    $Name,
+
     # One or more character classes.
     [Alias('CC','CharacterClasses')]
     [ValidateSet(
@@ -142,11 +147,6 @@
     [Alias('UC', 'UnicodeCharacters')]
     [int[]]
     $UnicodeCharacter,
-
-    # If provided, will name the capture
-    [Alias('CaptureName')]
-    [string]
-    $Name,
 
     # The name or number of a backreference (a reference to a previous capture)
     [string]$Backreference,
@@ -501,7 +501,11 @@
                     }
 
                 if ($Or -and $Pattern.Length -gt 1) { # (join multiples with | if -Of is passed)
-                    "($($Pattern -join '|'))"
+                    if ($atomic) {
+                        $pattern -join '|'
+                    } else {
+                        "(?:$($Pattern -join '|'))"
+                    }
                 }
                 elseif ($Not) { "\A((?!($($Pattern -join ''))).)*\Z" } # (create an antipattern if -Not is passed)
                 elseif ($pattern.Length -gt 1 -and # If more than one pattern was passed
@@ -566,7 +570,7 @@
                 '+'
             }
 
-            if ($myParams.ContainsKey('Min')) { # If the regex has a minimum,
+            if ($myParams.ContainsKey('Min') -and -not $theOc) { # If the regex has a minimum,
                 "{$min,$(if($max) { $max})}"    # pass the repeitions range quantifier ({min,[max]})
             }
 
@@ -587,7 +591,11 @@
             }
 
             if ($not -and # If we're passed -Not,
-                -not ($CharacterClass -or $Pattern -or $modifier)) { # but no -CharacterClass or -Pattern or -Modifier
+                -not ($CharacterClass -or 
+                    $Pattern -or 
+                    $modifier -or 
+                    $LiteralCharacter
+                )) { # but not passed -CharacterClass or -Pattern or -Modifier or -LiteralCharacter
                 '(?!)' # emit an empty lookahead (this will always fail)
             }
 
@@ -607,12 +615,13 @@
                 ')'; $hadToBeClosed =$true
             }
 
+            if ($HadToBeCLosed -and $myParams.ContainsKey('Min') ) { # If the regex has a minimum,
+                "{$min,$(if($max) { $max})}"    # pass the repeitions range quantifier ({min,[max]})
+            }
+
             if ($hadToBeClosed -and $optional) {
                 '?'
             }
-
-
-
         }
 
         $regex = $regex -join ''
