@@ -419,6 +419,10 @@ describe Write-Regex {
         ?<> -Name Domain -LiteralCharacter .- -CharacterClass Word -Repeat
     }
 
+    it 'Can negate a -LiteralCharacter' {
+        Write-Regex -LiteralCharacter '.' -Not | Should -Be '[^\.]'
+    }
+
     it 'Can use a -StartAnchor or -EndAnchor' {
         Write-RegEx -CharacterClass Whitespace -Min 0 -StartAnchor LineStart -EndAnchor LineEnd |
             Select-Object -ExpandProperty Pattern |
@@ -457,11 +461,11 @@ describe Write-Regex {
         Write-RegEx -Not foo | Select-Object -ExpandProperty pattern | should -Be '\A((?!(foo)).)*\Z'
     }
 
-    it 'Can -Be -Atomic' {
-        Write-RegEx -Atomic -Pattern 'do', 'die' -Or | select-object -expand Pattern | should -Be '(?>(do|die))'
+    it 'Can Be -Atomic' {
+        Write-RegEx -Atomic -Pattern 'do', 'die' -Or | select-object -expand Pattern | should -Be '(?>do|die)'
     }
 
-    it 'Can -Be -Greedy or -Lazy (or both)' {
+    it 'Can Be -Greedy or -Lazy (or both)' {
         Write-RegEx -Pattern '(.|\s)' -Greedy -Lazy | Select-Object -ExpandProperty Pattern | Should -Be '(.|\s)*?'
     }
 
