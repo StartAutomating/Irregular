@@ -1,0 +1,11 @@
+﻿# Matches Keyboard Shortcuts
+# Keyboard Shortcuts are a <Modifiers> followed by a Key
+(?<Modifiers>(?>(?<Alt>Option|Alt|LeftAltPressed|RightAltPressed|LeftAlt|RightAlt)             # An <Alt> modifier
+|(?<Control>Control|Ctrl|LeftCtrlPressed|LeftCtrl|RightCtrlPressd|RightCtrl)                   # A <Control> Modifier
+|(?<Command>EnhancedKey|Command|Cmd|LeftCmd|RightCmd|Windows|Win|Apple|OpenApple)              # A <Command> Modifier (the Windows or Apple key)
+|(?<Shift>ShiftPressed|Shift|LeftShift|RightShift)                                             # A <Shift> Modifier
+)\+){0,3}                                                                                      # 0-3 modifiers are followed by a key.  The Key can be
+(?>(?<Key>.$)                                                                                  # A single-character key
+|(?<VirtualKey>\{[^\}]+\}{1,2})                                                                # A virtual key (enclosed in {}s)
+|(?<KeyName>[^\,]+)                                                                            # A key name
+)
