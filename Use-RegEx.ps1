@@ -87,6 +87,7 @@
 
     # If -IncludeMatch and -Until are provided, will include the match with the result of -Until.
     # If -IncludeMatch and -Split are provided, will include the matches with the result of -Split.
+    # If -IncludeMatch is provided with -Extract, a .Match property will be included in the result.
     # If neither -Split or -Until is provided, this parameter is ignored.
     [Alias('IncludingMatch')]
     [switch]$IncludeMatch,
@@ -96,6 +97,11 @@
 
     # If set, will extract capture groups into a custom object.
     [switch]$Extract,
+
+    # If provided, will add typename information to the returned objects.
+    # This implies -Extract.
+    [string]
+    $PSTypeName,
 
     # If provided, will transform each match with a replacement string.
     # For more information about replacement strings, see:
@@ -177,20 +183,20 @@
         if (-not $script:_RegexLibrary -or -not $script:_RegexLibrary.Count) {
             # it could be because we're invoke in a place where $script: variables aren't accessible.
             if ($myInv.MyCommand.Module) { # If that's the case, and this command is within a module
-                $script:_RegexLibrary = @{} 
+                $script:_RegexLibrary = @{}
                 # then we can try to look at the RegexLibraryMetadata to reconstruct out regex liberary
                 $regexMetadata = . $myInv.MyCommand.Module {$_RegexLibraryMetadata}
                 if ($regexMetadata -and $regexMetadata.getEnumerator) { # If we found metadata
                     foreach ($kv in $regexMetadata.GetEnumerator()) { # Walk over each piece of metadata
                         $script:_RegexLibrary[$kv.Key] = # the key format is the same for RegexLibrary.
                             # If the value has a pattern, it's a RegEx
-                            if ($kv.Value.Pattern) 
-                            { 
+                            if ($kv.Value.Pattern)
+                            {
                                 [Regex]::new($kv.Value.Pattern, 'IgnoreCase,IgnorePatternWhitespace','00:00:05')
-                            } 
+                            }
                             # If the path was like *.ps1, it's a RegEx Generator.
-                            elseif ($kv.Value.Path -like '*.ps1') 
-                            { 
+                            elseif ($kv.Value.Path -like '*.ps1')
+                            {
                                 $ExecutionContext.SessionState.InvokeCommand.GetCommand($kv.Value.Path, 'ExternalScript')
                             }
                     }
@@ -252,6 +258,7 @@
         $isExtracting =
             $MyInvocation.InvocationName -eq '.' -or
             $Extract -or
+            $PSTypeName -or
             $coerce.Count -or
             $If.Count
 
@@ -259,7 +266,7 @@
         # If -Where or -If was provided, we need to recreate the script blocks for $_ to work.
         if ($Where) { $where = [ScriptBlock]::Create($Where) }
 
-        # In order for $_ to work correctly, 
+        # In order for $_ to work correctly,
         # we need to recreate any script block parameters passed within dictionaries.
         # Rather than write this three times, let's loop over each collection
         foreach ($coll in $if, $ReplaceIf, $Coerce) {
@@ -280,12 +287,14 @@
         $extractMatch = { process {
             $m = $_
             $xm = [Ordered]@{}
-            foreach ($g in $m.Groups) {
+            foreach ($g in $m.Groups[1..($m.Groups.Count -1)]) {
                 if ($g.Name -as [int] -ge 1) { continue }
-                $gcv =
-                    foreach ($gc in $g.Captures) {
-                        $gc.Value
-                    }
+                if ($g.Name -eq $mySafeName -and
+                    $m.Groups.Count -gt 2) {
+                    continue
+                }
+                # Unroll the captures.  If there's only one, we want it to be a single value, not an array.
+                $gcv = foreach ($gc in $g.Captures) { $gc.Value }
                 if ($Coerce -and $Coerce.$($g.Name) -is [type]) {
                     $xm[$g.Name] = foreach ($v in $gcv) { $v -as $Coerce.$($g.Name) }
                 } elseif ($Coerce -and $Coerce.$($g.Name) -is [ScriptBlock]) {
@@ -294,8 +303,10 @@
                     $xm[$g.Name] = $gcv # set it in $matches
                 }
             }
-            $xm.Match = $m
-            $xm.PSTypeName = 'Irregular.Match.Extract'
+            if ($IncludeMatch) {
+                $xm.Match = $m
+            }
+            $xm.PSTypeName = if ($PSTypeName) {$PSTypeName } else { 'Irregular.Match.Extract' }
             [PSCustomObject]$xm
         } }
         #endregion [ScriptBlock]$ExtractMatch
@@ -308,7 +319,7 @@
                 $MatchMetaData = [Ordered]@{
                     StartIndex = $_.Index
                     EndIndex = $_.Index + $_.Length
-                    Input = $_.Result('$_')
+                    # Input = $_.Result('$_')
                 }
                 if ($isExtracting -or $Where) {
                     $xm = $currentMatch | & $extractMatch
@@ -343,21 +354,22 @@
                 if ($isextracting) {
                     return $xm
                 }
-                if ($currentMatch.psobject.properties['EndIndex'] -isnot [PSScriptProperty]) { # add on two script properties we might want:
-                    $currentMatch.psobject.properties.Remove('EndIndex') # EndIndex
-                    $currentMatch.psobject.properties.add([PSScriptProperty]::new('EndIndex', { $this.Index + $this.Length }))
+                $psProps = $currentMatch.psobject.properties
+                if ($psProps['EndIndex'] -isnot [PSScriptProperty]) { # add on two script properties we might want:
+                    $psProps.Remove('EndIndex') # EndIndex
+                    $psProps.add([PSScriptProperty]::new('EndIndex', { $this.Index + $this.Length }))
                 }
-                if ($currentMatch.psobject.properties['Input'] -isnot [PSScriptProperty]) {
-                    $currentMatch.psobject.properties.Remove('Input')
-                    $currentMatch.psobject.properties.add([PSScriptProperty]::new('Input', { $this.Result('$_') })) # and Input.
+                if ($psProps['Input'] -isnot [PSScriptProperty]) {
+                    $psProps.Remove('Input')
+                    $psProps.add([PSScriptProperty]::new('Input', { $this.Result('$_') })) # and Input.
                 }
 
-                if ($inputObject -and $inputObject -ne $currentMatch.Input) {
-                    $currentMatch.psobject.Properties.Remove('InputObject')
-                    $currentMatch.psobject.properties.add([PSNoteProperty]::new('InputObject', $inputObject))
+                if ($inputObject) {
+                    $psProps.Remove('InputObject')
+                    $psProps.add([PSNoteProperty]::new('InputObject', $inputObject))
                 } else {
-                    $currentMatch.psobject.Properties.Remove('InputObject')
-                    $currentMatch.psobject.properties.add([PSAliasProperty]::new('InputObject', 'Input'))
+                    $psProps.Remove('InputObject')
+                    $psProps.add([PSAliasProperty]::new('InputObject', 'Input'))
                 }
 
                 return $currentMatch
