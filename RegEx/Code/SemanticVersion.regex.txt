@@ -1,0 +1,20 @@
+﻿# Matches a Semantic Version.  See [https://semver.org/](https://semver.org/).
+(?<major>0|[1-9]\d*)
+\.
+(?<minor>0|[1-9]\d*)
+\.
+(?<patch>0|[1-9]\d*)
+(?:
+    -
+    (?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)
+    (?:
+        \.
+        (?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)
+)?
+(?:
+    \+
+    (?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)
+)?
+
+# This Regular Expression is slightly modified from the Regular Expression on [https://semver.org/](https://semver.org/).
+# It does not anchor the match, and thus will find multiple semantic versions within a string if they exist.

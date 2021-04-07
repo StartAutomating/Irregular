@@ -1,0 +1,9 @@
+﻿# Matches PowerShell ParameterSets (in [Parameter] and [CmdletBinding] attributes) 
+ParameterSetName                 #  Find ParameterSetName
+\s{0,}                           # Followed by optional whitespace
+\=                               # Followed by an equals
+\s{0,}                           # Followed by more optional whitespace
+\@?                              # Followed by an optional @
+(?>\"(?<ParameterSetName>[^\"]+) # A ParameterSetName in a Double-Quoted String
+\"|\'(?<ParameterSetName>[^\']+) # A ParameterSetName in a String Quoted String
+\')
