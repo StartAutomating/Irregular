@@ -1,10 +1,10 @@
 ﻿# Matches an Email Address
 (?<UserName>\w           # Match the username, which starts with a word character
-[\w\-\.]{0,}             # And can contain any number of word characters, dashes, or dots
+[\w\-\.]{0,}             # and can contain any number of word characters, dashes, or dots
 )\@                      # Followed by an @
 (?<Domain>\w             # The domain starts with a word character
-[\w\-]{0,}               # And can contain any words with dashes
-(?:\.                    # Followed by at least one suffix, which starts with a dot.
-\w                       # Followed by a word character
-[\w\-]{0,}               # Followed by any word characters or dashes
+[\w\-]{0,}               # and can contain any words with dashes,
+(?:\.                    # followed by at least one suffix (which starts with a dot),
+\w                       # followed by a word character,
+[\w\-]{0,}               # followed by any word characters or dashes
 ){1,})
