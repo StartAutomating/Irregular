@@ -21,16 +21,20 @@
     .Example
         # A regular expression for an email address.
 
-        Write-RegEx -Name EmailAddress -Pattern (
-            Write-RegEx -CharacterClass Word |
-            Write-RegEx -LiteralCharacter -. -CharacterClass Word -Min 0
-        ) |
-            Write-RegEx -LiteralCharacter '@' -NoCapture |
+        Write-RegEx -Description "Matches an Email Address" |
+            Write-RegEx -Name UserName -Pattern (
+                Write-RegEx -CharacterClass Word -Comment "Match the username, which starts with a word character" |
+                    Write-RegEx -CharacterClass Word -LiteralCharacter '-.' -Min 0 -Comment "and can contain any number of word characters, dashes, or dots"
+            ) |
+            Write-RegEx -LiteralCharacter '@' -Comment "Followed by an @"|
             Write-RegEx -Name Domain -Pattern (
-                Write-RegEx -CharacterClass Word |
-                Write-RegEx -LiteralCharacter - -CharacterClass Word -Min 0 |
-                Write-RegEx -LiteralCharacter . |
-                Write-RegEx -CharacterClass Word -Min 1
+                Write-RegEx -CharacterClass Word  -Comment "The domain starts with a word character" |
+                    Write-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "and can contain any words with dashes," |
+                    Write-RegEx -NoCapture -Pattern (
+                        Write-RegEx -LiteralCharacter '.' -Comment "followed by at least one suffix (which starts with a dot),"|
+                            Write-RegEx -CharacterClass Word -Comment "followed by a word character," |
+                            Write-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "followed by any word characters or dashes"
+                    ) -Min 1
             )
     .Example
         # Writes a pattern for multiline comments
@@ -147,6 +151,10 @@
     [Alias('UC', 'UnicodeCharacters')]
     [int[]]
     $UnicodeCharacter,
+
+    # If provided, will match digits up to a value.
+    [uint32]
+    $DigitMax,
 
     # The name or number of a backreference (a reference to a previous capture)
     [string]$Backreference,
@@ -494,6 +502,27 @@
                 }
             }
 
+            if ($DigitMax) {
+                $digitMaxStr = "$DigitMax"
+                $digitCount = $DigitMaxStr.Length
+
+                $numberRangePattern = @(
+                    @(for ($di = 0; $di -lt $digitCount; $di++) {
+                        $digitAtIndex = $DigitMaxStr.Substring($di, 1)
+                        if ($digitAtIndex -eq '0') {
+                            "\d"
+                        } else {
+                            "[0-$($digitAtIndex)]"
+                        }
+                    }) -join ''
+                    for ($dc = $digitCount - 1; $dc -gt 0; $dc--) {
+                        ('\d' * $dc)
+                    }
+                ) -join '|'
+
+                $pattern += "(?>$numberRangePattern)"
+            }
+
             if ($Pattern) {
                 $Pattern =
                     foreach ($expr in $Pattern) { # Now handle any expressions they passed in.
@@ -591,9 +620,9 @@
             }
 
             if ($not -and # If we're passed -Not,
-                -not ($CharacterClass -or 
-                    $Pattern -or 
-                    $modifier -or 
+                -not ($CharacterClass -or
+                    $Pattern -or
+                    $modifier -or
                     $LiteralCharacter
                 )) { # but not passed -CharacterClass or -Pattern or -Modifier or -LiteralCharacter
                 '(?!)' # emit an empty lookahead (this will always fail)
