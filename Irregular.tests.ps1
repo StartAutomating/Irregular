@@ -550,6 +550,12 @@ describe Write-Regex {
         }
     }
 
+    it 'Can Match a series of Digits up to a -DigitMax' {
+        $r = Write-RegEx -DigitMax 16 -StartAnchor '^' -NotBefore '\d'
+        $r.Match("16").Success | Should -Be $true
+        $r.Match("17").Success | Should -Be $false
+    }
+
     it 'Can refer to a capture generator (parameters can -Be passed with () or {})' {
         Write-RegEx -Pattern '?<BalancedCode>{(}' |
             Use-RegEx -IsMatch -Match '({}' |

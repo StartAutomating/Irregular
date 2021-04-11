@@ -21,16 +21,20 @@
     .Example
         # A regular expression for an email address.
 
-        Write-RegEx -Name EmailAddress -Pattern (
-            Write-RegEx -CharacterClass Word |
-            Write-RegEx -LiteralCharacter -. -CharacterClass Word -Min 0
-        ) |
-            Write-RegEx -LiteralCharacter '@' -NoCapture |
+        Write-RegEx -Description "Matches an Email Address" |
+            Write-RegEx -Name UserName -Pattern (
+                Write-RegEx -CharacterClass Word -Comment "Match the username, which starts with a word character" |
+                    Write-RegEx -CharacterClass Word -LiteralCharacter '-.' -Min 0 -Comment "and can contain any number of word characters, dashes, or dots"
+            ) |
+            Write-RegEx -LiteralCharacter '@' -Comment "Followed by an @"|
             Write-RegEx -Name Domain -Pattern (
-                Write-RegEx -CharacterClass Word |
-                Write-RegEx -LiteralCharacter - -CharacterClass Word -Min 0 |
-                Write-RegEx -LiteralCharacter . |
-                Write-RegEx -CharacterClass Word -Min 1
+                Write-RegEx -CharacterClass Word  -Comment "The domain starts with a word character" |
+                    Write-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "and can contain any words with dashes," |
+                    Write-RegEx -NoCapture -Pattern (
+                        Write-RegEx -LiteralCharacter '.' -Comment "followed by at least one suffix (which starts with a dot),"|
+                            Write-RegEx -CharacterClass Word -Comment "followed by a word character," |
+                            Write-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "followed by any word characters or dashes"
+                    ) -Min 1
             )
     .Example
         # Writes a pattern for multiline comments
@@ -147,6 +151,10 @@
     [Alias('UC', 'UnicodeCharacters')]
     [int[]]
     $UnicodeCharacter,
+
+    # If provided, will match digits up to a value.
+    [uint32]
+    $DigitMax,
 
     # The name or number of a backreference (a reference to a previous capture)
     [string]$Backreference,
@@ -494,6 +502,48 @@
                 }
             }
 
+            if ($DigitMax) {
+                # Matching number ranges is annoying.
+                # In order to do so, we need to match specific strings up to a given point.
+
+                $digitMaxStr = "$DigitMax"
+                $digitCount = $DigitMaxStr.Length
+                $numberRangePattern = @(
+                    $firstDigitStr = $digitMaxStr.Substring(0,1)
+                    $firstDigitInt = $firstDigitStr -as [int]
+                    # It can be the maximum value at that digit, e.g 2[0-5][0-5]
+
+                    @(
+                        "[0-$($firstDigitInt)]"
+                        for ($di2 = 1; $di2 -lt $digitCount; $di2++) {
+                            $intD = $digitMaxStr.Substring($di2,1) -as [int]
+                            if ($intD) {
+                                "[0-$intD]"
+                            } else {
+                                '\d'
+                            }
+                        }
+                    ) -join ''
+
+                    # or the range of values beneath that digit, e.g [0-1]\d\d
+                    if ($firstDigitInit - 1) {
+                        @(
+                            "[0-$($firstDigitInt - 1)]"
+                            for ($di2 = 1; $di2 -lt $digitCount; $di2++) {'\d' }
+                        ) -join ''
+                    }
+
+
+                    $remainingDigits = $digitCount - 1
+                    if ($remainingDigits -ge 1) {
+                        "\d{1,$remainingDigits}"
+                    }
+
+                ) -join '|'
+
+                $pattern += "(?>$numberRangePattern)"
+            }
+
             if ($Pattern) {
                 $Pattern =
                     foreach ($expr in $Pattern) { # Now handle any expressions they passed in.
@@ -591,9 +641,9 @@
             }
 
             if ($not -and # If we're passed -Not,
-                -not ($CharacterClass -or 
-                    $Pattern -or 
-                    $modifier -or 
+                -not ($CharacterClass -or
+                    $Pattern -or
+                    $modifier -or
                     $LiteralCharacter
                 )) { # but not passed -CharacterClass or -Pattern or -Modifier or -LiteralCharacter
                 '(?!)' # emit an empty lookahead (this will always fail)
