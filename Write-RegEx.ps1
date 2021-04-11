@@ -503,21 +503,42 @@
             }
 
             if ($DigitMax) {
+                # Matching number ranges is annoying.
+                # In order to do so, we need to match specific strings up to a given point.
+
                 $digitMaxStr = "$DigitMax"
                 $digitCount = $DigitMaxStr.Length
-
                 $numberRangePattern = @(
-                    @(for ($di = 0; $di -lt $digitCount; $di++) {
-                        $digitAtIndex = $DigitMaxStr.Substring($di, 1)
-                        if ($digitAtIndex -eq '0') {
-                            "\d"
-                        } else {
-                            "[0-$($digitAtIndex)]"
+                    $firstDigitStr = $digitMaxStr.Substring(0,1)
+                    $firstDigitInt = $firstDigitStr -as [int]
+                    # It can be the maximum value at that digit, e.g 2[0-5][0-5]
+
+                    @(
+                        "[0-$($firstDigitInt)]"
+                        for ($di2 = 1; $di2 -lt $digitCount; $di2++) {
+                            $intD = $digitMaxStr.Substring($di2,1) -as [int]
+                            if ($intD) {
+                                "[0-$intD]"
+                            } else {
+                                '\d'
+                            }
                         }
-                    }) -join ''
-                    for ($dc = $digitCount - 1; $dc -gt 0; $dc--) {
-                        ('\d' * $dc)
+                    ) -join ''
+
+                    # or the range of values beneath that digit, e.g [0-1]\d\d
+                    if ($firstDigitInit - 1) {
+                        @(
+                            "[0-$($firstDigitInt - 1)]"
+                            for ($di2 = 1; $di2 -lt $digitCount; $di2++) {'\d' }
+                        ) -join ''
                     }
+
+
+                    $remainingDigits = $digitCount - 1
+                    if ($remainingDigits -ge 1) {
+                        "\d{1,$remainingDigits}"
+                    }
+
                 ) -join '|'
 
                 $pattern += "(?>$numberRangePattern)"
