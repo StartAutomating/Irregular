@@ -1,0 +1,7 @@
+# Matches a JSON Web Token (JWT)
+(?<Header>[0-9a-z=/\+]+)    # A base 64 string containing the header
+\.                          # Followed by a period
+(?<Payload>[0-9a-z=/\+]+)   # A base 64 string containing the payload
+\.                          # Followed by a period
+(?<Signature>[0-9a-z=/\+]+) # A base 64 string containing the signature
+
