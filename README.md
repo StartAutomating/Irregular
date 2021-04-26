@@ -1,5 +1,5 @@
 ﻿<div align='center'>
-<img src='Assets/Irregular_970_90.png' />
+<img src='Assets/Irregular_Wide.png' />
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
 <a href='https://dev.azure.com/StartAutomating/Irregular/_build/latest?definitionId=1&branchName=master'>
