@@ -1,0 +1,12 @@
+# Matches a quantifier
+(?<!\\)                                   # A Quantifier Can Be
+(?>                                       # A <RangeQuantifier>
+(?<RangeQuantifier>\{(?>(?<Count>\d(?=})) # With Fixed <Count> OR
+|(?<Min>\d+)                              # A <Min>
+\,(?<Max>\d+)?                            # With an optional <Max> OR
+|\,(?<Max>\d+)                            # A <Max> preceeded by a comma
+)\})|(?<Greedy>[\+\*])                    # A Quantifier can can also be <Greedy> (+ or *) OR
+|(?<Lazy>\?)                              # A Quantifier can be <Lazy>
+)(?>(?<Lazy>\?)                           # If a quantifier is followed by ?, it is <Lazy>
+|(?<Possessive>\+)                        # If a quantifier is followed by +, it is <Possesive>
+)?
