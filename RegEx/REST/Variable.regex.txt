@@ -6,6 +6,7 @@
     (?:          
         \{(?<Variable>\w+)\}| # ... A <Variable> name in {} OR
         \[(?<Variable>\w+)\]| #     A <Variable> name in [] OR
+        \<(?<Variable>\w+)\>| #     A <Variable> name in <> OR
         `\$(?<Variable>\w+) | #     A `$ followed by a <Variable> OR
         \:(?<Variable>\w+)    #     A : followed by a <Variable>
     )    
@@ -22,6 +23,7 @@
     (?:               
         \{(?<Variable>\w+)\}| # ... A <Variable> name in {} OR
         \[(?<Variable>\w+)\]| #     A <Variable> name in [] OR
+        \<(?<Variable>\w+)\>| #     A <Variable> name in <> OR
         `\$(?<Variable>\w+) | #     A $ followed by a <Variable> OR
         \:(?<Variable>\w+)    #     A : followed by a <Variable>
     )
