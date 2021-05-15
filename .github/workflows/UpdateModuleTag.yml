@@ -54,9 +54,19 @@ jobs:
           $TagAnnotationFormat = '$($imported.Name) $($imported.Version)'
           )
           
+          
+          $gitHubEvent = if ($env:GITHUB_EVENT_PATH) {
+              [IO.File]::ReadAllText($env:GITHUB_EVENT_PATH) | ConvertFrom-Json
+          } else { $null }
+          
+          @"
+          GitHubEvent: 
+          $($gitHubEvent | ConvertTo-Json -Depth 100)
+          "@ | Out-Host
+          
           $imported = 
           if (-not $ModulePath) {
-              $orgName, $moduleName = $env:BUILD_REPOSITORY_ID -split "/"
+              $orgName, $moduleName = $env:GITHUB_REPOSITORY -split "/"
               Import-Module ".\$moduleName.psd1" -Force -PassThru -Global
           } else {    
               Import-Module $modulePath -Force -PassThru -Global
