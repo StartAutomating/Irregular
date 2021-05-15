@@ -1,0 +1,5 @@
+﻿# Matches C/C++ #if/#ifdef/#ifndef .. #endif
+(?m)(?<!//)\#\s{0,} #  As long as we're not after comments, Match the , followed by
+(?<If>if[^\s]+)   # Match <If> (and the rest of the word)
+(?<Condition>.?$) # the <Condition> is anything until the end of the line
+(?:.|\s){0,}?(?=\z|\#endif)\#endif

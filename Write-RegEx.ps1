@@ -445,10 +445,8 @@
                     if ($escapeSequence -ne ($firstBetween * 2)) {
                         $pattern = "(?:.|\s)*?(?=\z|${escapePattern}${secondBetween})"
                     } else {
-
                         $pattern = "(?:$escapeSequence|[^$firstBetween])*(?=\z|$secondBetween)"
                     }
-
                 }
                 $theOC++
             }
@@ -606,9 +604,9 @@
 
             if ($If -and $Then) { # If they passed us a coniditional, embed it
                 if ($Else) {
-                    "(?($if)(?:$($then -join ''))|(?:$($else -join '')))"
+                    "(?($if)($($then -join ''))|($($else -join '')))"
                 } else {
-                    "(?($if)(?:$($then -join '')))"
+                    "(?($if)($($then -join '')))"
                 }
             }
 
