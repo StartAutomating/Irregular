@@ -88,4 +88,6 @@ jobs:
           
           
           } @Parameters
-
+env: 
+  UserEmail: james.brundage@start-automating.com
+  UserName: StartAutomating
