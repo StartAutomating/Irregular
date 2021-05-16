@@ -12,7 +12,6 @@ on:
 jobs: 
   UpdateModuleTag: 
     runs-on: ubuntu-latest
-    if: ${{github.event.action == 'closed' && github.event.merged == 'true'}}
     steps: 
       - name: Check out repository
         uses: actions/checkout@v2
@@ -55,9 +54,26 @@ jobs:
           $TagAnnotationFormat = '$($imported.Name) $($imported.Version)'
           )
           
+          
+          $gitHubEvent = if ($env:GITHUB_EVENT_PATH) {
+              [IO.File]::ReadAllText($env:GITHUB_EVENT_PATH) | ConvertFrom-Json
+          } else { $null }
+          
+          
+          if (-not $gitHubEvent.pullrequest.merged) {
+              "::warning::Pull Request has not merged, skipping" | Out-Host    
+          }
+          
+          @"
+          ::group::GitHubEvent
+          $($gitHubEvent | ConvertTo-Json -Depth 100)
+          ::endgroup::
+          "@ | Out-Host
+          
+          
           $imported = 
           if (-not $ModulePath) {
-              $orgName, $moduleName = $env:BUILD_REPOSITORY_ID -split "/"
+              $orgName, $moduleName = $env:GITHUB_REPOSITORY -split "/"
               Import-Module ".\$moduleName.psd1" -Force -PassThru -Global
           } else {    
               Import-Module $modulePath -Force -PassThru -Global
@@ -66,8 +82,16 @@ jobs:
           if (-not $imported) { return } 
           
           $targetVersion  =$ExecutionContext.InvokeCommand.ExpandString($TagVersionFormat)
+          $existingTags     = git tag --list
           
-          $versionTagExists = git tag --list | Where-Object { $_ -eq $targetVersion } 
+          @"
+          Target Version: $targetVersion
+          
+          Existing Tags:
+          $($existingTags  -join [Environment]::NewLine)
+          "@ | Out-Host
+          
+          $versionTagExists = $existingTags | Where-Object { $_ -match $targetVersion } 
           
           if ($versionTagExists) { 
               "::warning::Version $($versionTagExists)"
@@ -81,7 +105,7 @@ jobs:
           
           git tag -a $targetVersion -m $ExecutionContext.InvokeCommand.ExpandString($TagAnnotationFormat)
           git push --tags
-          
+           
           if ($env:GITHUB_ACTOR) {
               exit 0
           }
