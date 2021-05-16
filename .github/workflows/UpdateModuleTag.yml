@@ -1,14 +1,16 @@
+﻿
 name: UpdateModuleTag
 on: 
-  workflow_dispatch:  
-  pull_request: 
-    branches: 
-    - main
-    - master
-    paths-ignore: 
-    - 'docs/**'
-    - '*.help.txt'
-    - '*.md'
+  - workflow_dispatch: 
+  - pull_request: 
+      branches: 
+      - main
+      - master
+      paths-ignore: 
+      - 'docs/**'
+      - '*.help.txt'
+      - '*.md'
+
 jobs: 
   UpdateModuleTag: 
     runs-on: ubuntu-latest
@@ -60,15 +62,17 @@ jobs:
           } else { $null }
           
           
-          if (-not $gitHubEvent.pullrequest.merged) {
-              "::warning::Pull Request has not merged, skipping" | Out-Host    
-          }
-          
           @"
           ::group::GitHubEvent
           $($gitHubEvent | ConvertTo-Json -Depth 100)
           ::endgroup::
           "@ | Out-Host
+          
+          if (-not $gitHubEvent.pullrequest.merged -and -not $gitHubEvent.psobject.properties['Input']) {
+              "::warning::Pull Request has not merged, skipping" | Out-Host
+              return
+          }
+          
           
           
           $imported = 
@@ -104,7 +108,7 @@ jobs:
           git config --global user.name  $UserName
           
           git tag -a $targetVersion -m $ExecutionContext.InvokeCommand.ExpandString($TagAnnotationFormat)
-          git push --tags
+          git push origin --tags
            
           if ($env:GITHUB_ACTOR) {
               exit 0
