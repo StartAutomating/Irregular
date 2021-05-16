@@ -80,8 +80,16 @@ jobs:
           if (-not $imported) { return } 
           
           $targetVersion  =$ExecutionContext.InvokeCommand.ExpandString($TagVersionFormat)
+          $existingTags     = git tag --list
           
-          $versionTagExists = git tag --list | Where-Object { $_ -eq $targetVersion } 
+          @"
+          Target Version: $targetVersion
+          
+          Existing Tags:
+          $($existingTags  -join [Environment]::NewLine)
+          "@ | Out-Host
+          
+          $versionTagExists = $existingTags | Where-Object { $_ -match $targetVersion } 
           
           if ($versionTagExists) { 
               "::warning::Version $($versionTagExists)"
