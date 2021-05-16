@@ -64,6 +64,11 @@ jobs:
           $($gitHubEvent | ConvertTo-Json -Depth 100)
           "@ | Out-Host
           
+          if (-not $gitHubEvent.pullrequest.merged) {
+              "::warning::Pull Request has not merged, skipping" | Out-Host
+              
+          }
+          
           $imported = 
           if (-not $ModulePath) {
               $orgName, $moduleName = $env:GITHUB_REPOSITORY -split "/"
@@ -90,7 +95,7 @@ jobs:
           
           git tag -a $targetVersion -m $ExecutionContext.InvokeCommand.ExpandString($TagAnnotationFormat)
           git push --tags
-          
+           
           if ($env:GITHUB_ACTOR) {
               exit 0
           }
