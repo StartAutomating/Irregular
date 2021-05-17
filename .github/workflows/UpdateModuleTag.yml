@@ -67,12 +67,10 @@ jobs:
           ::endgroup::
           "@ | Out-Host
           
-          if (-not $gitHubEvent.pullrequest.merged -and -not $gitHubEvent.psobject.properties['Input']) {
+          if (-not ($gitHubEvent.pullrequest.merged) -and (-not $gitHubEvent.psobject.properties['Input'])) {
               "::warning::Pull Request has not merged, skipping" | Out-Host
               return
-          }
-          
-          
+          } 
           
           $imported = 
           if (-not $ModulePath) {
