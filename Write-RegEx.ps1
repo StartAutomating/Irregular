@@ -445,10 +445,8 @@
                     if ($escapeSequence -ne ($firstBetween * 2)) {
                         $pattern = "(?:.|\s)*?(?=\z|${escapePattern}${secondBetween})"
                     } else {
-
                         $pattern = "(?:$escapeSequence|[^$firstBetween])*(?=\z|$secondBetween)"
                     }
-
                 }
                 $theOC++
             }
@@ -464,7 +462,8 @@
             }
 
             if ($Atomic) {
-                "(?>"; $theOC++
+                $theOC++
+                "(?>" + [Environment]::NewLine + (' ' * $theOc * 2)
             }
 
             if ($NoCapture) {
@@ -551,10 +550,11 @@
                     }
 
                 if ($Or -and $Pattern.Length -gt 1) { # (join multiples with | if -Of is passed)
+                    $joinWith = (' ' * $theOc * 2) + '|' + [Environment]::NewLine + (' ' * $theOc * 2)
                     if ($atomic) {
-                        $pattern -join '|'
+                        $pattern -join $joinWith
                     } else {
-                        "(?:$($Pattern -join '|'))"
+                        "(?:$($Pattern -join $joinWith))"
                     }
                 }
                 elseif ($Not) { "\A((?!($($Pattern -join ''))).)*\Z" } # (create an antipattern if -Not is passed)
@@ -606,9 +606,9 @@
 
             if ($If -and $Then) { # If they passed us a coniditional, embed it
                 if ($Else) {
-                    "(?($if)(?:$($then -join ''))|(?:$($else -join '')))"
+                    "(?($if)($($then -join ''))|($($else -join '')))"
                 } else {
-                    "(?($if)(?:$($then -join '')))"
+                    "(?($if)($($then -join '')))"
                 }
             }
 
@@ -683,15 +683,13 @@
 
         if (-not $Denormalized) {
             $regexLines = $regex -split '(?>\r\n|\n)'
+            $findComment = [Regex]::new('(?<!\\)\#')
             $commentIndeces =
                 foreach ($l in $regexLines) {
-                    if ($l.Contains('#')) {
-                        $commentIndex = $l.IndexOf('#')
-                        if ($commentIndex -eq 0) {
-                            # Not important for normalization
-                        } elseif ($l[$commentIndex - 1] -ne '\') {
-                            # As long as the comment is not escaped
-                            $commentIndex
+                    $matched = @($findComment.Matches($l))
+                    if ($matched) {                        
+                        if ($matched[0].Index -gt 0) {
+                            $matched[0].Index
                         }
                     }
                 }
@@ -702,19 +700,17 @@
 
             $regex =
                 @(foreach ($l in $regexLines) {
-                    if ($l.Contains('#')) {
-                        $commentIndex = $l.IndexOf('#')
+                    $matched = @($findComment.Matches($l))
+                    if ($matched) {
+                        $commentIndex = $matched[0].Index                        
                         if ($commentIndex -eq 0) {
                             # Not important for normalization
                             $l
-                        } elseif ($l[$commentIndex - 1] -ne '\') {
+                        } else {
                             # As long as the comment is not escaped
                             $l.Substring(0, $commentIndex) + $(
                                 ' ' * ($max - $commentIndex)
                             ) + $l.Substring($commentIndex)
-
-                        } else {
-                            $l
                         }
                     } else {
                         $l

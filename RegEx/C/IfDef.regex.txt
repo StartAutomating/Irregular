@@ -1,0 +1,16 @@
+﻿# Matches C/C++ #if/#ifdef/#ifndef .. #endif
+(?m)(?<!//)\#\s{0,}(?=if)   #  As long as we're not after comments, Match the , followed by
+(?<If>if[^\s]+)             # Match <If> (and the rest of the word)
+(?<Condition>.+?$)          # the <Condition> is anything until the end of the line
+# Now things get tricky.  Because ifdefs can nest, we need a balancing group
+(?>
+  [^\#]+                    # Any non-preprocessor character matches, and doesn't change the balance
+  |
+  (?<!//)\#if.+?$(?<Depth>) # An if Increases the <Depth>
+  |
+  (?<!//)\#endif(?<-Depth>) # An EndIf Decreases the Depth
+  |
+  \#                        # Match any remaining 
+)*(?(Depth)(?!))            # Match Until EndIf is balanced
+(?<!//)\#endif              # Match the endIf
+

@@ -462,7 +462,7 @@ describe Write-Regex {
     }
 
     it 'Can Be -Atomic' {
-        Write-RegEx -Atomic -Pattern 'do', 'die' -Or | select-object -expand Pattern | should -Be '(?>do|die)'
+        Write-RegEx -Atomic -Pattern 'do', 'die' -Or | select-object -expand Pattern | should -BeLike '(?>*do*|*die*)'
     }
 
     it 'Can Be -Greedy or -Lazy (or both)' {
@@ -475,7 +475,7 @@ describe Write-Regex {
     }
 
     it 'Can -Be optional' {
-        Write-RegEx -Pattern do, die -Or -Optional | select-object -expand Pattern | should -Be '(?:do|die)?'
+        Write-RegEx -Pattern do, die -Or -Optional | select-object -expand Pattern | should -BeLike '(?:*do*|*die*)?'
     }
 
     it 'Can use Saved Expressions (with the format ?<Name>)' {
