@@ -1,7 +1,7 @@
-﻿
 name: UpdateModuleTag
 on: 
   - workflow_dispatch: 
+      inputs:      
   - pull_request: 
       branches: 
       - main
