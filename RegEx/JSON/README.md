@@ -15,7 +15,5 @@
 
 |Name|Description|Parameters|
 |-|--|-|
-|[```?<JSON_ListItem>```](ListItem.regex.ps1)|Matches a JSON list item.  If no -ListIndex is provided, will match all items in the list    <BR/>|```[[-ListIndex] <int>]
-```|
-|[```?<JSON_Property>```](Property.regex.ps1)|Matches a JSON property.  -PropertyName can be customized.<BR/>|```[[-PropertyName] <string>]
-```|
+|[```?<JSON_ListItem>```](ListItem.regex.ps1)|Matches a JSON list item.  If no -ListIndex is provided, will match all items in the list    <BR/>|```-ListIndex <int>```|
+|[```?<JSON_Property>```](Property.regex.ps1)|Matches a JSON property.  -PropertyName can be customized.<BR/>|```-PropertyName <string>```|
