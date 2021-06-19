@@ -67,21 +67,28 @@ $jsonValue = @'
 
 
 @"
-# A property within a JSON string
-(?:              # Match but don't store:
+(?<=             # After:
 [\{\,]           # A bracket or comma
+)
 \s{0,}           # Optional Whitespace
-"                # the opening quote
-)            
-(?<PropertyName> # Capture the Name, which is:
-$PropertyName    
-(?=(?<!\\)")     # followed by a closing quote (as long as it's not preceeded by a \) 
+(?<Quoted>["'])? # There's an optional opening quote
+(?<Name>         # Capture the Name, which is:
+$PropertyName    # The PropertyName or Anything Until...
+)
+(?=              
+    (?(Quoted)   # If quoted
+        ((?<!\\)\k<Quoted>) # the closing quote
+        |
+        ([\s:])  # otherwise, whitespace or a colon
+    )
 )
 (?:              # Match but don't store:
-"\s{0,}          # a double-quote, optional whitespace:
+    (?(Quoted)(\k<Quoted>))
+\s{0,}     # a double-quote, optional whitespace:
 )
+(?=\:)      # Look ahead to see that we're followed by a :, but don't include it in the match.
 :
-(?<PropertyValue>
+(?<Value>
 $jsonValue
 )
 "@
