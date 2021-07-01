@@ -1,14 +1,21 @@
 ﻿# A property within a JSON string
-(?:         # Match but don't store:
-[\{\,]      # A bracket or comma
-\s{0,}      # Optional Whitespace
-"           # the opening quote
-)            
-(?<Name>    # Capture the Name, which is:
-.+?         # Anything until...
-(?=(?<!\\)")# a closing quote (as long as it's not preceeded by a \) 
+(?<=             # After:
+[\{\,]           # A bracket or comma
 )
-(?:         # Match but don't store:
-"\s{0,}     # a double-quote, optional whitespace:
+\s{0,}           # Optional Whitespace
+(?<Quoted>["'])? # There's an optional opening quote
+(?<Name>         # Capture the Name, which is:
+.+?              # Anything until...
+)
+(?=              
+    (?(Quoted)   # If quoted
+        ((?<!\\)\k<Quoted>) # the closing quote
+        |
+        ([\s:])  # otherwise, whitespace or a colon
+    )
+)
+(?:              # Match but don't store:
+    (?(Quoted)(\k<Quoted>))
+\s{0,}     # a double-quote, optional whitespace:
 )
 (?=\:)      # Look ahead to see that we're followed by a :, but don't include it in the match.
