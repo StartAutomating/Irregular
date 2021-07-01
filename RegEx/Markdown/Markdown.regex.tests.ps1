@@ -40,6 +40,37 @@
         }
     }
 
+    context 'Code Blocks' {
+        it 'Will match indented code blocks' {
+@'
+    this is code!
+this is not
+    this is more code!
+   this is not code
+'@ | ?<Markdown_CodeBlock> -Extract |  Select-Object -ExpandProperty Code | Should -BeLike '*is*code*'
+
+        }
+        
+        it 'Will match fenced code blocks' {
+            $x = @'
+```PowerShell
+Get-Process # this is PowerShell code
+```
+'@ | ?<Markdown_CodeBlock> -Extract
+            $x.Language | Should -Be PowerShell
+            $x.Code | Should -BeLike '*powershell*code*'
+
+            $x = @'
+~~~yaml
+a:  
+  b: c
+    d: e
+~~~
+'@ | ?<Markdown_CodeBlock> -Extract
+            $x.Language | Should -Be yaml
+            $x.Code | Should -BeLike '*a:*'
+        }
+    }
     context 'Thematic Breaks' {
         it 'Will match thematic breaks' {
             # See https://github.github.com/gfm/#thematic-breaks
