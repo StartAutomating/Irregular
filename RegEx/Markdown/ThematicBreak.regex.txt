@@ -1,0 +1,12 @@
+﻿# Matches markdown horizontal rules
+(?m)                    # Set multiline mode
+^                       # Match the line start
+\s{0,3}                 # Match up to three whitespace characters
+(?<BreakChar>
+    [-_\*]              # Then either a dash, underscore, or asterisk 
+)
+(?:
+\k<BreakChar>\s{0,}
+){2,}                   # Followed by at least 2 of the same character
+\s{0,}                  # any any trailing whitepsace
+$                       # until the end of the line.
