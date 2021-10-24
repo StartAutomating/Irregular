@@ -1,6 +1,88 @@
 ﻿
 name: Test, Tag, Release, and Publish
 jobs: 
+  PowerShellStaticAnalysis: 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: InstallScriptCop
+        id: InstallScriptCop
+        shell: pwsh
+        run: |
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          Install-Module -Name ScriptCop -Repository PSGallery -Force -Scope CurrentUser
+          Import-Module ScriptCop -Force -PassThru
+      - name: InstallPSScriptAnalyzer
+        id: InstallPSScriptAnalyzer
+        shell: pwsh
+        run: |
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -Scope CurrentUser
+          Import-Module PSScriptAnalyzer -Force -PassThru
+      - name: InstallPSDevOps
+        id: InstallPSDevOps
+        shell: pwsh
+        run: |
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          Install-Module -Name PSDevOps -Repository PSGallery -Force -Scope CurrentUser
+          Import-Module PSDevOps -Force -PassThru
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: RunScriptCop
+        id: RunScriptCop
+        shell: pwsh
+        run: |
+          $Parameters = @{}
+          $Parameters.ModulePath = ${env:ModulePath}
+          foreach ($k in @($parameters.Keys)) {
+              if ([String]::IsNullOrEmpty($parameters[$k])) {
+                  $parameters.Remove($k)
+              }
+          }
+          Write-Host "::debug:: RunScriptCop $(@(foreach ($p in $Parameters.GetEnumerator()) {'-' + $p.Key + ' ' + $p.Value}) -join ' ')"
+          & {param([string]$ModulePath)
+          Import-Module ScriptCop, PSDevOps -PassThru | Out-Host
+          
+          if (-not $ModulePath) {
+              $orgName, $moduleName = $env:GITHUB_REPOSITORY -split "/"
+              $ModulePath = ".\$moduleName.psd1"
+          }
+          if ($ModulePath -like '*PSDevOps*') { 
+              Remove-Module PSDeVOps # If running ScriptCop on PSDeVOps, we need to remove the global module first.
+          }
+          
+           
+          $importedModule =Import-Module $ModulePath -Force -PassThru 
+          
+          $importedModule | Out-Host
+          
+          $importedModule | 
+              Test-Command |
+              Tee-Object -Variable scriptCopIssues |
+              Out-Host
+          
+          foreach ($issue in $scriptCopIssues) {
+              Write-GitHubWarning -Message "$($issue.ItemWithProblem): $($issue.Problem)"
+          }
+          } @Parameters
+      - name: RunPSScriptAnalyzer
+        id: RunPSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Import-Module PSScriptAnalyzer, PSDevOps -PassThru | Out-Host
+          $invokeScriptAnalyzerSplat = @{Path='.\'}
+          if ($ENV:PSScriptAnalyzer_Recurse) {
+              $invokeScriptAnalyzerSplat.Recurse = $true
+          }
+          $result = Invoke-ScriptAnalyzer @invokeScriptAnalyzerSplat
+          
+          foreach ($r in $result) {
+              if ('information', 'warning' -contains $r.Severity) {
+                  Write-GitHubWarning -Message "$($r.RuleName) : $($r.Message)" -SourcePath $r.ScriptPath -LineNumber $r.Line -ColumnNumber $r.Column
+              }
+              elseif ($r.Severity -eq 'Error') {
+                  Write-GitHubError -Message "$($r.RuleName) : $($r.Message)" -SourcePath $r.ScriptPath -LineNumber $r.Line -ColumnNumber $r.Column
+              }
+          }
   TestPowerShellOnLinux: 
     runs-on: ubuntu-latest
     steps: 
