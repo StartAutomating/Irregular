@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.6'
+    ModuleVersion = '0.6.1'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -15,6 +15,14 @@
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'
         }
         ReleaseNotes = @'
+0.6.1
+---
+* New Command:  Remove-RegEx (Fixes #62)
+* Set-RegEx now supports -PassThru (Fixes #61)
+* Set-RegEx now allows modifiers (Fixes #60)
+* Use-RegEx now allows -Pattern to be directly provided, and supplies an ArgumentCompleter (Fixes #59)
+Hat Tips: @JayKul, @LaurentDardenne
+
 0.6
 ---
 * JSON Regex Improvements
@@ -131,3 +139,4 @@ $ now requires backtick (URL parameters can be named $, e.g. $top)
 '@
     }
 }
+
