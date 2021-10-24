@@ -2,14 +2,14 @@
 {
     <#
     .Synopsis
-        Saves a Regular Expression
+        Sets a Regular Expression
     .Description
-        Saves Regular Expressions to a .regex.txt file.
+        Sets Regular Expressions to a .regex.txt file
     .Link
         Use-RegEx
     .Example
         Write-RegEx -Name Digits -CharacterClass Digit -Repeat |
-            Save-RegEx
+            Set-RegEx
     #>
     [CmdletBinding(SupportsShouldProcess=$true)]
     [OutputType([Nullable])]
