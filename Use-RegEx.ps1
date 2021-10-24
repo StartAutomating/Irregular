@@ -159,6 +159,19 @@
 
     # A regular expression.
     [Parameter(ParameterSetName='Pattern',ValueFromPipelineByPropertyName)]
+    [Management.Automation.ArgumentCompleter({
+        # While we don't want to restrict the steps here, we _do_ want to be able to suggest steps that are built-in.
+        param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+        if ($wordToComplete) {
+            Get-Regex |
+                Where-Object Name -like "$wordtocomplete*" |
+                Select-Object -ExpandProperty Name
+        } else {
+            Get-RegEx | 
+                Select-object -ExpandProperty Name
+        }
+
+    })]
     [Alias('Expression')]
     [string]$Pattern,
 
@@ -464,9 +477,14 @@
                 return
             }
 
-            if ($pattern -match '^\?\<(?<Name>\w+)\>' -and $script:_RegexLibrary) {
-                $pattern = $script:_RegexLibrary.($matches.Name)
-            }
+            if ($script:_RegexLibrary) {
+                if (($pattern -match '^\?\<(?<Name>\w+)\>' -or 
+                    $Pattern -match '^(?<Name>[\w_]+)$') -and 
+                    $script:_RegexLibrary.($matches.Name)
+                ) {                  
+                    $pattern = $script:_RegexLibrary.($matches.Name)                   
+                }
+            }            
 
             # If we didn't have to warn them, we've propably piped in a [Regex] or the output of Write-Regex.
             $regex = [Regex]::new($Pattern, 'IgnoreCase,IgnorePatternWhitespace')
