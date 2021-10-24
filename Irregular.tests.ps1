@@ -782,12 +782,27 @@ describe Set-Regex {
     }
     it 'Can set a regex in an arbitrary path' {
         if ($env:TEMP) {
-            Set-RegEx -Pattern '(?<Period>\.)' -Path $env:TEMP
-            Get-ChildItem -LiteralPath $env:temp -Filter Period.regex.txt |
+            Set-RegEx -Pattern '(?<Period>\.)' -Path $env:TEMP -PassThru |
+                Select-Object -ExpandProperty Name |
+                should -Be Period.regex.txt
+        } elseif (Test-Path '/tmp') {
+            Set-RegEx -Pattern '(?<Period>\.)' -Path '/tmp' -PassThru | 
                 Select-Object -ExpandProperty Name |
                 should -Be Period.regex.txt
         } else {
             'No temp directory found'
         }
+    }
+}
+
+describe Remove-RegEx {
+    it 'Can remove a regex' {
+        Set-RegEx -Name Period -Pattern '\.' -Description "A Period" -Temporary -PassThru
+        $periodRegex = Get-RegEx -Name Period
+        Remove-RegEx -Name Period -Confirm:$false
+        if ($periodRegex.Path) {
+            Test-Path $periodRegex.Path | Should -Be $false
+        }
+        $ExecutionContext.SessionState.InvokeCommand.GetCommand('?<Period>', 'Alias') | Should -Be $null        
     }
 }
