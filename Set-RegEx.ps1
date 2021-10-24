@@ -1,4 +1,4 @@
-﻿function Set-Regex
+﻿function Set-RegEx
 {
     <#
     .Synopsis
@@ -45,7 +45,14 @@
     # This will only be used if the expression is temporary.
     # By default, this is 5 seconds
     [TimeSpan]
-    $TimeOut = '00:00:05')
+    $TimeOut = '00:00:05',
+
+    # If set, will output created files or commands.
+    # If using -Temporary, will output the created commands.
+    # Otherwise, will output the created files.   
+    [switch]
+    $PassThru
+    )
     process {
         #region Find the Preferred Save Location
         if (-not $path -and -not $Temporary) { # If haven't been provided a path
@@ -129,6 +136,9 @@ $rawPattern
                 $script:_RegexTempModules = [Collections.Queue]::new()
             }
             $script:_RegexTempModules.Enqueue($tempModule)
+            if ($passThru) {
+                $tempModule.ExportedCommands.Values
+            }
         } else {
             $semiResolvedPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Path)
             $path =
@@ -139,6 +149,9 @@ $rawPattern
                 }
             if ($Path) {
                 $patternFileContent | Set-Content -Path $path -Force -Encoding UTF8
+                if ($PassThru) {
+                    Get-Item -Path $Path
+                }
             }
         }
     }
