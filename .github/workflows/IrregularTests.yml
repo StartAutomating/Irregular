@@ -10,9 +10,6 @@ jobs:
         run: |
           $Parameters = @{}
           $Parameters.PesterMaxVersion = ${env:PesterMaxVersion}
-          $Parameters.PesterMaxVersion = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           foreach ($k in @($parameters.Keys)) {
               if ([String]::IsNullOrEmpty($parameters[$k])) {
                   $parameters.Remove($k)
@@ -41,13 +38,7 @@ jobs:
         run: |
           $Parameters = @{}
           $Parameters.ModulePath = ${env:ModulePath}
-          $Parameters.ModulePath = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.PesterMaxVersion = ${env:PesterMaxVersion}
-          $Parameters.PesterMaxVersion = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.NoCoverage = ${env:NoCoverage}
           $Parameters.NoCoverage = $parameters.NoCoverage -match 'true';
           foreach ($k in @($parameters.Keys)) {
@@ -128,25 +119,10 @@ jobs:
         run: |
           $Parameters = @{}
           $Parameters.ModulePath = ${env:ModulePath}
-          $Parameters.ModulePath = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.UserEmail = ${env:UserEmail}
-          $Parameters.UserEmail = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.UserName = ${env:UserName}
-          $Parameters.UserName = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.TagVersionFormat = ${env:TagVersionFormat}
-          $Parameters.TagVersionFormat = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.TagAnnotationFormat = ${env:TagAnnotationFormat}
-          $Parameters.TagAnnotationFormat = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           foreach ($k in @($parameters.Keys)) {
               if ([String]::IsNullOrEmpty($parameters[$k])) {
                   $parameters.Remove($k)
@@ -240,21 +216,9 @@ jobs:
         run: |
           $Parameters = @{}
           $Parameters.ModulePath = ${env:ModulePath}
-          $Parameters.ModulePath = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.UserEmail = ${env:UserEmail}
-          $Parameters.UserEmail = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.UserName = ${env:UserName}
-          $Parameters.UserName = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           $Parameters.TagVersionFormat = ${env:TagVersionFormat}
-          $Parameters.TagVersionFormat = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           foreach ($k in @($parameters.Keys)) {
               if ([String]::IsNullOrEmpty($parameters[$k])) {
                   $parameters.Remove($k)
@@ -355,9 +319,6 @@ jobs:
         run: |
           $Parameters = @{}
           $Parameters.ModulePath = ${env:ModulePath}
-          $Parameters.ModulePath = ConvertFrom-JSON @'
-          ${{parameters.$ParameterName}}
-          '@
           foreach ($k in @($parameters.Keys)) {
               if ([String]::IsNullOrEmpty($parameters[$k])) {
                   $parameters.Remove($k)
