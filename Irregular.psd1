@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.6.1'
+    ModuleVersion = '0.6.2'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -15,6 +15,12 @@
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'
         }
         ReleaseNotes = @'
+0.6.2
+---
+New Regular Expressions:
+* ?<Unix_Cron_Interval> (Fixes #67)
+* ?<Unix_Duration> (Fixes #69)
+
 0.6.1
 ---
 * New Command:  Remove-RegEx (Fixes #62)
