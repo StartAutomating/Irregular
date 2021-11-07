@@ -1,0 +1,18 @@
+# Matches a Duration, defined in ISO 8601
+P                 # A literal P denotes the period
+(?>
+  (?<Year>\d+)Y   # An optional year can be denoted with \d+Y
+)?(?>
+  (?<Month>\d+)M  # An optional month can be denoted with \d+M
+)?(?>
+  (?<Week>\d+)W   # An optional week can be denoted with \d+W
+)?(?>
+  (?<Day>\d+)D    # An optional day can be denoted with \d+D
+)?T?              # A literal T starts the time component
+(?>
+  (?<Hour>\d+)H   # An optional hour can be denoted with \d+H
+)?(?>
+  (?<Minute>\d+)M # An optional minute can be denoted with \d+M
+)?(?>
+  (?<Second>\d+)S # An optional second can be denoted with \d+S
+)?
