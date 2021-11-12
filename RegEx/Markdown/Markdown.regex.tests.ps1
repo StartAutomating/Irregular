@@ -106,4 +106,23 @@ a:
             $listMatches | Select-Object -ExpandProperty Done | Should -Be "x"
         }
     }
+
+    context YamlHeaders {
+        it "Can extract YAML Headers" {
+            @'
+---
+Key: Value
+Object:
+  Property1: Value
+  Property2: Value
+List:
+  - Item1
+  - Item2
+---
+'@ |
+    ?<Markdown_YamlHeader> -Extract | 
+        Select-Object -ExpandProperty YAML | 
+        Should -BeLike *Key:*Value*Object:*Property1:*List:*-?Item1*
+        }
+    }
 }
