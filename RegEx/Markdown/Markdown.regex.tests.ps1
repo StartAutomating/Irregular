@@ -83,4 +83,27 @@ a:
             }
         }
     }
+
+
+    context 'Markdown lists' {
+        it 'Will match a bullet point list' {
+            $listMatches = "* BulletPoint" | ?<Markdown_List> -Extract
+            $listMatches | Select-Object -ExpandProperty Value | Should -Be "BulletPoint"
+            $listMatches | Select-Object -ExpandProperty BulletPoint | Should -Be "*"
+        }
+
+        it "Will match a numbered list" {
+            $listMatches = "1. Thing" | ?<Markdown_List> -Extract
+            $listMatches | Select-Object -ExpandProperty Value | Should -Be "Thing"
+            $listMatches | Select-Object -ExpandProperty Number | Should -Be "1"
+        }
+
+        it "Can support task lists" {
+            $listMatches = "1. [x] Thing Is Done" | ?<Markdown_List> -Extract
+            $listMatches | Select-Object -ExpandProperty Value | Should -Be "Thing Is Done"
+            $listMatches | Select-Object -ExpandProperty Number | Should -Be "1"
+            $listMatches | Select-Object -ExpandProperty IsTask | Should -Be "[x]"
+            $listMatches | Select-Object -ExpandProperty Done | Should -Be "x"
+        }
+    }
 }
