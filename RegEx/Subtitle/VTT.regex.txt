@@ -1,0 +1,8 @@
+﻿# Matches a WebVTT Subtitle
+(?<StartTime>(?<=(?:[\r\n]|^))[\d\:\,\.]+)         # VTT Subtitles start with a StartTime
+\s\-\-\>\s                                         # Followed by --> (surrounded by a space)
+(?<EndTime>[\d\:\,\.]+)                            # Followed by an EndTime
+(?<Style>.+?(?=[\r\n]))                            # Anything until the end of the line is considered a style
+[\r\n]+                                            # Match the newline
+(?<Cue>(?:.|\s){0,}?(?=\z|(?<=[\r\n])[\d\:\,\.]+)) # Anything until the next timespan is a Cue
+
