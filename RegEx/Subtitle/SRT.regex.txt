@@ -1,0 +1,8 @@
+﻿# Matches a SubRip Subtitle
+(?<=(?:[\r\n]|^))\d+                       # SRT Files Contain an Index digit
+[\s\n\r]+                                  # Followed by whitespace and a newline
+(?<StartTime>[\d\:\,\.]+)                  # Followed by a Timespan, likely using comma as the separator
+\s\-\-\>\s                                 # Followed by --> (with a space on each side)
+(?<EndTime>[\d\:\,\.]+)                    # Followed by another Timespan
+(?<Cue>(?:.|\s){0,}?(?=\z|(?<=[\r\n])\d+)) # Any text until the next marker is the subtitle text
+
