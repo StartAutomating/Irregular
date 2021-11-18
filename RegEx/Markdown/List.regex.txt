@@ -1,0 +1,11 @@
+﻿# Matches a Markdown List
+(?m)^(?<Indent>\s){0,}     # A list technically start with 0-3 characters spaces, but nested list items can have more than that
+(?>
+  (?<Number>\d)\.          # Followed by a dash, plus, or asterisk
+  |
+  (?<BulletPoint>[\-\+\*]) # Followed by a dash, plus, or asterisk
+)\s{1,}                    # Followed by at least one whitespace character
+(?<IsTask>\[(?>
+  (?<Done>x)  |
+  (?<NotDone>\s))\])?      # A list item can optionally be a task, in which case it will have brackets containing either an x or a space
+\s{0,}(?<Value>(?:.|\s){0,}?(?=\z|\n))

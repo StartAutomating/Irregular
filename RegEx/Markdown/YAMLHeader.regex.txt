@@ -1,0 +1,5 @@
+﻿# Matches a Markdown YAML Header
+(?m)\A\-{3,}                      # At least 3 dashes mark the start of the YAML header
+(?<YAML>(?:.|\s){0,}?(?=\z|\-{3,} # And anything until at least three dashes is the content
+))\-{3,}                          # Include the dashes in the match, so that the pointer is correct.
+
