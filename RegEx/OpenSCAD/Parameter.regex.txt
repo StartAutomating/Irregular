@@ -1,0 +1,40 @@
+# Matches Potential Open SCAD Module Parameters
+(?<=[\(\,])                                         # After a ( or a ,
+\s{0,}                                              # Optional Whitespace
+(?<Name>\w+)                                        # The Parameter Name
+\s{0,}                                              # Optional Whitespace
+# A literal = is used to determine if it Has a default value
+(?<HasDefaultValue>=)?
+# If there is a default value
+(?(HasDefaultValue)(\s{0,}                          # Allow optional whitespace
+# Match the value, which could be
+(?>
+  (?<Value>(?<ListValue>(?<BalancedBrackets>
+\[                                                  # An open bracket
+(?>                                                 # Followed by...
+    [^\[\]]+|                                       # any number of non-bracket character OR
+    \[(?<Depth>)|                                   # an open bracket (in which case increment depth) OR
+    \](?<-Depth>)                                   # a closed bracket (in which case decrement depth)
+)*(?(Depth)(?!))                                    # until depth is 0.
+\]                                                  # followed by a closing bracket
+)
+)                                                   # A List Value
+    |
+    (?<NumberValue>[\d\.]+)                         # A number
+    |
+    (?<BooleanValue>true|false)                     # A boolean literal
+    |
+    (?<ConstantValue>\w+)                           # A constant value
+    |
+    \"                                              # A string
+(?<StringValue>(?:.|\s)*?(?<!\\))"    |
+    (?<Expression>(?<BalancedParenthesis>
+\(                                                  # An open parenthesis
+(?>                                                 # Followed by...
+    [^\(\)]+|                                       # any number of non-parenthesis character OR
+    \((?<Depth>)|                                   # an open parenthesis (in which case increment depth) OR
+    \)(?<-Depth>)                                   # a closed parenthesis (in which case decrement depth)
+)*(?(Depth)(?!))                                    # until depth is 0.
+\)                                                  # followed by a closing parenthesis
+)
+)))))\s{0,}

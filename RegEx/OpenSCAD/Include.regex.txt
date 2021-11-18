@@ -1,0 +1,5 @@
+# Matches Open SCAD Modules
+(?m)     # Set Multiline mode.  Then,
+^include # match the literal 'include'
+\s+      # and the obligitory whitespace.
+\<(?<Include>[^\>]+)\>

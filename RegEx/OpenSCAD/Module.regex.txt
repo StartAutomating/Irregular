@@ -1,0 +1,28 @@
+# Matches Open SCAD Modules
+(?m)                 # Set Multiline mode.  Then,
+^module              # match the literal 'module'
+\s+                  # and the obligitory whitespace.
+(?<ModuleName>\w+)   # Then match and extract the <ModuleName>.
+\s{0,}               # Then, there may be whitespace.
+# The Module <ModuleParameters> are within ()
+(?<Parameters>
+\(                   # An open parenthesis
+(?>                  # Followed by...
+    [^\(\)]+|        # any number of non-parenthesis character OR
+    \((?<Depth>)|    # an open parenthesis (in which case increment depth) OR
+    \)(?<-Depth>)    # a closed parenthesis (in which case decrement depth)
+)*(?(Depth)(?!))     # until depth is 0.
+\)                   # followed by a closing parenthesis
+
+)\s{0,}              # Then, there may be whitespace.
+# The Module <ModuleDefinition> is Within {}
+(?<Definition>
+\{                   # An open {
+(?>                  # Followed by...
+    [^\{\}]+|        # any number of non-bracket character OR
+    \{(?<Depth>)|    # an open curly bracket (in which case increment depth) OR
+    \}(?<-Depth>)    # a closed curly bracket (in which case decrement depth)
+)*?(?(Depth)(?!))    # until depth is 0.
+\}                   # followed by a }
+
+)
