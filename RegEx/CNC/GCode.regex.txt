@@ -1,0 +1,11 @@
+# Matches GCode Instructions
+(?-i)(?m)^\s{0,}                                    # Optional Whitespace after any newline
+# Will match either a
+(?>
+  \;(?<Comment>(?:.|\s){0,}?(?=\z|[\r\n]))          # Literal ;, followed by anything until the next newline
+?  |
+  (?<Instruction>(?<Letter>[\%A-Z])(?<Number>\d+))  # An instruction, consisting of a letter and one or more numbers
+(?(Instruction)((?:\s(?<Argument>[^\;\s]+)){0,}))   # Instructions may be followed by one or more arguments, separated by spaces
+[\s-[\r\n]]{0,}                                     # Match any trailing whitespace
+(?:\;(?<Comment>(?:.|\s){0,}?(?=\z|[\r\n])))?       # Match any trailing comments
+)
