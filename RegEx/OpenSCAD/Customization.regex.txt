@@ -1,0 +1,24 @@
+# Matches Potential Open SCAD Customizations
+(?m)^(?<Name>\w+)                        # Optional Whitespace
+\s{0,}                                   # Optional Whitespace
+\=\s{0,}                                 # Optional Whitespace
+(?>
+  (?<Value>(?<NumberValue>[\d\.]+)       # A numeric value
+    |
+    (?<BooleanValue>true|false)          # A boolean value
+    |
+    \"(?<StringValue>(?:.|\s)*?(?<!\\)") # A string value
+    |
+    (?<ListValue>(?<BalancedBrackets>
+\[                                       # An open bracket
+(?>                                      # Followed by...
+    [^\[\]]+|                            # any number of non-bracket character OR
+    \[(?<Depth>)|                        # an open bracket (in which case increment depth) OR
+    \](?<-Depth>)                        # a closed bracket (in which case decrement depth)
+)*(?(Depth)(?!))                         # until depth is 0.
+\]                                       # followed by a closing bracket
+)
+)                                        # A List Value
+))\s{0,}                                 # Optional Whitespace
+\;                                       # Semicolon
+(?<RestOfLine>.*$)

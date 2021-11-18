@@ -1,0 +1,5 @@
+# Matches Open SCAD Modules
+(?m) # Set Multiline mode.  Then,
+^use # match the literal 'use'
+\s+  # and the obligitory whitespace.
+\<(?<Use>[^\>]+)\>
