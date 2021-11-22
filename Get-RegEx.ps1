@@ -42,7 +42,7 @@
     $FromModule,
 
     # How the expression will be returned.
-    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script','Lambda','Engine', 'EmbeddedEngine')]
+    [ValidateSet('Metadata', 'File','Pattern','Hashtable', 'String','Variable','Alias', 'Script','Lambda','Engine', 'Embedded')]
     [string]
     $As = 'MetaData',
 
