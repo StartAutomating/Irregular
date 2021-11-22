@@ -8,7 +8,7 @@
     .Link
         Use-RegEx
     .Example
-        Write-RegEx -Name Digits -CharacterClass Digit -Repeat |
+        New-RegEx -Name Digits -CharacterClass Digit -Repeat |
             Set-RegEx
     #>
     [CmdletBinding(SupportsShouldProcess=$true)]

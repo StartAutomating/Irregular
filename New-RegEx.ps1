@@ -1,46 +1,46 @@
-﻿function Write-RegEx
+﻿function New-RegEx
 {
     <#
     .Synopsis
-        Writes a regular expression
+        Creates a regular expression
     .Description
-        Helps to simplifify writing regular expressions
+        Helps to simplifify creating regular expressions
     .Link
         Use-RegEx
     .Example
-        Write-RegEx -CharacterClass Any -Repeat
+        New-RegEx -CharacterClass Any -Repeat
     .Example
-        Write-Regex -CharacterClass Digit -Repeat -Name Digits
+        New-RegEx -CharacterClass Digit -Repeat -Name Digits
     .Example
         # A regular expression for a quoted string (with \" and `" as valid escape sequences)
-        Write-RegEx -Pattern '"' |
-                Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
-                    Write-RegEx -Pattern '"' -NotAfter '\\|`'
+        New-RegEx -Pattern '"' |
+                New-RegEx -CharacterClass Any -Repeat -Lazy -Before (
+                    New-RegEx -Pattern '"' -NotAfter '\\|`'
                 ) |
-                Write-RegEx -Pattern '"'
+                New-RegEx -Pattern '"'
     .Example
         # A regular expression for an email address.
 
-        Write-RegEx -Description "Matches an Email Address" |
-            Write-RegEx -Name UserName -Pattern (
-                Write-RegEx -CharacterClass Word -Comment "Match the username, which starts with a word character" |
-                    Write-RegEx -CharacterClass Word -LiteralCharacter '-.' -Min 0 -Comment "and can contain any number of word characters, dashes, or dots"
+        New-RegEx -Description "Matches an Email Address" |
+            New-RegEx -Name UserName -Pattern (
+                New-RegEx -CharacterClass Word -Comment "Match the username, which starts with a word character" |
+                    New-RegEx -CharacterClass Word -LiteralCharacter '-.' -Min 0 -Comment "and can contain any number of word characters, dashes, or dots"
             ) |
-            Write-RegEx -LiteralCharacter '@' -Comment "Followed by an @"|
-            Write-RegEx -Name Domain -Pattern (
-                Write-RegEx -CharacterClass Word  -Comment "The domain starts with a word character" |
-                    Write-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "and can contain any words with dashes," |
-                    Write-RegEx -NoCapture -Pattern (
-                        Write-RegEx -LiteralCharacter '.' -Comment "followed by at least one suffix (which starts with a dot),"|
-                            Write-RegEx -CharacterClass Word -Comment "followed by a word character," |
-                            Write-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "followed by any word characters or dashes"
+            New-RegEx -LiteralCharacter '@' -Comment "Followed by an @"|
+            New-RegEx -Name Domain -Pattern (
+                New-RegEx -CharacterClass Word  -Comment "The domain starts with a word character" |
+                    New-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "and can contain any words with dashes," |
+                    New-RegEx -NoCapture -Pattern (
+                        New-RegEx -LiteralCharacter '.' -Comment "followed by at least one suffix (which starts with a dot),"|
+                            New-RegEx -CharacterClass Word -Comment "followed by a word character," |
+                            New-RegEx -CharacterClass Word -LiteralCharacter '-' -Min 0 -Comment "followed by any word characters or dashes"
                     ) -Min 1
             )
     .Example
         # Writes a pattern for multiline comments
-        Write-RegEx -Pattern \<\# |
-            Write-RegEx -Name Block -Until \#\> |
-            Write-RegEx -Pattern \#\>
+        New-RegEx -Pattern \<\# |
+            New-RegEx -Name Block -Until \#\> |
+            New-RegEx -Pattern \#\>
     #>
     [OutputType([Regex], [PSObject])]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSPossibleIncorrectComparisonWithNull", "", Justification="This is explicitly checking for null (lazy -If would miss 0)")]
@@ -147,7 +147,7 @@
 
     # If provided, will match any number of unicode characters.
     # Note:  Unless the RegEx is case-sensitive, this will match both uppercase and lowercase.
-    # To make a RegEx explicitly case-sensitive, use Write-Regex -Modifier IgnoreCase -Not
+    # To make a RegEx explicitly case-sensitive, use New-RegEx -Modifier IgnoreCase -Not
     [Alias('UC', 'UnicodeCharacters')]
     [int[]]
     $UnicodeCharacter,

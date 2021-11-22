@@ -48,7 +48,7 @@ For instance, here's a Regular Expression that can match a simple calculator:
 
     
 ~~~PowerShell
-Write-Regex -StartAnchor StringStart -Pattern @(
+New-RegEx -StartAnchor StringStart -Pattern @(
     ?<OptionalWhitespace>
     ?<Digits>
     ?<OptionalWhitespace>
@@ -67,28 +67,28 @@ This provides syntax highlighting that can make complicated expressions easier t
 
 #### Building Regular Expressions
 
-Irregular gives you a handy command to simplify writing regular expressions, Write-RegEx.
+Irregular gives you a handy command to simplify writing regular expressions, New-RegEx.
 
-Write-RegEx helps you build regular expressions without constantly resorting to a manual.
+New-RegEx helps you build regular expressions without constantly resorting to a manual.
 
 ~~~PowerShell
-Write-Regex -CharacterClass Digit -Repeat # This writes the Regex (\d+)
+New-RegEx -CharacterClass Digit -Repeat # This writes the Regex (\d+)
 ~~~
-You can pipe regular expression written this way into Write-Regex to compound expressions
+You can pipe regular expression written this way into New-RegEx to compound expressions
     
 ~~~PowerShell
 # This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
-Write-RegEx -Pattern '"' |
-        Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
-            Write-RegEx -Pattern '"' -NotAfter '\\'
+New-RegEx -Pattern '"' |
+        New-RegEx -CharacterClass Any -Repeat -Lazy -Before (
+            New-RegEx -Pattern '"' -NotAfter '\\'
         ) |
-        Write-RegEx -Pattern '"'
+        New-RegEx -Pattern '"'
 ~~~
 
-The parameters for Write-RegEx have help, so if you ever want to understand a little more about what makes a RegEx, you can use:
+The parameters for New-RegEx have help, so if you ever want to understand a little more about what makes a RegEx, you can use:
 
 ~~~PowerShell
-Get-Help Write-RegEx -Full
+Get-Help New-RegEx -Full
 ~~~
 
 #### Using Regular Expressions
