@@ -2,7 +2,7 @@
 $myRoot = $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
 Write-RegEx -Description @'
 Matches FFMpeg configuration
-'@  -StartAnchor LineStart -Pattern "\s{0,}configuration:" -Comment "Configuration is followed by an number of flags" |
+'@  -StartAnchor LineStart -Pattern "\s{0,}configuration:" -Comment "Configuration: is followed by any number of flags" |
     Write-RegEx -NoCapture -Min 0 -Pattern (
         Write-RegEx -CharacterClass Whitespace -Repeat |
             Write-RegEx -LiteralCharacter '-' |
