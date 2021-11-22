@@ -313,7 +313,43 @@
                 } elseif ($Coerce -and $Coerce.$($g.Name) -is [ScriptBlock]) {
                     $xm[$g.Name] = foreach ($v in $gcv) { $_ = $v; & $Coerce.$($g.Name) $v }
                 } else {
-                    $xm[$g.Name] = $gcv # set it in $matches
+                    $xm[$g.Name] = foreach ($cv in $gcv) {                        
+                        if ($cv -as [DateTime]) {
+                            $cv -as [DateTime]
+                        } 
+                        elseif ($cv -as [float] -ne $null) {
+                            if ($cv -as [float] -ne $cv -as [int]) {
+                                $cv -as [float]
+                            } else {
+                                if ($cv -ge 0 -and $cv -lt 256) {
+                                    $cv -as [byte]
+                                } else {
+                                    $cv -as [int]
+                                }
+                                
+                            }
+                        }
+                        elseif ($cv -eq 'true') {
+                            $true    
+                        }
+                        elseif ($cv -eq 'false') {
+                            $false
+                        }
+                        elseif ($cv.Contains -and $cv.Contains(':'))
+                        {
+                            $cvFixPunctuation = $cv.Replace(',','.').Replace('.', [CultureInfo]::CurrentCulture.NumberFormat.NumberDecimalSeparator)
+                            if ($cvFixPunctuation -as [Timespan]) {
+                                $cvFixPunctuation -as [Timespan]
+                            } else {
+                                $cv
+                            }
+                        }                       
+                        else {
+                            $cv
+                        }
+                    }
+
+                    
                 }
             }
             if ($IncludeMatch) {
