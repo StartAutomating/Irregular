@@ -1,0 +1,4 @@
+﻿# Matches FFMpeg configuration
+^\s{0,}configuration:  # Configuration: is followed by any number of flags
+(?:\s+\-\-(?<Flag>\S+) # A flag is two dashes, followed by any number of non-whitespace characters
+){0,}

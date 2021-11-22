@@ -12,5 +12,5 @@ time=                                  # time=
 bitrate=                               # bitrate=
 \s{0,}(?<Bitrate>[\d\.]+)kbits/s\s{0,} # Followed by the Bitrate
 speed=                                 # speed=
-\s{0,}(?<Bitrate>[\d\.]+)x\s{0,}       # Followed by the Speed
+\s{0,}(?<Speed>[\d\.]+)x\s{0,}         # Followed by the Speed
 

@@ -1,0 +1,7 @@
+﻿# Matches FFMpeg outputs
+^\s{0,}Output\s{0,}\#                          # An Input starts with the literal 'Input', followed by a space a number sign
+(?<FileNumber>\d+)                             # Followed by an file number and a comma
+\,\s{0,}(?:(?<Container>[^\s\,]+)\,{0,}){0,}   # Followed by container information (separated by commas)
+[\s\,]{0,}to                                   # Followed by 'to'
+\s{0,}(?<!\@)'(?<OutputPath>(?:''|\\'|[^'])*)' # Followed by the OutputPath, in a single quoted string.
+
