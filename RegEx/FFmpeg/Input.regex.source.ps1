@@ -1,7 +1,7 @@
 ﻿$myName = ($MyInvocation.MyCommand.ScriptBlock.File | Split-Path -Leaf) -replace '\.source', '' -replace '\.ps1', '.txt'
 $myRoot = $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
 Write-RegEx -Description @'
-Matches FFMpeg streams
+Matches FFMpeg inputs
 '@  -StartAnchor LineStart -Pattern "\s{0,}Input\s{0,}\#" -Comment "An Input starts with the literal 'Input', followed by a space a number sign" |
     Write-RegEx -Name FileNumber -CharacterClass Digit -Repeat -Comment "Followed by an file number and a comma" |
     Write-RegEx -LiteralCharacter ',' |
