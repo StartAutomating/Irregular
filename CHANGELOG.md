@@ -1,4 +1,16 @@
-﻿0.6.3
+﻿0.6.4
+---
+* Renaming Write-RegEx to New-RegEx (#66) ** Write-RegEx will remain aliased until at least 0.7**
+* Fixing Issue in Embedding (#82)
+* Improving -Extract by auto-detecting data types (#81)
+* ?<FFMpeg_Progress> - Fixing capture name (#80)
+* Adding ?<FFMpeg_Configuration> (#83)
+* Adding ?<FFMpeg_Stream> (#83)
+* Adding ?<FFMpeg_Input> (#83)
+* Adding ?<FFMpeg_Output> (#83)
+* Adding ?<FFMpeg_Metadata> (#83)
+
+0.6.3
 ---
 New Regular Expressions:
 * ?<CNC_GCode> (Fixes #76)
