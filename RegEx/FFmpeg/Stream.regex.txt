@@ -1,0 +1,7 @@
+﻿# Matches FFMpeg streams
+^\s{0,}Stream\s{0,}\#                     # A Stream starts with the literal 'Stream', followed by a space a number sign
+(?<FileNumber>\d+)                        # Followed by an file number and a colon
+\:(?<StreamNumber>\d+)                    # Followed by a stream number and a colon
+\:\s{0,}(?<StreamType>[^\:]+)             # Followed by a stream type and a colon
+\:(?:\s{0,}(?<Setting>[^\,]+)\,{0,1}){0,} # Followed by any number of settings, separated by commas
+
