@@ -14,7 +14,7 @@
         .Link
             Use-RegEx
         .Link
-            Write-RegEx
+            New-RegEx
     #>
     [OutputType([nullable], [PSObject])]
     param(

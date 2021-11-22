@@ -278,31 +278,31 @@ describe Use-Regex {
 
     context 'Special Piping Behavior' {
         it 'Will match the contents if piped in a file' {
-            (Get-Command Write-RegEx |
+            (Get-Command New-RegEx |
                 Select-Object -ExpandProperty ScriptBlock |
                 Select-Object -ExpandProperty File) -as [IO.FileInfo] |
             ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
                 Select-Object -ExpandProperty Name |
-                should -Be Write-Regex.ps1
+                should -Be New-RegEx.ps1
         }
 
         it 'Will match the script contents if passed an external script' {
-            Get-Command ((Get-Command Write-RegEx |
+            Get-Command ((Get-Command New-RegEx |
                 Select-Object -ExpandProperty ScriptBlock |
                 Select-Object -ExpandProperty File)) |
                 ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
                 Select-Object -ExpandProperty Name |
-                should -Be Write-Regex.ps1
+                should -Be New-RegEx.ps1
         }
 
         it 'Will match the definition if passed a function' {
-            Get-Command Write-RegEx |
+            Get-Command New-RegEx |
                 ?<PowerShell_HelpField> |
                 Select-Object -ExpandProperty InputObject |
                 Select-Object -ExpandProperty Name |
-                should -Be Write-RegEx
+                should -Be New-RegEx
         }
     }
 
@@ -353,14 +353,14 @@ describe Use-Regex {
 }
 
 
-describe Write-Regex {
+describe New-RegEx {
     it "Helps you write -CharacterClasses" {
-        Write-RegEx -CharacterClass LowerCaseLetter |
+        New-RegEx -CharacterClass LowerCaseLetter |
             Select-Object -ExpandProperty Pattern |
             should -Be '\p{Ll}'
     }
     it "Lets you look for repeated content" {
-        Write-RegEx -CharacterClass Digit -Repeat |
+        New-RegEx -CharacterClass Digit -Repeat |
             Select-Object -ExpandProperty Pattern |
             should -Be '\d+'
     }
@@ -368,47 +368,47 @@ describe Write-Regex {
 
 
     it "Simplifies lookahead with -Before (aka -LookAhead)" {
-        Write-RegEx -Expression 'q' -LookAhead u | # Matches a q that is followed by a u
+        New-RegEx -Expression 'q' -LookAhead u | # Matches a q that is followed by a u
             Select-Object -ExpandProperty Pattern |
             should -Be 'q(?=u)'
     }
 
     it 'Simplifies lookbehind with -After (aka -LookBehind)' {
-        Write-RegEx -Expression u -LookBehind q | # Matches a u that is preceeded by a q
+        New-RegEx -Expression u -LookBehind q | # Matches a u that is preceeded by a q
             Select-Object -ExpandProperty Pattern |
             should -Be '(?<=q)u'
     }
 
     it 'Simplifies negative lookahead with -NotBefore' {
-        Write-RegEx -Expression q -NotBefore u | # Matches a q that isn't followed by a u
+        New-RegEx -Expression q -NotBefore u | # Matches a q that isn't followed by a u
             Select-Object -ExpandProperty Pattern |
             should -Be 'q(?!u)'
     }
 
 
     it "Simplifies negative lookbehind with -NotAfter (aka -NegativeLookBehind)" {
-        Write-RegEx -Expression '"' -NegativeLookBehind '\\' |
+        New-RegEx -Expression '"' -NegativeLookBehind '\\' |
             Select-Object -ExpandProperty Pattern |
             should -Be '(?<!\\)"'
     }
     it "Can pipe to itself to compound expressions" {
-        Write-RegEx -Pattern '"' |
-            Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
-                Write-RegEx -Pattern '"' -NotAfter '\\|`'
+        New-RegEx -Pattern '"' |
+            New-RegEx -CharacterClass Any -Repeat -Lazy -Before (
+                New-RegEx -Pattern '"' -NotAfter '\\|`'
             ) |
-            Write-RegEx -Pattern '"' |
+            New-RegEx -Pattern '"' |
             Select-Object -ExpandProperty Pattern |
             should -Be '".+?(?=(?<!\\|`)")"'
     }
 
     it 'Can combine more than on -CharacterClass' {
-        Write-RegEx -CharacterClass Digit, Word |
+        New-RegEx -CharacterClass Digit, Word |
             Select-Object -ExpandProperty Pattern |
             should -Be '[\d\w]'
     }
 
     it 'Can negate a -CharacterClass' {
-        Write-RegEx -CharacterClass Digit, Word -Not |
+        New-RegEx -CharacterClass Digit, Word -Not |
             Select-Object -ExpandProperty Pattern |
             should -Be '[^\d\w]'
     }
@@ -420,126 +420,126 @@ describe Write-Regex {
     }
 
     it 'Can negate a -LiteralCharacter' {
-        Write-Regex -LiteralCharacter '.' -Not | Should -Be '[^\.]'
+        New-RegEx -LiteralCharacter '.' -Not | Should -Be '[^\.]'
     }
 
     it 'Can use a -StartAnchor or -EndAnchor' {
-        Write-RegEx -CharacterClass Whitespace -Min 0 -StartAnchor LineStart -EndAnchor LineEnd |
+        New-RegEx -CharacterClass Whitespace -Min 0 -StartAnchor LineStart -EndAnchor LineEnd |
             Select-Object -ExpandProperty Pattern |
             should -Be '^\s{0,}$'
     }
 
     it 'Can check for  -Min and -Max occurances' {
-        Write-RegEx -CharacterClass Whitespace -Min 0 -Max 4 |
+        New-RegEx -CharacterClass Whitespace -Min 0 -Max 4 |
             Select-Object -ExpandProperty Pattern |
             should -Be '\s{0,4}'
     }
 
     it 'Can leave a comment' {
-        Write-RegEx -CharacterClass Whitespace -Comment "Whitespace" |
+        New-RegEx -CharacterClass Whitespace -Comment "Whitespace" |
             Select-Object -ExpandProperty Pattern |
             should -BeLike "\s # Whitespace*"
     }
 
     it 'Can write a description' {
-        Write-RegEx -CharacterClass Whitespace -Description "Whitespace" |
+        New-RegEx -CharacterClass Whitespace -Description "Whitespace" |
             Select-Object -ExpandProperty Pattern |
             should -Be "# Whitespace$([Environment]::NewLine)\s"
     }
 
     it 'Can name a capture' {
-        Write-RegEx -Name Digits -CharacterClass Digit -Repeat |
+        New-RegEx -Name Digits -CharacterClass Digit -Repeat |
             Select-Object -ExpandProperty Pattern |
             should -Be '(?<Digits>\d+)'
     }
 
     it 'Can write an expression that will always fail' {
-        Write-RegEx -Not | select -ExpandProperty Pattern | should -Be '(?!)'
+        New-RegEx -Not | select -ExpandProperty Pattern | should -Be '(?!)'
     }
 
     it 'Can write an anti expression' {
-        Write-RegEx -Not foo | Select-Object -ExpandProperty pattern | should -Be '\A((?!(foo)).)*\Z'
+        New-RegEx -Not foo | Select-Object -ExpandProperty pattern | should -Be '\A((?!(foo)).)*\Z'
     }
 
     it 'Can Be -Atomic' {
-        Write-RegEx -Atomic -Pattern 'do', 'die' -Or | select-object -expand Pattern | should -BeLike '(?>*do*|*die*)'
+        New-RegEx -Atomic -Pattern 'do', 'die' -Or | select-object -expand Pattern | should -BeLike '(?>*do*|*die*)'
     }
 
     it 'Can Be -Greedy or -Lazy (or both)' {
-        Write-RegEx -Pattern '(.|\s)' -Greedy -Lazy | Select-Object -ExpandProperty Pattern | Should -Be '(.|\s)*?'
+        New-RegEx -Pattern '(.|\s)' -Greedy -Lazy | Select-Object -ExpandProperty Pattern | Should -Be '(.|\s)*?'
     }
 
     it "Doesn't have to capture (with -NoCapture)" {
-        Write-RegEx -NoCapture '\d+' |
+        New-RegEx -NoCapture '\d+' |
             Select-Object -ExpandProperty Pattern | should -Be '(?:\d+)'
     }
 
     it 'Can -Be optional' {
-        Write-RegEx -Pattern do, die -Or -Optional | select-object -expand Pattern | should -BeLike '(?:*do*|*die*)?'
+        New-RegEx -Pattern do, die -Or -Optional | select-object -expand Pattern | should -BeLike '(?:*do*|*die*)?'
     }
 
     it 'Can use Saved Expressions (with the format ?<Name>)' {
-        Write-RegEx ?<Digits> | Select-Object -ExpandProperty Pattern | should -BeLike '*\d+*'
+        New-RegEx ?<Digits> | Select-Object -ExpandProperty Pattern | should -BeLike '*\d+*'
     }
 
     it 'Can write conditionals' {
-        Write-RegEx '((?<Digit>\d)|(?<NotDigit>\D))' -If Digit -Then '\D' -Else '\d' |
+        New-RegEx '((?<Digit>\d)|(?<NotDigit>\D))' -If Digit -Then '\D' -Else '\d' |
             Use-RegEx -IsMatch 'a1' |
             should -Be $true
-        Write-RegEx '(?<Digit>\d)' |
-            Write-RegEx -If Digit -Then '[abcdef]'
+        New-RegEx '(?<Digit>\d)' |
+            New-RegEx -If Digit -Then '[abcdef]'
     }
 
     it 'Can write backreferences' {
-        Write-RegEx -Backreference previousCapture |
+        New-RegEx -Backreference previousCapture |
             Select-Object -ExpandProperty Pattern |
             Should -Be '\k<previousCapture>'
 
-        $(Write-RegEx -Backreference 1).ToString() |
+        $(New-RegEx -Backreference 1).ToString() |
             Should -Be '\1'
     }
 
     it 'Can refer to other saved captures in a pattern (by putting ?<CaptureName> without leading comments)' {
-        Write-RegEx -Pattern '?<Digits>' |
+        New-RegEx -Pattern '?<Digits>' |
             Use-RegEx -IsMatch -Match 1 |
             should -Be true
     }
 
     it 'Can rename a saved capture (by putting (?<NewCaptureName>?<OldCaptureName>)' {
-        Write-RegEx -Pattern '(?<MyDigits>?<Digits>)' |
+        New-RegEx -Pattern '(?<MyDigits>?<Digits>)' |
             Use-RegEx -Extract -Match 1 |
             Select-Object -ExpandProperty MyDigits |
             should -Be 1
     }
 
     it 'Can match -Until a pattern' {
-        $writeRegexCmd = $ExecutionContext.SessionState.InvokeCommand.GetCommand('Write-Regex','Function')
+        $writeRegexCmd = $ExecutionContext.SessionState.InvokeCommand.GetCommand('New-RegEx','Function')
 
-        Write-RegEx -Pattern \<\# |
-            Write-RegEx -Name Block -Until \#> |
-            Write-RegEx -Pattern \#\> |
+        New-RegEx -Pattern \<\# |
+            New-RegEx -Name Block -Until \#> |
+            New-RegEx -Pattern \#\> |
             Use-RegEx -Extract -Match $writeRegexCmd.Definition |
             Select-Object -ExpandProperty Block |
-            should -BeLike *Write-Regex*
+            should -BeLike *New-RegEx*
     }
 
     context '-Between' {
         it 'Makes it easy to match double quotes' {
-            Write-RegEx -Between '"' -Name InQuotes |
+            New-RegEx -Between '"' -Name InQuotes |
                 Use-RegEx -Extract -Match 'this is not in quotes. "This Is \"". This is not in quotes' |
                 Select-Object -ExpandProperty InQuotes |
                 should -Be 'This Is \"'
         }
 
         it 'Makes it easy to match single quotes' {
-            Write-RegEx -Between "'" -Name InQuotes -EscapeSequence "''" |
+            New-RegEx -Between "'" -Name InQuotes -EscapeSequence "''" |
                 Use-RegEx -Extract -Match "this is not in quotes. 'This Is '''.  This is not in quotes" |
                 Select-Object -ExpandProperty InQuotes |
                 should -Be "This Is ''"
         }
 
         it 'Makes it easy to match block comments' {
-            Write-RegEx -Name BlockComment -Between '\<\#', '\#\>' -EscapeSequence '' |
+            New-RegEx -Name BlockComment -Between '\<\#', '\#\>' -EscapeSequence '' |
                 Use-RegEx -Extract -Match @'
 1 <#BlockComment#>
 2
@@ -551,17 +551,17 @@ describe Write-Regex {
     }
 
     it 'Can Match a series of Digits up to a -DigitMax' {
-        $r = Write-RegEx -DigitMax 16 -StartAnchor '^' -NotBefore '\d'
+        $r = New-RegEx -DigitMax 16 -StartAnchor '^' -NotBefore '\d'
         $r.Match("16").Success | Should -Be $true
         $r.Match("17").Success | Should -Be $false
     }
 
     it 'Can refer to a capture generator (parameters can -Be passed with () or {})' {
-        Write-RegEx -Pattern '?<BalancedCode>{(}' |
+        New-RegEx -Pattern '?<BalancedCode>{(}' |
             Use-RegEx -IsMatch -Match '({}' |
             should -Be $false
 
-        Write-RegEx -Pattern '?<BalancedCode>({)' |
+        New-RegEx -Pattern '?<BalancedCode>({)' |
             Use-RegEx -IsMatch -Match '({}' |
             should -Be $true
     }
@@ -737,7 +737,7 @@ describe 'Generators' {
                 should -BeLike '<#*#>'
         }
         it 'Will extract comments from a function' {
-            Get-Command Write-Regex |
+            Get-Command New-RegEx |
                 ?<MultilineComment> -Count 1 |
                 should -BeLike '<#*#>'
         }
@@ -767,11 +767,11 @@ describe Set-Regex {
 (?<MathSymbol>\p{Sm})' -Description 'Using the special character class math' -Temporary
 
 
-            Write-RegEx '?<MathSymbol>' | should -BeLike '*\p{Sm}*'
+            New-RegEx '?<MathSymbol>' | should -BeLike '*\p{Sm}*'
         }
 
-        it 'Can accept the output of Write-Regex' {
-            Write-RegEx -LiteralCharacter := -Name ColonOrEquals |
+        it 'Can accept the output of New-RegEx' {
+            New-RegEx -LiteralCharacter := -Name ColonOrEquals |
                 Set-Regex
             Get-Module Irregular |
                 Split-Path |

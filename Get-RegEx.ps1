@@ -23,7 +23,7 @@
     .Link
         Use-RegEx
     .Link
-        Write-RegEx
+        New-RegEx
     #>
     [OutputType([PSObject])]
     param(

@@ -12,7 +12,7 @@
     .Link
         Get-RegEx
     .Link
-        Write-RegEx
+        New-RegEx
     .Example
         "abc" | Use-RegEx -Pattern '.'
     .Example
@@ -486,7 +486,7 @@
                 }
             }            
 
-            # If we didn't have to warn them, we've propably piped in a [Regex] or the output of Write-Regex.
+            # If we didn't have to warn them, we've propably piped in a [Regex] or the output of New-Regex.
             $regex = [Regex]::new($Pattern, 'IgnoreCase,IgnorePatternWhitespace')
         }
 
