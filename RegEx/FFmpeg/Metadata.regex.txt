@@ -1,0 +1,7 @@
+﻿# Matches FFMpeg metadata
+^\s{4,}                              # Metadata can occur on any line, as long as there are at least four spaces at the start
+(?<Key>[^\s\:]+)?                    # It may contain a key
+\s{0,}                               # Followed by optional whitespace and a colon
+\:\s{1,}                             # Ignore leading whitespace
+(?<Value>(?:.|\s){0,}?(?=\z|[\n\r])) # Anything until the end of the line is the value
+
