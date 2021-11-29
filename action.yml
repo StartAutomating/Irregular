@@ -1,7 +1,7 @@
-name: irregular
+name: Irregular
 description: Regular Expressions Made Strangle Simple
 inputs: 
-  IrregularScript: 
+  cript: 
     required: false
     description: |
       A PowerShell Script that uses Irregular.  
