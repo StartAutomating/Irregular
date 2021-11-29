@@ -1,0 +1,2 @@
+# Matches a MAC address
+(?<OUI>(?:(?<Octect>[0-9a-f]{2})\-){3,3})(?<NIC>(?:(?<Octect>[0-9a-f]{2})\-){2,2}(?<Octect>[0-9a-f]{2}))
