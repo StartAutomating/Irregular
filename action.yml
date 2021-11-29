@@ -1,5 +1,5 @@
 ﻿
-name: Irregular
+name: UseIrregular
 description: Regular Expressions Made Strangle Simple
 inputs: 
   IrregularScript: 
