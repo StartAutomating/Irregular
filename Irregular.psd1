@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.6.4'
+    ModuleVersion = '0.6.5'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
