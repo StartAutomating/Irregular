@@ -1,4 +1,11 @@
-﻿0.6.4
+﻿0.6.5
+---
+* Renaming Regex: ?<IPV4Address> is now ?<Network_IPV4Address> (#90)
+* New Regex: ?<Network_MACAddress> (#89)
+* Use-Regex -Extract:  Now attempting [Timespan] before [DateTime] (#88)
+
+
+0.6.4
 ---
 * Renaming Write-RegEx to New-RegEx (#66) ** Write-RegEx will remain aliased until at least 0.7**
 * Fixing Issue in Embedding (#82)
