@@ -167,7 +167,7 @@
                 Where-Object Name -like "$wordtocomplete*" |
                 Select-Object -ExpandProperty Name
         } else {
-            Get-RegEx | 
+            Get-RegEx |
                 Select-object -ExpandProperty Name
         }
 
@@ -313,11 +313,8 @@
                 } elseif ($Coerce -and $Coerce.$($g.Name) -is [ScriptBlock]) {
                     $xm[$g.Name] = foreach ($v in $gcv) { $_ = $v; & $Coerce.$($g.Name) $v }
                 } else {
-                    $xm[$g.Name] = foreach ($cv in $gcv) {                        
-                        if ($cv -as [DateTime]) {
-                            $cv -as [DateTime]
-                        } 
-                        elseif ($cv -as [float] -ne $null) {
+                    $xm[$g.Name] = foreach ($cv in $gcv) {
+                        if ($cv -as [float] -ne $null) {
                             if ($cv -as [float] -ne $cv -as [int]) {
                                 $cv -as [float]
                             } else {
@@ -326,11 +323,11 @@
                                 } else {
                                     $cv -as [int]
                                 }
-                                
+
                             }
                         }
                         elseif ($cv -eq 'true') {
-                            $true    
+                            $true
                         }
                         elseif ($cv -eq 'false') {
                             $false
@@ -343,13 +340,16 @@
                             } else {
                                 $cv
                             }
-                        }                       
+                        }
+                        elseif ($cv -as [DateTime]) {
+                            $cv -as [DateTime]
+                        }
                         else {
                             $cv
                         }
                     }
 
-                    
+
                 }
             }
             if ($IncludeMatch) {
@@ -514,13 +514,13 @@
             }
 
             if ($script:_RegexLibrary) {
-                if (($pattern -match '^\?\<(?<Name>\w+)\>' -or 
-                    $Pattern -match '^(?<Name>[\w_]+)$') -and 
+                if (($pattern -match '^\?\<(?<Name>\w+)\>' -or
+                    $Pattern -match '^(?<Name>[\w_]+)$') -and
                     $script:_RegexLibrary.($matches.Name)
-                ) {                  
-                    $pattern = $script:_RegexLibrary.($matches.Name)                   
+                ) {
+                    $pattern = $script:_RegexLibrary.($matches.Name)
                 }
-            }            
+            }
 
             # If we didn't have to warn them, we've propably piped in a [Regex] or the output of New-Regex.
             $regex = [Regex]::new($Pattern, 'IgnoreCase,IgnorePatternWhitespace')
