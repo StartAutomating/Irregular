@@ -7,7 +7,7 @@ inputs:
       A PowerShell Script that uses Irregular.  
       Any files outputted from the script will be added to the repository.
       If those files have a .Message attached to them, they will be committed with that message.
-  SkipIrregularPS1: 
+  SkipPS1: 
     required: false
     description: 'If set, will not process any files named *.irregular.ps1'
   SkipRegexSource: 
