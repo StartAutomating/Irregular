@@ -1,4 +1,12 @@
-﻿0.6.5
+﻿0.6.6:
+---
+* New Regexes:
+  * ?<C_Enum> (#98)
+  * ?<C_Struct> (#99)
+* Fixing Issues with whitespace in ?<FFMpeg_Progress> (#97)
+
+
+0.6.5
 ---
 * Renaming Regex: ?<IPV4Address> is now ?<Network_IPV4Address> (#90)
 * New Regex: ?<Network_MACAddress> (#89)
