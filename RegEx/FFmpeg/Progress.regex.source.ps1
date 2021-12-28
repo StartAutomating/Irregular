@@ -3,9 +3,9 @@ $myRoot = $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
 Write-RegEx -Description @'
 Matches Progress Lines in FFMpeg output
 '@  -StartAnchor LineStart -Pattern "frame=" -Comment "frame=" |
-    Write-RegEx -CharacterClass Whitespace -Repeat |
+    Write-RegEx -CharacterClass Whitespace -Min 0 |
     Write-RegEx -Name FrameNumber -CharacterClass Digit -Repeat |
-    Write-RegEx -CharacterClass Whitespace -Repeat -Comment "Followed by the Frame Number" |
+    Write-RegEx -CharacterClass Whitespace -Min 0 -Comment "Followed by the Frame Number" |
     Write-RegEx -Pattern fps= -Comment "fps="|
     Write-RegEx -CharacterClass Whitespace -Min 0 |
     Write-RegEx -Name FramesPerSecond (
@@ -24,12 +24,12 @@ Matches Progress Lines in FFMpeg output
     Write-RegEx -CharacterClass Whitespace -Min 0 -Comment "Followed by the Time" |
     Write-RegEx -Pattern bitrate= -Comment "bitrate=" |
     Write-RegEx -CharacterClass Whitespace -Min 0 |
-    Write-RegEx -Name Bitrate -Pattern "[\d\.]+" |
+    Write-RegEx -Name Bitrate -Pattern "[\d\.exN/A]+" |
     Write-RegEx -Pattern 'kbits/s' |     
     Write-RegEx -CharacterClass Whitespace -Min 0 -Comment "Followed by the Bitrate" |
     Write-RegEx -Pattern speed= -Comment "speed=" |
     Write-RegEx -CharacterClass Whitespace -Min 0 |
-    Write-RegEx -Name Speed -Pattern "[\d\.]+" |
+    Write-RegEx -Name Speed -Pattern "[\d\.N/A+]+" |
     Write-RegEx -Pattern 'x' |     
     Write-RegEx -CharacterClass Whitespace -Min 0 -Comment "Followed by the Speed" |#>
     Set-Content -Path (Join-Path $myRoot $myName) -Encoding UTF8 -PassThru
