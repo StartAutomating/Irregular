@@ -489,14 +489,6 @@ jobs:
               }
           }
           } @Parameters
-  UseIrregularAction: 
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Use Irregular Action
-        uses: StartAutomating/Irregular@master
-        id: Irregular
 on: 
   push: 
   workflow_dispatch: 
