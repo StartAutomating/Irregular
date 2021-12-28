@@ -1,16 +1,16 @@
 ﻿# Matches Progress Lines in FFMpeg output
-^frame=                                # frame=
-\s+(?<FrameNumber>\d+)\s+              # Followed by the Frame Number
-fps=                                   # fps=
-\s{0,}(?<FramesPerSecond>[\d\.]+)\s+   # Followed by Frames Per Second
-q=                                     # q=
-(?<QuanitizerScale>[\d\.]+)\s+         # Followed by the Quanitizer Scale
-L?size=                                # size=
-\s+(?<Size>\d{1,}\wB)\s+               # Followed by the Size
-time=                                  # time=
-(?<Time>[\d\:\.]+)\s{0,}               # Followed by the Time
-bitrate=                               # bitrate=
-\s{0,}(?<Bitrate>[\d\.]+)kbits/s\s{0,} # Followed by the Bitrate
-speed=                                 # speed=
-\s{0,}(?<Speed>[\d\.]+)x\s{0,}         # Followed by the Speed
+^frame=                                     # frame=
+\s{0,}(?<FrameNumber>\d+)\s{0,}             # Followed by the Frame Number
+fps=                                        # fps=
+\s{0,}(?<FramesPerSecond>[\d\.]+)\s+        # Followed by Frames Per Second
+q=                                          # q=
+(?<QuanitizerScale>[\d\.]+)\s+              # Followed by the Quanitizer Scale
+L?size=                                     # size=
+\s+(?<Size>\d{1,}\wB)\s+                    # Followed by the Size
+time=                                       # time=
+(?<Time>[\d\:\.]+)\s{0,}                    # Followed by the Time
+bitrate=                                    # bitrate=
+\s{0,}(?<Bitrate>[\d\.exN/A]+)kbits/s\s{0,} # Followed by the Bitrate
+speed=                                      # speed=
+\s{0,}(?<Speed>[\d\.N/A+]+)x\s{0,}          # Followed by the Speed
 

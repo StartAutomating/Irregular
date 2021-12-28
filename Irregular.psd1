@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.6.5'
+    ModuleVersion = '0.6.6'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -15,6 +15,13 @@
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'
         }
         ReleaseNotes = @'
+0.6.6:
+---
+* New Regexes:
+  * ?<C_Enum> (#98)
+  * ?<C_Struct> (#99)
+* Fixing Issues with whitespace in ?<FFMpeg_Progress> (#97)
+
 0.6.5
 ---
 * Renaming Regex: ?<IPV4Address> is now ?<Network_IPV4Address> (#90)

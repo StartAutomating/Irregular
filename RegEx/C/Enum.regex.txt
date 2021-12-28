@@ -1,0 +1,18 @@
+﻿# Matches a C/C++ Enum
+(?-i)enum                                # Starts with a literal enum
+\s{1,}                                   # Followed by whitespace
+(?<Identifier>[_a-zA-Z][_a-zA-Z0-9]{1,}) # Followed by an identifier
+[\s\n\r]{0,}                             # Followed by optional whitespace
+(?<Comment>//.+[\r\n])?                  # Followed by an optional comment
+[\s\n\r]{0,}                             # Followed by optional whitespace
+(?<Values>(?<BalancedCurlyBracket>
+\{                                       # An open {
+(?>                                      # Followed by...
+    [^\{\}]+|                            # any number of non-bracket character OR
+    \{(?<Depth>)|                        # an open curly bracket (in which case increment depth) OR
+    \}(?<-Depth>)                        # a closed curly bracket (in which case decrement depth)
+)*?(?(Depth)(?!))                        # until depth is 0.
+\}                                       # followed by a }
+)
+)                                        # Followed by balanced curly braces
+
