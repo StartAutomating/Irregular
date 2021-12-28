@@ -1,13 +1,14 @@
+﻿
 name: UseIrregular
 description: Regular Expressions Made Strangle Simple
 inputs: 
-  cript: 
+  IrregularScript: 
     required: false
     description: |
       A PowerShell Script that uses Irregular.  
       Any files outputted from the script will be added to the repository.
       If those files have a .Message attached to them, they will be committed with that message.
-  SkipPS1: 
+  SkipIrregularPS1: 
     required: false
     description: 'If set, will not process any files named *.irregular.ps1'
   SkipRegexSource: 
@@ -111,24 +112,28 @@ runs:
             throw "Action Path not found"
         }
         
+        $anyFilesChanged = $false
         $processScriptOutput = { process { 
             $out = $_
-            $outItem = Get-Item -Path $out -ErrorAction SilentlyContinue 
-            if ($out -is [IO.FileInfo]) {
-                git add $out.FullName
-            } elseif ($outItem) {
-                git add $outItem.FullName
+            $outItem = Get-Item -Path $out -ErrorAction SilentlyContinue
+            $fullName, $shouldCommit = 
+                if ($out -is [IO.FileInfo]) {
+                    $out.FullName, (git status $out.Fullname -s)
+                } elseif ($outItem) {
+                    $outItem.FullName, (git status $outItem.Fullname -s)
+                }
+            if ($shouldCommit) {
+                git add $fullName
+                if ($out.Message) {
+                    git commit -m "$($out.Message)"
+                } elseif ($out.CommitMessage) {
+                    git commit -m "$($out.CommitMessage)"
+                }
+                $anyFilesChanged = $true
             }
-            if ($out.Message) {
-                git commit -m "$($out.Message)"
-            } elseif ($out.CommitMessage) {
-                git commit -m "$($out.CommitMessage)"
-            }
-        
             $out
         } }
-        
-        "::debug::Irregular Loaded from Path - $($irregularModulePath)" | Out-Host
+        "::notice::Irregular Loaded from Path - $($irregularModulePath)" | Out-Host
         
         if (-not $UserName) { $UserName = $env:GITHUB_ACTOR }
         if (-not $UserEmail) { $UserEmail = "$UserName@github.com" }
@@ -136,6 +141,7 @@ runs:
         git config --global user.name  $UserName
         
         if (-not $env:GITHUB_WORKSPACE) { throw "No GitHub workspace" }
+        git pull | Out-Host
         
         if ($IrregularScript) {
             Invoke-Expression -Command $IrregularScript |
@@ -164,16 +170,20 @@ runs:
                 }
         }
         
-        if ($CommitMessage) {
-            dir $env:GITHUB_WORKSPACE -Recurse |
-                ForEach-Object {
-                    $gitStatusOutput = git status $_.Fullname -s
-                    if ($gitStatusOutput) {
-                        git add $_.Fullname
-                    }
-                }
         
-            git commit -m $ExecutionContext.SessionState.InvokeCommand.ExpandString($CommitMessage)
+        
+        if ($CommitMessage -or $anyFilesChanged) {
+            if ($CommitMessage) {
+                dir $env:GITHUB_WORKSPACE -Recurse |
+                    ForEach-Object {
+                        $gitStatusOutput = git status $_.Fullname -s
+                        if ($gitStatusOutput) {
+                            git add $_.Fullname
+                        }
+                    }
+        
+                git commit -m $ExecutionContext.SessionState.InvokeCommand.ExpandString($CommitMessage)
+            }
             $gitPushed =  git push 2>&1
             "Git Push Output: $($gitPushed  | Out-String)"
         }} @Parameters
