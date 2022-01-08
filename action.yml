@@ -155,7 +155,7 @@ runs:
                 }
         }
         
-        
+        <#
         if (-not $SkipRegexSource) {
             Get-ChildItem -Recurse -Path $env:GITHUB_WORKSPACE |
                 Where-Object Name -Match '\.regex\.source\.ps1$' |
@@ -166,7 +166,7 @@ runs:
                         Out-Host
                 }
         }
-        
+        #>
         if ($CommitMessage) {
             dir $env:GITHUB_WORKSPACE -Recurse |
                 ForEach-Object {
