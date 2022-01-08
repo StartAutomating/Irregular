@@ -160,6 +160,7 @@ runs:
             Get-ChildItem -Recurse -Path $env:GITHUB_WORKSPACE |
                 Where-Object Name -Match '\.regex\.source\.ps1$' |
                 ForEach-Object {
+                    Write-Information "::notice file=$($_.FullName)::Running $($_.Name)"
                     . $_.FullName |            
                         . $processScriptOutput  | 
                         Out-Host
