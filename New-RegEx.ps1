@@ -138,7 +138,7 @@
         'NonControl' , '\P{C}'
     )]
     [string[]]
-    $CharacterClass,
+    $CharacterClass,    
 
     # If provided, will match any number of specific literal characters.
     [Alias('LC','LiteralCharacters')]
@@ -151,6 +151,105 @@
     [Alias('UC', 'UnicodeCharacters')]
     [int[]]
     $UnicodeCharacter,
+    
+    # When provided with -CharacterClass, -LiteralCharacter, or -UnicodeCharacter, will subtract one set of characters from the other.
+    # Otherwise, will match any character classes that are not excluded.
+    [Alias('XCC','ExcludeCC','ExcludeCharacterClasses','NotCharacterClass')]
+    [ValidateSet(
+        'Any', '.',
+        'Word', '\w',
+        'NonWord', '\W',
+        'Whitespace', '\s',
+        'NonWhitespace', '\S',
+        'Digit', '\d',
+        'NonDigit', '\D',
+        'Escape', '\e',
+        'Tab', '\t',
+        'CarriageReturn', '\r',
+        'NewLine', '\n',
+        'VerticalTab', '\v',
+        'FormFeed', '\f',
+        'UpperCaseLetter', '\p{Lu}',
+        'LowerCaseLetter', '\p{Ll}',
+        'TitleCaseLetter', '\p{Lt}',
+        'ModifierLetter' , '\p{Lm}',
+        'OtherLetter' , '\p{Lo}',
+        'Letter' , '\p{L}',
+        'NonSpacingMark' ,'\p{Mn}',
+        'CombiningMark' ,'\p{Mc}',
+        'EnclosingMark' , '\p{Me}',
+        'Mark' , '\p{M}',
+        'Number' , '\p{N}',
+        'NumberDecimalDigit' , '\p{Nd}',
+        'NumberLetter' , '\p{Nl}',
+        'NumberOther' , '\p{No}',
+        'PunctuationConnector' , '\p{Pc}',
+        'PunctuationDash' , '\p{Pd}',
+        'PunctuationOpen' , '\p{Ps}',
+        'PunctuationClose' , '\p{Pe}',
+        'PunctuationInitialQuote' , '\p{Pi}',
+        'PunctuationFinalQuote' , '\p{Pf}',
+        'PunctuationOther' , '\p{Po}',
+        'Punctuation' , '\p{P}',
+        'SymbolMath' ,'\p{Sm}',
+        'SymbolCurrency' ,'\p{Sc}',
+        'SymbolModifier' ,'\p{Sk}',
+        'SymbolOther' ,'\p{So}',
+        'Symbol' , '\p{S}',
+        'SeparatorSpace' ,'\p{Zs}',
+        'SeparatorLine' , '\p{Zl}',
+        'SeparatorParagraph' , '\p{Zp}',
+        'Separator' , '\p{Z}',
+        'Control' , '\p{C}',
+        'NonUpperCaseLetter', '\P{Lu}',
+        'NonLowerCaseLetter', '\P{Ll}',
+        'NonTitleCaseLetter', '\P{Lt}',
+        'NonModifierLetter' , '\P{Lm}',
+        'NonOtherLetter' , '\P{Lo}',
+        'NonLetter' , '\P{L}',
+        'NonNonSpacingMark' ,'\P{Mn}',
+        'NonCombiningMark' ,'\P{Mc}',
+        'NonEnclosingMark' , '\P{Me}',
+        'NonMark' , '\P{M}',
+        'NonNumber' , '\P{N}',
+        'NonNumberDecimalDigit' , '\P{Nd}',
+        'NonNumberLetter' , '\P{Nl}',
+        'NonNumberOther' , '\P{No}',
+        'NonPunctuationConnector' , '\P{Pc}',
+        'NonPunctationDash' , '\P{Pd}',
+        'NonPunctationOpen' , '\P{Ps}',
+        'NonPunctationClose' , '\P{Pe}',
+        'NonPunctationInitialQuote' , '\P{Pi}',
+        'NonPunctationFinalQuote' , '\P{Pf}',
+        'NonPunctuationOther' , '\P{Po}',
+        'NonPunctuation' , '\P{P}',
+        'NonSymbolMath' ,'\P{Sm}',
+        'NonSymbolCurrency' ,'\P{Sc}',
+        'NonSymbolModifier' ,'\P{Sk}',
+        'NonSymbolOther' ,'\P{So}',
+        'NonSymbol' , '\P{S}',
+        'NonSeparatorSpace' ,'\P{Zs}',
+        'NonSeparatorLine' , '\P{Zl}',
+        'NonSeparatorParagraph' , '\P{Zp}',
+        'NonSeparator' , '\P{Z}',
+        'NonControl' , '\P{C}'
+    )]
+    [string[]]
+    $ExcludeCharacterClass,
+
+    # When provided with -CharacterClass, -LiteralCharacter, or -UnicodeCharacter, will subtract one set of characters from the other.
+    # Otherwise, will match any characters that are not one of the provided literal characters.
+    [Alias('XLC','ExcludeLC','ExcludeLiteralCharacters','NotLiteralCharacter')]
+    [string[]]
+    $ExcludeLiteralCharacter,
+
+    # When provided with -CharacterClass, -LiteralCharacter, or -UnicodeCharacter, will subtract one set of characters from the other.
+    # Otherwise, will match any characters that are not one of the provided unicode characters.
+    # Note:  Unless the RegEx is case-sensitive, this will match both uppercase and lowercase.
+    # To make a RegEx explicitly case-sensitive, use New-RegEx -Modifier IgnoreCase -Not
+    [Alias('XUC', 'ExcludeUC', 'ExcludeUnicodeCharacters','NotUnicodeCharacter')]
+    [int[]]
+    $ExcludeUnicodeCharacter,
 
     # If provided, will match digits up to a value.
     [uint32]
@@ -572,14 +671,22 @@
                 "(?:.|\s){0,}?(?=$($until -join '|'))"
             }
 
-            # If we're passed in a character class, literal character, or UnicodeCharacter.
-            if ($CharacterClass -or $LiteralCharacter -or $UnicodeCharacter) {
+            # If we're passed in a character class, literal character, or UnicodeCharacter (or any to exclude)
+            if ($CharacterClass -or $LiteralCharacter -or $UnicodeCharacter -or 
+                $ExcludeCharacterClass -or $ExcludeLiteralCharacter -or $ExcludeUnicodeCharacter) {
                 $cout =
-                    @(foreach ($cc in $CharacterClass) { # find them in the lookup table
+                    @(foreach ($cc in $CharacterClass) { # find them in the lookup table.
                         $ccLookup[$cc]
                     })
 
+                $notCout =
+                    @(foreach ($notcc in $ExcludeCharacterClass) {
+                        $ccLookup[$notcc]
+                    })
+
                 $lc = @($literalCharacter -replace '[\p{P}\p{S}]', '\$0')
+                $notLC = @($ExcludeliteralCharacter -replace '[\p{P}\p{S}]', '\$0')
+                
                 $charSet = @(
                     $cout +
                     $lc +
@@ -589,14 +696,34 @@
                     })
                 ) -ne ''
 
+                $notCharSet = @(
+                    $Notcout +
+                    $Notlc +
+                    @(
+                    foreach ($notuc in $ExcludeUnicodeCharacter) {
+                        "\u{0:x4}" -f $notuc
+                    })
+                )
+
+                
+                $charSubtract = 
+                    if ($notCharSet -and $charSet) {
+                        "-[$($notCharSet -join '')]"
+                    } elseif ($notCharSet) {
+                        ''
+                        $charSet = @('^') + $notCharSet
+                    } else {
+                        ''
+                    }
+
                 if ($not) # If -Not was passed
                 {
-                    "[^$($charSet -join '')]" # it can be any character that is not in any of the character classes.
+                    "[^$($charSet -join '')$charSubtract]" # it can be any character that is not in any of the character classes.
                 }
                 # If we have more than one character class
-                elseif ($charSet.Length -gt 1 -or ($literalCharacter -and $literalCharacter[0].Length -gt 1))
+                elseif ($charSubtract -or $charSet.Length -gt 1 -or ($literalCharacter -and $literalCharacter[0].Length -gt 1))
                 {
-                    "[$($charSet -join '')]" # It can be any of the character classes
+                    "[$($charSet -join '')$charSubtract]" # It can be any of the character classes
                 }
                 else # Unless there was only one character class (in this case, put it inline)
                 {
