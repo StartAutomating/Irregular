@@ -8,8 +8,7 @@ $savedPatternsMarkdown = @(
             ForEach-Object -Begin {
                 '|Name|Description|IsGenerator|'
                 '|:---|:----------|:----------|'
-            } -Process {
-                $desc = $_.Description -replace '[\[\{\(]', '\$0'
+            } -Process {                
                 $desc=  if ($desc) {$desc | ?<NewLine> -Replace '<br/>'} else  { ''}
                 "|$($_.Name)|$desc|$($_.IsGenerator)|"
             }) -join [Environment]::NewLine -replace '<br/>\|', '|'
@@ -23,5 +22,5 @@ Get-Item .\SavedPatterns.md |
  
  } catch {
     $ex = $_
-    $ex | Out-Host
+    $ex | Format-Custom|  Out-Host
  }
