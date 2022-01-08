@@ -97,6 +97,7 @@ runs:
         $UserName
         )
         
+        $ErrorActionPreference = 'continue'
         "::group::Parameters" | Out-Host
         [PSCustomObject]$PSBoundParameters | Format-List | Out-Host
         "::endgroup::" | Out-Host
@@ -136,22 +137,30 @@ runs:
         git config --global user.email $UserEmail
         git config --global user.name  $UserName
         
+        
         if (-not $env:GITHUB_WORKSPACE) { throw "No GitHub workspace" }
         
         if ($IrregularScript) {
+            "::notice::Running Irregular Script" | Out-Host
             Invoke-Expression -Command $IrregularScript |
                 . $processScriptOutput |
                 Out-Host
         }
         
         if (-not $SkipIrregularPS1) {
+            "::notice::Running Irregular .ps1" | Out-Host
             Get-ChildItem -Recurse -Path $env:GITHUB_WORKSPACE |
                 Where-Object Name -Match '\.Irregular\.ps1$' |
                 ForEach-Object {
                     Write-Information "::notice file=$($_.FullName)::Running $($_.Name)"
-                    . $_.FullName |            
-                        . $processScriptOutput  | 
-                        Out-Host
+                    $irregularPs1File = $_
+                    try {
+                        . $irregularPs1File.FullName |
+                            . $processScriptOutput  |
+                            Out-Host
+                    } catch {
+                        "::error::$($_ | Out-String)" | Out-Host
+                    }
                 }
         }
         
