@@ -8,7 +8,8 @@ $savedPatternsMarkdown = @(
             ForEach-Object -Begin {
                 '|Name|Description|IsGenerator|'
                 '|:---|:----------|:----------|'
-            } -Process {                
+            } -Process {
+                $desc = $_.Description
                 $desc=  if ($desc) {$desc | ?<NewLine> -Replace '<br/>'} else  { ''}
                 "|$($_.Name)|$desc|$($_.IsGenerator)|"
             }) -join [Environment]::NewLine -replace '<br/>\|', '|'
