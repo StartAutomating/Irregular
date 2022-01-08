@@ -116,6 +116,7 @@ runs:
         $processScriptOutput = { process { 
             $out = $_
             $outItem = Get-Item -Path $out -ErrorAction SilentlyContinue 
+            "::notice::Processing Output" | Out-Host
             if ($out -is [IO.FileInfo]) {
                 git add $out.FullName
             } elseif ($outItem) {
@@ -177,6 +178,7 @@ runs:
         }
         #>
         if ($CommitMessage) {
+            "::notice::Attempting commit" | Out-Host
             dir $env:GITHUB_WORKSPACE -Recurse |
                 ForEach-Object {
                     $gitStatusOutput = git status $_.Fullname -s
