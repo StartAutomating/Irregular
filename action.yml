@@ -113,25 +113,29 @@ runs:
             throw "Action Path not found"
         }
         
+        $anyFilesChanged = $false
         $processScriptOutput = { process { 
             $out = $_
-            $outItem = Get-Item -Path $out -ErrorAction SilentlyContinue 
-            "::notice::Processing Output" | Out-Host
-            if ($out -is [IO.FileInfo]) {
-                git add $out.FullName
-            } elseif ($outItem) {
-                git add $outItem.FullName
+            $outItem = Get-Item -Path $out -ErrorAction SilentlyContinue
+            $fullName, $shouldCommit = 
+                if ($out -is [IO.FileInfo]) {
+                    $out.FullName, (git status $out.Fullname -s)
+                } elseif ($outItem) {
+                    $outItem.FullName, (git status $outItem.Fullname -s)
+                }
+            if ($shouldCommit) {
+                git add $fullName
+                if ($out.Message) {
+                    git commit -m "$($out.Message)"
+                } elseif ($out.CommitMessage) {
+                    git commit -m "$($out.CommitMessage)"
+                }
+                $anyFilesChanged = $true
             }
-            if ($out.Message) {
-                git commit -m "$($out.Message)"
-            } elseif ($out.CommitMessage) {
-                git commit -m "$($out.CommitMessage)"
-            }
-        
             $out
         } }
         
-        "::notice::Irregular Loaded from Path - $($irregularModulePath)" | Out-Host
+        "::notice title=ModuleLoaded,file=$irregularModulePath::Irregular Loaded from Path" | Out-Host
         
         if (-not $UserName) { $UserName = $env:GITHUB_ACTOR }
         if (-not $UserEmail) { $UserEmail = "$UserName@github.com" }
@@ -165,7 +169,6 @@ runs:
                 }
         }
         
-        <#
         if (-not $SkipRegexSource) {
             Get-ChildItem -Recurse -Path $env:GITHUB_WORKSPACE |
                 Where-Object Name -Match '\.regex\.source\.ps1$' |
@@ -176,19 +179,23 @@ runs:
                         Out-Host
                 }
         }
-        #>
-        if ($CommitMessage) {
-            "::notice::Attempting commit" | Out-Host
-            dir $env:GITHUB_WORKSPACE -Recurse |
-                ForEach-Object {
-                    $gitStatusOutput = git status $_.Fullname -s
-                    if ($gitStatusOutput) {
-                        git add $_.Fullname
-                    }
-                }
         
-            git commit -m $ExecutionContext.SessionState.InvokeCommand.ExpandString($CommitMessage)
+        if ($CommitMessage -or $anyFilesChanged) {
+            if ($CommitMessage) {
+                dir $env:GITHUB_WORKSPACE -Recurse |
+                    ForEach-Object {
+                        $gitStatusOutput = git status $_.Fullname -s
+                        if ($gitStatusOutput) {
+                            git add $_.Fullname
+                        }
+                    }
+        
+                git commit -m $ExecutionContext.SessionState.InvokeCommand.ExpandString($CommitMessage)
+            }
+            
+            "::notice::Pushing" | Out-Host
             $gitPushed =  git push 2>&1
+                
             "Git Push Output: $($gitPushed  | Out-String)"
         }} @Parameters
 
