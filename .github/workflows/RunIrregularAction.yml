@@ -1,5 +1,8 @@
 ﻿
 name: Run GitHub Action
+on: 
+  push: 
+  workflow_dispatch: 
 jobs: 
   UseIrregularAction: 
     runs-on: ubuntu-latest
@@ -9,6 +12,4 @@ jobs:
       - name: Use Irregular Action
         uses: StartAutomating/Irregular@master
         id: Irregular
-on: 
-  push: 
-  workflow_dispatch: 
+

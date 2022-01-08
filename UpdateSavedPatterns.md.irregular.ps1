@@ -1,4 +1,6 @@
-﻿$savedPatternsMarkdown = @(
+﻿try {
+
+$savedPatternsMarkdown = @(
     '### Irregular Patterns'
 
     @(Get-RegEx | # Gets all saved Regular Expressions as a Markdown table
@@ -19,4 +21,7 @@ Get-Item .\SavedPatterns.md |
     Add-Member NoteProperty CommitMessage "Updating SavedPatterns.md [skip ci]" -Force -PassThru
     
  
- 
+ } catch {
+    $ex = $_
+    $ex | Out-Host
+ }
