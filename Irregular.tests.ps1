@@ -359,6 +359,13 @@ describe New-RegEx {
             Select-Object -ExpandProperty Pattern |
             should -Be '\p{Ll}'
     }
+
+    it "Helps you write -CharacterClasses and -ExcludeCharacterClass" {
+        $r = New-RegEx -CharacterClass Punctuation -ExcludeCharacterClass PunctuationOpen, PunctuationClose
+        $r.Match("(a)").Success | Should -Be $false
+        $r.Match(".").Success | Should -Be $true
+    }
+
     it "Lets you look for repeated content" {
         New-RegEx -CharacterClass Digit -Repeat |
             Select-Object -ExpandProperty Pattern |
