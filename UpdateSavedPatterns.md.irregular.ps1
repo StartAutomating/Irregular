@@ -1,10 +1,15 @@
 ﻿try {
 $IrregularModuleRoot = Get-Module Irregular | Split-Path | Select-Object -First 1
-$savedPatternsMarkdown = @(
-    '### Irregular Patterns'
+$sortedRegexes = @(Get-Regex | Sort-Object Name)
 
-    @(Get-RegEx | # Gets all saved Regular Expressions as a Markdown table
-            Sort-Object Name |
+$savedPatternsMarkdown = @(
+        
+    '### Irregular Patterns'
+    @"
+Irregular includes $($sortedRegexes.Count) regular expressions
+"@
+
+    @($sortedRegexes | # Gets all saved Regular Expressions as a Markdown table            
             ForEach-Object -Begin {
                 '|Name|Description|IsGenerator|'
                 '|:---|:----------|:----------|'
@@ -15,14 +20,14 @@ $savedPatternsMarkdown = @(
                 $link =
                     if ($reg.Path) {
                         "[$($reg.Name)]($($reg.Path.Replace($IrregularModuleRoot, '')))" -replace '\\', '/'
-                    } elseif ($reg.Name -match '^([^_]+)_') {
-                        $reg.Name
                     } else {
                         $reg.Name
                     }
                 "|$link|$desc|$($_.IsGenerator)|"
             }) -join [Environment]::NewLine -replace '<br/>\|', '|'
 )
+
+
 
 
 $savedPatternsMarkdown | Set-Content .\SavedPatterns.md -Encoding UTF8
