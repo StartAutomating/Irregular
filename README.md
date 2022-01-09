@@ -9,8 +9,9 @@
 <a href='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml'>
 <img src='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml/badge.svg' />
 </a>
-
+[Included Regular Expressions](SavedPatterns.md)
 </div>
+
 
 
 #### Understanding Regular Expressions
