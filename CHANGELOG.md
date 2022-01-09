@@ -1,4 +1,17 @@
-﻿0.6.6:
+﻿0.6.7:
+---
+* Command Improvements:
+  * New-Regex:  Adding -ExcludeCharacterClass/-ExcludeLiteralCharacter/-ExcludeUnicodeCharacter (Fixing #104)
+  * Use-Regex:  Adding -IncludeInputObject (Fixing #103)
+  * Import-Regex:  Imported regular expressions are more likely to keep their path, even if they must be retried.
+* Renaming Regex:  ?<BuildVersion> is now ?<Code_BuildVersion>
+* GitHub Action Improvements:
+  * Additional Tracing in GitHub Action.  Now ready for use.  (Fixing #93)
+* Additional Improvements:
+  * [SavedPatterns.md](SavedPatterns.md) now automatically updates.
+
+
+0.6.6:
 ---
 * New Regexes:
   * ?<C_Enum> (#98)

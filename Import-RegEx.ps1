@@ -164,7 +164,7 @@
                 $regex = [PSCustomObject][Ordered]@{  # Create the RegEx object
                     PSTypeName   = 'Irregular.RegEx'
                     Name = $name ; Description = $description
-                    Pattern = $rx; Path = $in.FullName
+                    Pattern = $rx; Path = if ($patternIn.Path) { $patternIn.Path} else { $in.FullName }
                     IsGenerator = $false;IsPattern = $true
                 }
 

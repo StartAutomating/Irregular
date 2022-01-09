@@ -97,6 +97,7 @@ runs:
         $UserName
         )
         
+        $ErrorActionPreference = 'continue'
         "::group::Parameters" | Out-Host
         [PSCustomObject]$PSBoundParameters | Format-List | Out-Host
         "::endgroup::" | Out-Host
@@ -133,44 +134,51 @@ runs:
             }
             $out
         } }
-        "::notice::Irregular Loaded from Path - $($irregularModulePath)" | Out-Host
+        
+        "::notice title=ModuleLoaded,file=$irregularModulePath::Irregular Loaded from Path" | Out-Host
         
         if (-not $UserName) { $UserName = $env:GITHUB_ACTOR }
         if (-not $UserEmail) { $UserEmail = "$UserName@github.com" }
         git config --global user.email $UserEmail
         git config --global user.name  $UserName
         
+        
         if (-not $env:GITHUB_WORKSPACE) { throw "No GitHub workspace" }
-        git pull | Out-Host
         
         if ($IrregularScript) {
+            "::notice::Running Irregular Script" | Out-Host
             Invoke-Expression -Command $IrregularScript |
                 . $processScriptOutput |
                 Out-Host
         }
         
         if (-not $SkipIrregularPS1) {
+            "::notice::Running Irregular .ps1" | Out-Host
             Get-ChildItem -Recurse -Path $env:GITHUB_WORKSPACE |
                 Where-Object Name -Match '\.Irregular\.ps1$' |
                 ForEach-Object {
-                    . $_.FullName |            
-                        . $processScriptOutput  | 
-                        Out-Host
+                    Write-Information "::notice file=$($_.FullName)::Running $($_.Name)"
+                    $irregularPs1File = $_
+                    try {
+                        . $irregularPs1File.FullName |
+                            . $processScriptOutput  |
+                            Out-Host
+                    } catch {
+                        "::error::$($_ | Out-String)" | Out-Host
+                    }
                 }
         }
-        
         
         if (-not $SkipRegexSource) {
             Get-ChildItem -Recurse -Path $env:GITHUB_WORKSPACE |
                 Where-Object Name -Match '\.regex\.source\.ps1$' |
                 ForEach-Object {
+                    Write-Information "::notice file=$($_.FullName)::Running $($_.Name)"
                     . $_.FullName |            
                         . $processScriptOutput  | 
                         Out-Host
                 }
         }
-        
-        
         
         if ($CommitMessage -or $anyFilesChanged) {
             if ($CommitMessage) {
@@ -184,7 +192,10 @@ runs:
         
                 git commit -m $ExecutionContext.SessionState.InvokeCommand.ExpandString($CommitMessage)
             }
+            
+            "::notice::Pushing" | Out-Host
             $gitPushed =  git push 2>&1
+                
             "Git Push Output: $($gitPushed  | Out-String)"
         }} @Parameters
 

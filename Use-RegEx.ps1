@@ -89,8 +89,13 @@
     # If -IncludeMatch and -Split are provided, will include the matches with the result of -Split.
     # If -IncludeMatch is provided with -Extract, a .Match property will be included in the result.
     # If neither -Split or -Until is provided, this parameter is ignored.
-    [Alias('IncludingMatch')]
+    [Alias('IncludingMatch', 'OutputMatch')]
     [switch]$IncludeMatch,
+
+    # If -IncludeInputObject is provided, will add any piped in input object to extracted output.    
+    [Alias('IncludingInputObject', 'OutputInputObject')]
+    [switch]
+    $IncludeInputObject,
 
     # If set, will trim returned strings.
     [switch]$Trim,
@@ -354,6 +359,9 @@
             }
             if ($IncludeMatch) {
                 $xm.Match = $m
+            }
+            if ($IncludeInputObject) {
+                $xm.InputObject = $in
             }
             $xm.PSTypeName = if ($PSTypeName) {$PSTypeName } else { 'Irregular.Match.Extract' }
             [PSCustomObject]$xm
