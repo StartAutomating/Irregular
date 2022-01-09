@@ -1,4 +1,5 @@
 ### Irregular Patterns
+Irregular includes 110 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
