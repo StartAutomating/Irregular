@@ -6,13 +6,13 @@
 |[BalancedCode](/RegEx/BalancedCode.regex.ps1)|Matches code balanced by a [, {, or (|True|
 |[BalancedCurlyBracket](/RegEx/BalancedCurlyBracket.regex.txt)|Matches content in {}, as long as it is balanced|False|
 |[BalancedParenthesis](/RegEx/BalancedParenthesis.regex.txt)|Matches content in parenthesis, as long as it is balanced|False|
-|[BuildVersion](/RegEx/BuildVersion.regex.txt)|Matches a build version|False|
 |[C_Define](/RegEx/C/Define.regex.txt)|Matches C/C++ #define|False|
 |[C_Enum](/RegEx/C/Enum.regex.txt)|Matches a C/C++ Enum|False|
 |[C_IfDef](/RegEx/C/IfDef.regex.txt)|Matches C/C++ #if/#ifdef/#ifndef .. #endif|False|
 |[C_Include](/RegEx/C/Include.regex.txt)|Matches C/C++ #include|False|
 |[C_Struct](/RegEx/C/Struct.regex.txt)|Matches a C/C++ Struct|False|
 |[CNC_GCode](/RegEx/CNC/GCode.regex.txt)|Matches GCode Instructions|False|
+|[Code_BuildVersion](/RegEx/Code/BuildVersion.regex.txt)|Matches a build version|False|
 |[Code_Namespace](/RegEx/Code/Namespace.regex.txt)|Finds a Namespace (captures the Name and the Content between {})|False|
 |[Code_Region](/RegEx/Code/Region.regex.ps1)|Matches a #region #endregion pair. Returns the Name of the Region and the Content.|True|
 |[Code_SemanticVersion](/RegEx/Code/SemanticVersion.regex.txt)|Matches a Semantic Version.  See [https://semver.org/](https://semver.org/).|False|
