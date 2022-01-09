@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.6.6'
+    ModuleVersion = '0.6.7'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -15,6 +15,18 @@
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'
         }
         ReleaseNotes = @'
+0.6.7:
+---
+* Command Improvements:
+  * New-Regex:  Adding -ExcludeCharacterClass/-ExcludeLiteralCharacter/-ExcludeUnicodeCharacter (Fixing #104)
+  * Use-Regex:  Adding -IncludeInputObject (Fixing #103)
+  * Import-Regex:  Imported regular expressions are more likely to keep their path, even if they must be retried.
+* Renaming Regex:  ?<BuildVersion> is now ?<Code_BuildVersion>
+* GitHub Action Improvements:
+  * Additional Tracing in GitHub Action.  Now ready for use.  (Fixing #93)
+* Additional Improvements:
+  * [SavedPatterns.md](SavedPatterns.md) now automatically updates.
+
 0.6.6:
 ---
 * New Regexes:
