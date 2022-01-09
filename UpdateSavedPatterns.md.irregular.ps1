@@ -1,5 +1,5 @@
 ﻿try {
-
+$IrregularModuleRoot = Get-Module Irregular | Split-Path | Select-Object -First 1
 $savedPatternsMarkdown = @(
     '### Irregular Patterns'
 
@@ -9,9 +9,18 @@ $savedPatternsMarkdown = @(
                 '|Name|Description|IsGenerator|'
                 '|:---|:----------|:----------|'
             } -Process {
+                $reg  = $_
                 $desc = $_.Description
-                $desc=  if ($desc) {$desc | ?<NewLine> -Replace '<br/>'} else  { ''}
-                "|$($_.Name)|$desc|$($_.IsGenerator)|"
+                $desc = if ($desc) {$desc | ?<NewLine> -Replace '<br/>'} else  { ''}
+                $link =
+                    if ($reg.Path) {
+                        "[$($reg.Name)]($($reg.Path.Replace($IrregularModuleRoot, '')))" -replace '\\', '/'
+                    } elseif ($reg.Name -match '^([^_]+)_') {
+                        $reg.Name
+                    } else {
+                        $reg.Name
+                    }
+                "|$link|$desc|$($_.IsGenerator)|"
             }) -join [Environment]::NewLine -replace '<br/>\|', '|'
 )
 
