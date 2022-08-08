@@ -556,6 +556,9 @@
         #endregion Initialize Regular Expression
 
         if (-not $Match) { # If we haven't been given any text to match
+            if ($Generator) {
+                return $Generator
+            }
             $regex.pstypenames.add('Irregular.Regular.Expression') # decorate the Regex for the formatter.
             return $regex # and return it.  This will let "true" -match (?<TrueOrFalse>) be valid PowerShell.
         }
