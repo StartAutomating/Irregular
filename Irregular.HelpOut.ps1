@@ -1,12 +1,14 @@
-$piecemealLoaded = Get-Module Piecemeal
-if (-not $piecemealLoaded) {
-    $piecemealLoaded = Get-ChildItem -Recurse -Filter "*.psd1" | Where-Object Name -like 'Piecemeal*' | Import-Module -Name { $_.FullName } -Force -PassThru
+$IrregularLoaded = Get-Module Irregular
+if (-not $IrregularLoaded) {
+    $IrregularLoaded = Get-ChildItem -Recurse -Filter "*.psd1" | 
+        Where-Object Name -eq 'Irregular.ps1' | 
+        Import-Module -Name { $_.FullName } -Force -PassThru
 }
-if ($piecemealLoaded) {
-    "::notice title=ModuleLoaded::Piecemeal Loaded" | Out-Host
+if ($IrregularLoaded) {
+    "::notice title=ModuleLoaded::Irregular Loaded" | Out-Host
 } else {
-    "::error:: Piecemeal not loaded" |Out-Host
+    "::error:: Irregular not loaded" |Out-Host
 }
-if ($piecemealLoaded) {
-    Save-MarkdownHelp -Module $piecemealLoaded.Name -PassThru
+if ($IrregularLoaded) {
+    Save-MarkdownHelp -Module $IrregularLoaded.Name -PassThru
 }
