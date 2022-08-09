@@ -1,5 +1,6 @@
 ﻿## 0.6.8:
 * Added ?<CamelCaseSpace> (Fixes #114)
+* Fixing ?<PowerShell_HelpField> (Fixes #108)
 * Use-Regex:
   * Returning generator if -Match and -ExpressionParameter are not provided (Fixes #113)
 * Automatically documenting module (Fixes #109)
