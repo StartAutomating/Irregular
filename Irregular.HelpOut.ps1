@@ -10,5 +10,5 @@ if ($IrregularLoaded) {
     "::error:: Irregular not loaded" |Out-Host
 }
 if ($IrregularLoaded) {
-    Save-MarkdownHelp -Module $IrregularLoaded.Name -PassThru
+    Save-MarkdownHelp -Module $IrregularLoaded.Name -PassThru -SkipCommandType Alias
 }
