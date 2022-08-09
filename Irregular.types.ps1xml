@@ -1,54 +1,60 @@
-﻿<?xml version="1.0" encoding="utf-16"?>
-<!-- Generated with EZOut 1.8.3.1: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
+<?xml version="1.0" encoding="utf-16"?>
+<!-- Generated with EZOut 1.8.9: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
 <Types>
+  <Type>
+    <Name>Irregular.Match.Extract</Name>
+    <Members>
+      <ScriptProperty IsHidden="true">
+        <Name>EndIndex</Name>
+        <GetScriptBlock>
+                         $this.Match.Index + $this.Match.Length 
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty IsHidden="true">
+        <Name>Input</Name>
+        <GetScriptBlock>
+                         $this.Match.Result('$_') 
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty IsHidden="true">
+        <Name>StartIndex</Name>
+        <GetScriptBlock>
+                         $this.Match.Index
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
   <Type>
     <Name>Irregular.Regular.Expression</Name>
     <Members>
       <ScriptProperty>
         <Name>GroupNames</Name>
         <GetScriptBlock>
-                    
+                        
             if ($this -is [Regex]) {
                 $this.GetGroupNames()
             }
             else { @() }
         
-                </GetScriptBlock>
-      </ScriptProperty>
-      <ScriptProperty>
-        <Name>Pattern</Name>
-        <GetScriptBlock>
-                     $this.ToString() 
-                </GetScriptBlock>
+
+                    </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
         <Name>IsValid</Name>
         <GetScriptBlock>
-                     if ($this -is [Regex]) { $true } else { $false } 
-                </GetScriptBlock>
+                         if ($this -is [Regex]) { $true } else { $false } 
+
+                    </GetScriptBlock>
       </ScriptProperty>
-    </Members>
-  </Type>
-  <Type>
-    <Name>Irregular.Match.Extract</Name>
-    <Members>
-      <ScriptProperty IsHidden="true">
-        <Name>Input</Name>
+      <ScriptProperty>
+        <Name>Pattern</Name>
         <GetScriptBlock>
-                     $this.Match.Result('$_') 
-                </GetScriptBlock>
-      </ScriptProperty>
-      <ScriptProperty IsHidden="true">
-        <Name>StartIndex</Name>
-        <GetScriptBlock>
-                     $this.Match.Index
-                </GetScriptBlock>
-      </ScriptProperty>
-      <ScriptProperty IsHidden="true">
-        <Name>EndIndex</Name>
-        <GetScriptBlock>
-                     $this.Match.Index + $this.Match.Length 
-                </GetScriptBlock>
+                        $this.ToString()
+
+                    </GetScriptBlock>
       </ScriptProperty>
     </Members>
   </Type>
@@ -58,79 +64,86 @@
       <ScriptMethod>
         <Name>Peek</Name>
         <Script>
-                    param([int]$Length = 1)
-            if ($Length -gt 0) {
-                if ($this.After.Length -gt $Length) {
-                    $this.After.Substring(0,$Length)
-                } elseif ($this.After) {
-                    $this.After.Substring(0)
-                }
-            } elseif ($Length -lt 0) {
-                $Length *= -1
-                if ($this.Before.Length -gt $Length) {
-                    $this.Before.Substring($this.Before.Length - $Length)
-                } elseif ($this.Before) {
-                    $this.Before
-                }
-            }
-        
-                </Script>
+                        param([int]$Length = 1)
+if ($Length -gt 0) {
+    if ($this.After.Length -gt $Length) {
+        $this.After.Substring(0,$Length)
+    } elseif ($this.After) {
+        $this.After.Substring(0)
+    }
+} elseif ($Length -lt 0) {
+    $Length *= -1
+    if ($this.Before.Length -gt $Length) {
+        $this.Before.Substring($this.Before.Length - $Length)
+    } elseif ($this.Before) {
+        $this.Before
+    }
+}
+                    </Script>
       </ScriptMethod>
-      <ScriptProperty>
-        <Name>Line</Name>
-        <GetScriptBlock>
-                    
-            [Regex]::new('(?&gt;\r\n|\n|\A)', 'RightToLeft').Matches($this.Input, $this.Index).Count
-        
-                </GetScriptBlock>
-      </ScriptProperty>
-      <ScriptProperty>
-        <Name>EndIndex</Name>
-        <GetScriptBlock>
-                     $this.Index + $this.Length 
-                </GetScriptBlock>
-      </ScriptProperty>
       <ScriptProperty>
         <Name>After</Name>
         <GetScriptBlock>
-                     $this.Result('$''') 
-                </GetScriptBlock>
+                         $this.Result('$''') 
+
+                    </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
         <Name>Before</Name>
         <GetScriptBlock>
-                     $this.Result('$`') 
-                </GetScriptBlock>
+                         $this.Result('$`') 
+
+                    </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
         <Name>Column</Name>
         <GetScriptBlock>
-                    
+                        
             $this.Index -
                 $(
                     $m = [Regex]::new('(?&gt;\r\n|\n|\A)', 'RightToLeft').Match($this.Input, $this.Index)
                     $m.Index + $m.Length
                 ) + 1
         
-                </GetScriptBlock>
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>EndIndex</Name>
+        <GetScriptBlock>
+                         $this.Index + $this.Length 
+
+                    </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
         <Name>Input</Name>
         <GetScriptBlock>
-                     $this.Result('$_') 
-                </GetScriptBlock>
+                         $this.Result('$_') 
+
+                    </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
         <Name>LastGroup</Name>
         <GetScriptBlock>
-                     $this.Result('$+') 
-                </GetScriptBlock>
+                         $this.Result('$+') 
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Line</Name>
+        <GetScriptBlock>
+                        
+            [Regex]::new('(?&gt;\r\n|\n|\A)', 'RightToLeft').Matches($this.Input, $this.Index).Count
+        
+
+                    </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
         <Name>StartIndex</Name>
         <GetScriptBlock>
-                     $this.Index 
-                </GetScriptBlock>
+                         $this.Index 
+
+                    </GetScriptBlock>
       </ScriptProperty>
     </Members>
   </Type>
