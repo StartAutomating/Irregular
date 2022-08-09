@@ -2,6 +2,9 @@
 <img src='Assets/Irregular_Wide.png' />
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
+<h4>
+Version 0.6.7
+</h4>
 <a href='https://www.powershellgallery.com/packages/Irregular/'>
 <img src='https://img.shields.io/powershellgallery/dt/Irregular' />
 </a>
@@ -9,9 +12,6 @@
 <a href='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml'>
 <img src='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml/badge.svg' />
 </a>
-<h4>
-Version 0.6.7
-<h4>
 </div>
 
 
