@@ -1,5 +1,13 @@
-﻿0.6.7:
+﻿## 0.6.8:
+* Added ?<CamelCaseSpace> (Fixes #114)
+* Use-Regex:
+  * Returning generator if -Match and -ExpressionParameter are not provided (Fixes #113)
+* Automatically documenting module (Fixes #109)
+* Automatically building module formatting (Fixes #112)
+* Fixing Documentation (Fixes #115)
 ---
+
+## 0.6.7:
 * Command Improvements:
   * New-Regex:  Adding -ExcludeCharacterClass/-ExcludeLiteralCharacter/-ExcludeUnicodeCharacter (Fixing #104)
   * Use-Regex:  Adding -IncludeInputObject (Fixing #103)
@@ -9,25 +17,19 @@
   * Additional Tracing in GitHub Action.  Now ready for use.  (Fixing #93)
 * Additional Improvements:
   * [SavedPatterns.md](SavedPatterns.md) now automatically updates.
-
-
-0.6.6:
 ---
+## 0.6.6:
 * New Regexes:
   * ?<C_Enum> (#98)
   * ?<C_Struct> (#99)
 * Fixing Issues with whitespace in ?<FFMpeg_Progress> (#97)
-
-
-0.6.5
 ---
+## 0.6.5
 * Renaming Regex: ?<IPV4Address> is now ?<Network_IPV4Address> (#90)
 * New Regex: ?<Network_MACAddress> (#89)
 * Use-Regex -Extract:  Now attempting [Timespan] before [DateTime] (#88)
-
-
-0.6.4
 ---
+## 0.6.4
 * Renaming Write-RegEx to New-RegEx (#66) ** Write-RegEx will remain aliased until at least 0.7**
 * Fixing Issue in Embedding (#82)
 * Improving -Extract by auto-detecting data types (#81)
@@ -37,9 +39,8 @@
 * Adding ?<FFMpeg_Input> (#83)
 * Adding ?<FFMpeg_Output> (#83)
 * Adding ?<FFMpeg_Metadata> (#83)
-
-0.6.3
 ---
+## 0.6.3
 New Regular Expressions:
 * ?<CNC_GCode> (Fixes #76)
 * OpenSCAD Expressions (Fixes #75)  
@@ -55,34 +56,29 @@ New Regular Expressions:
 * Subtitle Regexes (Fixes #72)
   * ?<Subtitle_SRT>
   * ?<Subtitle_VTT>
-
-
-0.6.2
 ---
+## 0.6.2
 New Regular Expressions:
 * ?<Unix_Cron_Interval> (Fixes #67)
 * ?<Unix_Duration> (Fixes #69)
-
-0.6.1
 ---
+## 0.6.1
 * New Command:  Remove-RegEx (Fixes #62)
 * Set-RegEx now supports -PassThru (Fixes #61)
 * Set-RegEx now allows modifiers (Fixes #60)
 * Use-RegEx now allows -Pattern to be directly provided, and supplies an ArgumentCompleter (Fixes #59)
 Hat Tips: @JayKul, @LaurentDardenne
-
-0.6
 ---
+## 0.6
 * JSON Regex Improvements
-  * ?<JSON_Property> now can handle quotes
+ * ?<JSON_Property> now can handle quotes
 * Markdown Regexes:
-  * ?<Markdown_Heading>
-  * ?<Markdown_CodeBlock>
-  * ?<Markdown_ThematicBreak>
+ * ?<Markdown_Heading>
+ * ?<Markdown_CodeBlock>
+ * ?<Markdown_ThematicBreak>
 * ?<REST_Variable> is now a generator.
-
-0.5.9
 ---
+## 0.5.9
 * New RegEx:
   * ?<C_IfDef>
 * New and Improved RegEx:
@@ -92,15 +88,15 @@ Hat Tips: @JayKul, @LaurentDardenne
   * -Atomic now indents
   * -Or now indents
   * No longer makes -Then/-Else explicily non-capturing
-
-0.5.8
 ---
+## 0.5.8
+
 * New RegEx:
   * ?<RegularExpression_Quantifier>
 * Fixes to RegExes:
   * ?<REST_Variable> now allows variables to be embedded within <>s
-0.5.7
 ---
+## 0.5.7
 * New RegExes:
   * ?<Security_AccessToken>
   * ?<Security_JWT>
@@ -109,9 +105,8 @@ Hat Tips: @JayKul, @LaurentDardenne
   * ?<IPV4Address> will no longer match digits past the byte-range. (#38)
 * New Capabilities:
   * Write-RegEx -DigitMax
-
-0.5.6
 ---
+## 0.5.6
 * New RegExes:
   * ?<Code_SemanticVersion>
   * ?<FFmpeg_Progress>
@@ -125,8 +120,8 @@ Hat Tips: @JayKul, @LaurentDardenne
   * Write-RegEx -Atomic -Or no longer overgroups
   * Write-RegEx -LiteralCharacter -Not now works as expected
   * Write-RegEx -Atomic -Min/-Max location fixed
-0.5.5
-----
+---
+## 0.5.5
 * New Programming RegExes:
   * ?<PowerShell_Requires>
   * ?<C_Include>
@@ -134,23 +129,18 @@ Hat Tips: @JayKul, @LaurentDardenne
   * ?<CSharp_Using>
   * ?<CSharp_Namespace>
 
-Renaming ?<Namespace> to ?<Code_Namespace> [breaking]
-
-?<REST_Variable>:
-support for {/optionalsegments} (as seen in Git)
-$ now requires backtick (URL parameters can be named $, e.g. $top)
-
-
-0.5.4
-----
+* Renaming ?<Namespace> to ?<Code_Namespace> [breaking]
+* ?<REST_Variable>:
+  * support for {/optionalsegments} (as seen in Git)
+  * dollar sign now requires backtick (URL parameters can be named $, e.g. $top)
+---
+## 0.5.4
 * Fixes in Irregular import (no longer producing a module per RegEx on import)
 * Fixing a subtle bug in Write-RegEx -Until (was failing to match when no characters were between)
 * New regex:
   * ?<HTML_LinkedData>, ?<HexColor>, ?<IPv4Address>
-
-
-0.5.3
-----
+---
+## 0.5.3
 * Get/Export-Regex: Now supporting -As EmbeddedEngine (lambas) or -As Engine (smart aliases)
 * Write-RegEx:  Added -UnicodeCharacter
 * New regex:
@@ -158,18 +148,14 @@ $ now requires backtick (URL parameters can be named $, e.g. $top)
   * ?<Unix_Conf_Line>, ?<Unix_Conf_Section>, ?<Unix_Conf_File>, ?<Unix_Mount>, ?<Unix_FileSystemType>, ?<Unix_User>
 * Updated RegEx Generators:
   * ?<MultilineComment> now supports OpenSCAD (.scad)
-
-
-0.5.2
 ---
+## 0.5.2
 * Use-RegEx now matches within returns by default.
 * Use-RegEx can -Scan to match after a given item
 * Use-Regex breaking change:  -Parameter/-ArgumentList are now -ExpressionParameter/-ExpressionArgumentList
 * Improving formatting (no longer showing match status, which was always 'true')
-
-
-0.5.1
 ---
+## 0.5.1
 * Making Import-Regex support Regexes defined in other modules
 * Allowing Import-Regex to import as lambdas
 * Get/Export-Regex now include -As "Engine", which will export an embeddedable engine including an inline Import
