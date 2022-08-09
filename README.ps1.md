@@ -15,7 +15,7 @@
     if (-not $IrregularLoaded) {
         $IrregularLoaded = Get-ChildItem -Recurse -Filter "*.psd1" | 
             Where-Object Name -eq 'Irregular.psd1' | 
-            Import-Module -Name { $_.FullName } -Force -Global
+            Import-Module -Name { $_.FullName } -Force -Global -PassThru
     }
 
     "Version " + $IrregularLoaded.Version
@@ -42,7 +42,7 @@ Once you understand some basics of that syntax, regular expressions become a lot
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
-Irregular comes with a ```.>{@(Get-Regex).Count}<.``` useful [named expressions](SavedPatterns.md), and lets you create more.
+Irregular comes with ```.>{@(Get-Regex).Count}<.``` useful [named expressions](SavedPatterns.md), and lets you create more.
 
 To see the expressions that ship with Irregular, run:
 
