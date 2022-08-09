@@ -1,0 +1,2 @@
+# Matches where a CamelCaseSpace would be
+(?-i)(?<=[a-z])(?=[A-Z])

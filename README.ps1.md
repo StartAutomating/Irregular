@@ -3,7 +3,17 @@
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
 <h4>
-<a href='https://github.com/StartAutomating/Irregular/releases/tag/v0.6.8'>v 0.6.8 </a>
+~~~PipeScript{
+    $IrregularLoaded = Get-Module Irregular
+    if (-not $IrregularLoaded) {
+        $IrregularLoaded = Get-ChildItem -Recurse -Filter "*.psd1" | 
+            Where-Object Name -eq 'Irregular.psd1' | 
+            Import-Module -Name { $_.FullName } -Force -Global -PassThru
+    }
+
+    "<a href='https://github.com/StartAutomating/Irregular/releases/tag/v$($IrregularLoaded.Version)'>v $($IrregularLoaded.Version) </a>"
+}
+~~~
 </h4>
 <a href='https://www.powershellgallery.com/packages/Irregular/'>
 <img src='https://img.shields.io/powershellgallery/dt/Irregular' />
@@ -32,7 +42,7 @@ Once you understand some basics of that syntax, regular expressions become a lot
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
-Irregular comes with 111 useful [named expressions](SavedPatterns.md), and lets you create more.
+Irregular comes with ```.>{@(Get-Regex).Count}<.``` useful [named expressions](SavedPatterns.md), and lets you create more.
 
 To see the expressions that ship with Irregular, run:
 
@@ -150,5 +160,4 @@ string: 'hello'
         }
     }
 ~~~
-
 
