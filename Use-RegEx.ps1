@@ -556,7 +556,7 @@
         #endregion Initialize Regular Expression
 
         if (-not $Match) { # If we haven't been given any text to match
-            if ($Generator) {
+            if ($Generator -and -not $ExpressionParameter.Count) {
                 return $Generator
             }
             $regex.pstypenames.add('Irregular.Regular.Expression') # decorate the Regex for the formatter.
