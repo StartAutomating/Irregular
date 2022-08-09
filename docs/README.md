@@ -1,20 +1,6 @@
-<div align='center'>
-<img src='Assets/Irregular_Wide.png' />
-<h2>Regular Expressions made Strangely Simple</h2>
-<h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
-<h4>
-Version 0.6.7
-</h4>
-<a href='https://www.powershellgallery.com/packages/Irregular/'>
-<img src='https://img.shields.io/powershellgallery/dt/Irregular' />
-</a>
-<br/>
-<a href='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml'>
-<img src='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml/badge.svg' />
-</a>
-</div>
-
-
+﻿# Irregular
+## Regular Expressions made Strangely Simple
+### A PowerShell module that helps you understand, use, and build Regular Expressions.
 
 
 #### Understanding Regular Expressions
@@ -32,74 +18,60 @@ Once you understand some basics of that syntax, regular expressions become a lot
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
-Irregular comes with 111 useful [named expressions](SavedPatterns.md), and lets you create more.
+Irregular comes with a number of useful named expressions, and lets you create more.
 
 To see the expressions that ship with Irregular, run:
 
-~~~PowerShell
-Get-RegEx
-~~~
+    Get-RegEx
 
 You can use them in all sorts of interesting ways in PowerShell with the capture name:
 
-~~~PowerShell
-?<Digits>                    # Returns the Named Regular Expression Digits
-'abc' | ?<Digits>            # Returns nothing, since nothing in abc matches the expression Digits
-'123abc456' | ?<Digits>      # Returns two matches, 123 and 456
-"abc123" | ?<Digits> -Until  # Returns the content until the next set of digits
-'1. one. 2. two.  3. three'| # Returns each number and the content after it
-    ?<Digits> -Split -IncludeMatch
-'123abc456def' |             # Returns only matches of odd Digits
-    ?<Digits> -Where { $_.Digits % 2 } 
-~~~
-
+    ?<Digits>                    # Returns the Named Regular Expression Digits
+    'abc' | ?<Digits>            # Returns nothing, since nothing in abc matches the expression Digits
+    '123abc456' | ?<Digits>      # Returns two matches, 123 and 456
+    "abc123" | ?<Digits> -Until  # Returns the content until the next set of digits
+    '1. one. 2. two.  3. three'| # Returns each number and the content after it
+        ?<Digits> -Split -IncludeMatch
+    '123abc456def' |             # Returns only matches of odd Digits
+        ?<Digits> -Where { $_.Digits % 2 } 
+    
 You can use these expressions to build more complicated parsing in less code.
 For instance, here's a Regular Expression that can match a simple calculator:
 
     
-~~~PowerShell
-New-RegEx -StartAnchor StringStart -Pattern @(
-    ?<OptionalWhitespace>
-    ?<Digits>
-    ?<OptionalWhitespace>
-    ?<ArithmeticOperator>
-    ?<OptionalWhitespace>
-    ?<Digits>
-    ?<OptionalWhitespace>
-) -EndAnchor StringEnd
-~~~
-
-
-Irregular also contains a colorized PowerShell formatter for all Regular Expressions.
-This provides syntax highlighting that can make complicated expressions easier to read.
-![RegexSyntaxHighlighting](Assets/RegexSyntaxHighlighting.gif)
+    Write-Regex -StartAnchor StringStart -Pattern @(
+        ?<OptionalWhitespace>
+        ?<Digits>
+        ?<OptionalWhitespace>
+        ?<ArithmeticOperator>
+        ?<OptionalWhitespace>
+        ?<Digits>
+        ?<OptionalWhitespace>
+    ) -EndAnchor StringEnd
 
 
 #### Building Regular Expressions
 
-Irregular gives you a handy command to simplify writing regular expressions, New-RegEx.
+Irregular gives you a handy command to simplify writing regular expressions, Write-RegEx.
 
-New-RegEx helps you build regular expressions without constantly resorting to a manual.
+Write-RegEx helps you build regular expressions without constantly resorting to a manual.
 
-~~~PowerShell
-New-RegEx -CharacterClass Digit -Repeat # This writes the Regex (\d+)
-~~~
-You can pipe regular expression written this way into New-RegEx to compound expressions
+    Write-Regex -CharacterClass Digit -Repeat # This writes the Regex (\d+)
     
-~~~PowerShell
-# This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
-New-RegEx -Pattern '"' |
-        New-RegEx -CharacterClass Any -Repeat -Lazy -Before (
-            New-RegEx -Pattern '"' -NotAfter '\\'
-        ) |
-        New-RegEx -Pattern '"'
-~~~
+You can pipe regular expression written this way into Write-Regex to compound expressions
+    
+    # This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
+    Write-RegEx -Pattern '"' |
+            Write-RegEx -CharacterClass Any -Repeat -Lazy -Before (
+                Write-RegEx -Pattern '"' -NotAfter '\\'
+            ) |
+            Write-RegEx -Pattern '"'
 
-The parameters for New-RegEx have help, so if you ever want to understand a little more about what makes a RegEx, you can use:
 
-~~~PowerShell
-Get-Help New-RegEx -Full
-~~~
+The parameters for Write-RegEx have help, so if you ever want to understand a little more about what makes a RegEx, you can use:
+
+    Get-Help Write-RegEx -Full
+
 
 #### Using Regular Expressions
 
@@ -109,9 +81,7 @@ You can use the -match, -split, and -replace operators to do basic operations wi
 
 You can use any saved expression with these operators by putting it in paranthesis, for instance:
 
-~~~PowerShell
-"abc123" -match (?<Digits>)
-~~~
+    "abc123" -match (?<Digits>)
 
 This works because without any additional parameters, running a saved expression will return a saved expression.
 
@@ -131,24 +101,14 @@ Additionally, each named capture can do a number of other things with a match:
 
 To see all of the things you can do with any Regular Expression, run:
 
-~~~PowerShell
-Get-Help Use-Regex -Full
-~~~
+    Get-Help Use-Regex -Full
 
 Matches are also decorated with information about the input and position.  This allows you to pipe one match into another search:
 
-~~~PowerShell
-"
-number: 1
-string: 'hello'
-" | 
-    ?<NewLine> -Split |     
-    Foreach-Object {
-        $key, $value  = $_ | ?<Colon> -Split -Count 1
-        if ($key) {
-            @{$key=$value}
+    "number: 1
+    string: 'hello'" | ?<NewLine> -Split |  
+        Foreach-Object {
+            $key = $_ | ?<Colon> -Until -Trim -IncludeMatch
+            $value = $key | ?<LineStartOrEnd> -Until -Trim
+            @{$key.Trim(':')=$value}
         }
-    }
-~~~
-
-
