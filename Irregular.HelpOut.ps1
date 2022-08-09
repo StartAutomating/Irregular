@@ -1,7 +1,7 @@
 $IrregularLoaded = Get-Module Irregular
 if (-not $IrregularLoaded) {
     $IrregularLoaded = Get-ChildItem -Recurse -Filter "*.psd1" | 
-        Where-Object Name -eq 'Irregular.ps1' | 
+        Where-Object Name -eq 'Irregular.psd1' | 
         Import-Module -Name { $_.FullName } -Force -PassThru
 }
 if ($IrregularLoaded) {
