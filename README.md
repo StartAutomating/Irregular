@@ -10,7 +10,7 @@
 <img src='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml/badge.svg' />
 </a>
 <h4>
-Version 
+Version 0.6.7
 <h4>
 </div>
 
@@ -32,7 +32,7 @@ Once you understand some basics of that syntax, regular expressions become a lot
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
-Irregular comes with a 111 useful [named expressions](SavedPatterns.md), and lets you create more.
+Irregular comes with 111 useful [named expressions](SavedPatterns.md), and lets you create more.
 
 To see the expressions that ship with Irregular, run:
 
