@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 110 regular expressions
+Irregular includes 111 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
@@ -12,6 +12,7 @@ Irregular includes 110 regular expressions
 |[C_IfDef](/RegEx/C/IfDef.regex.txt)|Matches C/C++ #if/#ifdef/#ifndef .. #endif|False|
 |[C_Include](/RegEx/C/Include.regex.txt)|Matches C/C++ #include|False|
 |[C_Struct](/RegEx/C/Struct.regex.txt)|Matches a C/C++ Struct|False|
+|[CamelCaseSpace](/RegEx/CamelCaseSpace.regex.txt)|Matches where a CamelCaseSpace would be|False|
 |[CNC_GCode](/RegEx/CNC/GCode.regex.txt)|Matches GCode Instructions|False|
 |[Code_BuildVersion](/RegEx/Code/BuildVersion.regex.txt)|Matches a build version|False|
 |[Code_Namespace](/RegEx/Code/Namespace.regex.txt)|Finds a Namespace (captures the Name and the Content between {})|False|
