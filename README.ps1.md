@@ -11,7 +11,7 @@
             Import-Module -Name { $_.FullName } -Force -Global -PassThru
     }
 
-    "<a href='https://github.com/StartAutomating/Irregular/releases/tag/$($IrregularLoaded.Version)'>v $($IrregularLoaded.Version) </a>"
+    "<a href='https://github.com/StartAutomating/Irregular/releases/tag/v$($IrregularLoaded.Version)'>v $($IrregularLoaded.Version) </a>"
 }
 ~~~
 </h4>
