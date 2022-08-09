@@ -1,4 +1,4 @@
-﻿
+
 name: Test, Tag, Release, and Publish
 jobs: 
   PowerShellStaticAnalysis: 
@@ -406,8 +406,6 @@ jobs:
         run: |
           $Parameters = @{}
           $Parameters.ModulePath = ${env:ModulePath}
-          $Parameters.Exclude = ${env:Exclude}
-          $Parameters.Exclude = $parameters.Exclude -split ';' -replace '^[''"]' -replace  '[''"]$'
           foreach ($k in @($parameters.Keys)) {
               if ([String]::IsNullOrEmpty($parameters[$k])) {
                   $parameters.Remove($k)
@@ -416,10 +414,7 @@ jobs:
           Write-Host "::debug:: PublishPowerShellGallery $(@(foreach ($p in $Parameters.GetEnumerator()) {'-' + $p.Key + ' ' + $p.Value}) -join ' ')"
           & {param(
           [string]
-          $ModulePath,
-          
-          [string[]]
-          $Exclude = @('.gif', '.mp4', '.jpg', '.png')
+          $ModulePath
           )
           $gitHubEvent = if ($env:GITHUB_EVENT_PATH) {
               [IO.File]::ReadAllText($env:GITHUB_EVENT_PATH) | ConvertFrom-Json
@@ -449,9 +444,9 @@ jobs:
           
           if (-not $imported) { return } 
           
-          $foundModule = try { Find-Module -Name $imported.Name -ErrorAction SilentlyContinue } catch {}
+          $foundModule = try { Find-Module -Name $imported.Name -ErrorAction SilentlyContinue} catch {}
           
-          if ($foundModule -and $foundModule.Version -ge $imported.Version) {
+          if ($foundModule -and (([Version]$foundModule.Version) -ge ([Version]$imported.Version))) {
               "::warning::Gallery Version of $moduleName is more recent ($($foundModule.Version) >= $($imported.Version))" | Out-Host        
           } else {
               
@@ -477,10 +472,7 @@ jobs:
               Write-Host "Module Files:"
               Get-ChildItem $moduleTempPath -Recurse
               Write-Host "Publishing $moduleName [$($imported.Version)] to Gallery"
-              $publishModuleCommand = Get-Command Publish-Module    
               Publish-Module -Path $moduleTempPath -NuGetApiKey $gk
-              
-              
               if ($?) {
                   Write-Host "Published to Gallery"
               } else {
@@ -489,6 +481,20 @@ jobs:
               }
           }
           } @Parameters
+  BuildModule: 
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps: 
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: BuildPipeScript
+        uses: StartAutomating/PipeScript@main
+      - name: UseEZOut
+        uses: StartAutomating/EZOut@master
+      - name: UsePiecemeal
+        uses: StartAutomating/Piecemeal@main
+      - name: UseHelpOut
+        uses: StartAutomating/HelpOut@master
 on: 
   push: 
   workflow_dispatch: 
