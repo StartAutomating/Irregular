@@ -1,4 +1,4 @@
-﻿<div align='center'>
+<div align='center'>
 <img src='Assets/Irregular_Wide.png' />
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
@@ -9,7 +9,13 @@
 <a href='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml'>
 <img src='https://github.com/StartAutomating/Irregular/actions/workflows/IrregularTests.yml/badge.svg' />
 </a>
+<h4>
+Version 
+<h4>
 </div>
+
+
+
 
 #### Understanding Regular Expressions
 
@@ -26,13 +32,14 @@ Once you understand some basics of that syntax, regular expressions become a lot
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
-Irregular comes with a number of useful [named expressions](SavedPatterns.md), and lets you create more.
+Irregular comes with a 111 useful [named expressions](SavedPatterns.md), and lets you create more.
 
 To see the expressions that ship with Irregular, run:
 
 ~~~PowerShell
 Get-RegEx
 ~~~
+
 You can use them in all sorts of interesting ways in PowerShell with the capture name:
 
 ~~~PowerShell
@@ -131,11 +138,17 @@ Get-Help Use-Regex -Full
 Matches are also decorated with information about the input and position.  This allows you to pipe one match into another search:
 
 ~~~PowerShell
-"number: 1
-string: 'hello'" | ?<NewLine> -Split |  
+"
+number: 1
+string: 'hello'
+" | 
+    ?<NewLine> -Split |     
     Foreach-Object {
-        $key = $_ | ?<Colon> -Until -Trim -IncludeMatch
-        $value = $key | ?<LineStartOrEnd> -Until -Trim
-        @{$key.Trim(':')=$value}
+        $key, $value  = $_ | ?<Colon> -Split -Count 1
+        if ($key) {
+            @{$key=$value}
+        }
     }
 ~~~
+
+
