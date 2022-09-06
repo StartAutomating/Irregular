@@ -1,4 +1,10 @@
-﻿## 0.6.8:
+## 0.6.9:
+* Adding ?<Markdown_Link> (Fixes #117)
+* GitHub Action now prefers local bits (Fixes #111)
+* Using PipeScript to enhance the repository experience (Fixes #119)
+---
+
+## 0.6.8:
 * Added ?<CamelCaseSpace> (Fixes #114)
 * Fixing ?<PowerShell_HelpField> (Fixes #108)
 * Use-Regex:
@@ -171,3 +177,4 @@ Hat Tips: @JayKul, @LaurentDardenne
   * ?<HTML_DataAttribute>
   * ?<HTML_DataSet>
   * ?<HTML_ItemScope>
+

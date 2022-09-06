@@ -1,4 +1,4 @@
-﻿## Basic Matching
+## Basic Matching
 
 |Pattern|Meaning|
 |-----:|:-------|
@@ -49,3 +49,4 @@ Each of these character classes also has an opposite.
 |(?!Pattern)|negative lookahead|
 |(?<=Pattern)|lookbehind|
 |(?<!Pattern)|negative lookbehind|
+
