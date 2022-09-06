@@ -7,6 +7,6 @@ This directory contains Regular Expressions for Markdown.
             Select @{
                 Name='Name'
                 Expression={"[$($_.Name)]($($_.Path | Split-Path -Leaf))"}
-            }, Description
+            }, Description, IsGenerator
     }}
 ~~~
