@@ -1,4 +1,5 @@
-This directory contains regular expressions designed to help work with FFMpeg and related tools.
+﻿This directory contains Regular Expressions for [OpenSCAD](https://openscad.org/)
+
 
 ~~~PipeScript{
     Import-Module ../../Irregular.psd1 -Global
