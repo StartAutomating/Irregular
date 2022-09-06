@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.6.8'
+    ModuleVersion = '0.6.9'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -9,11 +9,17 @@
     Copyright = '2019-2021 Start-Automating'
     PrivateData = @{
         PSData = @{
-            Tags = 'RegularExpressions', 'RegEx', 'Irregular', 'PatternMatching'
+            Tags = 'RegularExpressions', 'RegEx', 'Irregular', 'PatternMatching', 'PipeScript'
             ProjectURI = 'https://github.com/StartAutomating/Irregular'
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.6.9:
+* Adding ?<Markdown_Link> (Fixes #117)
+* GitHub Action now prefers local bits (Fixes #111)
+* Using PipeScript to enhance the repository experience (Fixes #119)
+---
+
 ## 0.6.8:
 * Added ?<CamelCaseSpace> (Fixes #114)
 * Fixing ?<PowerShell_HelpField> (Fixes #108)
