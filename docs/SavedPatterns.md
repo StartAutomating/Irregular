@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 110 regular expressions
+Irregular includes 111 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
@@ -62,6 +62,7 @@ Irregular includes 110 regular expressions
 |[LineStartOrEnd](/RegEx/LineStartOrEnd.regex.txt)|This will match either a line start or end.|False|
 |[Markdown_CodeBlock](/RegEx/Markdown/CodeBlock.regex.ps1)|Matches a Markdown code block.  <br/>    <br/>    Code blocks can start/end with 3 or more backticks or tildas, or 4 indented whitespaces|True|
 |[Markdown_Heading](/RegEx/Markdown/Heading.regex.ps1)|Matches Markdown Headings.  Can provide a -HeadingName, -HeadingLevel, and -IncludeContent.|True|
+|[Markdown_Link](/RegEx/Markdown/Link.regex.ps1)|Matches a Markdown Link.  Can customize the link text and link url.|True|
 |[Markdown_List](/RegEx/Markdown/List.regex.txt)|Matches a Markdown List|False|
 |[Markdown_ThematicBreak](/RegEx/Markdown/ThematicBreak.regex.txt)|Matches markdown horizontal rules|False|
 |[Markdown_YAMLHeader](/RegEx/Markdown/YAMLHeader.regex.txt)|Matches a Markdown YAML Header|False|
