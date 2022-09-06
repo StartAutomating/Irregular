@@ -1,0 +1,12 @@
+This directory contains Regular Expressions for Markdown.
+
+~~~PipeScript{
+    $directoryName = $pwd | Split-Path -Leaf 
+    [PSCustomObject]@{
+        Table = Get-Regex -Name "${directoryName}_*" |
+            Select @{
+                Name='Name'
+                Expression={"[$($_.Name)]($($_.Path | Split-Path -Leaf))"}
+            }, Description
+    }}
+~~~
