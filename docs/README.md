@@ -3,7 +3,7 @@
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
 <h4>
-<a href='https://github.com/StartAutomating/Irregular/releases/tag/v0.6.8'>v 0.6.8 </a>
+<a href='https://github.com/StartAutomating/Irregular/releases/tag/v0.6.9'>v 0.6.9 </a>
 </h4>
 <a href='https://www.powershellgallery.com/packages/Irregular/'>
 <img src='https://img.shields.io/powershellgallery/dt/Irregular' />
@@ -150,8 +150,6 @@ string: 'hello'
         }
     }
 ~~~
-
-
 
 
 
