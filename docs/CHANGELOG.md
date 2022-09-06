@@ -1,4 +1,4 @@
-﻿## 0.6.8:
+## 0.6.8:
 * Added ?<CamelCaseSpace> (Fixes #114)
 * Fixing ?<PowerShell_HelpField> (Fixes #108)
 * Use-Regex:
@@ -171,3 +171,4 @@ Hat Tips: @JayKul, @LaurentDardenne
   * ?<HTML_DataAttribute>
   * ?<HTML_DataSet>
   * ?<HTML_ItemScope>
+
