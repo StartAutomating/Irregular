@@ -1,4 +1,4 @@
-﻿
+
 name: UseIrregular
 description: Regular Expressions Made Strangle Simple
 inputs: 
@@ -33,12 +33,12 @@ runs:
       id: Irregular
       shell: pwsh
       env: 
-        SkipRegexSource: ${{inputs.SkipRegexSource}}
-        UserName: ${{inputs.UserName}}
-        UserEmail: ${{inputs.UserEmail}}
+        IrregularScript: ${{inputs.IrregularScript}}
         CommitMessage: ${{inputs.CommitMessage}}
         SkipIrregularPS1: ${{inputs.SkipIrregularPS1}}
-        IrregularScript: ${{inputs.IrregularScript}}
+        UserEmail: ${{inputs.UserEmail}}
+        UserName: ${{inputs.UserName}}
+        SkipRegexSource: ${{inputs.SkipRegexSource}}
       run: |
         $Parameters = @{}
         $Parameters.IrregularScript = ${env:IrregularScript}
@@ -102,7 +102,13 @@ runs:
         [PSCustomObject]$PSBoundParameters | Format-List | Out-Host
         "::endgroup::" | Out-Host
         
-        if ($env:GITHUB_ACTION_PATH) {
+        
+        $PSD1Found = Get-ChildItem -Recurse -Filter "*.psd1" | Where-Object Name -eq 'Irregular.psd1' | Select-Object -First 1
+        
+        if ($PSD1Found) {
+            $irregularModulePath = $PSD1Found
+            Import-Module $PSD1Found -Force -PassThru | Out-Host
+        } if ($env:GITHUB_ACTION_PATH) {
             $irregularModulePath = Join-Path $env:GITHUB_ACTION_PATH 'Irregular.psd1'
             if (Test-path $irregularModulePath) {
                 Import-Module $irregularModulePath -Force -PassThru | Out-String
@@ -112,6 +118,8 @@ runs:
         } elseif (-not (Get-Module Irregular)) {    
             throw "Action Path not found"
         }
+        
+        "::notice title=ModuleLoaded::Irregular Loaded from Path - $($irregularModulePath)" | Out-Host
         
         $anyFilesChanged = $false
         $processScriptOutput = { process { 

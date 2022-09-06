@@ -45,7 +45,13 @@ $ErrorActionPreference = 'continue'
 [PSCustomObject]$PSBoundParameters | Format-List | Out-Host
 "::endgroup::" | Out-Host
 
-if ($env:GITHUB_ACTION_PATH) {
+
+$PSD1Found = Get-ChildItem -Recurse -Filter "*.psd1" | Where-Object Name -eq 'Irregular.psd1' | Select-Object -First 1
+
+if ($PSD1Found) {
+    $irregularModulePath = $PSD1Found
+    Import-Module $PSD1Found -Force -PassThru | Out-Host
+} if ($env:GITHUB_ACTION_PATH) {
     $irregularModulePath = Join-Path $env:GITHUB_ACTION_PATH 'Irregular.psd1'
     if (Test-path $irregularModulePath) {
         Import-Module $irregularModulePath -Force -PassThru | Out-String
@@ -55,6 +61,8 @@ if ($env:GITHUB_ACTION_PATH) {
 } elseif (-not (Get-Module Irregular)) {    
     throw "Action Path not found"
 }
+
+"::notice title=ModuleLoaded::Irregular Loaded from Path - $($irregularModulePath)" | Out-Host
 
 $anyFilesChanged = $false
 $processScriptOutput = { process { 
