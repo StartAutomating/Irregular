@@ -487,11 +487,12 @@ jobs:
               }
           
               if ($Exclude) {
+                  "::notice::Attempting to Exlcude $exclude" | Out-Host
                   Get-ChildItem $moduleTempPath -Recurse |
                       Where-Object {                
                           foreach ($ex in $exclude) {
                               if ($_.FullName -like $ex) {
-                                  "::notice::Excluding $($_.FullName)"
+                                  "::notice::Excluding $($_.FullName)" | Out-Host
                                   return $true
                               }
                           }
