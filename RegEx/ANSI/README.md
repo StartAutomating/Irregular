@@ -8,8 +8,8 @@ Note:  Using these regular expressions in the terminal may result in awkward out
 |[?<ANSI_24BitColor>](24BitColor.regex.txt)    |Matches an ANSI 24-bit color    |False      |
 |[?<ANSI_4BitColor>](4BitColor.regex.txt)      |Matches an ANSI 3 or 4-bit color|False      |
 |[?<ANSI_8BitColor>](8BitColor.regex.txt)      |Matches an ANSI 8 bit color     |False      |
+|[?<ANSI_Code>](Code.regex.txt)                |Matches an ANSI escape code     |False      |
 |[?<ANSI_Color>](Color.regex.txt)              |Matches an ANSI color           |False      |
 |[?<ANSI_DefaultColor>](DefaultColor.regex.txt)|Matches an ANSI 24-bit color    |False      |
-|[?<ANSI_Sequence>](Sequence.regex.txt)        |Matches an ANSI escape code     |False      |
 
 
