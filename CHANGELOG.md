@@ -1,4 +1,19 @@
-﻿## 0.6.9:
+﻿## 0.7.0:
+* New Patterns:
+  * ANSI
+    * ?<ANSI_Code>  (Fixes #123)
+    * ?<ANSI_Color> (Fixes #124)
+    * ?<ANSI_DefaultColor>
+    * ?<ANSI_4BitColor>
+    * ?<ANSI_8BitColor>
+    * ?<ANSI_24BitColor>
+  * Mustache
+    * ?<Mustache_Tag> (Fixes #121)
+* New-Regex -LiteralCharacter '_' no longer escapes (Fixes #122)
+* Reducing module size (excluding assets) (Fixes #118)
+---
+
+## 0.6.9:
 * Adding ?<Markdown_Link> (Fixes #117)
 * GitHub Action now prefers local bits (Fixes #111)
 * Using PipeScript to enhance the repository experience (Fixes #119)

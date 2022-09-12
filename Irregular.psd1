@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.6.9'
+    ModuleVersion = '0.7.0'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -14,6 +14,21 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.0:
+* New Patterns:
+  * ANSI
+    * ?<ANSI_Code>  (Fixes #123)
+    * ?<ANSI_Color> (Fixes #124)
+    * ?<ANSI_DefaultColor>
+    * ?<ANSI_4BitColor>
+    * ?<ANSI_8BitColor>
+    * ?<ANSI_24BitColor>
+  * Mustache
+    * ?<Mustache_Tag> (Fixes #121)
+* New-Regex -LiteralCharacter '_' no longer escapes (Fixes #122)
+* Reducing module size (excluding assets) (Fixes #118)
+---
+
 ## 0.6.9:
 * Adding ?<Markdown_Link> (Fixes #117)
 * GitHub Action now prefers local bits (Fixes #111)
