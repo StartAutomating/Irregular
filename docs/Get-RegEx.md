@@ -12,7 +12,13 @@ Gets saved Regular Expressions.
 ---
 ### Related Links
 * [Use-RegEx](Use-RegEx.md)
+
+
+
 * [New-RegEx](New-RegEx.md)
+
+
+
 ---
 ### Examples
 #### EXAMPLE 1
@@ -47,9 +53,16 @@ The Name of the Regular Expression.
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |1      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 1
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **FilePath**
 
@@ -58,9 +71,16 @@ Files should be named $Name.regex.txt
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |2      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 2
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **FromModule**
 
@@ -68,9 +88,16 @@ If provided, will get regular expressions from any number of already imported mo
 
 
 
-|Type            |Requried|Postion|PipelineInput|
-|----------------|--------|-------|-------------|
-|```[String[]]```|false   |3      |false        |
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 3
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **As**
 
@@ -94,9 +121,16 @@ Valid Values:
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[String]```|false   |4      |false        |
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: 4
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Noun**
 
@@ -106,9 +140,16 @@ It prevents name conflicts with Irregular.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[String]```|false   |5      |false        |
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: 5
+
+> **PipelineInput**:false
+
+
+
 ---
 ### Outputs
 System.Management.Automation.PSObject
