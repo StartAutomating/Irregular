@@ -684,7 +684,7 @@
                         $ccLookup[$notcc]
                     })
 
-                $lc = @($literalCharacter -replace '[\p{P}\p{S}]', '\$0')
+                $lc = @($literalCharacter -replace '[\p{P}\p{S}-[_]]', '\$0')
                 $notLC = @($ExcludeliteralCharacter -replace '[\p{P}\p{S}]', '\$0')
                 
                 $charSet = @(

@@ -16,7 +16,13 @@ Use-RegEx is normally called with an alias that is the name of a saved RegEx, fo
 ---
 ### Related Links
 * [Get-RegEx](Get-RegEx.md)
+
+
+
 * [New-RegEx](New-RegEx.md)
+
+
+
 ---
 ### Examples
 #### EXAMPLE 1
@@ -47,9 +53,16 @@ One or more strings to match.
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |1      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 1
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **IsMatch**
 
@@ -57,9 +70,16 @@ If set, will return a boolean indicating if the regular expression matched
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Measure**
 
@@ -67,9 +87,16 @@ If set, will measure the number of matches.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Count**
 
@@ -77,9 +104,16 @@ The count of matches to return, or the number of matches split or replaced.
 
 
 
-|Type         |Requried|Postion|PipelineInput|
-|-------------|--------|-------|-------------|
-|```[Int32]```|false   |named  |false        |
+> **Type**: ```[Int32]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **StartAt**
 
@@ -87,9 +121,16 @@ The starting position of the match
 
 
 
-|Type         |Requried|Postion|PipelineInput        |
-|-------------|--------|-------|---------------------|
-|```[Int32]```|false   |named  |true (ByPropertyName)|
+> **Type**: ```[Int32]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Remove**
 
@@ -97,9 +138,16 @@ If set, will remove the regular expression matches from the text.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Replace**
 
@@ -109,15 +157,29 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[String]```|false   |named  |false        |
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Scan**
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **ReplaceIf**
 
@@ -125,9 +187,16 @@ If provided, will replace the match if any of the conditions exist.
 
 
 
-|Type               |Requried|Postion|PipelineInput|
-|-------------------|--------|-------|-------------|
-|```[IDictionary]```|false   |named  |false        |
+> **Type**: ```[IDictionary]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **ReplaceEvaluator**
 
@@ -136,9 +205,16 @@ The values returned from this script block will replace the match.
 
 
 
-|Type               |Requried|Postion|PipelineInput|
-|-------------------|--------|-------|-------------|
-|```[ScriptBlock]```|false   |named  |false        |
+> **Type**: ```[ScriptBlock]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Split**
 
@@ -146,9 +222,16 @@ If set, will split the input text according to the expression.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Until**
 
@@ -156,9 +239,16 @@ If set, will get the text until the expression.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **IncludeMatch**
 
@@ -169,9 +259,16 @@ If neither -Split or -Until is provided, this parameter is ignored.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **IncludeInputObject**
 
@@ -179,9 +276,16 @@ If -IncludeInputObject is provided, will add any piped in input object to extrac
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Trim**
 
@@ -189,9 +293,16 @@ If set, will trim returned strings.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Extract**
 
@@ -199,9 +310,16 @@ If set, will extract capture groups into a custom object.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **PSTypeName**
 
@@ -210,9 +328,16 @@ This implies -Extract.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[String]```|false   |named  |false        |
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Transform**
 
@@ -222,9 +347,16 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[String]```|false   |named  |false        |
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Coerce**
 
@@ -232,9 +364,16 @@ If provided, will cast named capture groups to a given type.  This implies -Extr
 
 
 
-|Type               |Requried|Postion|PipelineInput|
-|-------------------|--------|-------|-------------|
-|```[IDictionary]```|false   |named  |false        |
+> **Type**: ```[IDictionary]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Where**
 
@@ -242,9 +381,16 @@ If provided, will filter the extracted data of a match.
 
 
 
-|Type               |Requried|Postion|PipelineInput|
-|-------------------|--------|-------|-------------|
-|```[ScriptBlock]```|false   |named  |false        |
+> **Type**: ```[ScriptBlock]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **If**
 
@@ -254,9 +400,16 @@ If the value is a string, it will be treated as a Replacement string (like -Tran
 
 
 
-|Type               |Requried|Postion|PipelineInput|
-|-------------------|--------|-------|-------------|
-|```[IDictionary]```|false   |named  |false        |
+> **Type**: ```[IDictionary]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Option**
 
@@ -279,9 +432,16 @@ Valid Values:
 
 
 
-|Type                |Requried|Postion|PipelineInput|
-|--------------------|--------|-------|-------------|
-|```[RegexOptions]```|false   |named  |false        |
+> **Type**: ```[RegexOptions]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **RightToLeft**
 
@@ -289,9 +449,16 @@ If set, will go from right to left, instead of left to right.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Timeout**
 
@@ -299,9 +466,16 @@ The match timeout.  By default, five seconds.
 
 
 
-|Type            |Requried|Postion|PipelineInput|
-|----------------|--------|-------|-------------|
-|```[TimeSpan]```|false   |named  |false        |
+> **Type**: ```[TimeSpan]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **CaseSensitive**
 
@@ -309,9 +483,16 @@ Indicates that the cmdlet makes matches case-sensitive. By default, matches are 
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Pattern**
 
@@ -320,9 +501,16 @@ While we don't want to restrict the steps here, we _do_ want to be able to sugge
 
 
 
-|Type          |Requried|Postion|PipelineInput        |
-|--------------|--------|-------|---------------------|
-|```[String]```|false   |named  |true (ByPropertyName)|
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Generator**
 
@@ -330,9 +518,16 @@ A pattern generator.  This script will generate a regular expression
 
 
 
-|Type               |Requried|Postion|PipelineInput|
-|-------------------|--------|-------|-------------|
-|```[ScriptBlock]```|false   |named  |false        |
+> **Type**: ```[ScriptBlock]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **ExpressionParameter**
 
@@ -340,9 +535,16 @@ Named parameters for the regular expression.  These are only valid if the regex 
 
 
 
-|Type               |Requried|Postion|PipelineInput|
-|-------------------|--------|-------|-------------|
-|```[IDictionary]```|false   |named  |false        |
+> **Type**: ```[IDictionary]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **ExpressionArgumentList**
 
@@ -350,9 +552,16 @@ A list of arguments.  These are only valid if the regex is using a Generator scr
 
 
 
-|Type              |Requried|Postion|PipelineInput|
-|------------------|--------|-------|-------------|
-|```[PSObject[]]```|false   |named  |false        |
+> **Type**: ```[PSObject[]]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 ### Outputs
 System.Text.RegularExpressions.Match

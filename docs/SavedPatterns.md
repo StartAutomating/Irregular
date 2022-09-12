@@ -1,7 +1,13 @@
 ### Irregular Patterns
-Irregular includes 111 regular expressions
+Irregular includes 118 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
+|[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[ANSI_4BitColor](/RegEx/ANSI/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
+|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8 bit color|False|
+|[ANSI_Code](/RegEx/ANSI/Code.regex.txt)|Matches an ANSI escape code|False|
+|[ANSI_Color](/RegEx/ANSI/Color.regex.txt)|Matches an ANSI color|False|
+|[ANSI_DefaultColor](/RegEx/ANSI/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
 |[BalancedBrackets](/RegEx/BalancedBrackets.regex.txt)|Matches content in brackets, as long as it is balanced|False|
 |[BalancedCode](/RegEx/BalancedCode.regex.ps1)|Matches code balanced by a [, {, or (|True|
@@ -67,6 +73,7 @@ Irregular includes 111 regular expressions
 |[Markdown_ThematicBreak](/RegEx/Markdown/ThematicBreak.regex.txt)|Matches markdown horizontal rules|False|
 |[Markdown_YAMLHeader](/RegEx/Markdown/YAMLHeader.regex.txt)|Matches a Markdown YAML Header|False|
 |[MultilineComment](/RegEx/MultilineComment.regex.ps1)|Matches Multline Comments from a variety of languages.<br/>Currently supported: PowerShell, C#, C++, JavaScript, Ruby, HTML, and XML<br/>When this generator is used with a piped in file, the extension will autodetect the format.<br/>If the format could not be autodetected, the match will always fail.|True|
+|[Mustache_Tag](/RegEx/Mustache/Tag.regex.ps1)||True|
 |[Network_IPv4Address](/RegEx/Network/IPv4Address.regex.txt)|Matches an IPv4 Address|False|
 |[Network_MACAddress](/RegEx/Network/MACAddress.regex.txt)|Matches a MAC address|False|
 |[NewLine](/RegEx/NewLine.regex.txt)|A newline (in either Windows (\r\n) or Unix (\n) form)|False|

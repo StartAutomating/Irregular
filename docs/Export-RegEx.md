@@ -12,7 +12,13 @@ Exports one or more Regular Expressions
 ---
 ### Related Links
 * [Import-RegEx](Import-RegEx.md)
+
+
+
 * [Set-RegEx](Set-RegEx.md)
+
+
+
 ---
 ### Examples
 #### EXAMPLE 1
@@ -33,9 +39,16 @@ The name of the regular expression.  If not provided, this can be inferred if th
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |1      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 1
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Path**
 
@@ -44,9 +57,16 @@ If this is not provided, it will export regular expressions to the user's Irregu
 
 
 
-|Type          |Requried|Postion|PipelineInput        |
-|--------------|--------|-------|---------------------|
-|```[String]```|false   |2      |true (ByPropertyName)|
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: 2
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **As**
 
@@ -70,9 +90,16 @@ Valid Values:
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[String]```|false   |3      |false        |
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: 3
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Noun**
 
@@ -82,9 +109,16 @@ It prevents name conflicts with Irregular.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[String]```|false   |4      |false        |
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: 4
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **WhatIf**
 -WhatIf is an automatic variable that is created when a command has ```[CmdletBinding(SupportsShouldProcess)]```.

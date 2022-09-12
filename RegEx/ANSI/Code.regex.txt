@@ -1,0 +1,7 @@
+# Matches an ANSI escape code
+(?-i)\e                                                                                   # An Escape
+\[                                                                                        # Followed by a bracket
+(?<ParameterBytes>[\d\:\;\<\=\>\?]{0,})                                                   # Followed by zero or more parameter bytes
+(?<IntermediateBytes>[\s\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/]{0,})                              # Followed by zero or more intermediate bytes
+(?<FinalByte>[\@ABCDEFGHIJKLMNOPQRSTUVWXYZ\[\\\]\^_\`abcdefghijklmnopqrstuvwxyz\{\|\}\~]) # Followed by a final byte
+

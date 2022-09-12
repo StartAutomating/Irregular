@@ -12,7 +12,13 @@ Imports saved Regular Expressions.
 ---
 ### Related Links
 * [Use-RegEx](Use-RegEx.md)
+
+
+
 * [New-RegEx](New-RegEx.md)
+
+
+
 ---
 ### Examples
 #### EXAMPLE 1
@@ -39,9 +45,16 @@ Files should be named $Name.regex.txt or $Name.regex.ps1
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |1      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 1
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **FromModule**
 
@@ -49,9 +62,16 @@ If provided, will get regular expressions from any number of already imported mo
 
 
 
-|Type            |Requried|Postion|PipelineInput|
-|----------------|--------|-------|-------------|
-|```[String[]]```|false   |2      |false        |
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 2
+
+> **PipelineInput**:false
+
+
+
 ---
 #### **Pattern**
 
@@ -59,9 +79,16 @@ One or more direct patterns to import
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |3      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 3
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Name**
 
@@ -69,9 +96,16 @@ The Name of the Regular Expression.
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |4      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 4
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **PassThru**
 
@@ -79,9 +113,16 @@ If set, will output the imported regular expressions.
 
 
 
-|Type          |Requried|Postion|PipelineInput|
-|--------------|--------|-------|-------------|
-|```[Switch]```|false   |named  |false        |
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:false
+
+
+
 ---
 ### Outputs
 System.Nullable
