@@ -419,7 +419,7 @@ jobs:
           $ModulePath,
           
           [string[]]
-          $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg')
+          $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg', '*.gif')
           )
           
           $gitHubEvent = if ($env:GITHUB_EVENT_PATH) {
@@ -427,7 +427,7 @@ jobs:
           } else { $null }
           
           if (-not $Exclude) {
-              $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg')
+              $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg', '*.gif')
           }
           
           
