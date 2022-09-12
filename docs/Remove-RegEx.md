@@ -13,7 +13,13 @@ This will remove the associated file, any module sharing the Regex's name, and a
 ---
 ### Related Links
 * [Get-RegEx](Get-RegEx.md)
+
+
+
 * [Set-RegEx](Set-RegEx.md)
+
+
+
 ---
 ### Examples
 #### EXAMPLE 1
@@ -29,9 +35,16 @@ The name of one or more regular expressions
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|true    |1      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: true
+
+> **Position**: 1
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **WhatIf**
 -WhatIf is an automatic variable that is created when a command has ```[CmdletBinding(SupportsShouldProcess)]```.
