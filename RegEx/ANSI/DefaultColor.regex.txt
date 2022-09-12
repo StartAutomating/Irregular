@@ -1,0 +1,8 @@
+# Matches an ANSI 24-bit color
+(?-i)\e                    # An Escape
+\[                         # Followed by a bracket
+(?<Color>(?>
+  (?<DefaultForeground>39) # 39 Represents the default foreground color
+m  |
+  (?<DefaultForeground>49) # 49 Represents the default background color
+m))

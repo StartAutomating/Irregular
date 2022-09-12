@@ -1,0 +1,4 @@
+# Matches an ANSI 3 or 4-bit color
+\e # An Escape
+\[ # Followed by a bracket
+(?<Color>(?<IsBright>1)?\;?(?<ForegroundColor>3[0-7])?(?(ForegroundColor)(m)|((?<BackgroundColor>4[0-7])m)))

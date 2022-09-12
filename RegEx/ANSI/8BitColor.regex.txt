@@ -1,0 +1,12 @@
+# Matches an ANSI 8 bit color
+(?-i)\e                                                    # An Escape
+\[                                                         # Followed by a bracket
+38;5;(?<Color>(?>
+  (?<StandardColor>[0-7])                                  # 0 -7 are standard colors
+m  |
+  (?<BrightColor>(?>[8-9]|1[0-5]))                         # 8-15 are bright colors
+m  |
+  (?<CubeColor>(?>[0-2][0-3][0-1]|[0-1]\d\d|\d{1,2}))      # 16-231  are cubed colors
+m  |
+  (?<GrayscaleColor>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2})) # 232-255 are grayscales
+m))
