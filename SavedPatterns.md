@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 117 regular expressions
+Irregular includes 118 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -73,6 +73,7 @@ Irregular includes 117 regular expressions
 |[Markdown_ThematicBreak](/RegEx/Markdown/ThematicBreak.regex.txt)|Matches markdown horizontal rules|False|
 |[Markdown_YAMLHeader](/RegEx/Markdown/YAMLHeader.regex.txt)|Matches a Markdown YAML Header|False|
 |[MultilineComment](/RegEx/MultilineComment.regex.ps1)|Matches Multline Comments from a variety of languages.<br/>Currently supported: PowerShell, C#, C++, JavaScript, Ruby, HTML, and XML<br/>When this generator is used with a piped in file, the extension will autodetect the format.<br/>If the format could not be autodetected, the match will always fail.|True|
+|[Mustache_Tag](/RegEx/Mustache/Tag.regex.ps1)||True|
 |[Network_IPv4Address](/RegEx/Network/IPv4Address.regex.txt)|Matches an IPv4 Address|False|
 |[Network_MACAddress](/RegEx/Network/MACAddress.regex.txt)|Matches a MAC address|False|
 |[NewLine](/RegEx/NewLine.regex.txt)|A newline (in either Windows (\r\n) or Unix (\n) form)|False|
