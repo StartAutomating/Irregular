@@ -1,7 +1,13 @@
 ### Irregular Patterns
-Irregular includes 111 regular expressions
+Irregular includes 117 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
+|[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[ANSI_4BitColor](/RegEx/ANSI/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
+|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8 bit color|False|
+|[ANSI_Color](/RegEx/ANSI/Color.regex.txt)|Matches an ANSI color|False|
+|[ANSI_DefaultColor](/RegEx/ANSI/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[ANSI_Sequence](/RegEx/ANSI/Sequence.regex.txt)|Matches an ANSI escape code|False|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
 |[BalancedBrackets](/RegEx/BalancedBrackets.regex.txt)|Matches content in brackets, as long as it is balanced|False|
 |[BalancedCode](/RegEx/BalancedCode.regex.ps1)|Matches code balanced by a [, {, or (|True|
