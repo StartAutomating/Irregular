@@ -12,7 +12,13 @@ Displays Regular Expressions, with their match output.
 ---
 ### Related Links
 * [Get-Regex](Get-Regex.md)
+
+
+
 * [Use-Regex](Use-Regex.md)
+
+
+
 ---
 ### Examples
 #### EXAMPLE 1
@@ -28,9 +34,16 @@ The regular expression.  If the pattern starts with a saved capture name, it wil
 
 
 
-|Type          |Requried|Postion|PipelineInput        |
-|--------------|--------|-------|---------------------|
-|```[String]```|true    |1      |true (ByPropertyName)|
+> **Type**: ```[String]```
+
+> **Required**: true
+
+> **Position**: 1
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Match**
 
@@ -38,9 +51,16 @@ One or more strings to match.
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[String[]]```|false   |2      |true (ByPropertyName)|
+> **Type**: ```[String[]]```
+
+> **Required**: false
+
+> **Position**: 2
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Remove**
 
@@ -48,9 +68,16 @@ If set, will remove the regular expression matches from the text.
 
 
 
-|Type          |Requried|Postion|PipelineInput        |
-|--------------|--------|-------|---------------------|
-|```[Switch]```|false   |named  |true (ByPropertyName)|
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Replace**
 
@@ -60,9 +87,16 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
-|Type          |Requried|Postion|PipelineInput        |
-|--------------|--------|-------|---------------------|
-|```[String]```|false   |named  |true (ByPropertyName)|
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Transform**
 
@@ -72,9 +106,16 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
-|Type          |Requried|Postion|PipelineInput        |
-|--------------|--------|-------|---------------------|
-|```[String]```|false   |named  |true (ByPropertyName)|
+> **Type**: ```[String]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Option**
 
@@ -99,9 +140,16 @@ Valid Values:
 
 
 
-|Type                |Requried|Postion|PipelineInput        |
-|--------------------|--------|-------|---------------------|
-|```[RegexOptions]```|false   |4      |true (ByPropertyName)|
+> **Type**: ```[RegexOptions]```
+
+> **Required**: false
+
+> **Position**: 4
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **CaseSensitive**
 
@@ -109,9 +157,16 @@ Indicates that the cmdlet makes matches case-sensitive. By default, matches are 
 
 
 
-|Type          |Requried|Postion|PipelineInput        |
-|--------------|--------|-------|---------------------|
-|```[Switch]```|false   |named  |true (ByPropertyName)|
+> **Type**: ```[Switch]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 #### **Timeout**
 
@@ -119,9 +174,16 @@ The match timeout.  By default, one second.
 
 
 
-|Type            |Requried|Postion|PipelineInput        |
-|----------------|--------|-------|---------------------|
-|```[TimeSpan]```|false   |named  |true (ByPropertyName)|
+> **Type**: ```[TimeSpan]```
+
+> **Required**: false
+
+> **Position**: named
+
+> **PipelineInput**:true (ByPropertyName)
+
+
+
 ---
 ### Outputs
 Irregular.RegEx.Output
