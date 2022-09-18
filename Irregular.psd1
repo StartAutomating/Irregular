@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.7.0'
+    ModuleVersion = '0.7.1'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -14,6 +14,13 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.1:
+* New Pattern:
+  * ?<ANSI_Note> (Match ANSI VT520 note sequences) (Fixes #127) 
+* Updated Patterns:
+  * ?<FFMpeg_Progress>: Supporting duplicated / dropped frames (Fixes #128)
+  * ?<Code_BuildVersion>: No longer matching if preceeded by punctuation (Fixes #127)
+---
 ## 0.7.0:
 * New Patterns:
   * ANSI
