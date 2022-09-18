@@ -66,7 +66,7 @@ System.Nullable
 ---
 ### Syntax
 ```PowerShell
-Remove-RegEx [-Name] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-RegEx [-Name] &lt;String[]&gt; [-WhatIf] [-Confirm] [&lt;CommonParameters&gt;]
 ```
 ---
 
