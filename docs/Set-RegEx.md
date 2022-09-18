@@ -169,7 +169,7 @@ System.Nullable
 ---
 ### Syntax
 ```PowerShell
-Set-RegEx [-Pattern] <String> [[-Name] <String>] [-Description <String>] [-Path <String>] [-Temporary] [-TimeOut <TimeSpan>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-RegEx [-Pattern] &lt;String&gt; [[-Name] &lt;String&gt;] [-Description &lt;String&gt;] [-Path &lt;String&gt;] [-Temporary] [-TimeOut &lt;TimeSpan&gt;] [-PassThru] [-WhatIf] [-Confirm] [&lt;CommonParameters&gt;]
 ```
 ---
 
