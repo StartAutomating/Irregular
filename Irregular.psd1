@@ -19,7 +19,7 @@
   * ?<ANSI_Note> (Match ANSI VT520 note sequences) (Fixes #127) 
 * Updated Patterns:
   * ?<FFMpeg_Progress>: Supporting duplicated / dropped frames (Fixes #128)
-  * ?<Code_BuildVersion>: No longer matching if preceeded by punctuation (Fixes #127)
+  * ?<Code_BuildVersion>: No longer matching if preceeded by punctuation (Fixes #126)
 ---
 ## 0.7.0:
 * New Patterns:
