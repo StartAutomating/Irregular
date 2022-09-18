@@ -27,22 +27,22 @@ Use-RegEx is normally called with an alias that is the name of a saved RegEx, fo
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
-"abc" | Use-RegEx -Pattern '.'
+&quot;abc&quot; | Use-RegEx -Pattern &#39;.&#39;
 ```
 
 #### EXAMPLE 2
 ```PowerShell
-# ?<TrueOrFalse> is a saved RegEx and alias to Use-RegEx
+# ?&lt;TrueOrFalse&gt; is a saved RegEx and alias to Use-RegEx
 ```
 
 #### EXAMPLE 3
 ```PowerShell
-$txt = "true or false or true or false"
-$m = $txt | ?<TrueOrFalse> -Count 1
+$txt = &quot;true or false or true or false&quot;
+$m = $txt | ?&lt;TrueOrFalse&gt; -Count 1
 do {
     $m
-    $m = $m | ?<TrueOrFalse> -Count 1 -Scan
-} while ($m) # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
+    $m = $m | ?&lt;TrueOrFalse&gt; -Count 1 -Scan
+} while ($m) # Looping over each match until non are found.  ?&lt;TrueOrFalse&gt; is an alias to Use-RegEx
 ```
 
 ---
@@ -576,10 +576,10 @@ System.Management.Automation.PSObject
 ---
 ### Syntax
 ```PowerShell
-Use-RegEx [[-Match] <String[]>] [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt <Int32>] [-Remove] [-Replace <String>] [-Scan] [-ReplaceIf <IDictionary>] [-ReplaceEvaluator <ScriptBlock>] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName <String>] [-Transform <String>] [-Coerce <IDictionary>] [-Where <ScriptBlock>] [-If <IDictionary>] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout <TimeSpan>] [-CaseSensitive] [-Pattern <String>] [-Generator <ScriptBlock>] [-ExpressionParameter <IDictionary>] [-ExpressionArgumentList <PSObject[]>] [<CommonParameters>]
+Use-RegEx [[-Match] &lt;String[]&gt;] [-IsMatch] [-Measure] [-Count &lt;Int32&gt;] [-StartAt &lt;Int32&gt;] [-Remove] [-Replace &lt;String&gt;] [-Scan] [-ReplaceIf &lt;IDictionary&gt;] [-ReplaceEvaluator &lt;ScriptBlock&gt;] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName &lt;String&gt;] [-Transform &lt;String&gt;] [-Coerce &lt;IDictionary&gt;] [-Where &lt;ScriptBlock&gt;] [-If &lt;IDictionary&gt;] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout &lt;TimeSpan&gt;] [-CaseSensitive] [-Pattern &lt;String&gt;] [-Generator &lt;ScriptBlock&gt;] [-ExpressionParameter &lt;IDictionary&gt;] [-ExpressionArgumentList &lt;PSObject[]&gt;] [&lt;CommonParameters&gt;]
 ```
 ```PowerShell
-Use-RegEx [-Match] <String[]> [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt <Int32>] [-Remove] [-Replace <String>] [-Scan] [-ReplaceIf <IDictionary>] [-ReplaceEvaluator <ScriptBlock>] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName <String>] [-Transform <String>] [-Coerce <IDictionary>] [-Where <ScriptBlock>] [-If <IDictionary>] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout <TimeSpan>] [-CaseSensitive] [-Generator <ScriptBlock>] [-ExpressionParameter <IDictionary>] [-ExpressionArgumentList <PSObject[]>] [<CommonParameters>]
+Use-RegEx [-Match] &lt;String[]&gt; [-IsMatch] [-Measure] [-Count &lt;Int32&gt;] [-StartAt &lt;Int32&gt;] [-Remove] [-Replace &lt;String&gt;] [-Scan] [-ReplaceIf &lt;IDictionary&gt;] [-ReplaceEvaluator &lt;ScriptBlock&gt;] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName &lt;String&gt;] [-Transform &lt;String&gt;] [-Coerce &lt;IDictionary&gt;] [-Where &lt;ScriptBlock&gt;] [-If &lt;IDictionary&gt;] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout &lt;TimeSpan&gt;] [-CaseSensitive] [-Generator &lt;ScriptBlock&gt;] [-ExpressionParameter &lt;IDictionary&gt;] [-ExpressionArgumentList &lt;PSObject[]&gt;] [&lt;CommonParameters&gt;]
 ```
 ---
 
