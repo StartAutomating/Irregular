@@ -1,6 +1,7 @@
 ﻿# Matches a build version
-(?<Major>\d+)
-\.
-(?<Minor>\d+)
-(?:\.(?<Build>\d+))?
-(?:\.(?<Revision>\d+))?
+(?!\p{P})               # Do not match if preceeded by punctuation
+(?<Major>\d+)           # Match a major version
+\.                      # followed by a period
+(?<Minor>\d+)           # followed by a minor version
+(?:\.(?<Build>\d+))?    # followed by an optional build number
+(?:\.(?<Revision>\d+))? # followed by an optional build revision.

@@ -29,12 +29,12 @@ New-RegEx -CharacterClass Digit -Repeat -Name Digits
 
 #### EXAMPLE 3
 ```PowerShell
-# A regular expression for a quoted string (with \" and `" as valid escape sequences)
-New-RegEx -Pattern '"' |
+# A regular expression for a quoted string (with \&quot; and `&quot; as valid escape sequences)
+New-RegEx -Pattern &#39;&quot;&#39; |
         New-RegEx -CharacterClass Any -Repeat -Lazy -Before (
-            New-RegEx -Pattern '"' -NotAfter '\\|`'
+            New-RegEx -Pattern &#39;&quot;&#39; -NotAfter &#39;\\|`&#39;
         ) |
-        New-RegEx -Pattern '"'
+        New-RegEx -Pattern &#39;&quot;&#39;
 ```
 
 #### EXAMPLE 4
@@ -59,9 +59,9 @@ New-RegEx -Description "Matches an Email Address" |
 #### EXAMPLE 5
 ```PowerShell
 # Writes a pattern for multiline comments
-New-RegEx -Pattern \<\# |
-    New-RegEx -Name Block -Until \#\> |
-    New-RegEx -Pattern \#\>
+New-RegEx -Pattern \&lt;\# |
+    New-RegEx -Name Block -Until \#\&gt; |
+    New-RegEx -Pattern \#\&gt;
 ```
 
 ---
@@ -1146,7 +1146,7 @@ System.Management.Automation.PSObject
 ---
 ### Syntax
 ```PowerShell
-New-RegEx [[-Pattern] <String[]>] [-Name <String>] [-CharacterClass <String[]>] [-LiteralCharacter <String[]>] [-UnicodeCharacter <Int32[]>] [-ExcludeCharacterClass <String[]>] [-ExcludeLiteralCharacter <String[]>] [-ExcludeUnicodeCharacter <Int32[]>] [-DigitMax <UInt32>] [-Backreference <String>] [-NotAfter <String>] [-NotBefore <String>] [-After <String>] [-Before <String>] [-Repeat] [-Greedy] [-Lazy] [-Min <Int32>] [-Max <Int32>] [-If <String>] [-Then <String[]>] [-Else <String[]>] [-Until <String[]>] [-Comment <String>] [-Description <String>] [-Not] [-Or] [-StartAnchor <String>] [-EndAnchor <String>] [-Modifier <String[]>] [-Optional] [-Atomic] [-NoCapture] [-PrePattern <String[]>] [-TimeOut <TimeSpan>] [-Between <String[]>] [-EscapeSequence <String>] [-Denormalized] [-Parameter <IDictionary>] [-ArgumentList <PSObject[]>] [<CommonParameters>]
+New-RegEx [[-Pattern] &lt;String[]&gt;] [-Name &lt;String&gt;] [-CharacterClass &lt;String[]&gt;] [-LiteralCharacter &lt;String[]&gt;] [-UnicodeCharacter &lt;Int32[]&gt;] [-ExcludeCharacterClass &lt;String[]&gt;] [-ExcludeLiteralCharacter &lt;String[]&gt;] [-ExcludeUnicodeCharacter &lt;Int32[]&gt;] [-DigitMax &lt;UInt32&gt;] [-Backreference &lt;String&gt;] [-NotAfter &lt;String&gt;] [-NotBefore &lt;String&gt;] [-After &lt;String&gt;] [-Before &lt;String&gt;] [-Repeat] [-Greedy] [-Lazy] [-Min &lt;Int32&gt;] [-Max &lt;Int32&gt;] [-If &lt;String&gt;] [-Then &lt;String[]&gt;] [-Else &lt;String[]&gt;] [-Until &lt;String[]&gt;] [-Comment &lt;String&gt;] [-Description &lt;String&gt;] [-Not] [-Or] [-StartAnchor &lt;String&gt;] [-EndAnchor &lt;String&gt;] [-Modifier &lt;String[]&gt;] [-Optional] [-Atomic] [-NoCapture] [-PrePattern &lt;String[]&gt;] [-TimeOut &lt;TimeSpan&gt;] [-Between &lt;String[]&gt;] [-EscapeSequence &lt;String&gt;] [-Denormalized] [-Parameter &lt;IDictionary&gt;] [-ArgumentList &lt;PSObject[]&gt;] [&lt;CommonParameters&gt;]
 ```
 ---
 

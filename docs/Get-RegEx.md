@@ -36,12 +36,12 @@ Get-RegEx -Name NextWord
 @(Get-RegEx | # Gets all saved Regular Expressions as a Markdown table
     Sort-Object Name |
     ForEach-Object -Begin {
-        '|Name|Description|IsGenerator|'
-        '|:---|:----------|:----------|'
+        &#39;|Name|Description|IsGenerator|&#39;
+        &#39;|:---|:----------|:----------|&#39;
     } -Process {
-        $desc = $_.Description -replace '[\[\{\(]', '\$0'
-        $desc=  if ($desc) {$desc | ?<NewLine> -Replace '<br/>'} else  { ''}
-        "|$($_.Name)|$desc|$($_.IsGenerator)|"
+        $desc = $_.Description -replace &#39;[\[\{\(]&#39;, &#39;\$0&#39;
+        $desc=  if ($desc) {$desc | ?&lt;NewLine&gt; -Replace &#39;&lt;br/&gt;&#39;} else  { &#39;&#39;}
+        &quot;|$($_.Name)|$desc|$($_.IsGenerator)|&quot;
     }) -join [Environment]::NewLine
 ```
 
@@ -158,7 +158,7 @@ System.Management.Automation.PSObject
 ---
 ### Syntax
 ```PowerShell
-Get-RegEx [[-Name] <String[]>] [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-As] <String>] [[-Noun] <String>] [<CommonParameters>]
+Get-RegEx [[-Name] &lt;String[]&gt;] [[-FilePath] &lt;String[]&gt;] [[-FromModule] &lt;String[]&gt;] [[-As] &lt;String&gt;] [[-Noun] &lt;String&gt;] [&lt;CommonParameters&gt;]
 ```
 ---
 
