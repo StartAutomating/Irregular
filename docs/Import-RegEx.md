@@ -134,7 +134,7 @@ System.Management.Automation.PSObject
 ---
 ### Syntax
 ```PowerShell
-Import-RegEx [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-Pattern] <String[]>] [[-Name] <String[]>] [-PassThru] [<CommonParameters>]
+Import-RegEx [[-FilePath] &lt;String[]&gt;] [[-FromModule] &lt;String[]&gt;] [[-Pattern] &lt;String[]&gt;] [[-Name] &lt;String[]&gt;] [-PassThru] [&lt;CommonParameters&gt;]
 ```
 ---
 
