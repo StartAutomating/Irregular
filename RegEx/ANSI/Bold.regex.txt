@@ -1,0 +1,6 @@
+# Matches an ANSI Bold Start or End
+\e # An Escape
+\[ # Followed by a bracket
+(?>
+  (?<BoldStart>1m)  |
+  (?<BoldEnd>22m))
