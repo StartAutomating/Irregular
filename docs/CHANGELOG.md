@@ -1,3 +1,18 @@
+## 0.7.2:
+* Lots More ANSI support:
+  * ?<ANSI_Bold> (Fixes #131)
+  * ?<ANSI_Blink> (Fixes #132)
+  * ?<ANSI_Faint> (Fixes #133)
+  * ?<ANSI_Hide> (Fixes #134)
+  * ?<ANSI_Invert> (Fixes #135)
+  * ?<ANSI_Italic> (Fixes #136)
+  * ?<ANSI_Reset> (Fixes #137)
+  * ?<ANSI_Strikethrough> (Fixes #138)
+  * ?<ANSI_Underline> (Fixes #139)
+  * ?<ANSI_Style> (Fixes #140)
+  * ?<ANSI_Note>:  Fixing capture names (Fixes #130)
+---
+
 ## 0.7.1:
 * New Pattern:
   * ?<ANSI_Note> (Match ANSI VT520 / DECPS note sequences) (Fixes #127) 
