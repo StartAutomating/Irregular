@@ -1,0 +1,5 @@
+# Matches an ANSI Reset (this clears formatting)
+\e           # An Escape
+\[           # Followed by a bracket
+(?<Reset>0m) # 0m indicates reset
+
