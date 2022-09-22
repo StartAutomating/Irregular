@@ -1,4 +1,7 @@
-This directory contains regular expressions to help parse C#.
+﻿### PII Regular Expressions
+
+This directory contains regular expressions for finding Personally Identifiable Information.
+
 
 ~~~PipeScript{
     Import-Module ../../Irregular.psd1 -Global

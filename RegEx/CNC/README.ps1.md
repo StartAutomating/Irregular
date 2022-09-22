@@ -1,4 +1,4 @@
-This directory contains regular expressions to help parse C#.
+﻿This directory contains Regular Expressions for [Computer Numerical Control](https://en.wikipedia.org/wiki/Numerical_control)
 
 ~~~PipeScript{
     Import-Module ../../Irregular.psd1 -Global
