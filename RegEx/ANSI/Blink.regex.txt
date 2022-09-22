@@ -1,0 +1,11 @@
+# Matches ANSI Blink Start or End
+\e                               # An Escape
+\[                               # Followed by a bracket
+(?>
+  (?>
+  (?<BlinkStart>(?<BlinkSlow>5m) # 5m starts a slow blink
+    |
+    (?<BlinkFast>6m)             # 6m starts a slow blink
+))  |
+  (?<BlinkEnd>25m)               # 25m stops blinks
+)
