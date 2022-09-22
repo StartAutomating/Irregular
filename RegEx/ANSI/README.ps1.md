@@ -8,9 +8,18 @@ Note:  Using these regular expressions in the terminal may result in awkward out
     [PSCustomObject]@{
         Table = Get-Regex -Name "${directoryName}_*" |
             Sort-Object Name |
-            Select @{
-                Name='Name'
-                Expression={"[?<$($_.Name)>]($($_.Path | Split-Path -Leaf))"}
-            }, Description, IsGenerator
+            .Name {
+                "[?<$($_.Name)>]($($_.Path | Split-Path -Leaf))"
+            } .Description .IsGenerator .Source {
+                if ($_.IsGenerator) { 
+                    "[?<$($_.Name)> generator]($($_.Path | Split-Path -Leaf))"
+                }
+                else {
+                    $sourcePath = $_.Path -replace '\.txt$', '.source.ps1'
+                    if (Test-Path $sourcePath) {                        
+                        "[?<$($_.Name)> source]($($sourcePath | Split-Path -Leaf))"
+                    }
+                }
+            }            
     }}
 ~~~
