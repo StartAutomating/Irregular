@@ -1,0 +1,10 @@
+# Matches ANSI Underline/DoubleUnderline Start or Underline End
+\e                             # An Escape
+\[                             # Followed by a bracket
+(?>
+  (?<UnderlineStart>4m)        # 4m starts underline
+  |
+  (?<DoubleUnderlineStart>21m) # 21m start a double underline
+  |
+  (?<UnderlineEnd>24m)         # 24m stops underline
+)

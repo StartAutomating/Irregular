@@ -1,0 +1,8 @@
+# Matches an ANSI Faint (aka dim) Start or End
+\e                  # An Escape
+\[                  # Followed by a bracket
+(?>
+  (?<FaintStart>2m) # 2m starts faint
+  |
+  (?<FaintEnd>22m)  # 22m stops faint
+)

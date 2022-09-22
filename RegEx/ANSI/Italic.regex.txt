@@ -1,0 +1,8 @@
+# Matches ANSI Italic Start or End
+\e                   # An Escape
+\[                   # Followed by a bracket
+(?>
+  (?<ItalicStart>3m) # 3m starts italic
+  |
+  (?<ItalicEnd>23m)  # 23m stops italic
+)

@@ -1,0 +1,8 @@
+# Matches ANSI Hide (aka conceal) Start or End
+\e                 # An Escape
+\[                 # Followed by a bracket
+(?>
+  (?<HideStart>8m) # 8m starts hide
+  |
+  (?<HideEnd>28m)  # 28m stops hide
+)

@@ -10,9 +10,20 @@ They are designed to work in _most_ scenarios and to offer an alternative way to
     [PSCustomObject]@{
         Table = Get-Regex -Name "${directoryName}_*" |
             Sort-Object Name |
-            Select @{
-                Name='Name'
-                Expression={"[?<$($_.Name)>]($($_.Path | Split-Path -Leaf))"}
-            }, Description, IsGenerator
+            .Name {
+                "[?<$($_.Name)>]($($_.Path | Split-Path -Leaf))"
+            } .Description .Source {
+                if ($_.IsGenerator) { 
+                    "[generator]($($_.Path | Split-Path -Leaf))"
+                }
+                else {
+                    $sourcePath = $_.Path -replace '\.txt$', '.source.ps1'
+                    if (Test-Path $sourcePath) {                        
+                        "[source]($($sourcePath | Split-Path -Leaf))"
+                    } else {
+                        ''
+                    }
+                }
+            }            
     }}
 ~~~

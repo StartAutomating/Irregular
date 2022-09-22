@@ -1,0 +1,8 @@
+# Matches ANSI Invert Start or End
+\e                   # An Escape
+\[                   # Followed by a bracket
+(?>
+  (?<InvertStart>7m) # 7m starts invert
+  |
+  (?<InvertEnd>27m)  # 27m stops invert
+)

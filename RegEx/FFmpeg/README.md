@@ -1,13 +1,13 @@
 This directory contains regular expressions designed to help work with FFMpeg and related tools.
 
 
-|Name                                              |Description                            |IsGenerator|
-|--------------------------------------------------|---------------------------------------|-----------|
-|[?<FFmpeg_Configuration>](Configuration.regex.txt)|Matches FFMpeg configuration           |False      |
-|[?<FFmpeg_Input>](Input.regex.txt)                |Matches FFMpeg inputs                  |False      |
-|[?<FFmpeg_Metadata>](Metadata.regex.txt)          |Matches FFMpeg metadata                |False      |
-|[?<FFmpeg_Output>](Output.regex.txt)              |Matches FFMpeg outputs                 |False      |
-|[?<FFmpeg_Progress>](Progress.regex.txt)          |Matches Progress Lines in FFMpeg output|False      |
-|[?<FFmpeg_Stream>](Stream.regex.txt)              |Matches FFMpeg streams                 |False      |
+|Name                                              |Description                            |Source                                  |
+|--------------------------------------------------|---------------------------------------|----------------------------------------|
+|[?<FFmpeg_Configuration>](Configuration.regex.txt)|Matches FFMpeg configuration           |[source](Configuration.regex.source.ps1)|
+|[?<FFmpeg_Input>](Input.regex.txt)                |Matches FFMpeg inputs                  |[source](Input.regex.source.ps1)        |
+|[?<FFmpeg_Metadata>](Metadata.regex.txt)          |Matches FFMpeg metadata                |[source](Metadata.regex.source.ps1)     |
+|[?<FFmpeg_Output>](Output.regex.txt)              |Matches FFMpeg outputs                 |[source](Output.regex.source.ps1)       |
+|[?<FFmpeg_Progress>](Progress.regex.txt)          |Matches Progress Lines in FFMpeg output|[source](Progress.regex.source.ps1)     |
+|[?<FFmpeg_Stream>](Stream.regex.txt)              |Matches FFMpeg streams                 |[source](Stream.regex.source.ps1)       |
 
 
