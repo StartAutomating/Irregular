@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 124 regular expressions
+Irregular includes 128 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -12,8 +12,12 @@ Irregular includes 124 regular expressions
 |[ANSI_DefaultColor](/RegEx/ANSI/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
 |[ANSI_Faint](/RegEx/ANSI/Faint.regex.txt)|Matches an ANSI Faint (aka dim) Start or End|False|
 |[ANSI_Hide](/RegEx/ANSI/Hide.regex.txt)|Matches ANSI Hide (aka conceal) Start or End|False|
+|[ANSI_Invert](/RegEx/ANSI/Invert.regex.txt)|Matches ANSI Invert Start or End|False|
+|[ANSI_Italic](/RegEx/ANSI/Italic.regex.txt)|Matches ANSI Italic Start or End|False|
 |[ANSI_Note](/RegEx/ANSI/Note.regex.txt)|Matches an ANSI VT520 Note|False|
 |[ANSI_Reset](/RegEx/ANSI/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
+|[ANSI_Strikethrough](/RegEx/ANSI/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
+|[ANSI_Underline](/RegEx/ANSI/Underline.regex.txt)|Matches ANSI Underline/DoubleUnderline Start or Underline End|False|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
 |[BalancedBrackets](/RegEx/BalancedBrackets.regex.txt)|Matches content in brackets, as long as it is balanced|False|
 |[BalancedCode](/RegEx/BalancedCode.regex.ps1)|Matches code balanced by a [, {, or (|True|
