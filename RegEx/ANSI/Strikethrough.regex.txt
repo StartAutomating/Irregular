@@ -1,0 +1,8 @@
+# Matches ANSI Strikethrough Start or End
+\e                          # An Escape
+\[                          # Followed by a bracket
+(?>
+  (?<StrikethroughStart>9m) # 9m starts Strikethrough
+  |
+  (?<StrikethroughEnd>29m)  # 29m stops Strikethrough
+)
