@@ -10,14 +10,16 @@ Note:  Using these regular expressions in the terminal may result in awkward out
             Sort-Object Name |
             .Name {
                 "[?<$($_.Name)>]($($_.Path | Split-Path -Leaf))"
-            } .Description .IsGenerator .Source {
+            } .Description .Source {
                 if ($_.IsGenerator) { 
-                    "[?<$($_.Name)> generator]($($_.Path | Split-Path -Leaf))"
+                    "[generator]($($_.Path | Split-Path -Leaf))"
                 }
                 else {
                     $sourcePath = $_.Path -replace '\.txt$', '.source.ps1'
                     if (Test-Path $sourcePath) {                        
-                        "[?<$($_.Name)> source]($($sourcePath | Split-Path -Leaf))"
+                        "[source]($($sourcePath | Split-Path -Leaf))"
+                    } else {
+                        ''
                     }
                 }
             }            
