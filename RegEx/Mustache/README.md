@@ -2,8 +2,8 @@ This directory contains regular expressions for [Mustache templates](http://must
 
 
 
-|Name                            |Description|IsGenerator|
-|--------------------------------|-----------|-----------|
-|[?<Mustache_Tag>](Tag.regex.ps1)|True       |
+|Name                            |Description               |Source|
+|--------------------------------|--------------------------|------|
+|[?<Mustache_Tag>](Tag.regex.ps1)|[generator](Tag.regex.ps1)|
 
 
