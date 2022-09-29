@@ -4,7 +4,7 @@ Irregular includes 129 regular expressions
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
 |[ANSI_4BitColor](/RegEx/ANSI/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
-|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8 bit color|False|
+|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8-bit color|False|
 |[ANSI_Blink](/RegEx/ANSI/Blink.regex.txt)|Matches ANSI Blink Start or End|False|
 |[ANSI_Bold](/RegEx/ANSI/Bold.regex.txt)|Matches an ANSI Bold Start or End|False|
 |[ANSI_Code](/RegEx/ANSI/Code.regex.txt)|Matches an ANSI escape code|False|
