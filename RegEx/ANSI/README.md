@@ -7,7 +7,7 @@ Note:  Using these regular expressions in the terminal may result in awkward out
 |------------------------------------------------|-------------------------------------------------------------|----------------------------------------|
 |[?<ANSI_24BitColor>](24BitColor.regex.txt)      |Matches an ANSI 24-bit color                                 |[source](24BitColor.regex.source.ps1)   |
 |[?<ANSI_4BitColor>](4BitColor.regex.txt)        |Matches an ANSI 3 or 4-bit color                             |[source](4BitColor.regex.source.ps1)    |
-|[?<ANSI_8BitColor>](8BitColor.regex.txt)        |Matches an ANSI 8 bit color                                  |[source](8BitColor.regex.source.ps1)    |
+|[?<ANSI_8BitColor>](8BitColor.regex.txt)        |Matches an ANSI 8-bit color                                  |[source](8BitColor.regex.source.ps1)    |
 |[?<ANSI_Blink>](Blink.regex.txt)                |Matches ANSI Blink Start or End                              |[source](Blink.regex.source.ps1)        |
 |[?<ANSI_Bold>](Bold.regex.txt)                  |Matches an ANSI Bold Start or End                            |[source](Bold.regex.source.ps1)         |
 |[?<ANSI_Code>](Code.regex.txt)                  |Matches an ANSI escape code                                  |[source](Code.regex.source.ps1)         |
