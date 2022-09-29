@@ -4,7 +4,12 @@ $myRoot = $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
 New-RegEx -Description "Matches an ANSI 8-bit color" -Modifier IgnoreCase -Not |
     New-RegEx -CharacterClass Escape -Comment 'An Escape' |
     New-RegEx -LiteralCharacter '[' -Comment 'Followed by a bracket' |
-    New-RegEx -Pattern '38;5;' |
+    New-RegEx -Atomic -Or @(
+        New-RegEx -Pattern '38' -Name IsForegroundColor
+        New-RegEx -Pattern '48' -Name IsBackgroundColor
+        New-RegEx -Pattern '58' -Name IsUnderlineColor
+    ) |
+    New-RegEx -Pattern ';5;' |
     New-RegEx -Name Color -Pattern (
         New-RegEx -Atomic -Or @(            
             New-Regex -Name StandardColor -Pattern '[0-7]' -Comment '0 -7 are standard colors' |
