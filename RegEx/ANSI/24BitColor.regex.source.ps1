@@ -13,7 +13,7 @@ New-RegEx -Description "Matches an ANSI 24-bit color" -Modifier IgnoreCase -Not 
     New-RegEx -Name Color -Pattern (
         New-Regex -Name Red -Pattern '(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2})' -Comment 'Red is the first 0-255 value' |
         New-RegEx -Pattern ';' |
-        New-Regex -Name Red -Pattern '(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2})' -Comment 'Green is the second 0-255 value' |
+        New-Regex -Name Green -Pattern '(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2})' -Comment 'Green is the second 0-255 value' |
         New-RegEx -Pattern ';' |
         New-Regex -Name Blue -Pattern '(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2})' -Comment 'Blue is the third 0-255 value' |
         New-RegEx -Pattern 'm'
