@@ -20,6 +20,7 @@ Note:  Using these regular expressions in the terminal may result in awkward out
 |[?<ANSI_Note>](Note.regex.txt)                  |Matches an ANSI VT520 Note                                   |[source](Note.regex.source.ps1)         |
 |[?<ANSI_Reset>](Reset.regex.txt)                |Matches an ANSI Reset (this clears formatting)               |[source](Reset.regex.source.ps1)        |
 |[?<ANSI_Strikethrough>](Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End                      |[source](Strikethrough.regex.source.ps1)|
+|[?<ANSI_Style>](Style.regex.txt)                |Matches an ANSI style (color or text option)                 |[source](Style.regex.source.ps1)        |
 |[?<ANSI_Underline>](Underline.regex.txt)        |Matches ANSI Underline/DoubleUnderline Start or Underline End|[source](Underline.regex.source.ps1)    |
 
 
