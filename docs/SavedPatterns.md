@@ -1,10 +1,10 @@
 ### Irregular Patterns
-Irregular includes 128 regular expressions
+Irregular includes 130 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
 |[ANSI_4BitColor](/RegEx/ANSI/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
-|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8 bit color|False|
+|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8-bit color|False|
 |[ANSI_Blink](/RegEx/ANSI/Blink.regex.txt)|Matches ANSI Blink Start or End|False|
 |[ANSI_Bold](/RegEx/ANSI/Bold.regex.txt)|Matches an ANSI Bold Start or End|False|
 |[ANSI_Code](/RegEx/ANSI/Code.regex.txt)|Matches an ANSI escape code|False|
@@ -17,6 +17,7 @@ Irregular includes 128 regular expressions
 |[ANSI_Note](/RegEx/ANSI/Note.regex.txt)|Matches an ANSI VT520 Note|False|
 |[ANSI_Reset](/RegEx/ANSI/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
 |[ANSI_Strikethrough](/RegEx/ANSI/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
+|[ANSI_Style](/RegEx/ANSI/Style.regex.txt)|Matches an ANSI style (color or text option)|False|
 |[ANSI_Underline](/RegEx/ANSI/Underline.regex.txt)|Matches ANSI Underline/DoubleUnderline Start or Underline End|False|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
 |[BalancedBrackets](/RegEx/BalancedBrackets.regex.txt)|Matches content in brackets, as long as it is balanced|False|
@@ -103,6 +104,7 @@ Irregular includes 128 regular expressions
 |[PII_Unredacted_SSN](/RegEx/PII/Unredacted_SSN.regex.txt)|Matches Unredacted Social Security Numbers|False|
 |[PowerShell_Attribute](/RegEx/PowerShell/Attribute.regex.txt)|Matches a PowerShell attribute declaration|False|
 |[PowerShell_AttributeValue](/RegEx/PowerShell/AttributeValue.regex.txt)|This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)|False|
+|[PowerShell_Function](/RegEx/PowerShell/Function.regex.txt)|Matches PowerShell functions|False|
 |[PowerShell_HelpField](/RegEx/PowerShell/HelpField.regex.ps1)|Matches specific fields from inline help|True|
 |[PowerShell_Invoke_Variable](/RegEx/PowerShell/Invoke_Variable.regex.txt)|Matches any time a variable is invoked (with the . or & operator)|False|
 |[PowerShell_ParameterSet](/RegEx/PowerShell/ParameterSet.regex.txt)|Matches PowerShell ParameterSets (in [Parameter] and [CmdletBinding] attributes)|False|

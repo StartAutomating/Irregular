@@ -1,7 +1,10 @@
-# Matches an ANSI 8 bit color
+# Matches an ANSI 8-bit color
 (?-i)\e                                                    # An Escape
 \[                                                         # Followed by a bracket
-38;5;(?<Color>(?>
+(?>
+  (?<IsForegroundColor>38)  |
+  (?<IsBackgroundColor>48)  |
+  (?<IsUnderlineColor>58));5;(?<Color>(?>
   (?<StandardColor>[0-7])                                  # 0 -7 are standard colors
 m  |
   (?<BrightColor>(?>[8-9]|1[0-5]))                         # 8-15 are bright colors

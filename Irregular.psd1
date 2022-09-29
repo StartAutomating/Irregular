@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.7.2'
+    ModuleVersion = '0.7.3'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -14,6 +14,14 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.3:
+* ANSI Improvements:
+  * Fixed ?<ANSI_Style> (Fixes #143)
+  * ?<ANSI_4BitColor> now supports bright ranges (Fixes #145)
+  * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports background colors (Fixes #144)
+  * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports underline colors (Fixes #146)
+---
+
 ## 0.7.2:
 * Lots More ANSI support:
   * ?<ANSI_Bold> (Fixes #131)

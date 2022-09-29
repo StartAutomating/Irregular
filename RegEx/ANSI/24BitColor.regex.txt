@@ -1,7 +1,10 @@
 # Matches an ANSI 24-bit color
-(?-i)\e                                                       # An Escape
-\[                                                            # Followed by a bracket
-38;2;(?<Color>(?<Red>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))   # Red is the first 0-255 value
-;(?<Red>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))                # Green is the second 0-255 value
-;(?<Blue>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))               # Blue is the third 0-255 value
+(?-i)\e                                                                                # An Escape
+\[                                                                                     # Followed by a bracket
+(?>
+  (?<IsForegroundColor>38)  |
+  (?<IsBackgroundColor>48)  |
+  (?<IsUnderlineColor>58));2;(?<Color>(?<Red>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))    # Red is the first 0-255 value
+;(?<Green>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))                                       # Green is the second 0-255 value
+;(?<Blue>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))                                        # Blue is the third 0-255 value
 m)

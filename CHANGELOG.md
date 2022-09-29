@@ -1,4 +1,12 @@
-﻿## 0.7.2:
+﻿## 0.7.3:
+* ANSI Improvements:
+  * Fixed ?<ANSI_Style> (Fixes #143)
+  * ?<ANSI_4BitColor> now supports bright ranges (Fixes #145)
+  * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports background colors (Fixes #144)
+  * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports underline colors (Fixes #146)
+---
+
+## 0.7.2:
 * Lots More ANSI support:
   * ?<ANSI_Bold> (Fixes #131)
   * ?<ANSI_Blink> (Fixes #132)

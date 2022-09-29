@@ -10,7 +10,7 @@ New-RegEx -Description "Matches an ANSI style (color or text option)" |
         New-Regex -Pattern '?<ANSI_Italic>'
         New-Regex -Pattern '?<ANSI_Invert>'
         New-Regex -Pattern '?<ANSI_Hide>'
-        New-Regex -Pattern '?<ANSI_Strikethru>'
+        New-Regex -Pattern '?<ANSI_Strikethrough>'
         New-Regex -Pattern '?<ANSI_Underline>'
         New-RegEx -Pattern '?<ANSI_24BitColor>'
         New-RegEx -Pattern '?<ANSI_8BitColor>'
