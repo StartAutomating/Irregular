@@ -1,3 +1,9 @@
+## 0.7.4:
+* ANSI Improvements:
+  * Regenerated ?<ANSI_Color> (Fixes #150)
+  * Added ?<ANSI_Cursor> (Fixes #151)
+---
+
 ## 0.7.3:
 * ANSI Improvements:
   * Fixed ?<ANSI_Style> (Fixes #143)
