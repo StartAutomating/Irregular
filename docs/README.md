@@ -3,7 +3,7 @@
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
 <h4>
-<a href='https://github.com/StartAutomating/Irregular/releases/tag/v0.7.3'>v 0.7.3 </a>
+<a href='https://github.com/StartAutomating/Irregular/releases/tag/v0.7.4'>v 0.7.4 </a>
 </h4>
 <a href='https://www.powershellgallery.com/packages/Irregular/'>
 <img src='https://img.shields.io/powershellgallery/dt/Irregular' />
@@ -32,7 +32,7 @@ Once you understand some basics of that syntax, regular expressions become a lot
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
-Irregular comes with 130 useful [named expressions](SavedPatterns.md), and lets you create more.
+Irregular comes with 131 useful [named expressions](SavedPatterns.md), and lets you create more.
 
 To see the expressions that ship with Irregular, run:
 

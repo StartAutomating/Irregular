@@ -36,12 +36,12 @@ Get-RegEx -Name NextWord
 @(Get-RegEx | # Gets all saved Regular Expressions as a Markdown table
     Sort-Object Name |
     ForEach-Object -Begin {
-        &#39;|Name|Description|IsGenerator|&#39;
-        &#39;|:---|:----------|:----------|&#39;
+        '|Name|Description|IsGenerator|'
+        '|:---|:----------|:----------|'
     } -Process {
-        $desc = $_.Description -replace &#39;[\[\{\(]&#39;, &#39;\$0&#39;
-        $desc=  if ($desc) {$desc | ?&lt;NewLine&gt; -Replace &#39;&lt;br/&gt;&#39;} else  { &#39;&#39;}
-        &quot;|$($_.Name)|$desc|$($_.IsGenerator)|&quot;
+        $desc = $_.Description -replace '[\[\{\(]', '\$0'
+        $desc=  if ($desc) {$desc | ?<NewLine> -Replace '<br/>'} else  { ''}
+        "|$($_.Name)|$desc|$($_.IsGenerator)|"
     }) -join [Environment]::NewLine
 ```
 
@@ -152,13 +152,15 @@ It prevents name conflicts with Irregular.
 
 ---
 ### Outputs
-System.Management.Automation.PSObject
+* [Management.Automation.PSObject](https://learn.microsoft.com/en-us/dotnet/api/System.Management.Automation.PSObject)
+
+
 
 
 ---
 ### Syntax
 ```PowerShell
-Get-RegEx [[-Name] &lt;String[]&gt;] [[-FilePath] &lt;String[]&gt;] [[-FromModule] &lt;String[]&gt;] [[-As] &lt;String&gt;] [[-Noun] &lt;String&gt;] [&lt;CommonParameters&gt;]
+Get-RegEx [[-Name] <String[]>] [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-As] <String>] [[-Noun] <String>] [<CommonParameters>]
 ```
 ---
 

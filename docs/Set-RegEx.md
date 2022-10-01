@@ -163,13 +163,15 @@ If the command sets a ```[ConfirmImpact("Medium")]``` which is lower than ```$co
 
 ---
 ### Outputs
-System.Nullable
+* [Nullable](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable)
+
+
 
 
 ---
 ### Syntax
 ```PowerShell
-Set-RegEx [-Pattern] &lt;String&gt; [[-Name] &lt;String&gt;] [-Description &lt;String&gt;] [-Path &lt;String&gt;] [-Temporary] [-TimeOut &lt;TimeSpan&gt;] [-PassThru] [-WhatIf] [-Confirm] [&lt;CommonParameters&gt;]
+Set-RegEx [-Pattern] <String> [[-Name] <String>] [-Description <String>] [-Path <String>] [-Temporary] [-TimeOut <TimeSpan>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ---
 

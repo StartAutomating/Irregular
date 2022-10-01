@@ -27,22 +27,22 @@ Use-RegEx is normally called with an alias that is the name of a saved RegEx, fo
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
-&quot;abc&quot; | Use-RegEx -Pattern &#39;.&#39;
+"abc" | Use-RegEx -Pattern '.'
 ```
 
 #### EXAMPLE 2
 ```PowerShell
-# ?&lt;TrueOrFalse&gt; is a saved RegEx and alias to Use-RegEx
+# ?<TrueOrFalse> is a saved RegEx and alias to Use-RegEx
 ```
 
 #### EXAMPLE 3
 ```PowerShell
-$txt = &quot;true or false or true or false&quot;
-$m = $txt | ?&lt;TrueOrFalse&gt; -Count 1
+$txt = "true or false or true or false"
+$m = $txt | ?<TrueOrFalse> -Count 1
 do {
     $m
-    $m = $m | ?&lt;TrueOrFalse&gt; -Count 1 -Scan
-} while ($m) # Looping over each match until non are found.  ?&lt;TrueOrFalse&gt; is an alias to Use-RegEx
+    $m = $m | ?<TrueOrFalse> -Count 1 -Scan
+} while ($m) # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
 ```
 
 ---
@@ -564,22 +564,24 @@ A list of arguments.  These are only valid if the regex is using a Generator scr
 
 ---
 ### Outputs
-System.Text.RegularExpressions.Match
+* [Text.RegularExpressions.Match](https://learn.microsoft.com/en-us/dotnet/api/System.Text.RegularExpressions.Match)
 
 
-System.String
+* [String](https://learn.microsoft.com/en-us/dotnet/api/System.String)
 
 
-System.Management.Automation.PSObject
+* [Management.Automation.PSObject](https://learn.microsoft.com/en-us/dotnet/api/System.Management.Automation.PSObject)
+
+
 
 
 ---
 ### Syntax
 ```PowerShell
-Use-RegEx [[-Match] &lt;String[]&gt;] [-IsMatch] [-Measure] [-Count &lt;Int32&gt;] [-StartAt &lt;Int32&gt;] [-Remove] [-Replace &lt;String&gt;] [-Scan] [-ReplaceIf &lt;IDictionary&gt;] [-ReplaceEvaluator &lt;ScriptBlock&gt;] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName &lt;String&gt;] [-Transform &lt;String&gt;] [-Coerce &lt;IDictionary&gt;] [-Where &lt;ScriptBlock&gt;] [-If &lt;IDictionary&gt;] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout &lt;TimeSpan&gt;] [-CaseSensitive] [-Pattern &lt;String&gt;] [-Generator &lt;ScriptBlock&gt;] [-ExpressionParameter &lt;IDictionary&gt;] [-ExpressionArgumentList &lt;PSObject[]&gt;] [&lt;CommonParameters&gt;]
+Use-RegEx [[-Match] <String[]>] [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt <Int32>] [-Remove] [-Replace <String>] [-Scan] [-ReplaceIf <IDictionary>] [-ReplaceEvaluator <ScriptBlock>] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName <String>] [-Transform <String>] [-Coerce <IDictionary>] [-Where <ScriptBlock>] [-If <IDictionary>] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout <TimeSpan>] [-CaseSensitive] [-Pattern <String>] [-Generator <ScriptBlock>] [-ExpressionParameter <IDictionary>] [-ExpressionArgumentList <PSObject[]>] [<CommonParameters>]
 ```
 ```PowerShell
-Use-RegEx [-Match] &lt;String[]&gt; [-IsMatch] [-Measure] [-Count &lt;Int32&gt;] [-StartAt &lt;Int32&gt;] [-Remove] [-Replace &lt;String&gt;] [-Scan] [-ReplaceIf &lt;IDictionary&gt;] [-ReplaceEvaluator &lt;ScriptBlock&gt;] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName &lt;String&gt;] [-Transform &lt;String&gt;] [-Coerce &lt;IDictionary&gt;] [-Where &lt;ScriptBlock&gt;] [-If &lt;IDictionary&gt;] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout &lt;TimeSpan&gt;] [-CaseSensitive] [-Generator &lt;ScriptBlock&gt;] [-ExpressionParameter &lt;IDictionary&gt;] [-ExpressionArgumentList &lt;PSObject[]&gt;] [&lt;CommonParameters&gt;]
+Use-RegEx [-Match] <String[]> [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt <Int32>] [-Remove] [-Replace <String>] [-Scan] [-ReplaceIf <IDictionary>] [-ReplaceEvaluator <ScriptBlock>] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName <String>] [-Transform <String>] [-Coerce <IDictionary>] [-Where <ScriptBlock>] [-If <IDictionary>] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout <TimeSpan>] [-CaseSensitive] [-Generator <ScriptBlock>] [-ExpressionParameter <IDictionary>] [-ExpressionArgumentList <PSObject[]>] [<CommonParameters>]
 ```
 ---
 

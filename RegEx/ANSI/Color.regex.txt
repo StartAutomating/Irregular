@@ -1,41 +1,51 @@
 # Matches an ANSI color
 (?>
   (?<ANSI_24BitColor>
-(?-i)\e                                                       # An Escape
-\[                                                            # Followed by a bracket
-38;2;(?<Color>(?<Red>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))   # Red is the first 0-255 value
-;(?<Red>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))                # Green is the second 0-255 value
-;(?<Blue>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))               # Blue is the third 0-255 value
+(?-i)\e                                                                                # An Escape
+\[                                                                                     # Followed by a bracket
+(?>
+  (?<IsForegroundColor>38)  |
+  (?<IsBackgroundColor>48)  |
+  (?<IsUnderlineColor>58));2;(?<Color>(?<Red>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))    # Red is the first 0-255 value
+;(?<Green>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))                                       # Green is the second 0-255 value
+;(?<Blue>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))                                        # Blue is the third 0-255 value
 m)
 )
   |
   (?<ANSI_8BitColor>
-(?-i)\e                                                       # An Escape
-\[                                                            # Followed by a bracket
-38;5;(?<Color>(?>
-  (?<StandardColor>[0-7])                                     # 0 -7 are standard colors
+(?-i)\e                                                                                # An Escape
+\[                                                                                     # Followed by a bracket
+(?>
+  (?<IsForegroundColor>38)  |
+  (?<IsBackgroundColor>48)  |
+  (?<IsUnderlineColor>58));5;(?<Color>(?>
+  (?<StandardColor>[0-7])                                                              # 0 -7 are standard colors
 m  |
-  (?<BrightColor>(?>[8-9]|1[0-5]))                            # 8-15 are bright colors
+  (?<BrightColor>(?>[8-9]|1[0-5]))                                                     # 8-15 are bright colors
 m  |
-  (?<CubeColor>(?>[0-2][0-3][0-1]|[0-1]\d\d|\d{1,2}))         # 16-231  are cubed colors
+  (?<CubeColor>(?>[0-2][0-3][0-1]|[0-1]\d\d|\d{1,2}))                                  # 16-231  are cubed colors
 m  |
-  (?<GrayscaleColor>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))    # 232-255 are grayscales
+  (?<GrayscaleColor>(?>[0-2][0-5][0-5]|[0-1]\d\d|\d{1,2}))                             # 232-255 are grayscales
 m))
 )
   |
   (?<ANSI_4BitColor>
-\e                                                            # An Escape
-\[                                                            # Followed by a bracket
-(?<Color>(?<IsBright>1)?\;?(?<ForegroundColor>3[0-7])?(?(ForegroundColor)(m)|((?<BackgroundColor>4[0-7])m)))
+\e                                                                                     # An Escape
+\[                                                                                     # Followed by a bracket
+(?<Color>(?>
+  (?<IsBright>1)?\;{0,1}(?<IsForegroundColor>3)  |
+  (?<IsBright>(?<IsForegroundColor>9))  |
+  (?<IsBright>1)?\;{0,1}(?<IsBackgroundColor>4)  |
+  (?<IsBright>(?<IsBackgroundColor>10)))(?<ColorNumber>[0-7])m)
 )
   |
   (?<ANSI_DefaultColor>
-(?-i)\e                                                       # An Escape
-\[                                                            # Followed by a bracket
+(?-i)\e                                                                                # An Escape
+\[                                                                                     # Followed by a bracket
 (?<Color>(?>
-  (?<DefaultForeground>39)                                    # 39 Represents the default foreground color
+  (?<DefaultForeground>39)                                                             # 39 Represents the default foreground color
 m  |
-  (?<DefaultForeground>49)                                    # 49 Represents the default background color
+  (?<DefaultForeground>49)                                                             # 49 Represents the default background color
 m))
 )
 )

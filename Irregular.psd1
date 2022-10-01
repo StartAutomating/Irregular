@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.7.3'
+    ModuleVersion = '0.7.4'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -14,6 +14,12 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.4:
+* ANSI Improvements:
+  * Regenerated ?<ANSI_Color> (Fixes #150)
+  * Added ?<ANSI_Cursor> (Fixes #151)
+---
+
 ## 0.7.3:
 * ANSI Improvements:
   * Fixed ?<ANSI_Style> (Fixes #143)

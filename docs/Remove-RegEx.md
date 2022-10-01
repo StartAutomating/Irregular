@@ -60,13 +60,15 @@ If the command sets a ```[ConfirmImpact("Medium")]``` which is lower than ```$co
 
 ---
 ### Outputs
-System.Nullable
+* [Nullable](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable)
+
+
 
 
 ---
 ### Syntax
 ```PowerShell
-Remove-RegEx [-Name] &lt;String[]&gt; [-WhatIf] [-Confirm] [&lt;CommonParameters&gt;]
+Remove-RegEx [-Name] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ---
 

@@ -125,16 +125,18 @@ If set, will output the imported regular expressions.
 
 ---
 ### Outputs
-System.Nullable
+* [Nullable](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable)
 
 
-System.Management.Automation.PSObject
+* [Management.Automation.PSObject](https://learn.microsoft.com/en-us/dotnet/api/System.Management.Automation.PSObject)
+
+
 
 
 ---
 ### Syntax
 ```PowerShell
-Import-RegEx [[-FilePath] &lt;String[]&gt;] [[-FromModule] &lt;String[]&gt;] [[-Pattern] &lt;String[]&gt;] [[-Name] &lt;String[]&gt;] [-PassThru] [&lt;CommonParameters&gt;]
+Import-RegEx [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-Pattern] <String[]>] [[-Name] <String[]>] [-PassThru] [<CommonParameters>]
 ```
 ---
 

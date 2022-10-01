@@ -12,6 +12,7 @@ Note:  Using these regular expressions in the terminal may result in awkward out
 |[?<ANSI_Bold>](Bold.regex.txt)                  |Matches an ANSI Bold Start or End                            |[source](Bold.regex.source.ps1)         |
 |[?<ANSI_Code>](Code.regex.txt)                  |Matches an ANSI escape code                                  |[source](Code.regex.source.ps1)         |
 |[?<ANSI_Color>](Color.regex.txt)                |Matches an ANSI color                                        |[source](Color.regex.source.ps1)        |
+|[?<ANSI_Cursor>](Cursor.regex.txt)              |Matches an ANSI cursor control                               |[source](Cursor.regex.source.ps1)       |
 |[?<ANSI_DefaultColor>](DefaultColor.regex.txt)  |Matches an ANSI 24-bit color                                 |[source](DefaultColor.regex.source.ps1) |
 |[?<ANSI_Faint>](Faint.regex.txt)                |Matches an ANSI Faint (aka dim) Start or End                 |[source](Faint.regex.source.ps1)        |
 |[?<ANSI_Hide>](Hide.regex.txt)                  |Matches ANSI Hide (aka conceal) Start or End                 |[source](Hide.regex.source.ps1)         |
