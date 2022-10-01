@@ -135,7 +135,7 @@ If the command sets a ```[ConfirmImpact("Medium")]``` which is lower than ```$co
 ---
 ### Syntax
 ```PowerShell
-Export-RegEx [[-Name] &lt;String[]&gt;] [[-Path] &lt;String&gt;] [[-As] &lt;String&gt;] [[-Noun] &lt;String&gt;] [-WhatIf] [-Confirm] [&lt;CommonParameters&gt;]
+Export-RegEx [[-Name] <String[]>] [[-Path] <String>] [[-As] <String>] [[-Noun] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ---
 ### Notes
