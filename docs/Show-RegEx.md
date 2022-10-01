@@ -186,13 +186,15 @@ The match timeout.  By default, one second.
 
 ---
 ### Outputs
-Irregular.RegEx.Output
+* Irregular.RegEx.Output
+
+
 
 
 ---
 ### Syntax
 ```PowerShell
-Show-RegEx [-Pattern] &lt;String&gt; [[-Match] &lt;String[]&gt;] [-Remove] [-Replace &lt;String&gt;] [-Transform &lt;String&gt;] [[-Option] {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-CaseSensitive] [-Timeout &lt;TimeSpan&gt;] [&lt;CommonParameters&gt;]
+Show-RegEx [-Pattern] <String> [[-Match] <String[]>] [-Remove] [-Replace <String>] [-Transform <String>] [[-Option] {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-CaseSensitive] [-Timeout <TimeSpan>] [<CommonParameters>]
 ```
 ---
 
