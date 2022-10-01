@@ -1,0 +1,30 @@
+# Matches an ANSI cursor control
+\e\[(?>
+  (?<DeviceStatusReport>6n)                             # 6n will request the cursor position
+  |
+  (?<CursorPosition>(?<Row>\d+)\;(?<Column>\d+)R)       # A Device Status Report will return CursorPosition in the form <row>;<column> R
+  |
+  (?<CursorUp>(?<RowCount>\d+)A)                        # Cursor Up is a digit followed by A
+  |
+  (?<CursorDown>(?<RowCount>\d+)B)                      # Cursor Down is a digit followed by B
+  |
+  (?<CursorForward>(?<ColumnCount>\d+)C)                # Cursor Forward is a digit followed by C
+  |
+  (?<CursorBack>(?<ColumnCount>\d+)D)                   # Cursor Back is a digit followed by D
+  |
+  (?<CursorNextLine>(?<LineCount>\d+)E)                 # Cursor Next Line is a digit followed by E
+  |
+  (?<CursorNextLine>(?<LineCount>\d+)F)                 # Cursor Next Line is a digit followed by F
+  |
+  (?<CursorAbsolute>(?<AbsolutePosition>\d+)G)          # Cursor Absolute Position is a digit followed by G
+  |
+  (?<CursorPosition>(?<Row>\d{0,})\;(?<Column>\d{0,})H) # Cursor Positions are two optional digits, separated by semicolon, ending with H
+  |
+  (?<ScrollUp>(?<PageCount>\d+)S)                       # Scroll Up is a digit followed by S
+  |
+  (?<ScrollDown>(?<PageCount>\d+)T)                     # Scroll Down is a digit followed by T
+  |
+  (?<CursorHide>25h)                                    # Cursors can be hidden with 25h
+  |
+  (?<CursorShow>25l)                                    # Cursors can be hidden with 25l
+)
