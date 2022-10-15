@@ -1,0 +1,9 @@
+# Matches Liquid Expressions
+\{{2,2}                                  # {{ opens a expression 
+\s{0,}                                   # Optional opening whitespace
+# The Liquid Expression is anything until the expression close, which is
+(?<Expression>(?:.|\s){0,}?(?=\z|\s{0,}  # Optional closing whitespace
+\}{2,2}                                  # Followed by a }}
+))\s{0,}                                 # Now we match the close: First Optional whitespace
+\}{2,2}                                  # Followed by }}
+
