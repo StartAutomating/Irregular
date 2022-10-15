@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 131 regular expressions
+Irregular includes 132 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -78,6 +78,7 @@ Irregular includes 131 regular expressions
 |[LeadingWhitespace](/RegEx/LeadingWhitespace.regex.txt)|Matches zero or more whitespaces after the beginning of a line.|False|
 |[LineEndsWithColon](/RegEx/LineEndsWithColon.regex.txt)|This returns lines that end with a colon|False|
 |[LineStartOrEnd](/RegEx/LineStartOrEnd.regex.txt)|This will match either a line start or end.|False|
+|[Liquid_Expression](/RegEx/Liquid/Expression.regex.txt)|Matches Liquid Expressions|False|
 |[Markdown_CodeBlock](/RegEx/Markdown/CodeBlock.regex.ps1)|Matches a Markdown code block.  <br/>    <br/>    Code blocks can start/end with 3 or more backticks or tildas, or 4 indented whitespaces|True|
 |[Markdown_Heading](/RegEx/Markdown/Heading.regex.ps1)|Matches Markdown Headings.  Can provide a -HeadingName, -HeadingLevel, and -IncludeContent.|True|
 |[Markdown_Link](/RegEx/Markdown/Link.regex.ps1)|Matches a Markdown Link.  Can customize the link text and link url.|True|
