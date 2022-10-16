@@ -1,0 +1,9 @@
+# Matches Liquid Tags
+\{\%                             # {% opens a tag
+\s{0,}                           # Optional opening whitespace
+# The Liquid Tag is anything until a closing tag, which is
+(?<Tag>(?:.|\s){0,}?(?=\z|\s{0,} # Optional closing whitespace
+\%\}                             # Followed by %}
+))\s{0,}                         # Now match the close: First optional whitespace
+\%\}                             # Followed by %}
+
