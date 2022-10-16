@@ -1,5 +1,5 @@
 <div align='center'>
-<img src='Assets/Irregular_Wide.png' />
+<img src='assets/Irregular_Wide.png' />
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
 <h4>
@@ -72,7 +72,7 @@ New-RegEx -StartAnchor StringStart -Pattern @(
 
 Irregular also contains a colorized PowerShell formatter for all Regular Expressions.
 This provides syntax highlighting that can make complicated expressions easier to read.
-![RegexSyntaxHighlighting](Assets/RegexSyntaxHighlighting.gif)
+![RegexSyntaxHighlighting](assets/RegexSyntaxHighlighting.gif)
 
 
 #### Building Regular Expressions
@@ -150,8 +150,6 @@ string: 'hello'
         }
     }
 ~~~
-
-
 
 
 
