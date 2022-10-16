@@ -1,7 +1,16 @@
+## 0.7.5:
+
+* Added Patterns for Liquid:
+  * ?<Liquid_Expression> (Fixes #153)
+  * ?<Liquid_Tag> (Fixes #154)
+
+---
+
 ## 0.7.4:
 * ANSI Improvements:
   * Regenerated ?<ANSI_Color> (Fixes #150)
   * Added ?<ANSI_Cursor> (Fixes #151)
+
 ---
 
 ## 0.7.3:
@@ -10,6 +19,7 @@
   * ?<ANSI_4BitColor> now supports bright ranges (Fixes #145)
   * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports background colors (Fixes #144)
   * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports underline colors (Fixes #146)
+
 ---
 
 ## 0.7.2:
@@ -25,6 +35,7 @@
   * ?<ANSI_Underline> (Fixes #139)
   * ?<ANSI_Style> (Fixes #140)
   * ?<ANSI_Note>:  Fixing capture names (Fixes #130)
+
 ---
 
 ## 0.7.1:
@@ -33,6 +44,7 @@
 * Updated Patterns:
   * ?<FFMpeg_Progress>: Supporting duplicated / dropped frames (Fixes #128)
   * ?<Code_BuildVersion>: No longer matching if preceeded by punctuation (Fixes #126)
+
 ---
 
 ## 0.7.0:
@@ -48,12 +60,14 @@
     * ?<Mustache_Tag> (Fixes #121)
 * New-Regex -LiteralCharacter '_' no longer escapes (Fixes #122)
 * Reducing module size (excluding assets) (Fixes #118)
+
 ---
 
 ## 0.6.9:
 * Adding ?<Markdown_Link> (Fixes #117)
 * GitHub Action now prefers local bits (Fixes #111)
 * Using PipeScript to enhance the repository experience (Fixes #119)
+
 ---
 
 ## 0.6.8:
@@ -64,6 +78,7 @@
 * Automatically documenting module (Fixes #109)
 * Automatically building module formatting (Fixes #112)
 * Fixing Documentation (Fixes #115)
+
 ---
 
 ## 0.6.7:
@@ -76,18 +91,24 @@
   * Additional Tracing in GitHub Action.  Now ready for use.  (Fixing #93)
 * Additional Improvements:
   * [SavedPatterns.md](SavedPatterns.md) now automatically updates.
+
 ---
+
 ## 0.6.6:
 * New Regexes:
   * ?<C_Enum> (#98)
   * ?<C_Struct> (#99)
 * Fixing Issues with whitespace in ?<FFMpeg_Progress> (#97)
+
 ---
+
 ## 0.6.5
 * Renaming Regex: ?<IPV4Address> is now ?<Network_IPV4Address> (#90)
 * New Regex: ?<Network_MACAddress> (#89)
 * Use-Regex -Extract:  Now attempting [Timespan] before [DateTime] (#88)
+
 ---
+
 ## 0.6.4
 * Renaming Write-RegEx to New-RegEx (#66) ** Write-RegEx will remain aliased until at least 0.7**
 * Fixing Issue in Embedding (#82)
@@ -98,7 +119,9 @@
 * Adding ?<FFMpeg_Input> (#83)
 * Adding ?<FFMpeg_Output> (#83)
 * Adding ?<FFMpeg_Metadata> (#83)
+
 ---
+
 ## 0.6.3
 New Regular Expressions:
 * ?<CNC_GCode> (Fixes #76)
@@ -115,19 +138,25 @@ New Regular Expressions:
 * Subtitle Regexes (Fixes #72)
   * ?<Subtitle_SRT>
   * ?<Subtitle_VTT>
+
 ---
+
 ## 0.6.2
 New Regular Expressions:
 * ?<Unix_Cron_Interval> (Fixes #67)
 * ?<Unix_Duration> (Fixes #69)
+
 ---
+
 ## 0.6.1
 * New Command:  Remove-RegEx (Fixes #62)
 * Set-RegEx now supports -PassThru (Fixes #61)
 * Set-RegEx now allows modifiers (Fixes #60)
 * Use-RegEx now allows -Pattern to be directly provided, and supplies an ArgumentCompleter (Fixes #59)
 Hat Tips: @JayKul, @LaurentDardenne
+
 ---
+
 ## 0.6
 * JSON Regex Improvements
  * ?<JSON_Property> now can handle quotes
@@ -136,7 +165,9 @@ Hat Tips: @JayKul, @LaurentDardenne
  * ?<Markdown_CodeBlock>
  * ?<Markdown_ThematicBreak>
 * ?<REST_Variable> is now a generator.
+
 ---
+
 ## 0.5.9
 * New RegEx:
   * ?<C_IfDef>
@@ -147,14 +178,17 @@ Hat Tips: @JayKul, @LaurentDardenne
   * -Atomic now indents
   * -Or now indents
   * No longer makes -Then/-Else explicily non-capturing
----
-## 0.5.8
 
+---
+
+## 0.5.8
 * New RegEx:
   * ?<RegularExpression_Quantifier>
 * Fixes to RegExes:
   * ?<REST_Variable> now allows variables to be embedded within <>s
+
 ---
+
 ## 0.5.7
 * New RegExes:
   * ?<Security_AccessToken>
@@ -164,7 +198,9 @@ Hat Tips: @JayKul, @LaurentDardenne
   * ?<IPV4Address> will no longer match digits past the byte-range. (#38)
 * New Capabilities:
   * Write-RegEx -DigitMax
+
 ---
+
 ## 0.5.6
 * New RegExes:
   * ?<Code_SemanticVersion>
@@ -179,7 +215,9 @@ Hat Tips: @JayKul, @LaurentDardenne
   * Write-RegEx -Atomic -Or no longer overgroups
   * Write-RegEx -LiteralCharacter -Not now works as expected
   * Write-RegEx -Atomic -Min/-Max location fixed
+
 ---
+
 ## 0.5.5
 * New Programming RegExes:
   * ?<PowerShell_Requires>
@@ -192,13 +230,17 @@ Hat Tips: @JayKul, @LaurentDardenne
 * ?<REST_Variable>:
   * support for {/optionalsegments} (as seen in Git)
   * dollar sign now requires backtick (URL parameters can be named $, e.g. $top)
+
 ---
+
 ## 0.5.4
 * Fixes in Irregular import (no longer producing a module per RegEx on import)
 * Fixing a subtle bug in Write-RegEx -Until (was failing to match when no characters were between)
 * New regex:
   * ?<HTML_LinkedData>, ?<HexColor>, ?<IPv4Address>
+
 ---
+
 ## 0.5.3
 * Get/Export-Regex: Now supporting -As EmbeddedEngine (lambas) or -As Engine (smart aliases)
 * Write-RegEx:  Added -UnicodeCharacter
@@ -207,13 +249,17 @@ Hat Tips: @JayKul, @LaurentDardenne
   * ?<Unix_Conf_Line>, ?<Unix_Conf_Section>, ?<Unix_Conf_File>, ?<Unix_Mount>, ?<Unix_FileSystemType>, ?<Unix_User>
 * Updated RegEx Generators:
   * ?<MultilineComment> now supports OpenSCAD (.scad)
+
 ---
+
 ## 0.5.2
 * Use-RegEx now matches within returns by default.
 * Use-RegEx can -Scan to match after a given item
 * Use-Regex breaking change:  -Parameter/-ArgumentList are now -ExpressionParameter/-ExpressionArgumentList
 * Improving formatting (no longer showing match status, which was always 'true')
+
 ---
+
 ## 0.5.1
 * Making Import-Regex support Regexes defined in other modules
 * Allowing Import-Regex to import as lambdas
