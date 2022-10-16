@@ -1,5 +1,5 @@
 <div align='center'>
-<img src='assets/images/Irregular_Wide.png' />
+<img src='assets/Irregular.svg' />
 <h2>Regular Expressions made Strangely Simple</h2>
 <h3>A PowerShell module that helps you understand, use, and build Regular Expressions.</h3>
 <h4>
