@@ -302,6 +302,8 @@ jobs:
           $Parameters.UserName = ${env:UserName}
           $Parameters.TagVersionFormat = ${env:TagVersionFormat}
           $Parameters.ReleaseNameFormat = ${env:ReleaseNameFormat}
+          $Parameters.ReleaseAsset = ${env:ReleaseAsset}
+          $Parameters.ReleaseAsset = $parameters.ReleaseAsset -split ';' -replace '^[''"]' -replace  '[''"]$'
           foreach ($k in @($parameters.Keys)) {
               if ([String]::IsNullOrEmpty($parameters[$k])) {
                   $parameters.Remove($k)
@@ -327,7 +329,11 @@ jobs:
           
           # The release name format (default value: '$($imported.Name) $($imported.Version)')
           [string]
-          $ReleaseNameFormat = '$($imported.Name) $($imported.Version)'
+          $ReleaseNameFormat = '$($imported.Name) $($imported.Version)',
+          
+          # Any assets to attach to the release.  Can be a wildcard or file name.
+          [string[]]
+          $ReleaseAsset
           )
           
           
@@ -377,7 +383,7 @@ jobs:
           }
           
           
-          Invoke-RestMethod -Uri $releasesURL -Method Post -Body (
+          $releasedIt = Invoke-RestMethod -Uri $releasesURL -Method Post -Body (
               [Ordered]@{
                   owner = '${{github.owner}}'
                   repo  = '${{github.repository}}'
@@ -399,6 +405,53 @@ jobs:
               "Content-type" = "application/json"
               "Authorization" = 'Bearer ${{ secrets.GITHUB_TOKEN }}'
           }
+          
+          
+          if (-not $releasedIt) {
+              throw "Release failed"
+          } else {
+              $releasedIt | Out-Host
+          }
+          
+          $releaseUploadUrl = $releasedIt.upload_url -replace '\{.+$'
+          
+          if ($ReleaseAsset) {
+              $fileList = Get-ChildItem -Recurse
+              $filesToRelease = 
+                  @(:nextFile foreach ($file in $fileList) {
+                      foreach ($relAsset in $ReleaseAsset) {
+                          if ($relAsset -match '[\*\?]') {
+                              if ($file.Name -like $relAsset) {
+                                  $file; continue nextFile
+                              }
+                          } elseif ($file.Name -eq $relAsset -or $file.FullName -eq $relAsset) {
+                              $file; continue nextFile
+                          }
+                      }
+                  })
+          
+              $releasedFiles = @{}
+              foreach ($file in $filesToRelease) {
+                  if ($releasedFiles[$file.Name]) {
+                      Write-Warning "Already attached file $($file.Name)"
+                      continue
+                  } else {
+                      $fileBytes = [IO.File]::ReadAllBytes($file.FullName)
+                      $releasedFiles[$file.Name] =
+                          Invoke-RestMethod -Uri "${releaseUploadUrl}?name=$($file.Name)" -Headers @{
+                              "Accept"        = "application/vnd.github+json"
+                              "ContentType"   = "application/octet-stream"
+                              "Authorization" = 'Bearer ${{ secrets.GITHUB_TOKEN }}'
+                          } -Body $fileBytes
+                      $releasedFiles[$file.Name]
+                  }
+              }
+          
+              "Attached $($releasedFiles.Count) file(s) to release" | Out-Host
+          }
+          
+          
+          
           } @Parameters
       - name: PublishPowerShellGallery
         id: PublishPowerShellGallery
@@ -419,7 +472,7 @@ jobs:
           $ModulePath,
           
           [string[]]
-          $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg', '*.gif')
+          $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg', '*.gif', 'docs[/\]*')
           )
           
           $gitHubEvent = if ($env:GITHUB_EVENT_PATH) {
@@ -427,7 +480,7 @@ jobs:
           } else { $null }
           
           if (-not $Exclude) {
-              $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg', '*.gif')
+              $Exclude = @('*.png', '*.mp4', '*.jpg','*.jpeg', '*.gif','docs[/\]*')
           }
           
           
@@ -512,18 +565,22 @@ jobs:
               }
           }
           } @Parameters
-  BuildModule: 
+  BuildIrregular: 
     runs-on: ubuntu-latest
     if: ${{ success() }}
     steps: 
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Use PSSVG Action
+        uses: StartAutomating/PSSVG@main
+        id: PSSVG
+      - name: Use Irregular Action
+        uses: StartAutomating/Irregular@master
+        id: Irregular
       - name: BuildPipeScript
         uses: StartAutomating/PipeScript@main
       - name: UseEZOut
         uses: StartAutomating/EZOut@master
-      - name: UsePiecemeal
-        uses: StartAutomating/Piecemeal@main
       - name: UseHelpOut
         uses: StartAutomating/HelpOut@master
 on: 
