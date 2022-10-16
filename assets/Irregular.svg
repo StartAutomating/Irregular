@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 300 100" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="psChevron" viewBox="0 0 100 100" preserveAspectRatio="False">
+    <polygon points="40,20 45,20 60,50 35,80 32.5,80 55,50" />
+  </symbol>
+  <use href="#psChevron" fill="#4488ff" x="7.5%" y="0%" width="15%" />
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" fill="#4488ff" font-size="36">
+    <tspan rotate=".5" dy=".1em">?&lt;</tspan>
+    <tspan rotate="-1" dx="-.25em" dy="-.1em">Irregular</tspan>
+    <tspan rotate=".5" dx="-.25em" dy=".1em">&gt;</tspan>
+  </text>
+</svg>
