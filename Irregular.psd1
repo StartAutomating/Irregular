@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.7.4'
+    ModuleVersion = '0.7.5'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -14,10 +14,19 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.5:
+
+* Added Patterns for Liquid:
+  * ?<Liquid_Expression> (Fixes #153)
+  * ?<Liquid_Tag> (Fixes #154)
+
+---
+
 ## 0.7.4:
 * ANSI Improvements:
   * Regenerated ?<ANSI_Color> (Fixes #150)
   * Added ?<ANSI_Cursor> (Fixes #151)
+
 ---
 
 ## 0.7.3:
@@ -26,6 +35,7 @@
   * ?<ANSI_4BitColor> now supports bright ranges (Fixes #145)
   * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports background colors (Fixes #144)
   * ?<ANSI_8BitColor>/?<ANSI_24BitColor> now supports underline colors (Fixes #146)
+
 ---
 
 ## 0.7.2:
@@ -41,6 +51,7 @@
   * ?<ANSI_Underline> (Fixes #139)
   * ?<ANSI_Style> (Fixes #140)
   * ?<ANSI_Note>:  Fixing capture names (Fixes #130)
+
 ---
 
 ## 0.7.1:
@@ -49,7 +60,9 @@
 * Updated Patterns:
   * ?<FFMpeg_Progress>: Supporting duplicated / dropped frames (Fixes #128)
   * ?<Code_BuildVersion>: No longer matching if preceeded by punctuation (Fixes #126)
+
 ---
+
 ## 0.7.0:
 * New Patterns:
   * ANSI
@@ -63,12 +76,14 @@
     * ?<Mustache_Tag> (Fixes #121)
 * New-Regex -LiteralCharacter '_' no longer escapes (Fixes #122)
 * Reducing module size (excluding assets) (Fixes #118)
+
 ---
 
 ## 0.6.9:
 * Adding ?<Markdown_Link> (Fixes #117)
 * GitHub Action now prefers local bits (Fixes #111)
 * Using PipeScript to enhance the repository experience (Fixes #119)
+
 ---
 
 ## 0.6.8:
@@ -79,6 +94,7 @@
 * Automatically documenting module (Fixes #109)
 * Automatically building module formatting (Fixes #112)
 * Fixing Documentation (Fixes #115)
+
 ---
   
 ## 0.6.7:
@@ -91,18 +107,24 @@
   * Additional Tracing in GitHub Action.  Now ready for use.  (Fixing #93)
 * Additional Improvements:
   * [SavedPatterns.md](SavedPatterns.md) now automatically updates.
+
 ---
+
 ## 0.6.6:
 * New Regexes:
   * ?<C_Enum> (#98)
   * ?<C_Struct> (#99)
 * Fixing Issues with whitespace in ?<FFMpeg_Progress> (#97)
+
 ---
+
 ## 0.6.5
 * Renaming Regex: ?<IPV4Address> is now ?<Network_IPV4Address> (#90)
 * New Regex: ?<Network_MACAddress> (#89)
 * Use-Regex -Extract:  Now attempting [Timespan] before [DateTime] (#88)
+
 ---
+
 ## 0.6.4
 * Renaming Write-RegEx to New-RegEx (#66) ** Write-RegEx will remain aliased until at least 0.7**
 * Fixing Issue in Embedding (#82)
@@ -113,7 +135,9 @@
 * Adding ?<FFMpeg_Input> (#83)
 * Adding ?<FFMpeg_Output> (#83)
 * Adding ?<FFMpeg_Metadata> (#83)
+
 ---
+
 ## 0.6.3
 New Regular Expressions:
 * ?<CNC_GCode> (Fixes #76)
@@ -130,19 +154,25 @@ New Regular Expressions:
 * Subtitle Regexes (Fixes #72)
   * ?<Subtitle_SRT>
   * ?<Subtitle_VTT>
+
 ---
+
 ## 0.6.2
 New Regular Expressions:
 * ?<Unix_Cron_Interval> (Fixes #67)
 * ?<Unix_Duration> (Fixes #69)
+
 ---
+
 ## 0.6.1
 * New Command:  Remove-RegEx (Fixes #62)
 * Set-RegEx now supports -PassThru (Fixes #61)
 * Set-RegEx now allows modifiers (Fixes #60)
 * Use-RegEx now allows -Pattern to be directly provided, and supplies an ArgumentCompleter (Fixes #59)
 Hat Tips: @JayKul, @LaurentDardenne
+
 ---
+
 ## 0.6
 * JSON Regex Improvements
  * ?<JSON_Property> now can handle quotes
@@ -151,7 +181,9 @@ Hat Tips: @JayKul, @LaurentDardenne
  * ?<Markdown_CodeBlock>
  * ?<Markdown_ThematicBreak>
 * ?<REST_Variable> is now a generator.
+
 ---
+
 Additional Changes in [ChangeLog](CHANGELOG.md)
 '@
         }
