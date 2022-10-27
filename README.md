@@ -72,7 +72,7 @@ New-RegEx -StartAnchor StringStart -Pattern @(
 
 Irregular also contains a colorized PowerShell formatter for all Regular Expressions.
 This provides syntax highlighting that can make complicated expressions easier to read.
-![RegexSyntaxHighlighting](assets/images/RegexSyntaxHighlighting.gif)
+![RegexSyntaxHighlighting](/assets/images/RegexSyntaxHighlighting.gif)
 
 
 #### Building Regular Expressions
