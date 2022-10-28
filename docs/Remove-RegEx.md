@@ -1,4 +1,3 @@
-
 Remove-RegEx
 ------------
 ### Synopsis
@@ -71,5 +70,3 @@ If the command sets a ```[ConfirmImpact("Medium")]``` which is lower than ```$co
 Remove-RegEx [-Name] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ---
-
-
