@@ -14,21 +14,18 @@
 </a>
 </div>
 
-
-
-
 #### Understanding Regular Expressions
 
 Regular Expressions are powerful but feared.
 
-They are powerful because they can can be used to parse anything.
+They are powerful because they can be used to parse anything.
 
 They are feared because their syntax is so strange it obscures basic understanding.
 
-Once you understand some basics of that syntax, regular expressions become a lot less scary (although they still look strange)
+Once you understand some basics of that syntax, regular expressions become a lot less scary (although they still look strange).
 
-1. You can stack a RegEx!  (by placing them in capture groups () )
-2. You can extract from a RegEx!  ( by naming a capture group (?\<Digits\>\d+)).
+1. You can stack a RegEx! (by placing them in capture groups () )
+2. You can extract from a RegEx! ( by naming a capture group (?\<Digits\>\d+)).
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
@@ -40,7 +37,7 @@ To see the expressions that ship with Irregular, run:
 Get-RegEx
 ~~~
 
-You can use them in all sorts of interesting ways in PowerShell with the capture name:
+You can use the expressions in all sorts of interesting ways in PowerShell with the capture name:
 
 ~~~PowerShell
 ?<Digits>                    # Returns the Named Regular Expression Digits
@@ -55,7 +52,6 @@ You can use them in all sorts of interesting ways in PowerShell with the capture
 
 You can use these expressions to build more complicated parsing in less code.
 For instance, here's a Regular Expression that can match a simple calculator:
-
     
 ~~~PowerShell
 New-RegEx -StartAnchor StringStart -Pattern @(
@@ -69,22 +65,22 @@ New-RegEx -StartAnchor StringStart -Pattern @(
 ) -EndAnchor StringEnd
 ~~~
 
-
 Irregular also contains a colorized PowerShell formatter for all Regular Expressions.
-This provides syntax highlighting that can make complicated expressions easier to read.
-![RegexSyntaxHighlighting](assets/images/RegexSyntaxHighlighting.gif)
 
+Irregular's syntax highlighting makes complicated expressions easier to read.
+![RegexSyntaxHighlighting](assets/images/RegexSyntaxHighlighting.gif)
 
 #### Building Regular Expressions
 
 Irregular gives you a handy command to simplify writing regular expressions, New-RegEx.
 
-New-RegEx helps you build regular expressions without constantly resorting to a manual.
+New-RegEx helps you build regular expressions without constantly resorting to a manual:
 
 ~~~PowerShell
 New-RegEx -CharacterClass Digit -Repeat # This writes the Regex (\d+)
 ~~~
-You can pipe regular expression written this way into New-RegEx to compound expressions
+
+You can pipe regular expressions written this way into New-RegEx to compound expressions:
     
 ~~~PowerShell
 # This will produce a regular expression that matches a doubly-quoted string (allowing for escaped quotes)
@@ -135,7 +131,7 @@ To see all of the things you can do with any Regular Expression, run:
 Get-Help Use-Regex -Full
 ~~~
 
-Matches are also decorated with information about the input and position.  This allows you to pipe one match into another search:
+Matches are also decorated with information about the input and position. This allows you to pipe one match into another search:
 
 ~~~PowerShell
 "
@@ -150,8 +146,3 @@ string: 'hello'
         }
     }
 ~~~
-
-
-
-
-
