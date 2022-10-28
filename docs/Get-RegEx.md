@@ -1,4 +1,3 @@
-
 Get-RegEx
 ---------
 ### Synopsis
@@ -163,5 +162,3 @@ It prevents name conflicts with Irregular.
 Get-RegEx [[-Name] <String[]>] [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-As] <String>] [[-Noun] <String>] [<CommonParameters>]
 ```
 ---
-
-
