@@ -1,4 +1,3 @@
-
 Import-RegEx
 ------------
 ### Synopsis
@@ -139,5 +138,3 @@ If set, will output the imported regular expressions.
 Import-RegEx [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-Pattern] <String[]>] [[-Name] <String[]>] [-PassThru] [<CommonParameters>]
 ```
 ---
-
-
