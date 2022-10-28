@@ -1,4 +1,3 @@
-
 New-RegEx
 ---------
 ### Synopsis
@@ -1151,5 +1150,3 @@ A list of arguments.  These are only valid if the regex is using a Generator scr
 New-RegEx [[-Pattern] <String[]>] [-Name <String>] [-CharacterClass <String[]>] [-LiteralCharacter <String[]>] [-UnicodeCharacter <Int32[]>] [-ExcludeCharacterClass <String[]>] [-ExcludeLiteralCharacter <String[]>] [-ExcludeUnicodeCharacter <Int32[]>] [-DigitMax <UInt32>] [-Backreference <String>] [-NotAfter <String>] [-NotBefore <String>] [-After <String>] [-Before <String>] [-Repeat] [-Greedy] [-Lazy] [-Min <Int32>] [-Max <Int32>] [-If <String>] [-Then <String[]>] [-Else <String[]>] [-Until <String[]>] [-Comment <String>] [-Description <String>] [-Not] [-Or] [-StartAnchor <String>] [-EndAnchor <String>] [-Modifier <String[]>] [-Optional] [-Atomic] [-NoCapture] [-PrePattern <String[]>] [-TimeOut <TimeSpan>] [-Between <String[]>] [-EscapeSequence <String>] [-Denormalized] [-Parameter <IDictionary>] [-ArgumentList <PSObject[]>] [<CommonParameters>]
 ```
 ---
-
-
