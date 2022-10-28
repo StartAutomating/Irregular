@@ -1,4 +1,3 @@
-
 Export-RegEx
 ------------
 ### Synopsis
@@ -143,6 +142,3 @@ When exporting as a script, Use-RegEx is renamed to UseRegex.
 This enables embedding the core of Irregular and your Regular Expressions into a module while making it easy to avoid exporting Irregular.
 
 To use this within a module, make sure your module explicitly exports commands, or exports with a wildcard like '*-*'.
-
-
-
