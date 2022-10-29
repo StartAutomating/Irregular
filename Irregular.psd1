@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '0.7.5'
+    ModuleVersion = '0.7.6'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
@@ -14,6 +14,20 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.6:
+
+* New-RegEx improvements:
+  * Now supporting new character classes:  MarkSpacing, MarkEnclosing, MarkNonEnclosing (Fixes #168)
+
+* More CSharp Patterns:
+  * ?<CSharp_Class> (Fixes #164)
+  * ?<CSharp_Identifier> (Fixes #165)
+
+* Improved Patterns:
+  * ?<ANSI_4BitColor>/?<ANSI_Style>: Handling brightness bit before or after color (Fixes #166)
+
+---
+
 ## 0.7.5:
 
 * Added Patterns for Liquid:

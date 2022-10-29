@@ -1,4 +1,18 @@
-﻿## 0.7.5:
+﻿## 0.7.6:
+
+* New-RegEx improvements:
+  * Now supporting new character classes:  MarkSpacing, MarkEnclosing, MarkNonEnclosing (Fixes #168)
+
+* More CSharp Patterns:
+  * ?<CSharp_Class> (Fixes #164)
+  * ?<CSharp_Identifier> (Fixes #165)
+
+* Improved Patterns:
+  * ?<ANSI_4BitColor>/?<ANSI_Style>: Handling brightness bit before or after color (Fixes #166)
+
+---
+
+## 0.7.5:
 
 * Added Patterns for Liquid:
   * ?<Liquid_Expression> (Fixes #153)
