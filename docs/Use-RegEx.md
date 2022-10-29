@@ -26,7 +26,7 @@ Use-RegEx is normally called with an alias that is the name of a saved RegEx, fo
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
-"abc" | Use-RegEx -Pattern '.'
+Use-RegEx -Pattern '.' -Text "abc"
 ```
 
 #### EXAMPLE 2
