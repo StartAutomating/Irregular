@@ -10,9 +10,9 @@ Write-RegEx -Pattern 'diff' -StartAnchor LineStart  -Comment 'diff line start' |
     Write-Regex -CharacterClass Whitespace -Comment Whitespace |
     Write-RegEx -Name To -CharacterClass NonWhitespace -Repeat -Comment To |
     Write-RegEx -Name ExtendedHeader -Until (
-        Write-RegEx 'index' -StartAnchor LineStart
-    ) -Comment "Until 'index'" |
-    Write-RegEx 'index' -StartAnchor LineStart |
+        Write-RegEx -Pattern 'index\s{1}' -StartAnchor LineStart
+    ) -Comment "Until 'index'"  <#  |
+    Write-RegEx -Pattern 'index' |
     Write-RegEx -CharacterClass Whitespace -Comment 'Index Line Start' |
     Write-RegEx -Name FromHash -CharacterClass Word -Repeat -Comment FromHash |
     Write-RegEx -LiteralCharacter '.' -Min 2 -Max 2 -Comment DotDot |
@@ -29,6 +29,6 @@ Write-RegEx -Pattern 'diff' -StartAnchor LineStart  -Comment 'diff line start' |
     Write-RegEx -LiteralCharacter '+' -Min 3 -Max 3 |
     Write-RegEx -CharacterClass Whitespace -Comment PlusLineAndWhitespace |
     Write-RegEx -Name ToUnified -CharacterClass NonWhitespace -Repeat -Comment ToUnified |
-    Write-RegEx -CharacterClass Whitespace |
+    Write-RegEx -CharacterClass Whitespace #> |
     Set-Content -Path (Join-Path $myRoot $myName)
 

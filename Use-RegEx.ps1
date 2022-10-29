@@ -14,7 +14,7 @@
     .Link
         New-RegEx
     .Example
-        "abc" | Use-RegEx -Pattern '.'
+        Use-RegEx -Pattern '.' -Text "abc"
     .Example
         'true', 'false', 'neither' | ?<TrueOrFalse> # ?<TrueOrFalse> is a saved RegEx and alias to Use-RegEx
     .Example

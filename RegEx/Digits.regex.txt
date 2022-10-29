@@ -1,2 +1,2 @@
-﻿# Repeated Digits
+# Repeated Digits
 \d+
