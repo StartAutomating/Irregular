@@ -1,9 +1,9 @@
 This directory contains Regular Expressions related to Networks and Network protocols.
 
 
-|Name                                           |Description            |IsGenerator|
-|-----------------------------------------------|-----------------------|-----------|
-|[?<Network_IPv4Address>](IPv4Address.regex.txt)|Matches an IPv4 Address|False      |
-|[?<Network_MACAddress>](MACAddress.regex.txt)  |Matches a MAC address  |False      |
+|Name                                           |Description            |Source                                |
+|-----------------------------------------------|-----------------------|--------------------------------------|
+|[?<Network_IPv4Address>](IPv4Address.regex.txt)|Matches an IPv4 Address|[source](IPv4Address.regex.source.ps1)|
+|[?<Network_MACAddress>](MACAddress.regex.txt)  |Matches a MAC address  |[source](MACAddress.regex.source.ps1) |
 
 
