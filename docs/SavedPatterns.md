@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 133 regular expressions
+Irregular includes 134 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -37,6 +37,8 @@ Irregular includes 133 regular expressions
 |[Code_Region](/RegEx/Code/Region.regex.ps1)|Matches a #region #endregion pair. Returns the Name of the Region and the Content.|True|
 |[Code_SemanticVersion](/RegEx/Code/SemanticVersion.regex.txt)|Matches a Semantic Version.  See [https://semver.org/](https://semver.org/).|False|
 |[Colon](/RegEx/Colon.regex.txt)|Matches a literal colon|False|
+|[CSharp_Class](/RegEx/CSharp/Class.regex.txt)|Matches a CSharp class|False|
+|[CSharp_Identifier](/RegEx/CSharp/Identifier.regex.txt)|Matches a CSharp identifier|False|
 |[CSharp_Namespace](/RegEx/CSharp/Namespace.regex.txt)|Matches a CSharp namespace|False|
 |[CSharp_Using](/RegEx/CSharp/Using.regex.txt)|Matches a CSharp using keyword|False|
 |[Decimals](/RegEx/Decimals.regex.txt)|Matching any series of decimals is deceptively complicated|False|
@@ -107,7 +109,6 @@ Irregular includes 133 regular expressions
 |[PII_Unredacted_SSN](/RegEx/PII/Unredacted_SSN.regex.txt)|Matches Unredacted Social Security Numbers|False|
 |[PowerShell_Attribute](/RegEx/PowerShell/Attribute.regex.txt)|Matches a PowerShell attribute declaration|False|
 |[PowerShell_AttributeValue](/RegEx/PowerShell/AttributeValue.regex.txt)|This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)|False|
-|[PowerShell_Function](/RegEx/PowerShell/Function.regex.txt)|Matches PowerShell functions|False|
 |[PowerShell_HelpField](/RegEx/PowerShell/HelpField.regex.ps1)|Matches specific fields from inline help|True|
 |[PowerShell_Invoke_Variable](/RegEx/PowerShell/Invoke_Variable.regex.txt)|Matches any time a variable is invoked (with the . or & operator)|False|
 |[PowerShell_ParameterSet](/RegEx/PowerShell/ParameterSet.regex.txt)|Matches PowerShell ParameterSets (in [Parameter] and [CmdletBinding] attributes)|False|

@@ -1,4 +1,3 @@
-
 Use-RegEx
 ---------
 ### Synopsis
@@ -27,7 +26,7 @@ Use-RegEx is normally called with an alias that is the name of a saved RegEx, fo
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
-"abc" | Use-RegEx -Pattern '.'
+Use-RegEx -Pattern '.' -Text "abc"
 ```
 
 #### EXAMPLE 2
@@ -584,5 +583,3 @@ Use-RegEx [[-Match] <String[]>] [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt
 Use-RegEx [-Match] <String[]> [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt <Int32>] [-Remove] [-Replace <String>] [-Scan] [-ReplaceIf <IDictionary>] [-ReplaceEvaluator <ScriptBlock>] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName <String>] [-Transform <String>] [-Coerce <IDictionary>] [-Where <ScriptBlock>] [-If <IDictionary>] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout <TimeSpan>] [-CaseSensitive] [-Generator <ScriptBlock>] [-ExpressionParameter <IDictionary>] [-ExpressionArgumentList <PSObject[]>] [<CommonParameters>]
 ```
 ---
-
-

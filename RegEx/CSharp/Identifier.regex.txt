@@ -1,0 +1,4 @@
+# Matches a CSharp identifier
+[\p{L}_] # Must start with a letter or underscore
+# Followed by any number of letters, digitis, nonspacing marks, and connector punctation
+[\p{Pc}\p{L}\d\p{Mn}]{0,}

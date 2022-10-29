@@ -1,4 +1,4 @@
-This directory contains regular expressions to help parse C#.
+This directory contains regular expressions to help parse C# code.
 
 ~~~PipeScript{
     Import-Module ../../Irregular.psd1 -Global

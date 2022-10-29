@@ -1,0 +1,23 @@
+# Matches a CSharp class
+(?<AccessModifier>(?:(?-i) (?>
+  protected\s{1,}internal  |
+  protected  |
+  private\s{1,}protected  |
+  internal  |
+  private  |
+  public)?))                                                                                           # An Optional Access Modifier
+\s{1,}(?:(?-i)class\s{1,})                                                                             # Followed by 'class'
+(?<ClassName>[\p{L}_][\p{Pc}\p{L}\d\p{Mn}]{0,})                                                        # Followed by an identifier
+(?:\s{1,}(?<IsInheriting>\:)\s{1,})?                                                                   # Followed by an optional colon
+# If a colon was present, followed by a number of identifiers
+(?(IsInheriting)((?:(?:\s{0,} (?<Inherits>[\p{L}_][\p{Pc}\p{L}\d\p{Mn}]{0,})\s{0,}\,{0,})){1,}))\s{0,} # Followed by whitespace and balanced curly brackets
+(?<ClassBody>(?<BalancedCurlyBracket>
+\{                                                                                                     # An open {
+(?>                                                                                                    # Followed by...
+    [^\{\}]+|                                                                                          # any number of non-bracket character OR
+    \{(?<Depth>)|                                                                                      # an open curly bracket (in which case increment depth) OR
+    \}(?<-Depth>)                                                                                      # a closed curly bracket (in which case decrement depth)
+)*?(?(Depth)(?!))                                                                                      # until depth is 0.
+\}                                                                                                     # followed by a }
+)
+)

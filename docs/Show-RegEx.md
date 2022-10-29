@@ -1,4 +1,3 @@
-
 Show-RegEx
 ----------
 ### Synopsis
@@ -197,5 +196,3 @@ The match timeout.  By default, one second.
 Show-RegEx [-Pattern] <String> [[-Match] <String[]>] [-Remove] [-Replace <String>] [-Transform <String>] [[-Option] {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-CaseSensitive] [-Timeout <TimeSpan>] [<CommonParameters>]
 ```
 ---
-
-
