@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 132 regular expressions
+Irregular includes 133 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -37,6 +37,7 @@ Irregular includes 132 regular expressions
 |[Code_Region](/RegEx/Code/Region.regex.ps1)|Matches a #region #endregion pair. Returns the Name of the Region and the Content.|True|
 |[Code_SemanticVersion](/RegEx/Code/SemanticVersion.regex.txt)|Matches a Semantic Version.  See [https://semver.org/](https://semver.org/).|False|
 |[Colon](/RegEx/Colon.regex.txt)|Matches a literal colon|False|
+|[CSharp_Identifier](/RegEx/CSharp/Identifier.regex.txt)|Matches a CSharp identifier|False|
 |[CSharp_Namespace](/RegEx/CSharp/Namespace.regex.txt)|Matches a CSharp namespace|False|
 |[CSharp_Using](/RegEx/CSharp/Using.regex.txt)|Matches a CSharp using keyword|False|
 |[Decimals](/RegEx/Decimals.regex.txt)|Matching any series of decimals is deceptively complicated|False|
