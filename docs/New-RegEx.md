@@ -153,6 +153,12 @@ Valid Values:
 * \p{Me}
 * Mark
 * \p{M}
+* MarkSpacing
+* \p{Mc}
+* MarkNonSpacing
+* \p{Mn}
+* MarkEnclosing
+* \p{Me}
 * Number
 * \p{N}
 * NumberDecimalDigit
