@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 137 regular expressions
+Irregular includes 138 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -34,6 +34,7 @@ Irregular includes 137 regular expressions
 |[CamelCaseSpace](/RegEx/CamelCaseSpace.regex.txt)|Matches where a CamelCaseSpace would be|False|
 |[CNC_GCode](/RegEx/CNC/GCode.regex.txt)|Matches GCode Instructions|False|
 |[Code_BuildVersion](/RegEx/Code/BuildVersion.regex.txt)|Matches a build version|False|
+|[Code_Method](/RegEx/Code/Method.regex.txt)|Matches methods in most languages|False|
 |[Code_Namespace](/RegEx/Code/Namespace.regex.txt)|Finds a Namespace (captures the Name and the Content between {})|False|
 |[Code_PackageVersion](/RegEx/Code/PackageVersion.regex.txt)|Matches a Package Name with a Version.<br/>Includes captures for Name, Version, Major, Minor, Patch, Build, and Prerelease, and Extension|False|
 |[Code_Region](/RegEx/Code/Region.regex.ps1)|Matches a #region #endregion pair. Returns the Name of the Region and the Content.|True|
