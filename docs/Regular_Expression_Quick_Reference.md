@@ -5,7 +5,7 @@
 |.|any single character|
 |+|one or more of the preceeding pattern|
 |?|zero or more of the preceeding pattern|
-|\\ | escape sequence or [character class](#CharacterClasses) or backreference|
+|\\ | escape sequence or [character class](#characterclasses) or backreference|
 |[*anyofthese*]|Any of these characters|
 |[^ *notoneofthese* ]|matches any character that's isnt one of these characters|
 |[start-end]|(matches this range)|
