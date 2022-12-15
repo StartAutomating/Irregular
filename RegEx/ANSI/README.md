@@ -18,6 +18,7 @@ Note:  Using these regular expressions in the terminal may result in awkward out
 |[?<ANSI_Hide>](Hide.regex.txt)                  |Matches ANSI Hide (aka conceal) Start or End                 |[source](Hide.regex.source.ps1)         |
 |[?<ANSI_Invert>](Invert.regex.txt)              |Matches ANSI Invert Start or End                             |[source](Invert.regex.source.ps1)       |
 |[?<ANSI_Italic>](Italic.regex.txt)              |Matches ANSI Italic Start or End                             |[source](Italic.regex.source.ps1)       |
+|[?<ANSI_Link>](Link.regex.txt)                  |Matches ANSI Hyperlink                                       |[source](Link.regex.source.ps1)         |
 |[?<ANSI_Note>](Note.regex.txt)                  |Matches an ANSI VT520 Note                                   |[source](Note.regex.source.ps1)         |
 |[?<ANSI_Reset>](Reset.regex.txt)                |Matches an ANSI Reset (this clears formatting)               |[source](Reset.regex.source.ps1)        |
 |[?<ANSI_Strikethrough>](Strikethrough.regex.txt)|Matches ANSI Strikethrough (aka crossed out) Start or End    |[source](Strikethrough.regex.source.ps1)|

@@ -1,0 +1,33 @@
+﻿# Matches a Package Name with a Version.  
+# Includes captures for Name, Version, Major, Minor, Patch, Build, and Prerelease, and Extension
+^                            # Match the start
+(?<Name>                     # The (?<Name>) is...
+    .+?(?=\z|[\.\-\@]\d+)    # ...anything until a . followed by a digit (or end of string)
+)
+[\.\@]                       # Now we match a dot, at, or dash
+(?<Version>                  # The (?<Version>) is...     
+    (?<Major>\d+)[\.\-]      # A (?<Major>) version digit, followed by a dot
+    (?<Minor>\d+(?:[\.\-])?)?    # [Optional] a (?<Minor>) version digit, followed by a dot
+    (?<Patch>\d+(?:[\.\-])?)?    # [Optional], a (?<Patch>) version digit, followed by a dot
+    (?<Build>\d+(?:[\.\-])?)?    # [Optional], a (?<Build>) version digit, followed by a dot
+    (?(Build)                # [Optional], If a (?<Build>) was found
+        (?:(?=))             # capture nothing and move on
+        |                    # Else
+        \+(?<Build>[\w-]+)   # Match a + followed by a build identifier
+    )?
+    (?:                      # [Optional]
+    -                        # match a - 
+    (?<Prerelease>[\w-]+)       # followed by a (?<Prerelease>) identifier
+    )?                       
+    (?(Build)                # [Optional], If a (?<Build>) was found
+        (?:(?=))             # capture nothing and move on
+        |                    # otherwise
+        \+(?<Build>[\w-]+)   # Match a + followed by a build identifier
+    )?
+)
+(?:                          # [Optional]
+    \.                       # Match a final .
+    (?<Extension>            # The (?<Extension>) is
+        .+?$                 # anything until the end of the string
+    )
+)?

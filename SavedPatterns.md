@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 134 regular expressions
+Irregular includes 138 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -15,6 +15,7 @@ Irregular includes 134 regular expressions
 |[ANSI_Hide](/RegEx/ANSI/Hide.regex.txt)|Matches ANSI Hide (aka conceal) Start or End|False|
 |[ANSI_Invert](/RegEx/ANSI/Invert.regex.txt)|Matches ANSI Invert Start or End|False|
 |[ANSI_Italic](/RegEx/ANSI/Italic.regex.txt)|Matches ANSI Italic Start or End|False|
+|[ANSI_Link](/RegEx/ANSI/Link.regex.txt)|Matches ANSI Hyperlink|False|
 |[ANSI_Note](/RegEx/ANSI/Note.regex.txt)|Matches an ANSI VT520 Note|False|
 |[ANSI_Reset](/RegEx/ANSI/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
 |[ANSI_Strikethrough](/RegEx/ANSI/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
@@ -33,7 +34,9 @@ Irregular includes 134 regular expressions
 |[CamelCaseSpace](/RegEx/CamelCaseSpace.regex.txt)|Matches where a CamelCaseSpace would be|False|
 |[CNC_GCode](/RegEx/CNC/GCode.regex.txt)|Matches GCode Instructions|False|
 |[Code_BuildVersion](/RegEx/Code/BuildVersion.regex.txt)|Matches a build version|False|
+|[Code_Method](/RegEx/Code/Method.regex.txt)|Matches methods in most languages|False|
 |[Code_Namespace](/RegEx/Code/Namespace.regex.txt)|Finds a Namespace (captures the Name and the Content between {})|False|
+|[Code_PackageVersion](/RegEx/Code/PackageVersion.regex.txt)|Matches a Package Name with a Version.<br/>Includes captures for Name, Version, Major, Minor, Patch, Build, and Prerelease, and Extension|False|
 |[Code_Region](/RegEx/Code/Region.regex.ps1)|Matches a #region #endregion pair. Returns the Name of the Region and the Content.|True|
 |[Code_SemanticVersion](/RegEx/Code/SemanticVersion.regex.txt)|Matches a Semantic Version.  See [https://semver.org/](https://semver.org/).|False|
 |[Colon](/RegEx/Colon.regex.txt)|Matches a literal colon|False|
@@ -109,6 +112,7 @@ Irregular includes 134 regular expressions
 |[PII_Unredacted_SSN](/RegEx/PII/Unredacted_SSN.regex.txt)|Matches Unredacted Social Security Numbers|False|
 |[PowerShell_Attribute](/RegEx/PowerShell/Attribute.regex.txt)|Matches a PowerShell attribute declaration|False|
 |[PowerShell_AttributeValue](/RegEx/PowerShell/AttributeValue.regex.txt)|This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)|False|
+|[PowerShell_Function](/RegEx/PowerShell/Function.regex.txt)|Matches PowerShell functions|False|
 |[PowerShell_HelpField](/RegEx/PowerShell/HelpField.regex.ps1)|Matches specific fields from inline help|True|
 |[PowerShell_Invoke_Variable](/RegEx/PowerShell/Invoke_Variable.regex.txt)|Matches any time a variable is invoked (with the . or & operator)|False|
 |[PowerShell_ParameterSet](/RegEx/PowerShell/ParameterSet.regex.txt)|Matches PowerShell ParameterSets (in [Parameter] and [CmdletBinding] attributes)|False|

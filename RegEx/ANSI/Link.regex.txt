@@ -1,0 +1,14 @@
+# Matches ANSI Hyperlink
+\e                              # An Escape
+\]                              # Followed by a right bracket
+8[^;]{0,};;                     # Followed by 8 and two semicolons
+(?<Uri>(?:.|\s){0,}?(?=\z|\e))  # Followed by the uri
+\e                              # Followed by an escape
+\\                              # Followed by a slash
+(?<Text>(?:.|\s){0,}?(?=\z|\e)) # Followed by the link text
+\e                              # Followed by an escape
+\]                              # Followed by a right bracket
+8[^;]{0,};;                     # Followed by 8 and two semicolons
+\e                              # Followed by an Escape
+\\                              # Finally a closing slash
+

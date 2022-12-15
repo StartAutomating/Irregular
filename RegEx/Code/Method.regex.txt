@@ -1,0 +1,14 @@
+# Matches methods in most languages
+(?<=[\p{P}\s\t])      # Methods start after punctuation or whitespace
+(?<MethodName>[\w_]+) # Method names can be any word character or undererscore
+# A Generic Balancing Expression
+(?<MethodParameters>(?<GenericBalancingExpression>
+\p{Ps}                # The open punctuation
+(?>
+    [^\p{Ps}\p{Pe}]+| # Anything that is neither open or closed punctuation
+    \p{Ps}(?<Depth>)| # If it's open punctuation, increment depth
+    \p{Pe}(?<-Depth>) # If it's closed punctuation, decrement depth
+)*(?(Depth)(?!))      # Match until depth is empty
+\p{Pe}                # The closing punctuation
+)
+)

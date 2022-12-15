@@ -1,4 +1,14 @@
-﻿## 0.7.6:
+﻿## 0.7.7:
+
+New Patterns:
+
+* ?<Code_Method> : Matches methods in most languages  (Fixes #171)
+* ?<Code_PackageVersion> : Matches a package name and version (Fixes #172)
+* ?<ANSI_Link> : Matches an ANSI Hyperlink (Fixes #173)
+
+---
+
+## 0.7.6:
 
 * New-RegEx improvements:
   * Now supporting new character classes:  MarkSpacing, MarkEnclosing, MarkNonEnclosing (Fixes #168)
