@@ -1,12 +1,12 @@
 ﻿@{
-    ModuleVersion = '0.7.6'
+    ModuleVersion = '0.7.7'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
     TypesToProcess = 'Irregular.types.ps1xml'
     Guid = '39eb966d-7437-4e2c-abae-a496e933fb23'
     Author = 'James Brundage'
-    Copyright = '2019-2021 Start-Automating'
+    Copyright = '2019-2022 Start-Automating'
     PrivateData = @{
         PSData = @{
             Tags = 'RegularExpressions', 'RegEx', 'Irregular', 'PatternMatching', 'PipeScript'
@@ -14,6 +14,16 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.7:
+
+New Patterns:
+
+* ?<Code_Method> : Matches methods in most languages  (Fixes #171)
+* ?<Code_PackageVersion> : Matches a package name and version (Fixes #172)
+* ?<ANSI_Link> : Matches an ANSI Hyperlink (Fixes #173)
+
+---
+
 ## 0.7.6:
 
 * New-RegEx improvements:
