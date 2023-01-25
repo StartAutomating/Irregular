@@ -113,7 +113,7 @@ Get-Help New-RegEx -Full
 
 #### Using Regular Expressions
 
-PowerShell is already a very potent tool for dealing using Regular Expressions.
+PowerShell is already a very potent tool for using Regular Expressions.
 
 You can use the -match, -split, and -replace operators to do basic operations with Regular Expressions.
 
