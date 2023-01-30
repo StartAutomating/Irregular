@@ -38,13 +38,12 @@ The name of the regular expression.  If not provided, this can be inferred if th
 
 
 
-> **Type**: ```[String[]]```
 
-> **Required**: false
 
-> **Position**: 1
 
-> **PipelineInput**:true (ByPropertyName)
+|Type        |Required|Position|PipelineInput        |
+|------------|--------|--------|---------------------|
+|`[String[]]`|false   |1       |true (ByPropertyName)|
 
 
 
@@ -56,13 +55,12 @@ If this is not provided, it will export regular expressions to the user's Irregu
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: 2
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|false   |2       |true (ByPropertyName)|
 
 
 
@@ -89,13 +87,12 @@ Valid Values:
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: 3
 
-> **PipelineInput**:false
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[String]`|false   |3       |false        |
 
 
 
@@ -108,13 +105,12 @@ It prevents name conflicts with Irregular.
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: 4
 
-> **PipelineInput**:false
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[String]`|false   |4       |false        |
 
 
 
