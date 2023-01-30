@@ -32,7 +32,7 @@ Once you understand some basics of that syntax, regular expressions become a lot
 3. A Regex can have comments! ( # Like this in .NET  ( or like (?#this comment) in ECMAScript ) ).
 4. You don't have to do it all in one expression! 
 
-Irregular comes with 138 useful [named expressions](SavedPatterns.md), and lets you create more.
+Irregular comes with 137 useful [named expressions](SavedPatterns.md), and lets you create more.
 
 To see the expressions that ship with Irregular, run:
 
@@ -103,7 +103,7 @@ Get-Help New-RegEx -Full
 
 #### Using Regular Expressions
 
-PowerShell is already a very potent tool for dealing using Regular Expressions.
+PowerShell is already a very potent tool for using Regular Expressions.
 
 You can use the -match, -split, and -replace operators to do basic operations with Regular Expressions.
 
