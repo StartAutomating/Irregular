@@ -30,13 +30,12 @@ The regular expression.
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: true
 
-> **Position**: 1
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|true    |1       |true (ByPropertyName)|
 
 
 
@@ -47,13 +46,12 @@ The name of the regular expression.  If not provided, this can be inferred if th
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: 2
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|false   |2       |true (ByPropertyName)|
 
 
 
@@ -64,13 +62,12 @@ The description
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|false   |named   |true (ByPropertyName)|
 
 
 
@@ -81,13 +78,12 @@ The path to the file.  If this is not provided, it will save regular expressions
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|false   |named   |true (ByPropertyName)|
 
 
 
@@ -99,13 +95,12 @@ To use the alias immediately, call Set-RegEx with the . operator (e.g. . Set-Reg
 
 
 
-> **Type**: ```[Switch]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[Switch]`|false   |named   |true (ByPropertyName)|
 
 
 
@@ -118,13 +113,12 @@ By default, this is 5 seconds
 
 
 
-> **Type**: ```[TimeSpan]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:false
+|Type        |Required|Position|PipelineInput|
+|------------|--------|--------|-------------|
+|`[TimeSpan]`|false   |named   |false        |
 
 
 
@@ -137,13 +131,12 @@ Otherwise, will output the created files.
 
 
 
-> **Type**: ```[Switch]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:false
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[Switch]`|false   |named   |false        |
 
 
 
