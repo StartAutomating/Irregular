@@ -33,13 +33,12 @@ The regular expression.  If the pattern starts with a saved capture name, it wil
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: true
 
-> **Position**: 1
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|true    |1       |true (ByPropertyName)|
 
 
 
@@ -50,13 +49,12 @@ One or more strings to match.
 
 
 
-> **Type**: ```[String[]]```
 
-> **Required**: false
 
-> **Position**: 2
 
-> **PipelineInput**:true (ByPropertyName)
+|Type        |Required|Position|PipelineInput        |
+|------------|--------|--------|---------------------|
+|`[String[]]`|false   |2       |true (ByPropertyName)|
 
 
 
@@ -67,13 +65,12 @@ If set, will remove the regular expression matches from the text.
 
 
 
-> **Type**: ```[Switch]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[Switch]`|false   |named   |true (ByPropertyName)|
 
 
 
@@ -86,13 +83,12 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|false   |named   |true (ByPropertyName)|
 
 
 
@@ -105,13 +101,12 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
-> **Type**: ```[String]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[String]`|false   |named   |true (ByPropertyName)|
 
 
 
@@ -139,13 +134,12 @@ Valid Values:
 
 
 
-> **Type**: ```[RegexOptions]```
 
-> **Required**: false
 
-> **Position**: 4
 
-> **PipelineInput**:true (ByPropertyName)
+|Type            |Required|Position|PipelineInput        |
+|----------------|--------|--------|---------------------|
+|`[RegexOptions]`|false   |4       |true (ByPropertyName)|
 
 
 
@@ -156,13 +150,12 @@ Indicates that the cmdlet makes matches case-sensitive. By default, matches are 
 
 
 
-> **Type**: ```[Switch]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type      |Required|Position|PipelineInput        |
+|----------|--------|--------|---------------------|
+|`[Switch]`|false   |named   |true (ByPropertyName)|
 
 
 
@@ -173,13 +166,12 @@ The match timeout.  By default, one second.
 
 
 
-> **Type**: ```[TimeSpan]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:true (ByPropertyName)
+|Type        |Required|Position|PipelineInput        |
+|------------|--------|--------|---------------------|
+|`[TimeSpan]`|false   |named   |true (ByPropertyName)|
 
 
 
