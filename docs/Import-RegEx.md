@@ -44,13 +44,12 @@ Files should be named $Name.regex.txt or $Name.regex.ps1
 
 
 
-> **Type**: ```[String[]]```
 
-> **Required**: false
 
-> **Position**: 1
 
-> **PipelineInput**:true (ByPropertyName)
+|Type        |Required|Position|PipelineInput        |
+|------------|--------|--------|---------------------|
+|`[String[]]`|false   |1       |true (ByPropertyName)|
 
 
 
@@ -61,13 +60,12 @@ If provided, will get regular expressions from any number of already imported mo
 
 
 
-> **Type**: ```[String[]]```
 
-> **Required**: false
 
-> **Position**: 2
 
-> **PipelineInput**:false
+|Type        |Required|Position|PipelineInput|
+|------------|--------|--------|-------------|
+|`[String[]]`|false   |2       |false        |
 
 
 
@@ -78,13 +76,12 @@ One or more direct patterns to import
 
 
 
-> **Type**: ```[String[]]```
 
-> **Required**: false
 
-> **Position**: 3
 
-> **PipelineInput**:true (ByPropertyName)
+|Type        |Required|Position|PipelineInput        |
+|------------|--------|--------|---------------------|
+|`[String[]]`|false   |3       |true (ByPropertyName)|
 
 
 
@@ -95,13 +92,12 @@ The Name of the Regular Expression.
 
 
 
-> **Type**: ```[String[]]```
 
-> **Required**: false
 
-> **Position**: 4
 
-> **PipelineInput**:true (ByPropertyName)
+|Type        |Required|Position|PipelineInput        |
+|------------|--------|--------|---------------------|
+|`[String[]]`|false   |4       |true (ByPropertyName)|
 
 
 
@@ -112,13 +108,12 @@ If set, will output the imported regular expressions.
 
 
 
-> **Type**: ```[Switch]```
 
-> **Required**: false
 
-> **Position**: named
 
-> **PipelineInput**:false
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[Switch]`|false   |named   |false        |
 
 
 
