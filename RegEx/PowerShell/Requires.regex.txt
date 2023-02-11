@@ -11,6 +11,6 @@
                 # -RunAsAdministrator
 (?<RunAsAdministrator>-RunAsAdministrator)  |
                 # Other Requirement
-(?<OpenRequirement>.+$))
+(?<Requirement>.+$))
 # This does not match PSSnapin requirements, because no one has used PSSnapins for a decade.
 
