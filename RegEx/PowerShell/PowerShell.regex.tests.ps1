@@ -1,3 +1,4 @@
+#requires -Module Irregular
 describe 'PowerShell Regex' {
     it 'Can match a #requires -Module' {
         '#requires -module Irregular' |
