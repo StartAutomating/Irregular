@@ -1,14 +1,26 @@
 Show-RegEx
 ----------
+
+
+
+
 ### Synopsis
 Shows a Regular Expression and it's output.
 
+
+
 ---
+
+
 ### Description
 
 Displays Regular Expressions, with their match output.
 
+
+
 ---
+
+
 ### Related Links
 * [Get-Regex](Get-Regex.md)
 
@@ -18,14 +30,22 @@ Displays Regular Expressions, with their match output.
 
 
 
+
+
 ---
+
+
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
 -Match abc123def456
 ```
 
+
+
 ---
+
+
 ### Parameters
 #### **Pattern**
 
@@ -42,7 +62,6 @@ The regular expression.  If the pattern starts with a saved capture name, it wil
 
 
 
----
 #### **Match**
 
 One or more strings to match.
@@ -58,7 +77,6 @@ One or more strings to match.
 
 
 
----
 #### **Remove**
 
 If set, will remove the regular expression matches from the text.
@@ -74,7 +92,6 @@ If set, will remove the regular expression matches from the text.
 
 
 
----
 #### **Replace**
 
 If set, will replace the text with a replacement string.
@@ -92,7 +109,6 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
----
 #### **Transform**
 
 If provided, will transform each match with a replacement string.
@@ -110,7 +126,6 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
----
 #### **Option**
 
 The regular expression options, by default, MultiLine, IgnoreCase and IgnorePatternWhitespace
@@ -137,13 +152,12 @@ Valid Values:
 
 
 
-|Type            |Required|Position|PipelineInput        |
-|----------------|--------|--------|---------------------|
-|`[RegexOptions]`|false   |4       |true (ByPropertyName)|
+|Type            |Required|Position|PipelineInput        |Aliases|
+|----------------|--------|--------|---------------------|-------|
+|`[RegexOptions]`|false   |4       |true (ByPropertyName)|Options|
 
 
 
----
 #### **CaseSensitive**
 
 Indicates that the cmdlet makes matches case-sensitive. By default, matches are not case-sensitive.
@@ -159,7 +173,6 @@ Indicates that the cmdlet makes matches case-sensitive. By default, matches are 
 
 
 
----
 #### **Timeout**
 
 The match timeout.  By default, one second.
@@ -175,16 +188,23 @@ The match timeout.  By default, one second.
 
 
 
+
+
 ---
+
+
 ### Outputs
 * Irregular.RegEx.Output
 
 
 
 
+
+
 ---
+
+
 ### Syntax
 ```PowerShell
 Show-RegEx [-Pattern] <String> [[-Match] <String[]>] [-Remove] [-Replace <String>] [-Transform <String>] [[-Option] {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-CaseSensitive] [-Timeout <TimeSpan>] [<CommonParameters>]
 ```
----
