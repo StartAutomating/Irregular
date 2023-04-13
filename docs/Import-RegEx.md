@@ -1,14 +1,26 @@
 Import-RegEx
 ------------
+
+
+
+
 ### Synopsis
 Imports Regular Expressions
 
+
+
 ---
+
+
 ### Description
 
 Imports saved Regular Expressions.
 
+
+
 ---
+
+
 ### Related Links
 * [Use-RegEx](Use-RegEx.md)
 
@@ -18,7 +30,11 @@ Imports saved Regular Expressions.
 
 
 
+
+
 ---
+
+
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
@@ -35,7 +51,11 @@ Import-Regex -FromModule AnotherModule # Imports Regular Expressions stored in a
 Import-RegEx -Name NextWord
 ```
 
+
+
 ---
+
+
 ### Parameters
 #### **FilePath**
 
@@ -47,13 +67,12 @@ Files should be named $Name.regex.txt or $Name.regex.ps1
 
 
 
-|Type        |Required|Position|PipelineInput        |
-|------------|--------|--------|---------------------|
-|`[String[]]`|false   |1       |true (ByPropertyName)|
+|Type        |Required|Position|PipelineInput        |Aliases |
+|------------|--------|--------|---------------------|--------|
+|`[String[]]`|false   |1       |true (ByPropertyName)|Fullname|
 
 
 
----
 #### **FromModule**
 
 If provided, will get regular expressions from any number of already imported modules.
@@ -69,7 +88,6 @@ If provided, will get regular expressions from any number of already imported mo
 
 
 
----
 #### **Pattern**
 
 One or more direct patterns to import
@@ -85,7 +103,6 @@ One or more direct patterns to import
 
 
 
----
 #### **Name**
 
 The Name of the Regular Expression.
@@ -101,7 +118,6 @@ The Name of the Regular Expression.
 
 
 
----
 #### **PassThru**
 
 If set, will output the imported regular expressions.
@@ -117,7 +133,11 @@ If set, will output the imported regular expressions.
 
 
 
+
+
 ---
+
+
 ### Outputs
 * [Nullable](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable)
 
@@ -127,9 +147,12 @@ If set, will output the imported regular expressions.
 
 
 
+
+
 ---
+
+
 ### Syntax
 ```PowerShell
 Import-RegEx [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-Pattern] <String[]>] [[-Name] <String[]>] [-PassThru] [<CommonParameters>]
 ```
----
