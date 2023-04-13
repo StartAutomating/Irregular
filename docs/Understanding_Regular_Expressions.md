@@ -46,4 +46,3 @@ The match still passed, but if we go look at $matches, we can see that it matche
 
 
     "50.0%" -match "[0-9]+\.[0-9]+%"
-
