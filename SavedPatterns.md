@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 137 regular expressions
+Irregular includes 139 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -45,6 +45,7 @@ Irregular includes 137 regular expressions
 |[CSharp_Namespace](/RegEx/CSharp/Namespace.regex.txt)|Matches a CSharp namespace|False|
 |[CSharp_Using](/RegEx/CSharp/Using.regex.txt)|Matches a CSharp using keyword|False|
 |[Decimals](/RegEx/Decimals.regex.txt)|Matching any series of decimals is deceptively complicated|False|
+|[Degrees](/RegEx/Degrees.regex.txt)|Matching degrees|False|
 |[Digits](/RegEx/Digits.regex.txt)|Repeated Digits|False|
 |[DoubleQuotedString](/RegEx/DoubleQuotedString.regex.ps1)|Matches a double quoted string, with an optional escape sequence (defaulting to backtick or backslash).|True|
 |[EmailAddress](/RegEx/EmailAddress.regex.txt)|Matches an Email Address|False|
@@ -112,6 +113,7 @@ Irregular includes 137 regular expressions
 |[PII_Unredacted_SSN](/RegEx/PII/Unredacted_SSN.regex.txt)|Matches Unredacted Social Security Numbers|False|
 |[PowerShell_Attribute](/RegEx/PowerShell/Attribute.regex.txt)|Matches a PowerShell attribute declaration|False|
 |[PowerShell_AttributeValue](/RegEx/PowerShell/AttributeValue.regex.txt)|This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)|False|
+|[PowerShell_Function](/RegEx/PowerShell/Function.regex.txt)|Matches PowerShell functions|False|
 |[PowerShell_HelpField](/RegEx/PowerShell/HelpField.regex.ps1)|Matches specific fields from inline help|True|
 |[PowerShell_Invoke_Variable](/RegEx/PowerShell/Invoke_Variable.regex.txt)|Matches any time a variable is invoked (with the . or & operator)|False|
 |[PowerShell_ParameterSet](/RegEx/PowerShell/ParameterSet.regex.txt)|Matches PowerShell ParameterSets (in [Parameter] and [CmdletBinding] attributes)|False|
