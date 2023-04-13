@@ -54,4 +54,3 @@ You can create also create a new instance of a [Regex] class to save an expressi
 $whitespace = [Regex]::new('\s # whitespace', 'IgnoreCase,IgnorePatternWhitespace')
 
 $whitespace.Matches('the quick fox jumped over the lazy dog')
-
