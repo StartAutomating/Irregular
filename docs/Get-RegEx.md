@@ -1,14 +1,26 @@
 Get-RegEx
 ---------
+
+
+
+
 ### Synopsis
 Gets Regular Expressions
 
+
+
 ---
+
+
 ### Description
 
 Gets saved Regular Expressions.
 
+
+
 ---
+
+
 ### Related Links
 * [Use-RegEx](Use-RegEx.md)
 
@@ -18,7 +30,11 @@ Gets saved Regular Expressions.
 
 
 
+
+
 ---
+
+
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
@@ -44,7 +60,11 @@ Get-RegEx -Name NextWord
     }) -join [Environment]::NewLine
 ```
 
+
+
 ---
+
+
 ### Parameters
 #### **Name**
 
@@ -61,7 +81,6 @@ The Name of the Regular Expression.
 
 
 
----
 #### **FilePath**
 
 The path to one or more files or folders containing regular expressions.
@@ -72,13 +91,12 @@ Files should be named $Name.regex.txt
 
 
 
-|Type        |Required|Position|PipelineInput        |
-|------------|--------|--------|---------------------|
-|`[String[]]`|false   |2       |true (ByPropertyName)|
+|Type        |Required|Position|PipelineInput        |Aliases |
+|------------|--------|--------|---------------------|--------|
+|`[String[]]`|false   |2       |true (ByPropertyName)|Fullname|
 
 
 
----
 #### **FromModule**
 
 If provided, will get regular expressions from any number of already imported modules.
@@ -94,7 +112,6 @@ If provided, will get regular expressions from any number of already imported mo
 
 
 
----
 #### **As**
 
 How the expression will be returned.
@@ -126,7 +143,6 @@ Valid Values:
 
 
 
----
 #### **Noun**
 
 If provided, will rename -RegEx commands with the provided -Noun.
@@ -144,16 +160,23 @@ It prevents name conflicts with Irregular.
 
 
 
+
+
 ---
+
+
 ### Outputs
 * [Management.Automation.PSObject](https://learn.microsoft.com/en-us/dotnet/api/System.Management.Automation.PSObject)
 
 
 
 
+
+
 ---
+
+
 ### Syntax
 ```PowerShell
 Get-RegEx [[-Name] <String[]>] [[-FilePath] <String[]>] [[-FromModule] <String[]>] [[-As] <String>] [[-Noun] <String>] [<CommonParameters>]
 ```
----
