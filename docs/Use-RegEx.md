@@ -1,9 +1,17 @@
 Use-RegEx
 ---------
+
+
+
+
 ### Synopsis
 Uses a saved regular expression.
 
+
+
 ---
+
+
 ### Description
 
 Uses a saved regular expression, or an expression provided with -Parameter.
@@ -12,7 +20,11 @@ Use-RegEx is normally called with an alias that is the name of a saved RegEx, fo
 
 ?<Digits>
 
+
+
 ---
+
+
 ### Related Links
 * [Get-RegEx](Get-RegEx.md)
 
@@ -22,7 +34,11 @@ Use-RegEx is normally called with an alias that is the name of a saved RegEx, fo
 
 
 
+
+
 ---
+
+
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
@@ -44,7 +60,11 @@ do {
 } while ($m) # Looping over each match until non are found.  ?<TrueOrFalse> is an alias to Use-RegEx
 ```
 
+
+
 ---
+
+
 ### Parameters
 #### **Match**
 
@@ -55,13 +75,12 @@ One or more strings to match.
 
 
 
-|Type        |Required|Position|PipelineInput        |
-|------------|--------|--------|---------------------|
-|`[String[]]`|false   |1       |true (ByPropertyName)|
+|Type        |Required|Position|PipelineInput        |Aliases                                   |
+|------------|--------|--------|---------------------|------------------------------------------|
+|`[String[]]`|false   |1       |true (ByPropertyName)|InputObject<br/>Text<br/>Matches<br/>Value|
 
 
 
----
 #### **IsMatch**
 
 If set, will return a boolean indicating if the regular expression matched
@@ -77,7 +96,6 @@ If set, will return a boolean indicating if the regular expression matched
 
 
 
----
 #### **Measure**
 
 If set, will measure the number of matches.
@@ -93,7 +111,6 @@ If set, will measure the number of matches.
 
 
 
----
 #### **Count**
 
 The count of matches to return, or the number of matches split or replaced.
@@ -103,13 +120,12 @@ The count of matches to return, or the number of matches split or replaced.
 
 
 
-|Type     |Required|Position|PipelineInput|
-|---------|--------|--------|-------------|
-|`[Int32]`|false   |named   |false        |
+|Type     |Required|Position|PipelineInput|Aliases|
+|---------|--------|--------|-------------|-------|
+|`[Int32]`|false   |named   |false        |Number |
 
 
 
----
 #### **StartAt**
 
 The starting position of the match
@@ -119,13 +135,12 @@ The starting position of the match
 
 
 
-|Type     |Required|Position|PipelineInput        |
-|---------|--------|--------|---------------------|
-|`[Int32]`|false   |named   |true (ByPropertyName)|
+|Type     |Required|Position|PipelineInput        |Aliases   |
+|---------|--------|--------|---------------------|----------|
+|`[Int32]`|false   |named   |true (ByPropertyName)|StartingAt|
 
 
 
----
 #### **Remove**
 
 If set, will remove the regular expression matches from the text.
@@ -141,7 +156,6 @@ If set, will remove the regular expression matches from the text.
 
 
 
----
 #### **Replace**
 
 If set, will replace the text with a replacement string.
@@ -159,7 +173,6 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
----
 #### **Scan**
 
 
@@ -171,7 +184,6 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
----
 #### **ReplaceIf**
 
 If provided, will replace the match if any of the conditions exist.
@@ -187,7 +199,6 @@ If provided, will replace the match if any of the conditions exist.
 
 
 
----
 #### **ReplaceEvaluator**
 
 If provided, will each match will be passed to the Replacer ScriptBlock.
@@ -198,13 +209,12 @@ The values returned from this script block will replace the match.
 
 
 
-|Type           |Required|Position|PipelineInput|
-|---------------|--------|--------|-------------|
-|`[ScriptBlock]`|false   |named   |false        |
+|Type           |Required|Position|PipelineInput|Aliases               |
+|---------------|--------|--------|-------------|----------------------|
+|`[ScriptBlock]`|false   |named   |false        |Replacer<br/>Evaluator|
 
 
 
----
 #### **Split**
 
 If set, will split the input text according to the expression.
@@ -220,7 +230,6 @@ If set, will split the input text according to the expression.
 
 
 
----
 #### **Until**
 
 If set, will get the text until the expression.
@@ -236,7 +245,6 @@ If set, will get the text until the expression.
 
 
 
----
 #### **IncludeMatch**
 
 If -IncludeMatch and -Until are provided, will include the match with the result of -Until.
@@ -249,13 +257,12 @@ If neither -Split or -Until is provided, this parameter is ignored.
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[Switch]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases                       |
+|----------|--------|--------|-------------|------------------------------|
+|`[Switch]`|false   |named   |false        |IncludingMatch<br/>OutputMatch|
 
 
 
----
 #### **IncludeInputObject**
 
 If -IncludeInputObject is provided, will add any piped in input object to extracted output.
@@ -265,13 +272,12 @@ If -IncludeInputObject is provided, will add any piped in input object to extrac
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[Switch]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases                                   |
+|----------|--------|--------|-------------|------------------------------------------|
+|`[Switch]`|false   |named   |false        |IncludingInputObject<br/>OutputInputObject|
 
 
 
----
 #### **Trim**
 
 If set, will trim returned strings.
@@ -287,7 +293,6 @@ If set, will trim returned strings.
 
 
 
----
 #### **Extract**
 
 If set, will extract capture groups into a custom object.
@@ -303,7 +308,6 @@ If set, will extract capture groups into a custom object.
 
 
 
----
 #### **PSTypeName**
 
 If provided, will add typename information to the returned objects.
@@ -320,7 +324,6 @@ This implies -Extract.
 
 
 
----
 #### **Transform**
 
 If provided, will transform each match with a replacement string.
@@ -338,7 +341,6 @@ https://docs.microsoft.com/en-us/dotnet/standard/base-types/substitutions-in-reg
 
 
 
----
 #### **Coerce**
 
 If provided, will cast named capture groups to a given type.  This implies -Extract.
@@ -348,13 +350,12 @@ If provided, will cast named capture groups to a given type.  This implies -Extr
 
 
 
-|Type           |Required|Position|PipelineInput|
-|---------------|--------|--------|-------------|
-|`[IDictionary]`|false   |named   |false        |
+|Type           |Required|Position|PipelineInput|Aliases|
+|---------------|--------|--------|-------------|-------|
+|`[IDictionary]`|false   |named   |false        |Cast   |
 
 
 
----
 #### **Where**
 
 If provided, will filter the extracted data of a match.
@@ -370,7 +371,6 @@ If provided, will filter the extracted data of a match.
 
 
 
----
 #### **If**
 
 One or more conditions.  If the condition is true, the value will be returned.
@@ -388,7 +388,6 @@ If the value is a string, it will be treated as a Replacement string (like -Tran
 
 
 
----
 #### **Option**
 
 The regular expression options, by default, IgnoreCase and IgnorePatternWhitespace
@@ -413,13 +412,12 @@ Valid Values:
 
 
 
-|Type            |Required|Position|PipelineInput|
-|----------------|--------|--------|-------------|
-|`[RegexOptions]`|false   |named   |false        |
+|Type            |Required|Position|PipelineInput|Aliases|
+|----------------|--------|--------|-------------|-------|
+|`[RegexOptions]`|false   |named   |false        |Options|
 
 
 
----
 #### **RightToLeft**
 
 If set, will go from right to left, instead of left to right.
@@ -435,7 +433,6 @@ If set, will go from right to left, instead of left to right.
 
 
 
----
 #### **Timeout**
 
 The match timeout.  By default, five seconds.
@@ -451,7 +448,6 @@ The match timeout.  By default, five seconds.
 
 
 
----
 #### **CaseSensitive**
 
 Indicates that the cmdlet makes matches case-sensitive. By default, matches are not case-sensitive.
@@ -467,7 +463,6 @@ Indicates that the cmdlet makes matches case-sensitive. By default, matches are 
 
 
 
----
 #### **Pattern**
 
 A regular expression.
@@ -478,13 +473,12 @@ While we don't want to restrict the steps here, we _do_ want to be able to sugge
 
 
 
-|Type      |Required|Position|PipelineInput        |
-|----------|--------|--------|---------------------|
-|`[String]`|false   |named   |true (ByPropertyName)|
+|Type      |Required|Position|PipelineInput        |Aliases   |
+|----------|--------|--------|---------------------|----------|
+|`[String]`|false   |named   |true (ByPropertyName)|Expression|
 
 
 
----
 #### **Generator**
 
 A pattern generator.  This script will generate a regular expression
@@ -500,7 +494,6 @@ A pattern generator.  This script will generate a regular expression
 
 
 
----
 #### **ExpressionParameter**
 
 Named parameters for the regular expression.  These are only valid if the regex is a Generator.
@@ -510,13 +503,12 @@ Named parameters for the regular expression.  These are only valid if the regex 
 
 
 
-|Type           |Required|Position|PipelineInput|
-|---------------|--------|--------|-------------|
-|`[IDictionary]`|false   |named   |false        |
+|Type           |Required|Position|PipelineInput|Aliases             |
+|---------------|--------|--------|-------------|--------------------|
+|`[IDictionary]`|false   |named   |false        |ExpressionParameters|
 
 
 
----
 #### **ExpressionArgumentList**
 
 A list of arguments.  These are only valid if the regex is using a Generator script.
@@ -526,13 +518,17 @@ A list of arguments.  These are only valid if the regex is using a Generator scr
 
 
 
-|Type          |Required|Position|PipelineInput|
-|--------------|--------|--------|-------------|
-|`[PSObject[]]`|false   |named   |false        |
+|Type          |Required|Position|PipelineInput|Aliases                               |
+|--------------|--------|--------|-------------|--------------------------------------|
+|`[PSObject[]]`|false   |named   |false        |ExpressionArguments<br/>ExpressionArgs|
+
+
 
 
 
 ---
+
+
 ### Outputs
 * [Text.RegularExpressions.Match](https://learn.microsoft.com/en-us/dotnet/api/System.Text.RegularExpressions.Match)
 
@@ -545,7 +541,11 @@ A list of arguments.  These are only valid if the regex is using a Generator scr
 
 
 
+
+
 ---
+
+
 ### Syntax
 ```PowerShell
 Use-RegEx [[-Match] <String[]>] [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt <Int32>] [-Remove] [-Replace <String>] [-Scan] [-ReplaceIf <IDictionary>] [-ReplaceEvaluator <ScriptBlock>] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName <String>] [-Transform <String>] [-Coerce <IDictionary>] [-Where <ScriptBlock>] [-If <IDictionary>] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout <TimeSpan>] [-CaseSensitive] [-Pattern <String>] [-Generator <ScriptBlock>] [-ExpressionParameter <IDictionary>] [-ExpressionArgumentList <PSObject[]>] [<CommonParameters>]
@@ -553,4 +553,3 @@ Use-RegEx [[-Match] <String[]>] [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt
 ```PowerShell
 Use-RegEx [-Match] <String[]> [-IsMatch] [-Measure] [-Count <Int32>] [-StartAt <Int32>] [-Remove] [-Replace <String>] [-Scan] [-ReplaceIf <IDictionary>] [-ReplaceEvaluator <ScriptBlock>] [-Split] [-Until] [-IncludeMatch] [-IncludeInputObject] [-Trim] [-Extract] [-PSTypeName <String>] [-Transform <String>] [-Coerce <IDictionary>] [-Where <ScriptBlock>] [-If <IDictionary>] [-Option {None | IgnoreCase | Multiline | ExplicitCapture | Compiled | Singleline | IgnorePatternWhitespace | RightToLeft | ECMAScript | CultureInvariant}] [-RightToLeft] [-Timeout <TimeSpan>] [-CaseSensitive] [-Generator <ScriptBlock>] [-ExpressionParameter <IDictionary>] [-ExpressionArgumentList <PSObject[]>] [<CommonParameters>]
 ```
----
