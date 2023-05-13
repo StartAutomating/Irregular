@@ -1,20 +1,36 @@
 New-RegEx
 ---------
+
+
+
+
 ### Synopsis
 Creates a regular expression
 
+
+
 ---
+
+
 ### Description
 
 Helps to simplifify creating regular expressions
 
+
+
 ---
+
+
 ### Related Links
 * [Use-RegEx](Use-RegEx.md)
 
 
 
+
+
 ---
+
+
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
@@ -63,7 +79,11 @@ New-RegEx -Pattern \<\# |
     New-RegEx -Pattern \#\>
 ```
 
+
+
 ---
+
+
 ### Parameters
 #### **Pattern**
 
@@ -74,13 +94,12 @@ One or more regular expressions.
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |1       |false        |
+|Type        |Required|Position|PipelineInput|Aliases   |
+|------------|--------|--------|-------------|----------|
+|`[String[]]`|false   |1       |false        |Expression|
 
 
 
----
 #### **Name**
 
 If provided, will name the capture
@@ -90,13 +109,12 @@ If provided, will name the capture
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[String]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases    |
+|----------|--------|--------|-------------|-----------|
+|`[String]`|false   |named   |false        |CaptureName|
 
 
 
----
 #### **CharacterClass**
 
 One or more character classes.
@@ -271,13 +289,12 @@ Valid Values:
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |named   |false        |
+|Type        |Required|Position|PipelineInput|Aliases                |
+|------------|--------|--------|-------------|-----------------------|
+|`[String[]]`|false   |named   |false        |CC<br/>CharacterClasses|
 
 
 
----
 #### **LiteralCharacter**
 
 If provided, will match any number of specific literal characters.
@@ -287,13 +304,12 @@ If provided, will match any number of specific literal characters.
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |named   |false        |
+|Type        |Required|Position|PipelineInput|Aliases                 |
+|------------|--------|--------|-------------|------------------------|
+|`[String[]]`|false   |named   |false        |LC<br/>LiteralCharacters|
 
 
 
----
 #### **UnicodeCharacter**
 
 If provided, will match any number of unicode characters.
@@ -305,13 +321,12 @@ To make a RegEx explicitly case-sensitive, use New-RegEx -Modifier IgnoreCase -N
 
 
 
-|Type       |Required|Position|PipelineInput|
-|-----------|--------|--------|-------------|
-|`[Int32[]]`|false   |named   |false        |
+|Type       |Required|Position|PipelineInput|Aliases                 |
+|-----------|--------|--------|-------------|------------------------|
+|`[Int32[]]`|false   |named   |false        |UC<br/>UnicodeCharacters|
 
 
 
----
 #### **ExcludeCharacterClass**
 
 When provided with -CharacterClass, -LiteralCharacter, or -UnicodeCharacter, will subtract one set of characters from the other.
@@ -481,13 +496,12 @@ Valid Values:
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |named   |false        |
+|Type        |Required|Position|PipelineInput|Aliases                                                            |
+|------------|--------|--------|-------------|-------------------------------------------------------------------|
+|`[String[]]`|false   |named   |false        |XCC<br/>ExcludeCC<br/>ExcludeCharacterClasses<br/>NotCharacterClass|
 
 
 
----
 #### **ExcludeLiteralCharacter**
 
 When provided with -CharacterClass, -LiteralCharacter, or -UnicodeCharacter, will subtract one set of characters from the other.
@@ -498,13 +512,12 @@ Otherwise, will match any characters that are not one of the provided literal ch
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |named   |false        |
+|Type        |Required|Position|PipelineInput|Aliases                                                               |
+|------------|--------|--------|-------------|----------------------------------------------------------------------|
+|`[String[]]`|false   |named   |false        |XLC<br/>ExcludeLC<br/>ExcludeLiteralCharacters<br/>NotLiteralCharacter|
 
 
 
----
 #### **ExcludeUnicodeCharacter**
 
 When provided with -CharacterClass, -LiteralCharacter, or -UnicodeCharacter, will subtract one set of characters from the other.
@@ -517,13 +530,12 @@ To make a RegEx explicitly case-sensitive, use New-RegEx -Modifier IgnoreCase -N
 
 
 
-|Type       |Required|Position|PipelineInput|
-|-----------|--------|--------|-------------|
-|`[Int32[]]`|false   |named   |false        |
+|Type       |Required|Position|PipelineInput|Aliases                                                               |
+|-----------|--------|--------|-------------|----------------------------------------------------------------------|
+|`[Int32[]]`|false   |named   |false        |XUC<br/>ExcludeUC<br/>ExcludeUnicodeCharacters<br/>NotUnicodeCharacter|
 
 
 
----
 #### **DigitMax**
 
 If provided, will match digits up to a value.
@@ -539,7 +551,6 @@ If provided, will match digits up to a value.
 
 
 
----
 #### **Backreference**
 
 The name or number of a backreference (a reference to a previous capture)
@@ -555,7 +566,6 @@ The name or number of a backreference (a reference to a previous capture)
 
 
 
----
 #### **NotAfter**
 
 A negative lookbehind (?<!). This pattern that must not match after the current position..
@@ -565,13 +575,12 @@ A negative lookbehind (?<!). This pattern that must not match after the current 
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[String]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases           |
+|----------|--------|--------|-------------|------------------|
+|`[String]`|false   |named   |false        |NegativeLookBehind|
 
 
 
----
 #### **NotBefore**
 
 A negative lookahead (?!). This pattern must not match before the current position.
@@ -581,13 +590,12 @@ A negative lookahead (?!). This pattern must not match before the current positi
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[String]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases          |
+|----------|--------|--------|-------------|-----------------|
+|`[String]`|false   |named   |false        |NegativeLookAhead|
 
 
 
----
 #### **After**
 
 A positive lookbehind (?<=). This pattern that must match after the current position.
@@ -597,13 +605,12 @@ A positive lookbehind (?<=). This pattern that must match after the current posi
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[String]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases   |
+|----------|--------|--------|-------------|----------|
+|`[String]`|false   |named   |false        |LookBehind|
 
 
 
----
 #### **Before**
 
 A positive lookahead (?=). This pattern that must match before the current position.
@@ -613,13 +620,12 @@ A positive lookahead (?=). This pattern that must match before the current posit
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[String]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases  |
+|----------|--------|--------|-------------|---------|
+|`[String]`|false   |named   |false        |LookAhead|
 
 
 
----
 #### **Repeat**
 
 If set, will match repeated occurances of a character class or pattern
@@ -629,13 +635,12 @@ If set, will match repeated occurances of a character class or pattern
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[Switch]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases  |
+|----------|--------|--------|-------------|---------|
+|`[Switch]`|false   |named   |false        |Repeating|
 
 
 
----
 #### **Greedy**
 
 If set, repeated occurances will be matched greedily.
@@ -654,7 +659,6 @@ $matches will be abcabc
 
 
 
----
 #### **Lazy**
 
 If set, repeated occurances will be matched lazily.
@@ -673,7 +677,6 @@ $matches will be abc
 
 
 
----
 #### **Min**
 
 The minimum number of repetitions.
@@ -683,13 +686,12 @@ The minimum number of repetitions.
 
 
 
-|Type     |Required|Position|PipelineInput|
-|---------|--------|--------|-------------|
-|`[Int32]`|false   |named   |false        |
+|Type     |Required|Position|PipelineInput|Aliases|
+|---------|--------|--------|-------------|-------|
+|`[Int32]`|false   |named   |false        |AtLeast|
 
 
 
----
 #### **Max**
 
 The maximum number of repetitions.
@@ -699,13 +701,12 @@ The maximum number of repetitions.
 
 
 
-|Type     |Required|Position|PipelineInput|
-|---------|--------|--------|-------------|
-|`[Int32]`|false   |named   |false        |
+|Type     |Required|Position|PipelineInput|Aliases|
+|---------|--------|--------|-------------|-------|
+|`[Int32]`|false   |named   |false        |AtMost |
 
 
 
----
 #### **If**
 
 If provided, inserts a Regular Expression conditional.
@@ -715,13 +716,12 @@ If provided, inserts a Regular Expression conditional.
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[String]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases     |
+|----------|--------|--------|-------------|------------|
+|`[String]`|false   |named   |false        |IfExpression|
 
 
 
----
 #### **Then**
 
 If the pattern provided in -If is true, it will attempt to continue to match with the pattern provided in -Then
@@ -731,13 +731,12 @@ If the pattern provided in -If is true, it will attempt to continue to match wit
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |named   |false        |
+|Type        |Required|Position|PipelineInput|Aliases       |
+|------------|--------|--------|-------------|--------------|
+|`[String[]]`|false   |named   |false        |ThenExpression|
 
 
 
----
 #### **Else**
 
 If the pattern provided in -If if false, it will attempt to continue to match the with the pattern provided in -Else.
@@ -747,13 +746,12 @@ If the pattern provided in -If if false, it will attempt to continue to match th
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |named   |false        |
+|Type        |Required|Position|PipelineInput|Aliases       |
+|------------|--------|--------|-------------|--------------|
+|`[String[]]`|false   |named   |false        |ElseExpression|
 
 
 
----
 #### **Until**
 
 If provided, will match all content until any of these conditions or the end of the string are found.
@@ -769,7 +767,6 @@ If provided, will match all content until any of these conditions or the end of 
 
 
 
----
 #### **Comment**
 
 A comment (yes, they exist in Regular Expressions)
@@ -785,7 +782,6 @@ A comment (yes, they exist in Regular Expressions)
 
 
 
----
 #### **Description**
 
 A description.  This will be added to the top of the expression as a comment.
@@ -801,7 +797,6 @@ A description.  This will be added to the top of the expression as a comment.
 
 
 
----
 #### **Not**
 
 If set and -CharacterClass is provided, will match anything but the provided set of character classes.
@@ -820,7 +815,6 @@ If set and -Modifier is provided, will negate the modifier.
 
 
 
----
 #### **Or**
 
 If set, will match any of a number of character classes, or any number of patterns.
@@ -836,7 +830,6 @@ If set, will match any of a number of character classes, or any number of patter
 
 
 
----
 #### **StartAnchor**
 
 The start anchor.
@@ -871,7 +864,6 @@ Valid Values:
 
 
 
----
 #### **EndAnchor**
 
 The end anchor.
@@ -906,7 +898,6 @@ Valid Values:
 
 
 
----
 #### **Modifier**
 
 Regular expression modifiers.  These affect the way the expression is interpreted.
@@ -933,13 +924,12 @@ Valid Values:
 
 
 
-|Type        |Required|Position|PipelineInput|
-|------------|--------|--------|-------------|
-|`[String[]]`|false   |named   |false        |
+|Type        |Required|Position|PipelineInput|Aliases|
+|------------|--------|--------|-------------|-------|
+|`[String[]]`|false   |named   |false        |Mode   |
 
 
 
----
 #### **Optional**
 
 If set, will make the pattern optional
@@ -955,7 +945,6 @@ If set, will make the pattern optional
 
 
 
----
 #### **Atomic**
 
 If set, will make the pattern atomic.  This will allow one and only one match.
@@ -971,7 +960,6 @@ If set, will make the pattern atomic.  This will allow one and only one match.
 
 
 
----
 #### **NoCapture**
 
 # If set, will make the pattern non-capturing.  This will omit the group from the resulting match.
@@ -981,13 +969,12 @@ If set, will make the pattern atomic.  This will allow one and only one match.
 
 
 
-|Type      |Required|Position|PipelineInput|
-|----------|--------|--------|-------------|
-|`[Switch]`|false   |named   |false        |
+|Type      |Required|Position|PipelineInput|Aliases               |
+|----------|--------|--------|-------------|----------------------|
+|`[Switch]`|false   |named   |false        |NonCapturing<br/>NoCap|
 
 
 
----
 #### **PrePattern**
 
 A regular expression that occurs before the generated regular expression.
@@ -997,13 +984,12 @@ A regular expression that occurs before the generated regular expression.
 
 
 
-|Type        |Required|Position|PipelineInput |
-|------------|--------|--------|--------------|
-|`[String[]]`|false   |named   |true (ByValue)|
+|Type        |Required|Position|PipelineInput |Aliases      |
+|------------|--------|--------|--------------|-------------|
+|`[String[]]`|false   |named   |true (ByValue)|PreExpression|
 
 
 
----
 #### **TimeOut**
 
 The timeout of the regular expression.  By default, 5 seconds.
@@ -1019,7 +1005,6 @@ The timeout of the regular expression.  By default, 5 seconds.
 
 
 
----
 #### **Between**
 
 If provided, will match between a given string or pair of strings.
@@ -1035,7 +1020,6 @@ If provided, will match between a given string or pair of strings.
 
 
 
----
 #### **EscapeSequence**
 
 The escape sequence used with -Between.  By default, a slash.
@@ -1051,7 +1035,6 @@ The escape sequence used with -Between.  By default, a slash.
 
 
 
----
 #### **Denormalized**
 
 If set, comments in the regular expression will not be normalized.
@@ -1068,7 +1051,6 @@ By default, all comments that do not start on the beginning are normalized to st
 
 
 
----
 #### **Parameter**
 
 Named parameters.  These are only valid if the regex is using a Generator script.
@@ -1078,13 +1060,12 @@ Named parameters.  These are only valid if the regex is using a Generator script
 
 
 
-|Type           |Required|Position|PipelineInput|
-|---------------|--------|--------|-------------|
-|`[IDictionary]`|false   |named   |false        |
+|Type           |Required|Position|PipelineInput|Aliases   |
+|---------------|--------|--------|-------------|----------|
+|`[IDictionary]`|false   |named   |false        |Parameters|
 
 
 
----
 #### **ArgumentList**
 
 A list of arguments.  These are only valid if the regex is using a Generator script.
@@ -1094,13 +1075,17 @@ A list of arguments.  These are only valid if the regex is using a Generator scr
 
 
 
-|Type          |Required|Position|PipelineInput|
-|--------------|--------|--------|-------------|
-|`[PSObject[]]`|false   |named   |false        |
+|Type          |Required|Position|PipelineInput|Aliases           |
+|--------------|--------|--------|-------------|------------------|
+|`[PSObject[]]`|false   |named   |false        |Arguments<br/>Args|
+
+
 
 
 
 ---
+
+
 ### Outputs
 * [Text.RegularExpressions.Regex](https://learn.microsoft.com/en-us/dotnet/api/System.Text.RegularExpressions.Regex)
 
@@ -1110,9 +1095,12 @@ A list of arguments.  These are only valid if the regex is using a Generator scr
 
 
 
+
+
 ---
+
+
 ### Syntax
 ```PowerShell
 New-RegEx [[-Pattern] <String[]>] [-Name <String>] [-CharacterClass <String[]>] [-LiteralCharacter <String[]>] [-UnicodeCharacter <Int32[]>] [-ExcludeCharacterClass <String[]>] [-ExcludeLiteralCharacter <String[]>] [-ExcludeUnicodeCharacter <Int32[]>] [-DigitMax <UInt32>] [-Backreference <String>] [-NotAfter <String>] [-NotBefore <String>] [-After <String>] [-Before <String>] [-Repeat] [-Greedy] [-Lazy] [-Min <Int32>] [-Max <Int32>] [-If <String>] [-Then <String[]>] [-Else <String[]>] [-Until <String[]>] [-Comment <String>] [-Description <String>] [-Not] [-Or] [-StartAnchor <String>] [-EndAnchor <String>] [-Modifier <String[]>] [-Optional] [-Atomic] [-NoCapture] [-PrePattern <String[]>] [-TimeOut <TimeSpan>] [-Between <String[]>] [-EscapeSequence <String>] [-Denormalized] [-Parameter <IDictionary>] [-ArgumentList <PSObject[]>] [<CommonParameters>]
 ```
----
