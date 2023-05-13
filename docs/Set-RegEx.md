@@ -1,20 +1,36 @@
 Set-RegEx
 ---------
+
+
+
+
 ### Synopsis
 Sets a Regular Expression
 
+
+
 ---
+
+
 ### Description
 
 Sets Regular Expressions to a .regex.txt file
 
+
+
 ---
+
+
 ### Related Links
 * [Use-RegEx](Use-RegEx.md)
 
 
 
+
+
 ---
+
+
 ### Examples
 #### EXAMPLE 1
 ```PowerShell
@@ -22,7 +38,11 @@ New-RegEx -Name Digits -CharacterClass Digit -Repeat |
     Set-RegEx
 ```
 
+
+
 ---
+
+
 ### Parameters
 #### **Pattern**
 
@@ -39,7 +59,6 @@ The regular expression.
 
 
 
----
 #### **Name**
 
 The name of the regular expression.  If not provided, this can be inferred if the pattern starts with a capture
@@ -55,7 +74,6 @@ The name of the regular expression.  If not provided, this can be inferred if th
 
 
 
----
 #### **Description**
 
 The description
@@ -71,7 +89,6 @@ The description
 
 
 
----
 #### **Path**
 
 The path to the file.  If this is not provided, it will save regular expressions to the user's Irregular module path.
@@ -87,7 +104,6 @@ The path to the file.  If this is not provided, it will save regular expressions
 
 
 
----
 #### **Temporary**
 
 If set, will not save the regular expression to disk.  Instead, it will alter the in-memory RegEx library.
@@ -104,7 +120,6 @@ To use the alias immediately, call Set-RegEx with the . operator (e.g. . Set-Reg
 
 
 
----
 #### **TimeOut**
 
 The timeout for the regular expression.
@@ -122,7 +137,6 @@ By default, this is 5 seconds
 
 
 
----
 #### **PassThru**
 
 If set, will output created files or commands.
@@ -140,29 +154,35 @@ Otherwise, will output the created files.
 
 
 
----
 #### **WhatIf**
 -WhatIf is an automatic variable that is created when a command has ```[CmdletBinding(SupportsShouldProcess)]```.
 -WhatIf is used to see what would happen, or return operations without executing them
 #### **Confirm**
 -Confirm is an automatic variable that is created when a command has ```[CmdletBinding(SupportsShouldProcess)]```.
 -Confirm is used to -Confirm each operation.
-    
+
 If you pass ```-Confirm:$false``` you will not be prompted.
-    
-    
+
+
 If the command sets a ```[ConfirmImpact("Medium")]``` which is lower than ```$confirmImpactPreference```, you will not be prompted unless -Confirm is passed.
 
+
+
 ---
+
+
 ### Outputs
 * [Nullable](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable)
 
 
 
 
+
+
 ---
+
+
 ### Syntax
 ```PowerShell
 Set-RegEx [-Pattern] <String> [[-Name] <String>] [-Description <String>] [-Path <String>] [-Temporary] [-TimeOut <TimeSpan>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
----
