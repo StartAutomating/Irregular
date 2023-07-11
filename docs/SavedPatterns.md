@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 139 regular expressions
+Irregular includes 140 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -141,3 +141,4 @@ Irregular includes 139 regular expressions
 |[Unix_Mount](/RegEx/Unix/Mount.regex.txt)|Matches a Unix Mount|False|
 |[Unix_User](/RegEx/Unix/User.regex.txt)|Matches a User (described in /etc/passwd)|False|
 |[YAML_Key](/RegEx/YAML/Key.regex.ps1)|Matches a YAML key.  The -Key can be customized.|True|
+|[YAML_Value](/RegEx/YAML/Value.regex.ps1)|Matches a YAML key.  The -Key can be customized.|True|
