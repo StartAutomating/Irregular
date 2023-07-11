@@ -1,0 +1,12 @@
+# Matches Output from git commit
+(?m)\[                                        # Initial Bracket
+(?<Branch>\S+)                                # Followed by the branch
+\s                                            # then whitespace
+(?<CommitHash>[^\]]+)                         # and then the commit hash
+(?:.|\s){0,}?(?=\z|^\s\d)                     # Match until a line that starts with a digit
+^\s(?<FilesChanged>\d+)                       # That digit is the number of files changed
+(?:.|\s){0,}?(?=\z|\d+(?:.|\s){0,}?(?=\z|\+)) # Match until a digit, then until +
+(?<Insertions>\d+)                            # That digit is the number of insertions
+(?:.|\s){0,}?(?=\z|\d+(?:.|\s){0,}?(?=\z|-))  # Match until a digit, then until -
+(?<Deletions>\d+)                             # That digit is the number of deletions
+
