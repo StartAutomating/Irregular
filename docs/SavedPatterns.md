@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 140 regular expressions
+Irregular includes 141 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
@@ -57,6 +57,7 @@ Irregular includes 140 regular expressions
 |[FFmpeg_Stream](/RegEx/FFmpeg/Stream.regex.txt)|Matches FFMpeg streams|False|
 |[GenericBalancingExpression](/RegEx/GenericBalancingExpression.regex.txt)|This expression matches content that is within "balanced" punctuation.<br/>It does not validate that each type of open/close punctuation is valid.<br/>Just that it any open punctuation is matched by closed punctuation.|False|
 |[GetMarkupTag](/RegEx/GetMarkupTag.regex.ps1)|Gets one or more specific markup tags.  By default, anchor tags.|True|
+|[Git_Commit](/RegEx/Git/Commit.regex.txt)|Matches Output from git commit|False|
 |[Git_Diff](/RegEx/Git/Diff.regex.txt)|Matches Output from git diff|False|
 |[Git_DiffHeader](/RegEx/Git/DiffHeader.regex.txt)|Matches Header information from the output of git diff|False|
 |[Git_DiffRange](/RegEx/Git/DiffRange.regex.txt)|Matches a diff range|False|
