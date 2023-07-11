@@ -1,13 +1,13 @@
 # Matches an ANSI style (color or text option)
 (?>
-  (?<ANSI_Reset>
+  (?<Console_Reset>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?<Reset>0m)                                                                           # 0m indicates reset
 
 )
   |
-  (?<ANSI_Bold>
+  (?<Console_Bold>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -15,7 +15,7 @@
   (?<BoldEnd>22m))
 )
   |
-  (?<ANSI_Blink>
+  (?<Console_Blink>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -28,7 +28,7 @@
 )
 )
   |
-  (?<ANSI_Faint>
+  (?<Console_Faint>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -38,7 +38,7 @@
 )
 )
   |
-  (?<ANSI_Italic>
+  (?<Console_Italic>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -48,7 +48,7 @@
 )
 )
   |
-  (?<ANSI_Invert>
+  (?<Console_Invert>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -58,7 +58,7 @@
 )
 )
   |
-  (?<ANSI_Hide>
+  (?<Console_Hide>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -68,7 +68,7 @@
 )
 )
   |
-  (?<ANSI_Strikethrough>
+  (?<Console_Strikethrough>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -78,7 +78,7 @@
 )
 )
   |
-  (?<ANSI_Underline>
+  (?<Console_Underline>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -90,7 +90,7 @@
 )
 )
   |
-  (?<ANSI_24BitColor>
+  (?<Console_24BitColor>
 (?-i)\e                                                                                # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -102,7 +102,7 @@
 m)
 )
   |
-  (?<ANSI_8BitColor>
+  (?<Console_8BitColor>
 (?-i)\e                                                                                # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -119,7 +119,7 @@ m  |
 m))
 )
   |
-  (?<ANSI_4BitColor>
+  (?<Console_4BitColor>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?<Color>(?>
@@ -137,7 +137,7 @@ m))
 m)
 )
   |
-  (?<ANSI_DefaultColor>
+  (?<Console_DefaultColor>
 (?-i)\e                                                                                # An Escape
 \[                                                                                     # Followed by a bracket
 (?<Color>(?>

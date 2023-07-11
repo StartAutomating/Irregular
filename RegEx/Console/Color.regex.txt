@@ -1,6 +1,6 @@
 # Matches an ANSI color
 (?>
-  (?<ANSI_24BitColor>
+  (?<Console_24BitColor>
 (?-i)\e                                                                                # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -12,7 +12,7 @@
 m)
 )
   |
-  (?<ANSI_8BitColor>
+  (?<Console_8BitColor>
 (?-i)\e                                                                                # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
@@ -29,17 +29,25 @@ m  |
 m))
 )
   |
-  (?<ANSI_4BitColor>
+  (?<Console_4BitColor>
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?<Color>(?>
-  (?<IsBright>1)?\;{0,1}(?<IsForegroundColor>3)  |
-  (?<IsBright>(?<IsForegroundColor>9))  |
-  (?<IsBright>1)?\;{0,1}(?<IsBackgroundColor>4)  |
-  (?<IsBright>(?<IsBackgroundColor>10)))(?<ColorNumber>[0-7])m)
+  (?<IsBright>1)?\;{0,1}                                                               # A 1 and a semicolon indicate a bright color
+(?<IsForegroundColor>3)                                                                # A number that starts with 3 indicates foreground color
+  |
+  (?<IsBright>(?<IsForegroundColor>9))                                                 # OR it could be a less common bright foreground color, which starts with 9
+  |
+  (?<IsBright>1)?\;{0,1}                                                               # A 1 and a semicolon indicate a bright color
+(?<IsBackgroundColor>4)                                                                # A number that starts with 3 indicates foreground color
+  |
+  (?<IsBright>(?<IsBackgroundColor>10))                                                # OR it could be a less common bright foreground color, which starts with 9
+)(?<ColorNumber>[0-7])                                                                 # The color number will be between 0 and 7
+(?:\;{0,1}(?<IsBright>1)?)?                                                            # Brightness can also come after a color
+m)
 )
   |
-  (?<ANSI_DefaultColor>
+  (?<Console_DefaultColor>
 (?-i)\e                                                                                # An Escape
 \[                                                                                     # Followed by a bracket
 (?<Color>(?>
