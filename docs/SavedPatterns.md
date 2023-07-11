@@ -2,25 +2,6 @@
 Irregular includes 141 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
-|[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
-|[ANSI_4BitColor](/RegEx/ANSI/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
-|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8-bit color|False|
-|[ANSI_Blink](/RegEx/ANSI/Blink.regex.txt)|Matches ANSI Blink Start or End|False|
-|[ANSI_Bold](/RegEx/ANSI/Bold.regex.txt)|Matches an ANSI Bold Start or End|False|
-|[ANSI_Code](/RegEx/ANSI/Code.regex.txt)|Matches an ANSI escape code|False|
-|[ANSI_Color](/RegEx/ANSI/Color.regex.txt)|Matches an ANSI color|False|
-|[ANSI_Cursor](/RegEx/ANSI/Cursor.regex.txt)|Matches an ANSI cursor control|False|
-|[ANSI_DefaultColor](/RegEx/ANSI/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
-|[ANSI_Faint](/RegEx/ANSI/Faint.regex.txt)|Matches an ANSI Faint (aka dim) Start or End|False|
-|[ANSI_Hide](/RegEx/ANSI/Hide.regex.txt)|Matches ANSI Hide (aka conceal) Start or End|False|
-|[ANSI_Invert](/RegEx/ANSI/Invert.regex.txt)|Matches ANSI Invert Start or End|False|
-|[ANSI_Italic](/RegEx/ANSI/Italic.regex.txt)|Matches ANSI Italic Start or End|False|
-|[ANSI_Link](/RegEx/ANSI/Link.regex.txt)|Matches ANSI Hyperlink|False|
-|[ANSI_Note](/RegEx/ANSI/Note.regex.txt)|Matches an ANSI VT520 Note|False|
-|[ANSI_Reset](/RegEx/ANSI/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
-|[ANSI_Strikethrough](/RegEx/ANSI/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
-|[ANSI_Style](/RegEx/ANSI/Style.regex.txt)|Matches an ANSI style (color or text option)|False|
-|[ANSI_Underline](/RegEx/ANSI/Underline.regex.txt)|Matches ANSI Underline/DoubleUnderline Start or Underline End|False|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
 |[BalancedBrackets](/RegEx/BalancedBrackets.regex.txt)|Matches content in brackets, as long as it is balanced|False|
 |[BalancedCode](/RegEx/BalancedCode.regex.ps1)|Matches code balanced by a [, {, or (|True|
@@ -40,6 +21,25 @@ Irregular includes 141 regular expressions
 |[Code_Region](/RegEx/Code/Region.regex.ps1)|Matches a #region #endregion pair. Returns the Name of the Region and the Content.|True|
 |[Code_SemanticVersion](/RegEx/Code/SemanticVersion.regex.txt)|Matches a Semantic Version.  See [https://semver.org/](https://semver.org/).|False|
 |[Colon](/RegEx/Colon.regex.txt)|Matches a literal colon|False|
+|[Console_24BitColor](/RegEx/Console/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[Console_4BitColor](/RegEx/Console/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
+|[Console_8BitColor](/RegEx/Console/8BitColor.regex.txt)|Matches an ANSI 8-bit color|False|
+|[Console_Blink](/RegEx/Console/Blink.regex.txt)|Matches ANSI Blink Start or End|False|
+|[Console_Bold](/RegEx/Console/Bold.regex.txt)|Matches an ANSI Bold Start or End|False|
+|[Console_Code](/RegEx/Console/Code.regex.txt)|Matches an ANSI escape code|False|
+|[Console_Color](/RegEx/Console/Color.regex.txt)|Matches an ANSI color|False|
+|[Console_Cursor](/RegEx/Console/Cursor.regex.txt)|Matches an ANSI cursor control|False|
+|[Console_DefaultColor](/RegEx/Console/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[Console_Faint](/RegEx/Console/Faint.regex.txt)|Matches an ANSI Faint (aka dim) Start or End|False|
+|[Console_Hide](/RegEx/Console/Hide.regex.txt)|Matches ANSI Hide (aka conceal) Start or End|False|
+|[Console_Invert](/RegEx/Console/Invert.regex.txt)|Matches ANSI Invert Start or End|False|
+|[Console_Italic](/RegEx/Console/Italic.regex.txt)|Matches ANSI Italic Start or End|False|
+|[Console_Link](/RegEx/Console/Link.regex.txt)|Matches ANSI Hyperlink|False|
+|[Console_Note](/RegEx/Console/Note.regex.txt)|Matches an ANSI VT520 Note|False|
+|[Console_Reset](/RegEx/Console/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
+|[Console_Strikethrough](/RegEx/Console/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
+|[Console_Style](/RegEx/Console/Style.regex.txt)|Matches an ANSI style (color or text option)|False|
+|[Console_Underline](/RegEx/Console/Underline.regex.txt)|Matches ANSI Underline/DoubleUnderline Start or Underline End|False|
 |[CSharp_Class](/RegEx/CSharp/Class.regex.txt)|Matches a CSharp class|False|
 |[CSharp_Identifier](/RegEx/CSharp/Identifier.regex.txt)|Matches a CSharp identifier|False|
 |[CSharp_Namespace](/RegEx/CSharp/Namespace.regex.txt)|Matches a CSharp namespace|False|
