@@ -1,4 +1,4 @@
-﻿This directory contains regular expressions for advanced console features [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code).
+﻿This directory contains regular expressions for advanced console features, such as [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code).
 
 Note:  Using these regular expressions in the terminal may result in awkward output.  (the .Match will contain an escape sequence, which will make the next output attempt to use this escape sequence)
 
