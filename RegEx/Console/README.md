@@ -11,6 +11,7 @@ Note:  Using these regular expressions in the terminal may result in awkward out
 |[?<Console_Blink>](Blink.regex.txt)                |Matches ANSI Blink Start or End                              |[source](Blink.regex.source.ps1)        |
 |[?<Console_Bold>](Bold.regex.txt)                  |Matches an ANSI Bold (aka bright) Start or End               |[source](Bold.regex.source.ps1)         |
 |[?<Console_Code>](Code.regex.txt)                  |Matches an ANSI escape code                                  |[source](Code.regex.source.ps1)         |
+|[?<Console_Color>](Color.regex.txt)                |Matches an ANSI color                                        |[source](Color.regex.source.ps1)        |
 |[?<Console_Cursor>](Cursor.regex.txt)              |Matches an ANSI cursor control                               |[source](Cursor.regex.source.ps1)       |
 |[?<Console_DefaultColor>](DefaultColor.regex.txt)  |Matches an ANSI default color                                |[source](DefaultColor.regex.source.ps1) |
 |[?<Console_Faint>](Faint.regex.txt)                |Matches an ANSI Faint (aka dim) Start or End                 |[source](Faint.regex.source.ps1)        |
@@ -21,6 +22,7 @@ Note:  Using these regular expressions in the terminal may result in awkward out
 |[?<Console_Note>](Note.regex.txt)                  |Matches an ANSI VT520 Note                                   |[source](Note.regex.source.ps1)         |
 |[?<Console_Reset>](Reset.regex.txt)                |Matches an ANSI Reset (this clears formatting)               |[source](Reset.regex.source.ps1)        |
 |[?<Console_Strikethrough>](Strikethrough.regex.txt)|Matches ANSI Strikethrough (aka crossed out) Start or End    |[source](Strikethrough.regex.source.ps1)|
+|[?<Console_Style>](Style.regex.txt)                |Matches an ANSI style (color or text option)                 |[source](Style.regex.source.ps1)        |
 |[?<Console_Underline>](Underline.regex.txt)        |Matches ANSI Underline/DoubleUnderline Start or Underline End|[source](Underline.regex.source.ps1)    |
 
 
