@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 142 regular expressions
+Irregular includes 143 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
@@ -124,6 +124,7 @@ Irregular includes 142 regular expressions
 |[PowerShell_Variable](/RegEx/PowerShell/Variable.regex.txt)|Matches a PowerShell Variable|False|
 |[Punctuation](/RegEx/Punctuation.regex.txt)|Matches any single or repeated punctuation.|False|
 |[RegularExpression_Group](/RegEx/RegularExpression/Group.regex.txt)|Matches groups in a regular expression|False|
+|[RegularExpression_GroupName](/RegEx/RegularExpression/GroupName.regex.txt)|Matches a regular expression group name|False|
 |[RegularExpression_Quantifier](/RegEx/RegularExpression/Quantifier.regex.txt)|Matches a quantifier|False|
 |[REST_Variable](/RegEx/REST/Variable.regex.ps1)|Matches variables within a RESTful URL.  Variables can take several forms:<br/><br/>|True|
 |[Security_AccessToken](/RegEx/Security/AccessToken.regex.ps1)|Matches Access Tokens.<br/><br/>    Access Tokens are single-line base64 strings that have more than -MinimumLength characters (default 40)|True|
