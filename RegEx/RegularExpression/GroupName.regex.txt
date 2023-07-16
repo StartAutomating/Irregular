@@ -1,0 +1,7 @@
+# Matches a regular expression group name
+(?<!\\)\(                # Named Groups start with a Parenthesis
+\?                       # Followed by a Question Mark
+\<                       # Followed by Less Than
+(?<IsBalancingGroup>\-)? # A dash can indicate a balancing group
+(?<Group>\w+)            # Most group names are simply any number of word characters
+\>
