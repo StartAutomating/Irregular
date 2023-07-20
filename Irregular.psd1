@@ -1,12 +1,12 @@
 ﻿@{
-    ModuleVersion = '0.7.7'
+    ModuleVersion = '0.7.8'
     RootModule = 'Irregular.psm1'
     Description = 'Regular Expressions made Strangely Simple'
     FormatsToProcess = 'Irregular.format.ps1xml'
     TypesToProcess = 'Irregular.types.ps1xml'
     Guid = '39eb966d-7437-4e2c-abae-a496e933fb23'
     Author = 'James Brundage'
-    Copyright = '2019-2022 Start-Automating'
+    Copyright = '2019-2023 Start-Automating'
     PrivateData = @{
         PSData = @{
             Tags = 'RegularExpressions', 'RegEx', 'Irregular', 'PatternMatching', 'PipeScript'
@@ -14,6 +14,21 @@
             LicenseURI = 'https://github.com/StartAutomating/Irregular/blob/master/LICENSE'
             IconURI    = 'https://github.com/StartAutomating/Irregular/blob/master/Assets/Irregular_600_Square.png'        
             ReleaseNotes = @'
+## 0.7.8:
+
+* Adding Compress-Regex (Fixes #178)
+* New Regexes:  
+  * ?<YAML_Value> (Fixes #192)
+  * ?<YAML_Key> (Fixes #191)
+  * ?<Degrees> (Fixes #185)
+  * ?<Git_Commit> (Fixes #193)
+  * ?<RegularExpression_GroupName> ( #195 )
+  * ?<PowerShell_Hashtable> ( Fixes #194 )
+  * ?<PowerShell_Requires>:  Allowing open ended requirement (Fixes #182)
+Renaming ANSI Regexes to Console (Fixes #188)
+
+---
+
 ## 0.7.7:
 
 New Patterns:
@@ -210,6 +225,19 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 Additional Changes in [ChangeLog](CHANGELOG.md)
 '@
+        }
+        ScriptTypes = @{
+            RegExGenerator = @{
+                Pattern = '\.regex\.ps1$'
+            }
+            RegExSource = @{
+                Pattern = '\.regex\.source\.ps1$'
+            }
+        }
+        ApplicationTypes = @{
+            RegExFile = @{
+                Pattern ='\.regex\.txt'
+            }
         }
     }
 }
