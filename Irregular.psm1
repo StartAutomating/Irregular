@@ -1,4 +1,5 @@
 ﻿. $psScriptRoot\Get-RegEx.ps1
+. $psScriptRoot\Compress-RegEx.ps1
 . $psScriptRoot\Export-RegEx.ps1
 . $psScriptRoot\Import-RegEx.ps1
 . $psScriptRoot\New-RegEx.ps1

@@ -1,4 +1,19 @@
-﻿## 0.7.7:
+﻿## 0.7.8:
+
+* Adding Compress-Regex (Fixes #178)
+* New Regexes:  
+  * ?<YAML_Value> (Fixes #192)
+  * ?<YAML_Key> (Fixes #191)
+  * ?<Degrees> (Fixes #185)
+  * ?<Git_Commit> (Fixes #193)
+  * ?<RegularExpression_GroupName> ( #195 )
+  * ?<PowerShell_Hashtable> ( Fixes #194 )
+  * ?<PowerShell_Requires>:  Allowing open ended requirement (Fixes #182)
+Renaming ANSI Regexes to Console (Fixes #188)
+
+---
+
+## 0.7.7:
 
 New Patterns:
 

@@ -1,26 +1,7 @@
 ### Irregular Patterns
-Irregular includes 138 regular expressions
+Irregular includes 143 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
-|[ANSI_24BitColor](/RegEx/ANSI/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
-|[ANSI_4BitColor](/RegEx/ANSI/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
-|[ANSI_8BitColor](/RegEx/ANSI/8BitColor.regex.txt)|Matches an ANSI 8-bit color|False|
-|[ANSI_Blink](/RegEx/ANSI/Blink.regex.txt)|Matches ANSI Blink Start or End|False|
-|[ANSI_Bold](/RegEx/ANSI/Bold.regex.txt)|Matches an ANSI Bold Start or End|False|
-|[ANSI_Code](/RegEx/ANSI/Code.regex.txt)|Matches an ANSI escape code|False|
-|[ANSI_Color](/RegEx/ANSI/Color.regex.txt)|Matches an ANSI color|False|
-|[ANSI_Cursor](/RegEx/ANSI/Cursor.regex.txt)|Matches an ANSI cursor control|False|
-|[ANSI_DefaultColor](/RegEx/ANSI/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
-|[ANSI_Faint](/RegEx/ANSI/Faint.regex.txt)|Matches an ANSI Faint (aka dim) Start or End|False|
-|[ANSI_Hide](/RegEx/ANSI/Hide.regex.txt)|Matches ANSI Hide (aka conceal) Start or End|False|
-|[ANSI_Invert](/RegEx/ANSI/Invert.regex.txt)|Matches ANSI Invert Start or End|False|
-|[ANSI_Italic](/RegEx/ANSI/Italic.regex.txt)|Matches ANSI Italic Start or End|False|
-|[ANSI_Link](/RegEx/ANSI/Link.regex.txt)|Matches ANSI Hyperlink|False|
-|[ANSI_Note](/RegEx/ANSI/Note.regex.txt)|Matches an ANSI VT520 Note|False|
-|[ANSI_Reset](/RegEx/ANSI/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
-|[ANSI_Strikethrough](/RegEx/ANSI/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
-|[ANSI_Style](/RegEx/ANSI/Style.regex.txt)|Matches an ANSI style (color or text option)|False|
-|[ANSI_Underline](/RegEx/ANSI/Underline.regex.txt)|Matches ANSI Underline/DoubleUnderline Start or Underline End|False|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
 |[BalancedBrackets](/RegEx/BalancedBrackets.regex.txt)|Matches content in brackets, as long as it is balanced|False|
 |[BalancedCode](/RegEx/BalancedCode.regex.ps1)|Matches code balanced by a [, {, or (|True|
@@ -40,6 +21,25 @@ Irregular includes 138 regular expressions
 |[Code_Region](/RegEx/Code/Region.regex.ps1)|Matches a #region #endregion pair. Returns the Name of the Region and the Content.|True|
 |[Code_SemanticVersion](/RegEx/Code/SemanticVersion.regex.txt)|Matches a Semantic Version.  See [https://semver.org/](https://semver.org/).|False|
 |[Colon](/RegEx/Colon.regex.txt)|Matches a literal colon|False|
+|[Console_24BitColor](/RegEx/Console/24BitColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[Console_4BitColor](/RegEx/Console/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
+|[Console_8BitColor](/RegEx/Console/8BitColor.regex.txt)|Matches an ANSI 8-bit color|False|
+|[Console_Blink](/RegEx/Console/Blink.regex.txt)|Matches ANSI Blink Start or End|False|
+|[Console_Bold](/RegEx/Console/Bold.regex.txt)|Matches an ANSI Bold Start or End|False|
+|[Console_Code](/RegEx/Console/Code.regex.txt)|Matches an ANSI escape code|False|
+|[Console_Color](/RegEx/Console/Color.regex.txt)|Matches an ANSI color|False|
+|[Console_Cursor](/RegEx/Console/Cursor.regex.txt)|Matches an ANSI cursor control|False|
+|[Console_DefaultColor](/RegEx/Console/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[Console_Faint](/RegEx/Console/Faint.regex.txt)|Matches an ANSI Faint (aka dim) Start or End|False|
+|[Console_Hide](/RegEx/Console/Hide.regex.txt)|Matches ANSI Hide (aka conceal) Start or End|False|
+|[Console_Invert](/RegEx/Console/Invert.regex.txt)|Matches ANSI Invert Start or End|False|
+|[Console_Italic](/RegEx/Console/Italic.regex.txt)|Matches ANSI Italic Start or End|False|
+|[Console_Link](/RegEx/Console/Link.regex.txt)|Matches ANSI Hyperlink|False|
+|[Console_Note](/RegEx/Console/Note.regex.txt)|Matches an ANSI VT520 Note|False|
+|[Console_Reset](/RegEx/Console/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
+|[Console_Strikethrough](/RegEx/Console/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
+|[Console_Style](/RegEx/Console/Style.regex.txt)|Matches an ANSI style (color or text option)|False|
+|[Console_Underline](/RegEx/Console/Underline.regex.txt)|Matches ANSI Underline/DoubleUnderline Start or Underline End|False|
 |[CSharp_Class](/RegEx/CSharp/Class.regex.txt)|Matches a CSharp class|False|
 |[CSharp_Identifier](/RegEx/CSharp/Identifier.regex.txt)|Matches a CSharp identifier|False|
 |[CSharp_Namespace](/RegEx/CSharp/Namespace.regex.txt)|Matches a CSharp namespace|False|
@@ -57,6 +57,7 @@ Irregular includes 138 regular expressions
 |[FFmpeg_Stream](/RegEx/FFmpeg/Stream.regex.txt)|Matches FFMpeg streams|False|
 |[GenericBalancingExpression](/RegEx/GenericBalancingExpression.regex.txt)|This expression matches content that is within "balanced" punctuation.<br/>It does not validate that each type of open/close punctuation is valid.<br/>Just that it any open punctuation is matched by closed punctuation.|False|
 |[GetMarkupTag](/RegEx/GetMarkupTag.regex.ps1)|Gets one or more specific markup tags.  By default, anchor tags.|True|
+|[Git_Commit](/RegEx/Git/Commit.regex.txt)|Matches Output from git commit|False|
 |[Git_Diff](/RegEx/Git/Diff.regex.txt)|Matches Output from git diff|False|
 |[Git_DiffHeader](/RegEx/Git/DiffHeader.regex.txt)|Matches Header information from the output of git diff|False|
 |[Git_DiffRange](/RegEx/Git/DiffRange.regex.txt)|Matches a diff range|False|
@@ -113,6 +114,7 @@ Irregular includes 138 regular expressions
 |[PowerShell_Attribute](/RegEx/PowerShell/Attribute.regex.txt)|Matches a PowerShell attribute declaration|False|
 |[PowerShell_AttributeValue](/RegEx/PowerShell/AttributeValue.regex.txt)|This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)|False|
 |[PowerShell_Function](/RegEx/PowerShell/Function.regex.txt)|Matches PowerShell functions|False|
+|[PowerShell_Hashtable](/RegEx/PowerShell/Hashtable.regex.txt)|Matches a PowerShell Hashtable|False|
 |[PowerShell_HelpField](/RegEx/PowerShell/HelpField.regex.ps1)|Matches specific fields from inline help|True|
 |[PowerShell_Invoke_Variable](/RegEx/PowerShell/Invoke_Variable.regex.txt)|Matches any time a variable is invoked (with the . or & operator)|False|
 |[PowerShell_ParameterSet](/RegEx/PowerShell/ParameterSet.regex.txt)|Matches PowerShell ParameterSets (in [Parameter] and [CmdletBinding] attributes)|False|
@@ -122,6 +124,7 @@ Irregular includes 138 regular expressions
 |[PowerShell_Variable](/RegEx/PowerShell/Variable.regex.txt)|Matches a PowerShell Variable|False|
 |[Punctuation](/RegEx/Punctuation.regex.txt)|Matches any single or repeated punctuation.|False|
 |[RegularExpression_Group](/RegEx/RegularExpression/Group.regex.txt)|Matches groups in a regular expression|False|
+|[RegularExpression_GroupName](/RegEx/RegularExpression/GroupName.regex.txt)|Matches a regular expression group name|False|
 |[RegularExpression_Quantifier](/RegEx/RegularExpression/Quantifier.regex.txt)|Matches a quantifier|False|
 |[REST_Variable](/RegEx/REST/Variable.regex.ps1)|Matches variables within a RESTful URL.  Variables can take several forms:<br/><br/>|True|
 |[Security_AccessToken](/RegEx/Security/AccessToken.regex.ps1)|Matches Access Tokens.<br/><br/>    Access Tokens are single-line base64 strings that have more than -MinimumLength characters (default 40)|True|
@@ -140,3 +143,5 @@ Irregular includes 138 regular expressions
 |[Unix_FileSystemType](/RegEx/Unix/FileSystemType.regex.txt)|Matches a File System Type (described in /proc/filesystems)|False|
 |[Unix_Mount](/RegEx/Unix/Mount.regex.txt)|Matches a Unix Mount|False|
 |[Unix_User](/RegEx/Unix/User.regex.txt)|Matches a User (described in /etc/passwd)|False|
+|[YAML_Key](/RegEx/YAML/Key.regex.ps1)|Matches a YAML key.  The -Key can be customized.|True|
+|[YAML_Value](/RegEx/YAML/Value.regex.ps1)|Matches a YAML key.  The -Key can be customized.|True|

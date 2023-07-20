@@ -10,6 +10,7 @@ They are designed to work in _most_ scenarios and to offer an alternative way to
 |[?<PowerShell_Attribute>](Attribute.regex.txt)            |Matches a PowerShell attribute declaration                                                                    |
 |[?<PowerShell_AttributeValue>](AttributeValue.regex.txt)  |This expression extracts the key/value pairs from a PowerShell attribute body (the content within parenthesis)|
 |[?<PowerShell_Function>](Function.regex.txt)              |Matches PowerShell functions                                                                                  |
+|[?<PowerShell_Hashtable>](Hashtable.regex.txt)            |Matches a PowerShell Hashtable                                                                                |[source](Hashtable.regex.source.ps1)      |
 |[?<PowerShell_HelpField>](HelpField.regex.ps1)            |Matches specific fields from inline help<br/>                                                                |[generator](HelpField.regex.ps1)          |
 |[?<PowerShell_Invoke_Variable>](Invoke_Variable.regex.txt)|Matches any time a variable is invoked (with the . or & operator)                                             |[source](Invoke_Variable.regex.source.ps1)|
 |[?<PowerShell_ParameterSet>](ParameterSet.regex.txt)      |Matches PowerShell ParameterSets (in [Parameter] and [CmdletBinding] attributes)                              |[source](ParameterSet.regex.source.ps1)   |
