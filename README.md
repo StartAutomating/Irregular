@@ -107,7 +107,7 @@ PowerShell is already a very potent tool for using Regular Expressions.
 
 You can use the -match, -split, and -replace operators to do basic operations with Regular Expressions.
 
-You can use any saved expression with these operators by putting it in paranthesis, for instance:
+You can use any saved expression with these operators by putting it in parenthesis, for instance:
 
 ~~~PowerShell
 "abc123" -match (?<Digits>)
