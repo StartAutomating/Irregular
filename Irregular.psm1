@@ -10,6 +10,10 @@ $CommandsPath = Join-Path $PSScriptRoot Commands
     . $file.FullName
 }
 
+$MyModule = $MyInvocation.MyCommand.ScriptBlock.Module
+$ExecutionContext.SessionState.PSVariable.Set($myModule.Name, $MyModule)
+$MyModule.pstypenames.insert(0, $myModule.Name)
+
 Import-RegEx
 
 foreach ($k in $script:_RegexLibrary.Keys) {
@@ -36,5 +40,5 @@ Set-Alias ?<> New-RegEx
 Set-Alias Write-RegEx New-RegEx
 Set-Alias ?<.> Use-Regex
 
-Export-ModuleMember -Function *-* -Alias *
+Export-ModuleMember -Function *-* -Alias * -Variable $MyModule.Name
 
