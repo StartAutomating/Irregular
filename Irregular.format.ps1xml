@@ -3,6 +3,39 @@
 <Configuration>
   <ViewDefinitions>
     <View>
+      <Name>System.Text.RegularExpressions.Match</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Text.RegularExpressions.Match</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>StartIndex</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>EndIndex</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Value</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>Irregular.Regex</Name>
       <ViewSelectedBy>
         <TypeName>Irregular.Regex</TypeName>
@@ -152,39 +185,6 @@ Write-Host $out.Output
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Options</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    <View>
-      <Name>System.Text.RegularExpressions.Match</Name>
-      <ViewSelectedBy>
-        <TypeName>System.Text.RegularExpressions.Match</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <AutoSize />
-        <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <Wrap />
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>StartIndex</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>EndIndex</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Value</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
