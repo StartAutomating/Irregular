@@ -312,7 +312,12 @@
                         }
                     }
                 } else {
-                    $MyInvocation.MyCommand.ScriptBlock.File | Split-Path
+                    if ($MyInvocation.MyCommand.ScriptBlock.Module) {
+                        $MyInvocation.MyCommand.ScriptBlock.Module | Split-Path
+                    } else {
+                        $MyInvocation.MyCommand.ScriptBlock.File | Split-Path | Split-Path
+                    }
+                    
                 }
             }
         #endregion Determine the Path List
