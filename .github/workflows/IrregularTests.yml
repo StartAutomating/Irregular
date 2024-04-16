@@ -379,32 +379,34 @@ jobs:
           
           if ($releaseExists) {
               "::warning::Release '$($releaseExists.Name )' Already Exists" | Out-Host
-              return
+              $releasedIt = $releaseExists
+          } else {
+              $releasedIt = Invoke-RestMethod -Uri $releasesURL -Method Post -Body (
+                  [Ordered]@{
+                      owner = '${{github.owner}}'
+                      repo  = '${{github.repository}}'
+                      tag_name = $targetVersion
+                      name = $ExecutionContext.InvokeCommand.ExpandString($ReleaseNameFormat)
+                      body = 
+                          if ($env:RELEASENOTES) {
+                              $env:RELEASENOTES
+                          } elseif ($imported.PrivateData.PSData.ReleaseNotes) {
+                              $imported.PrivateData.PSData.ReleaseNotes
+                          } else {
+                              "$($imported.Name) $targetVersion"
+                          }
+                      draft = if ($env:RELEASEISDRAFT) { [bool]::Parse($env:RELEASEISDRAFT) } else { $false }
+                      prerelease = if ($env:PRERELEASE) { [bool]::Parse($env:PRERELEASE) } else { $false }
+                  } | ConvertTo-Json
+              ) -Headers @{
+                  "Accept" = "application/vnd.github.v3+json"
+                  "Content-type" = "application/json"
+                  "Authorization" = 'Bearer ${{ secrets.GITHUB_TOKEN }}'
+              }
           }
           
           
-          $releasedIt = Invoke-RestMethod -Uri $releasesURL -Method Post -Body (
-              [Ordered]@{
-                  owner = '${{github.owner}}'
-                  repo  = '${{github.repository}}'
-                  tag_name = $targetVersion
-                  name = $ExecutionContext.InvokeCommand.ExpandString($ReleaseNameFormat)
-                  body = 
-                      if ($env:RELEASENOTES) {
-                          $env:RELEASENOTES
-                      } elseif ($imported.PrivateData.PSData.ReleaseNotes) {
-                          $imported.PrivateData.PSData.ReleaseNotes
-                      } else {
-                          "$($imported.Name) $targetVersion"
-                      }
-                  draft = if ($env:RELEASEISDRAFT) { [bool]::Parse($env:RELEASEISDRAFT) } else { $false }
-                  prerelease = if ($env:PRERELEASE) { [bool]::Parse($env:PRERELEASE) } else { $false }
-              } | ConvertTo-Json
-          ) -Headers @{
-              "Accept" = "application/vnd.github.v3+json"
-              "Content-type" = "application/json"
-              "Authorization" = 'Bearer ${{ secrets.GITHUB_TOKEN }}'
-          }
+          
           
           
           if (-not $releasedIt) {
@@ -439,10 +441,9 @@ jobs:
                       $fileBytes = [IO.File]::ReadAllBytes($file.FullName)
                       $releasedFiles[$file.Name] =
                           Invoke-RestMethod -Uri "${releaseUploadUrl}?name=$($file.Name)" -Headers @{
-                              "Accept"        = "application/vnd.github+json"
-                              "ContentType"   = "application/octet-stream"
+                              "Accept"        = "application/vnd.github+json"                    
                               "Authorization" = 'Bearer ${{ secrets.GITHUB_TOKEN }}'
-                          } -Body $fileBytes
+                          } -Body $fileBytes -ContentType Application/octet-stream
                       $releasedFiles[$file.Name]
                   }
               }
@@ -583,6 +584,44 @@ jobs:
         uses: StartAutomating/EZOut@master
       - name: UseHelpOut
         uses: StartAutomating/HelpOut@master
+      - name: Log in to ghcr.io
+        uses: docker/login-action@master
+        with: 
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract Docker Metadata (for branch)
+        if: ${{github.ref_name != 'main' && github.ref_name != 'master' && github.ref_name != 'latest'}}
+        id: meta
+        uses: docker/metadata-action@master
+        with: 
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Extract Docker Metadata (for main)
+        if: ${{github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'latest'}}
+        id: metaMain
+        uses: docker/metadata-action@master
+        with: 
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: latest=true
+      - name: Build and push Docker image (from main)
+        if: ${{github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'latest'}}
+        uses: docker/build-push-action@master
+        with: 
+          context: .
+          push: true
+          tags: ${{ steps.metaMain.outputs.tags }}
+          labels: ${{ steps.metaMain.outputs.labels }}
+      - name: Build and push Docker image (from branch)
+        if: ${{github.ref_name != 'main' && github.ref_name != 'master' && github.ref_name != 'latest'}}
+        uses: docker/build-push-action@master
+        with: 
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 on: 
   push: 
   workflow_dispatch: 
+env: 
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}

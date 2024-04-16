@@ -1,0 +1,2 @@
+# Matches a Math Symbol
+\p{Sm}

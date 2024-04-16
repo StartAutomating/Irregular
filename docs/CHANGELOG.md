@@ -1,4 +1,18 @@
-## 0.7.8:
+## Irregular 0.7.9:
+
+* Irregular Docker Support (#205,#206,#207)
+  * `docker run --interactive --tty ghcr.io/startautomating/irregular`
+* Irregular Repository Cleanup (#208, #209, #210, #211)
+* Exporting $Irregular (#212)
+* Mounting Irregular: (#213) 
+* Simple Symbol Patterns
+  * ?<Symbol> (#202)
+  * ?<Symbol_Currency> (#214)
+  * ?<Symbol_Math> (#203)
+  
+---
+
+## Irregular 0.7.8:
 
 * Adding Compress-Regex (Fixes #178)
 * New Regexes:  
@@ -13,7 +27,7 @@ Renaming ANSI Regexes to Console (Fixes #188)
 
 ---
 
-## 0.7.7:
+## Irregular 0.7.7:
 
 New Patterns:
 
@@ -23,7 +37,7 @@ New Patterns:
 
 ---
 
-## 0.7.6:
+## Irregular 0.7.6:
 
 * New-RegEx improvements:
   * Now supporting new character classes:  MarkSpacing, MarkEnclosing, MarkNonEnclosing (Fixes #168)
@@ -37,7 +51,7 @@ New Patterns:
 
 ---
 
-## 0.7.5:
+## Irregular 0.7.5:
 
 * Added Patterns for Liquid:
   * ?<Liquid_Expression> (Fixes #153)
@@ -45,14 +59,14 @@ New Patterns:
 
 ---
 
-## 0.7.4:
+## Irregular 0.7.4:
 * ANSI Improvements:
   * Regenerated ?<ANSI_Color> (Fixes #150)
   * Added ?<ANSI_Cursor> (Fixes #151)
 
 ---
 
-## 0.7.3:
+## Irregular 0.7.3:
 * ANSI Improvements:
   * Fixed ?<ANSI_Style> (Fixes #143)
   * ?<ANSI_4BitColor> now supports bright ranges (Fixes #145)
@@ -61,7 +75,7 @@ New Patterns:
 
 ---
 
-## 0.7.2:
+## Irregular 0.7.2:
 * Lots More ANSI support:
   * ?<ANSI_Bold> (Fixes #131)
   * ?<ANSI_Blink> (Fixes #132)
@@ -77,7 +91,7 @@ New Patterns:
 
 ---
 
-## 0.7.1:
+## Irregular 0.7.1:
 * New Pattern:
   * ?<ANSI_Note> (Match ANSI VT520 / DECPS note sequences) (Fixes #127) 
 * Updated Patterns:
@@ -86,7 +100,7 @@ New Patterns:
 
 ---
 
-## 0.7.0:
+## Irregular 0.7.0:
 * New Patterns:
   * ANSI
     * ?<ANSI_Code>  (Fixes #123)
@@ -102,14 +116,14 @@ New Patterns:
 
 ---
 
-## 0.6.9:
+## Irregular 0.6.9:
 * Adding ?<Markdown_Link> (Fixes #117)
 * GitHub Action now prefers local bits (Fixes #111)
 * Using PipeScript to enhance the repository experience (Fixes #119)
 
 ---
 
-## 0.6.8:
+## Irregular 0.6.8:
 * Added ?<CamelCaseSpace> (Fixes #114)
 * Fixing ?<PowerShell_HelpField> (Fixes #108)
 * Use-Regex:
@@ -120,7 +134,7 @@ New Patterns:
 
 ---
 
-## 0.6.7:
+## Irregular 0.6.7:
 * Command Improvements:
   * New-Regex:  Adding -ExcludeCharacterClass/-ExcludeLiteralCharacter/-ExcludeUnicodeCharacter (Fixing #104)
   * Use-Regex:  Adding -IncludeInputObject (Fixing #103)
@@ -133,7 +147,7 @@ New Patterns:
 
 ---
 
-## 0.6.6:
+## Irregular 0.6.6:
 * New Regexes:
   * ?<C_Enum> (#98)
   * ?<C_Struct> (#99)
@@ -141,14 +155,14 @@ New Patterns:
 
 ---
 
-## 0.6.5
+## Irregular 0.6.5
 * Renaming Regex: ?<IPV4Address> is now ?<Network_IPV4Address> (#90)
 * New Regex: ?<Network_MACAddress> (#89)
 * Use-Regex -Extract:  Now attempting [Timespan] before [DateTime] (#88)
 
 ---
 
-## 0.6.4
+## Irregular 0.6.4
 * Renaming Write-RegEx to New-RegEx (#66) ** Write-RegEx will remain aliased until at least 0.7**
 * Fixing Issue in Embedding (#82)
 * Improving -Extract by auto-detecting data types (#81)
@@ -161,7 +175,7 @@ New Patterns:
 
 ---
 
-## 0.6.3
+## Irregular 0.6.3
 New Regular Expressions:
 * ?<CNC_GCode> (Fixes #76)
 * OpenSCAD Expressions (Fixes #75)  
@@ -180,14 +194,14 @@ New Regular Expressions:
 
 ---
 
-## 0.6.2
+## Irregular 0.6.2
 New Regular Expressions:
 * ?<Unix_Cron_Interval> (Fixes #67)
 * ?<Unix_Duration> (Fixes #69)
 
 ---
 
-## 0.6.1
+## Irregular 0.6.1
 * New Command:  Remove-RegEx (Fixes #62)
 * Set-RegEx now supports -PassThru (Fixes #61)
 * Set-RegEx now allows modifiers (Fixes #60)
@@ -196,7 +210,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.6
+## Irregular 0.6
 * JSON Regex Improvements
  * ?<JSON_Property> now can handle quotes
 * Markdown Regexes:
@@ -207,7 +221,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.9
+## Irregular 0.5.9
 * New RegEx:
   * ?<C_IfDef>
 * New and Improved RegEx:
@@ -220,7 +234,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.8
+## Irregular 0.5.8
 * New RegEx:
   * ?<RegularExpression_Quantifier>
 * Fixes to RegExes:
@@ -228,7 +242,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.7
+## Irregular 0.5.7
 * New RegExes:
   * ?<Security_AccessToken>
   * ?<Security_JWT>
@@ -240,7 +254,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.6
+## Irregular 0.5.6
 * New RegExes:
   * ?<Code_SemanticVersion>
   * ?<FFmpeg_Progress>
@@ -257,7 +271,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.5
+## Irregular 0.5.5
 * New Programming RegExes:
   * ?<PowerShell_Requires>
   * ?<C_Include>
@@ -272,7 +286,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.4
+## Irregular 0.5.4
 * Fixes in Irregular import (no longer producing a module per RegEx on import)
 * Fixing a subtle bug in Write-RegEx -Until (was failing to match when no characters were between)
 * New regex:
@@ -280,7 +294,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.3
+## Irregular 0.5.3
 * Get/Export-Regex: Now supporting -As EmbeddedEngine (lambas) or -As Engine (smart aliases)
 * Write-RegEx:  Added -UnicodeCharacter
 * New regex:
@@ -291,7 +305,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.2
+## Irregular 0.5.2
 * Use-RegEx now matches within returns by default.
 * Use-RegEx can -Scan to match after a given item
 * Use-Regex breaking change:  -Parameter/-ArgumentList are now -ExpressionParameter/-ExpressionArgumentList
@@ -299,7 +313,7 @@ Hat Tips: @JayKul, @LaurentDardenne
 
 ---
 
-## 0.5.1
+## Irregular 0.5.1
 * Making Import-Regex support Regexes defined in other modules
 * Allowing Import-Regex to import as lambdas
 * Get/Export-Regex now include -As "Engine", which will export an embeddedable engine including an inline Import
