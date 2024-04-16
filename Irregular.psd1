@@ -28,9 +28,9 @@
   
 ---
 
-Full history in [CHANGELOG](https://github.com/StartAutomating/Irrgular/blob/master/CHANGELOG.md)
+Full history in [CHANGELOG](https://github.com/StartAutomating/Irregular/blob/master/CHANGELOG.md)
 
-> Like It? [Star It](https://github.com/StartAutomating/Irrgular)
+> Like It? [Star It](https://github.com/StartAutomating/Irregular)
 > Love It? [Support It](https://github.com/sponsors/StartAutomating)
 '@
         }
