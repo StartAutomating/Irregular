@@ -1,3 +1,5 @@
+Push-Location ($PSScriptRoot | Split-Path)
+
 $IrregularLoaded = Get-Module Irregular
 if (-not $IrregularLoaded) {
     $IrregularLoaded = Get-ChildItem -Recurse -Filter "*.psd1" | 
@@ -12,3 +14,5 @@ if ($IrregularLoaded) {
 if ($IrregularLoaded) {
     Save-MarkdownHelp -Module $IrregularLoaded.Name -PassThru -SkipCommandType Alias
 }
+
+Pop-Location
