@@ -14,6 +14,15 @@ $MyModule = $MyInvocation.MyCommand.ScriptBlock.Module
 $ExecutionContext.SessionState.PSVariable.Set($myModule.Name, $MyModule)
 $MyModule.pstypenames.insert(0, $myModule.Name)
 
+$newDriveCommonParameters =
+    @{PSProvider='FileSystem';Scope='Global';ErrorAction='Ignore'}
+New-PSDrive -Name $myModule.name @newDriveCommonParameters -Root ($myModule | Split-Path)
+
+if ($home) {
+    $MyMyModule= "My$($myModule.name)"
+    New-PSDrive -Name $MyMyModule @newDriveCommonParameters -Root (Join-Path $home $MyMyModule)
+}
+
 Import-RegEx
 
 foreach ($k in $script:_RegexLibrary.Keys) {
