@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 145 regular expressions
+Irregular includes 146 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
@@ -134,6 +134,7 @@ Irregular includes 145 regular expressions
 |[Subtitle_SRT](/RegEx/Subtitle/SRT.regex.txt)|Matches a SubRip Subtitle|False|
 |[Subtitle_VTT](/RegEx/Subtitle/VTT.regex.txt)|Matches a WebVTT Subtitle|False|
 |[Symbol](/RegEx/Symbol.regex.txt)|Matches a Symbol|False|
+|[Symbol_Currency](/RegEx/Symbol/Currency.regex.txt)|Matches a Math Symbol|False|
 |[Symbol_Math](/RegEx/Symbol/Math.regex.txt)|Matches a Math Symbol|False|
 |[Tag](/RegEx/Tag.regex.txt)|This will match a balanced markup tag.|False|
 |[TrueOrFalse](/RegEx/TrueOrFalse.regex.txt)|Matches the literal 'true' or 'false'|False|
