@@ -1,5 +1,8 @@
 #requires -Module PSSVG
 
+
+Push-Location ($PSScriptRoot | Split-Path)
+
 $psChevron = 
     =<svg.symbol> -Id psChevron -Content @(
         =<svg.polygon> -Points (@(
@@ -13,7 +16,7 @@ $psChevron =
     ) -ViewBox 100, 100 -PreserveAspectRatio $false
 
 
-$assetsPath = Join-Path $PSScriptRoot assets
+$assetsPath = Join-Path $pwd assets
 
 =<svg> -ViewBox 300, 100 @(
     $psChevron
@@ -26,3 +29,5 @@ $assetsPath = Join-Path $PSScriptRoot assets
     ) -FontFamily 'sans-serif' -Fill '#4488ff' -FontSize 36   
 ) -OutputPath (Join-Path $assetsPath Irregular.svg)
 
+
+Pop-Location
