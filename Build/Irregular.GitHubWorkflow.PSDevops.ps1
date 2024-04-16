@@ -1,7 +1,11 @@
 ﻿#requires -Module PSDevOps
-Push-Location $PSScriptRoot
+Push-Location ($PSScriptRoot | Split-Path)
 
-Import-BuildStep -ModuleName Irregular
+Import-BuildStep -SourcePath (
+    Join-Path $PSScriptRoot 'GitHub'
+) -BuildSystem GitHubWorkflow
+
+
 New-GitHubWorkflow -Name "Test, Tag, Release, and Publish" -Job PowerShellStaticAnalysis,
     TestPowerShellOnLinux,
     TagReleaseAndPublish,
