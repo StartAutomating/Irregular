@@ -35,7 +35,10 @@ Set-Alias Write-RegEx New-RegEx
 Set-Alias ?<.> Use-Regex
 
 $myTypeData = Get-TypeData -TypeName $MyModule.Name
-$myMembers  = @($myTypeData.Members.GetEnumerator())
+
+$myMembers  = if ($myTypeData) {
+    @($myTypeData.Members.GetEnumerator())
+}
 $KnownVerbs = Get-Verb | Select-Object -ExpandProperty Verb
 
 $myMemberCommands  =
