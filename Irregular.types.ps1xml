@@ -2,6 +2,34 @@
 <!-- Generated with EZOut 2.0.6: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
 <Types>
   <Type>
+    <Name>Irregular</Name>
+    <Members>
+      <ScriptMethod>
+        <Name>Get</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Gets Irregular
+.DESCRIPTION
+    Gets Irregular.
+    
+    Get is the default noun, so you can also just call this `Irregular`.
+#&gt;
+param()
+
+$anyInput = @($input)
+$anyArguments = @($args)
+if (-not $anyInput -or $anyArguments) {
+    return $this
+}
+
+
+
+                    </Script>
+      </ScriptMethod>
+    </Members>
+  </Type>
+  <Type>
     <Name>Irregular.Match.Extract</Name>
     <Members>
       <ScriptProperty IsHidden="true">
