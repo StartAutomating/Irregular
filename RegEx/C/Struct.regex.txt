@@ -1,4 +1,4 @@
-﻿# Matches a C/C++ Struct
+# Matches a C/C++ Struct
 (?-i)struct                              # Starts with a literal struct
 \s{1,}                                   # Followed by whitespace
 (?<Identifier>[_a-zA-Z][_a-zA-Z0-9]{1,}) # Followed by an identifier
