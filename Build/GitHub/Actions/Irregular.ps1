@@ -78,7 +78,7 @@ function ImportActionModule {
     #endregion -InstallModule
 
     if ($env:GITHUB_ACTION_PATH) {
-        $LocalModulePath = Join-Path $env:GITHUB_ACTION_PATH "$moduleName.psd1"
+        $LocalModulePath = Join-Path $env:GITHUB_ACTION_PATH "$moduleName.psd1"        
         if (Test-path $LocalModulePath) {
             Import-Module $LocalModulePath -Force -PassThru | Out-String
         } else {
@@ -230,6 +230,7 @@ filter ProcessOutput {
             $outItem.FullName, (git status $outItem.Fullname -s)
         }
     if ($shouldCommit) {
+        "$fullName has changed, and should be committed" | Out-Host
         git add $fullName
         if ($out.Message) {
             git commit -m "$($out.Message)" | Out-Host
