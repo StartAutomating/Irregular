@@ -1,5 +1,5 @@
 ### Irregular Patterns
-Irregular includes 145 regular expressions
+Irregular includes 147 regular expressions
 |Name|Description|IsGenerator|
 |:---|:----------|:----------|
 |[ArithmeticOperator](/RegEx/ArithmeticOperator.regex.txt)|Simple Arithmetic Operators|False|
@@ -25,11 +25,11 @@ Irregular includes 145 regular expressions
 |[Console_4BitColor](/RegEx/Console/4BitColor.regex.txt)|Matches an ANSI 3 or 4-bit color|False|
 |[Console_8BitColor](/RegEx/Console/8BitColor.regex.txt)|Matches an ANSI 8-bit color|False|
 |[Console_Blink](/RegEx/Console/Blink.regex.txt)|Matches ANSI Blink Start or End|False|
-|[Console_Bold](/RegEx/Console/Bold.regex.txt)|Matches an ANSI Bold Start or End|False|
+|[Console_Bold](/RegEx/Console/Bold.regex.txt)|Matches an ANSI Bold (aka bright) Start or End|False|
 |[Console_Code](/RegEx/Console/Code.regex.txt)|Matches an ANSI escape code|False|
 |[Console_Color](/RegEx/Console/Color.regex.txt)|Matches an ANSI color|False|
 |[Console_Cursor](/RegEx/Console/Cursor.regex.txt)|Matches an ANSI cursor control|False|
-|[Console_DefaultColor](/RegEx/Console/DefaultColor.regex.txt)|Matches an ANSI 24-bit color|False|
+|[Console_DefaultColor](/RegEx/Console/DefaultColor.regex.txt)|Matches an ANSI default color|False|
 |[Console_Faint](/RegEx/Console/Faint.regex.txt)|Matches an ANSI Faint (aka dim) Start or End|False|
 |[Console_Hide](/RegEx/Console/Hide.regex.txt)|Matches ANSI Hide (aka conceal) Start or End|False|
 |[Console_Invert](/RegEx/Console/Invert.regex.txt)|Matches ANSI Invert Start or End|False|
@@ -37,7 +37,7 @@ Irregular includes 145 regular expressions
 |[Console_Link](/RegEx/Console/Link.regex.txt)|Matches ANSI Hyperlink|False|
 |[Console_Note](/RegEx/Console/Note.regex.txt)|Matches an ANSI VT520 Note|False|
 |[Console_Reset](/RegEx/Console/Reset.regex.txt)|Matches an ANSI Reset (this clears formatting)|False|
-|[Console_Strikethrough](/RegEx/Console/Strikethrough.regex.txt)|Matches ANSI Strikethrough Start or End|False|
+|[Console_Strikethrough](/RegEx/Console/Strikethrough.regex.txt)|Matches ANSI Strikethrough (aka crossed out) Start or End|False|
 |[Console_Style](/RegEx/Console/Style.regex.txt)|Matches an ANSI style (color or text option)|False|
 |[Console_Underline](/RegEx/Console/Underline.regex.txt)|Matches ANSI Underline/DoubleUnderline Start or Underline End|False|
 |[CSharp_Class](/RegEx/CSharp/Class.regex.txt)|Matches a CSharp class|False|
@@ -45,6 +45,7 @@ Irregular includes 145 regular expressions
 |[CSharp_Namespace](/RegEx/CSharp/Namespace.regex.txt)|Matches a CSharp namespace|False|
 |[CSharp_Using](/RegEx/CSharp/Using.regex.txt)|Matches a CSharp using keyword|False|
 |[Decimals](/RegEx/Decimals.regex.txt)|Matching any series of decimals is deceptively complicated|False|
+|[Degrees](/RegEx/Degrees.regex.txt)|Matching degrees|False|
 |[Digits](/RegEx/Digits.regex.txt)|Repeated Digits|False|
 |[DoubleQuotedString](/RegEx/DoubleQuotedString.regex.ps1)|Matches a double quoted string, with an optional escape sequence (defaulting to backtick or backslash).|True|
 |[EmailAddress](/RegEx/EmailAddress.regex.txt)|Matches an Email Address|False|
@@ -72,6 +73,7 @@ Irregular includes 145 regular expressions
 |[HTML_LinkedData](/RegEx/HTML/LinkedData.regex.txt)|Matches JSON Linked Data (JSON within HTML)|False|
 |[HTML_StartOrEndTag](/RegEx/HTML/StartOrEndTag.regex.ps1)|Gets one or more start markup tags.  By default, gets start anchor tags.|True|
 |[HTML_StartTag](/RegEx/HTML/StartTag.regex.ps1)|Gets one or more start markup tags.  By default, gets start anchor tags.|True|
+|[JavaScript_Class](/RegEx/JavaScript/Class.regex.txt)|Matches a JavaScript Class|False|
 |[JSON_List](/RegEx/JSON/List.regex.txt)|A JSON List|False|
 |[JSON_ListItem](/RegEx/JSON/ListItem.regex.ps1)|Matches a JSON list item.  If no -ListIndex is provided, will match all items in the list    |True|
 |[JSON_ListSeparator](/RegEx/JSON/ListSeparator.regex.txt)|Matches a JSON list separator|False|
@@ -103,10 +105,10 @@ Irregular includes 145 regular expressions
 |[NumberSign](/RegEx/NumberSign.regex.txt)|A number sign \#|False|
 |[OpenSCAD_Customization](/RegEx/OpenSCAD/Customization.regex.txt)|Matches Potential Open SCAD Customizations|False|
 |[OpenSCAD_Function](/RegEx/OpenSCAD/Function.regex.txt)|Matches Open SCAD Functions|False|
-|[OpenSCAD_Include](/RegEx/OpenSCAD/Include.regex.txt)|Matches Open SCAD Modules|False|
+|[OpenSCAD_Include](/RegEx/OpenSCAD/Include.regex.txt)|Matches Open SCAD Include statements|False|
 |[OpenSCAD_Module](/RegEx/OpenSCAD/Module.regex.txt)|Matches Open SCAD Modules|False|
 |[OpenSCAD_Parameter](/RegEx/OpenSCAD/Parameter.regex.txt)|Matches Potential Open SCAD Module Parameters|False|
-|[OpenSCAD_Use](/RegEx/OpenSCAD/Use.regex.txt)|Matches Open SCAD Modules|False|
+|[OpenSCAD_Use](/RegEx/OpenSCAD/Use.regex.txt)|Matches OpenSCAD Use statements|False|
 |[OptionalWhitespace](/RegEx/OptionalWhitespace.regex.txt)|This matches zero or more whitespace characters|False|
 |[PHP_Tag](/RegEx/PHP/Tag.regex.txt)|Matches most PHP tags|False|
 |[PII_Redacted_SSN](/RegEx/PII/Redacted_SSN.regex.txt)|Matches Unredacted Social Security Numbers|False|
