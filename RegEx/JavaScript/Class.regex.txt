@@ -1,0 +1,17 @@
+# Matches a JavaScript Class
+class                             # Class Keyword
+\s+                               # Whitespace
+(?<ClassName>\S){1,}              # Class Name
+\s{0,}                            # Optional whitespace
+(?<ClassModifier>[^\{]{0,})\s{0,} # Optional whitespace
+(?<ClassBody>(?<BalancedCurlyBracket>
+\{                                # An open {
+(?>                               # Followed by...
+    [^\{\}]+|                     # any number of non-bracket character OR
+    \{(?<Depth>)|                 # an open curly bracket (in which case increment depth) OR
+    \}(?<-Depth>)                 # a closed curly bracket (in which case decrement depth)
+)*?(?(Depth)(?!))                 # until depth is 0.
+\}                                # followed by a }
+)
+)                                 # The class body
+
