@@ -1,5 +1,5 @@
 # Matches a diff range
-(?m)(?:^\@{2,2})           # Two @s
+(?m)(?:^\@){2,2}           # Two @s
 \s{1,}                     # Whitespace
 \-                         # Dash
 (?<FromFileLineStart>\d+)  # From
