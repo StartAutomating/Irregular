@@ -176,7 +176,7 @@ function InvokeActionModule {
                 Write-Information "::notice file=$($_.FullName)::Running $($_.Name)"
                 . $_.FullName |
                 Get-Item -LiteralPath ($_.FullName -replace '\.regex\.source\.ps1$', '\regex\.txt') |
-                    . $processScriptOutput  | 
+                    ProcessOutput  | 
                     Out-Host
             }
     }
