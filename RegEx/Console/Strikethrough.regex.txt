@@ -1,4 +1,4 @@
-# Matches ANSI Strikethrough Start or End
+# Matches ANSI Strikethrough (aka crossed out) Start or End
 \e                          # An Escape
 \[                          # Followed by a bracket
 (?>
