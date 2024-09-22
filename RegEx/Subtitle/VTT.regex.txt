@@ -1,4 +1,4 @@
-﻿# Matches a WebVTT Subtitle
+# Matches a WebVTT Subtitle
 (?<StartTime>(?<=(?:[\r\n]|^))[\d\:\,\.]+)         # VTT Subtitles start with a StartTime
 \s\-\-\>\s                                         # Followed by --> (surrounded by a space)
 (?<EndTime>[\d\:\,\.]+)                            # Followed by an EndTime
