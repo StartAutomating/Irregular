@@ -175,7 +175,7 @@ function InvokeActionModule {
             ForEach-Object {
                 $inFile = $_                
                 $inOutput = . $inFile.FullName                
-                Get-Item -LiteralPath ($inFile.FullName -replace '\.regex\.source\.ps1$', '.regex.txt') |
+                Get-Item -LiteralPath ($inFile.FullName -replace '\.source', '' -replace '\.ps1$', '.txt') |
                     ProcessOutput  | 
                     Out-Host
             }
@@ -184,6 +184,9 @@ function InvokeActionModule {
 }
 
 function PushActionOutput {
+    if ($anyFilesChanged) {
+        "::notice::$($anyFilesChanged.Count) Files Changed" | Out-Host        
+    }
     if ($CommitMessage -or $anyFilesChanged) {
         if ($CommitMessage) {
             Get-ChildItem $env:GITHUB_WORKSPACE -Recurse |
