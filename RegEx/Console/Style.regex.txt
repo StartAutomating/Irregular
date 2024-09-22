@@ -11,8 +11,10 @@
 \e                                                                                     # An Escape
 \[                                                                                     # Followed by a bracket
 (?>
-  (?<BoldStart>1m)  |
-  (?<BoldEnd>22m))
+  (?<BoldStart>1m)                                                                     # 1m starts bold
+  |
+  (?<BoldEnd>22m)                                                                      # 22m stops bold
+)
 )
   |
   (?<Console_Blink>
