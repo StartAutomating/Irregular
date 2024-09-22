@@ -1,4 +1,4 @@
-# Matches Open SCAD Modules
+# Matches OpenSCAD Use statements
 (?m) # Set Multiline mode.  Then,
 ^use # match the literal 'use'
 \s+  # and the obligitory whitespace.
