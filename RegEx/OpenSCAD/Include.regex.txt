@@ -1,4 +1,4 @@
-# Matches Open SCAD Modules
+# Matches Open SCAD Include statements
 (?m)     # Set Multiline mode.  Then,
 ^include # match the literal 'include'
 \s+      # and the obligitory whitespace.
