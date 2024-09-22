@@ -1,4 +1,4 @@
-﻿# Matches an Email Address
+# Matches an Email Address
 (?<UserName>\w           # Match the username, which starts with a word character
 [\w\-\.]{0,}             # and can contain any number of word characters, dashes, or dots
 )\@                      # Followed by an @
