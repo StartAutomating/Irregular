@@ -176,7 +176,7 @@ function InvokeActionModule {
                 $inFile = $_                
                 $inOutput = . $inFile.FullName                
                 Get-Item -LiteralPath ($inFile.FullName -replace '\.source', '' -replace '\.ps1$', '.txt') |
-                    ProcessOutput  | 
+                    . ProcessOutput  | 
                     Out-Host
             }
     }
