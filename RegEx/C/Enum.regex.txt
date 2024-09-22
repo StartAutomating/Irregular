@@ -1,4 +1,4 @@
-﻿# Matches a C/C++ Enum
+# Matches a C/C++ Enum
 (?-i)enum                                # Starts with a literal enum
 \s{1,}                                   # Followed by whitespace
 (?<Identifier>[_a-zA-Z][_a-zA-Z0-9]{1,}) # Followed by an identifier
