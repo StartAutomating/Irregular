@@ -1,7 +1,7 @@
 ﻿@{
     name = 'Run Irregular (from main)'
     if   = '${{github.ref_name == ''master''}}'
-    uses = 'StartAutomating/Irregular@main'
+    uses = 'StartAutomating/Irregular@master'
     id = 'IrregularMain'
 },
 @{
