@@ -1,2 +1,2 @@
 # Matches a Math Symbol
-\p{Sm}
+\p{Sc}
