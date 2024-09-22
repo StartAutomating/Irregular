@@ -230,9 +230,9 @@ runs:
                 Get-ChildItem -Recurse -Path $env:GITHUB_WORKSPACE |
                     Where-Object Name -Match '\.regex\.source\.ps1$' |
                     ForEach-Object {
-                        Write-Information "::notice file=$($_.FullName)::Running $($_.Name)"
-                        . $_.FullName |
-                        Get-Item -LiteralPath ($_.FullName -replace '\.regex\.source\.ps1$', '\regex\.txt') |
+                        $inFile = $_                
+                        . $inFile.FullName
+                        Get-Item -LiteralPath ($inFile.FullName -replace '\.regex\.source\.ps1$', '\regex\.txt') |
                             ProcessOutput  | 
                             Out-Host
                     }
