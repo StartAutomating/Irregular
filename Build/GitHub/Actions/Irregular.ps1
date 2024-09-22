@@ -174,8 +174,8 @@ function InvokeActionModule {
             Where-Object Name -Match '\.regex\.source\.ps1$' |
             ForEach-Object {
                 $inFile = $_                
-                . $inFile.FullName
-                Get-Item -LiteralPath ($inFile.FullName -replace '\.regex\.source\.ps1$', '\regex\.txt') |
+                $inOutput = . $inFile.FullName                
+                Get-Item -LiteralPath ($inFile.FullName -replace '\.regex\.source\.ps1$', 'regex.txt') |
                     ProcessOutput  | 
                     Out-Host
             }
