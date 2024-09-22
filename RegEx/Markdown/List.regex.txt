@@ -1,4 +1,4 @@
-﻿# Matches a Markdown List
+# Matches a Markdown List
 (?m)^(?<Indent>\s){0,}     # A list technically start with 0-3 characters spaces, but nested list items can have more than that
 (?>
   (?<Number>\d)\.          # Followed by a dash, plus, or asterisk
