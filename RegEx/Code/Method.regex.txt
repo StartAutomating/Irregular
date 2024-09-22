@@ -3,6 +3,7 @@
 (?<MethodName>[\w_]+) # Method names can be any word character or undererscore
 # A Generic Balancing Expression
 (?<MethodParameters>(?<GenericBalancingExpression>
+ 
 \p{Ps}                # The open punctuation
 (?>
     [^\p{Ps}\p{Pe}]+| # Anything that is neither open or closed punctuation
