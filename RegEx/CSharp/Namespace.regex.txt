@@ -1,4 +1,4 @@
-﻿# Matches a CSharp namespace
+# Matches a CSharp namespace
 (?<Code_Namespace>
 namespace            # the keyword namespace FOLLOWED BY
 \s{1,}               # at least one whitespace character FOLLOWED BY
