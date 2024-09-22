@@ -1,4 +1,4 @@
-﻿# Matches C/C++ #if/#ifdef/#ifndef .. #endif
+# Matches C/C++ #if/#ifdef/#ifndef .. #endif
 (?m)(?<!//)\#\s{0,}(?=if)   #  As long as we're not after comments, Match the , followed by
 (?<If>if[^\s]+)             # Match <If> (and the rest of the word)
 (?<Condition>.+?$)          # the <Condition> is anything until the end of the line
@@ -11,6 +11,6 @@
   (?<!//)\#endif(?<-Depth>) # An EndIf Decreases the Depth
   |
   \#                        # Match any remaining 
-)*(?(Depth)(?!))            # Match Until EndIf is balanced
+)*(?(Depth)(?!))            # Match until EndIf is balanced
 (?<!//)\#endif              # Match the endIf
 
