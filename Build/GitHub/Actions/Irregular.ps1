@@ -45,6 +45,10 @@ $ErrorActionPreference = 'continue'
 [PSCustomObject]$PSBoundParameters | Format-List | Out-Host
 "::endgroup::" | Out-Host
 
+$gitHubEvent = 
+    if ($env:GITHUB_EVENT_PATH) {
+        [IO.File]::ReadAllText($env:GITHUB_EVENT_PATH) | ConvertFrom-Json
+    } else { $null }
 
 $anyFilesChanged = $false
 $moduleName = 'Irregular'
@@ -185,7 +189,7 @@ function InvokeActionModule {
 
 function PushActionOutput {
     if ($anyFilesChanged) {
-        "::notice::$($anyFilesChanged.Count) Files Changed" | Out-Host        
+        "::notice::$($anyFilesChanged) Files Changed" | Out-Host        
     }
     if ($CommitMessage -or $anyFilesChanged) {
         if ($CommitMessage) {
